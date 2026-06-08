@@ -294,7 +294,7 @@ export default function FourSquaredPage() {
             <div className="md:col-span-8">
               <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-emerald-700">The work</div>
               <h2 className="font-display mt-3 text-5xl leading-[1.02] md:text-6xl">
-                Real installs.
+                Recent installs.
               </h2>
             </div>
             <p className="text-base text-[var(--muted-foreground)] md:col-span-4 md:text-lg">
@@ -410,7 +410,7 @@ export default function FourSquaredPage() {
                 />
               </div>
               <figcaption className="mt-3 font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
-                Handwritten card. Real customers.
+                A handwritten thank-you card.
               </figcaption>
             </figure>
 
@@ -437,7 +437,7 @@ export default function FourSquaredPage() {
           the photo of the actual blue door. */}
       <section className="border-b bg-[#0a0e14] py-12 text-white">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-emerald-300">Real Google reviews</div>
+          <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-emerald-300">From Google</div>
           <h2 className="font-display mt-3 max-w-3xl text-5xl leading-[1.02] md:text-6xl">
             From our customers.
           </h2>

@@ -52,9 +52,25 @@ export function BrandLogo({
     );
   }
 
-  // four-squared
-  const sq = size === "sm" ? 14 : size === "lg" ? 26 : 18;
-  const wordSize = size === "sm" ? "text-sm" : size === "lg" ? "text-2xl" : "text-base";
+  // four-squared. Stacks (icon over wordmark) at "lg" so it carries the
+  // same visual weight as the 96px-tall image logos. Inline at sm/md.
+  if (size === "lg") {
+    return (
+      <span className={`inline-flex flex-col items-center gap-3 leading-none ${className}`}>
+        <svg width={56} height={56} viewBox="0 0 20 20" aria-hidden="true" className="text-emerald-700">
+          <rect x="0" y="0" width="9" height="9" fill="currentColor" />
+          <rect x="11" y="0" width="9" height="9" fill="currentColor" />
+          <rect x="0" y="11" width="9" height="9" fill="currentColor" />
+          <rect x="11" y="11" width="9" height="9" fill="currentColor" />
+        </svg>
+        <span className="font-display text-2xl font-semibold uppercase tracking-[0.06em] text-foreground">
+          Four Squared
+        </span>
+      </span>
+    );
+  }
+  const sq = size === "sm" ? 14 : 18;
+  const wordSize = size === "sm" ? "text-sm" : "text-base";
   return (
     <span className={`inline-flex items-center gap-2 leading-none ${className}`}>
       <svg width={sq} height={sq} viewBox="0 0 20 20" aria-hidden="true" className="text-emerald-700">

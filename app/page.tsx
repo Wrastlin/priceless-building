@@ -10,7 +10,6 @@ import { GOOGLE_RATING } from "@/lib/google-reviews";
 import { ADDRESS, PRICELESS } from "@/lib/brands";
 import { CATEGORIES, byBrand } from "@/lib/catalog";
 
-const SHOWROOM = "/catalog-images/PL-000404-hero.jpg";
 const MURAL_HERO = "/real-photos/mural-wide.webp";
 
 const PRESS: { publisher: string; date: string; headline: string; teaser: string; attribution: string; url: string; image?: string }[] = [
@@ -141,13 +140,14 @@ export default function HomePage() {
         </figure>
       </section>
 
-      {/* STATS STRIP. Pulled out of the hero for breathing room */}
+      {/* STATS STRIP. Only verifiable facts. Unverified numbers replaced
+          with honest qualitative claims per user direction. */}
       <section className="border-b bg-[#0b1220] text-white">
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-y-6 px-6 py-8 md:grid-cols-4 md:gap-x-6 md:py-10">
-          <NumStat n="3,200+" label="items in stock today" />
-          <NumStat n="58%" label="average savings vs. big-box retail" />
-          <NumStat n="47" label="years serving central Wisconsin" sub="years" />
-          <NumStat n="18,000" label="square feet of warehouse" sub="sq ft" />
+          <NumStat n="HUGE" label="savings vs. big-box retail" />
+          <NumStat n="1978" label="serving central Wisconsin since" />
+          <NumStat n="4.8★" label="on Google · 10 reviews" />
+          <NumStat n="MON-SAT" label="open six days a week" />
         </div>
       </section>
 
@@ -189,6 +189,83 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* CATEGORY STRIP. Editorial split: one feature tile + an indexed list. Moved up so the catalog hits early. */}
+      <section className="mx-auto max-w-7xl px-6 py-14 md:py-20">
+        <div className="grid items-end gap-x-10 gap-y-6 md:grid-cols-12">
+          <div className="md:col-span-7">
+            <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">Browse the aisles</div>
+            <h2 className="font-display mt-3 text-5xl leading-[1.05] md:text-7xl">
+              Eight departments.<br /><span className="text-[var(--brand-priceless)]">One warehouse.</span>
+            </h2>
+          </div>
+          <Link href="/shop" className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--foreground)] underline decoration-[var(--brand-priceless)] decoration-2 underline-offset-4 md:col-span-5 md:justify-self-end">
+            See everything →
+          </Link>
+        </div>
+
+        <div className="mt-12 grid gap-x-10 gap-y-6 md:grid-cols-12">
+          {(() => {
+            const entries = Object.entries(CATEGORIES) as [keyof typeof CATEGORIES, (typeof CATEGORIES)[keyof typeof CATEGORIES]][];
+            const [featKey, feat] = entries[0];
+            const rest = entries.slice(1);
+            return (
+              <>
+                <Link
+                  href={`/shop/${featKey}`}
+                  className="group relative col-span-12 block aspect-[4/3] overflow-hidden bg-black md:col-span-7 md:aspect-[5/6]"
+                >
+                  <Image src={feat.image} alt={feat.label} fill sizes="(min-width:768px) 60vw, 100vw" className="object-cover opacity-85 transition duration-700 group-hover:scale-105 group-hover:opacity-100" quality={75} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+                  <div className="absolute left-6 right-6 bottom-6 text-white">
+                    <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/70">Department 01 / Aisle D</div>
+                    <div className="font-display mt-2 text-5xl md:text-6xl">{feat.label}.</div>
+                    <p className="font-serif mt-2 max-w-md text-base italic text-white/85">{feat.blurb}</p>
+                  </div>
+                </Link>
+
+                <ol className="col-span-12 divide-y border-y md:col-span-5">
+                  {rest.map(([key, cat], i) => (
+                    <li key={key}>
+                      <Link href={`/shop/${key}`} className="group flex items-center gap-5 py-4">
+                        <span className="font-mono w-10 shrink-0 text-[11px] tracking-tight text-[var(--muted-foreground)]">{String(i + 2).padStart(2, "0")}</span>
+                        <div className="relative aspect-square w-16 shrink-0 overflow-hidden bg-[var(--muted)]">
+                          <Image src={cat.image} alt={cat.label} fill sizes="64px" className="object-cover transition duration-500 group-hover:scale-110" quality={60} />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="font-display text-2xl leading-none">{cat.label}.</div>
+                          <div className="mt-1 line-clamp-1 text-xs text-[var(--muted-foreground)]">{cat.blurb}</div>
+                        </div>
+                        <span className="font-mono text-[11px] uppercase tracking-wider text-[var(--brand-priceless)] opacity-0 transition group-hover:opacity-100">Browse →</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ol>
+              </>
+            );
+          })()}
+        </div>
+      </section>
+
+      {/* FEATURED PRODUCTS. On-the-floor catalog showcase. Now sits high so items present early. */}
+      <section className="border-y bg-white py-14 md:py-16">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3 border-b border-[var(--border)] pb-6">
+            <div className="flex items-baseline gap-3">
+              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">On the floor today</span>
+              <h2 className="font-display text-3xl leading-none md:text-4xl">
+                New stock arrives every Wednesday.
+              </h2>
+            </div>
+            <Link href="/shop" className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4">
+              Shop everything →
+            </Link>
+          </div>
+          <div className="mt-8 grid grid-cols-1 gap-px bg-[var(--border)] sm:grid-cols-2 lg:grid-cols-4">
+            {items.map((it) => <ProductCard key={it.id} item={it} />)}
+          </div>
+        </div>
+      </section>
+
       {/* CUSTOMER STORIES. Real handwritten card + real Google reviews + real before/after */}
       <section className="mx-auto max-w-7xl px-6 py-20">
         <div className="grid items-end gap-x-10 gap-y-4 md:grid-cols-12">
@@ -197,11 +274,11 @@ export default function HomePage() {
               What customers actually say
             </div>
             <h2 className="font-display mt-3 text-5xl leading-[1.05] md:text-6xl">
-              Real customers. <span className="text-[var(--brand-priceless)]">Real projects.</span>
+              What people <span className="text-[var(--brand-priceless)]">tell us.</span>
             </h2>
           </div>
           <p className="text-base text-[var(--muted-foreground)] md:col-span-4 md:text-lg">
-            Real photos, real words, real names. Every quote here is from a real Google or Facebook review you can verify in one click.
+            Every quote here links straight to the Google or Facebook review you can verify in a click.
           </p>
         </div>
 
@@ -267,10 +344,10 @@ export default function HomePage() {
           <div className="grid items-end gap-x-10 gap-y-4 md:grid-cols-12">
             <div className="md:col-span-8">
               <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">
-                From our floor and our community
+                Around 825 Washington
               </div>
               <h2 className="font-display mt-3 text-5xl leading-[1.05] md:text-6xl">
-                Real photos. <span className="text-[var(--brand-priceless)]">Real Wausau.</span>
+                The store, the crew, <span className="text-[var(--brand-priceless)]">the mural.</span>
               </h2>
             </div>
             <p className="text-base text-[var(--muted-foreground)] md:col-span-4 md:text-lg">
@@ -339,62 +416,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CATEGORY STRIP. Editorial split: one feature tile + an indexed list */}
-      <section className="mx-auto max-w-7xl px-6 py-20">
-        <div className="grid items-end gap-x-10 gap-y-6 md:grid-cols-12">
-          <div className="md:col-span-7">
-            <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">Browse the aisles</div>
-            <h2 className="font-display mt-3 text-5xl leading-[1.05] md:text-7xl">
-              Eight departments.<br /><span className="text-[var(--brand-priceless)]">One warehouse.</span>
-            </h2>
-          </div>
-          <Link href="/shop" className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--foreground)] underline decoration-[var(--brand-priceless)] decoration-2 underline-offset-4 md:col-span-5 md:justify-self-end">
-            See everything →
-          </Link>
-        </div>
-
-        <div className="mt-12 grid gap-x-10 gap-y-6 md:grid-cols-12">
-          {(() => {
-            const entries = Object.entries(CATEGORIES) as [keyof typeof CATEGORIES, (typeof CATEGORIES)[keyof typeof CATEGORIES]][];
-            const [featKey, feat] = entries[0];
-            const rest = entries.slice(1);
-            return (
-              <>
-                <Link
-                  href={`/shop/${featKey}`}
-                  className="group relative col-span-12 block aspect-[4/3] overflow-hidden bg-black md:col-span-7 md:aspect-[5/6]"
-                >
-                  <Image src={feat.image} alt={feat.label} fill sizes="(min-width:768px) 60vw, 100vw" className="object-cover opacity-85 transition duration-700 group-hover:scale-105 group-hover:opacity-100" quality={75} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-                  <div className="absolute left-6 right-6 bottom-6 text-white">
-                    <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/70">Department 01 / Aisle D</div>
-                    <div className="font-display mt-2 text-5xl md:text-6xl">{feat.label}.</div>
-                    <p className="font-serif mt-2 max-w-md text-base italic text-white/85">{feat.blurb}</p>
-                  </div>
-                </Link>
-
-                <ol className="col-span-12 divide-y border-y md:col-span-5">
-                  {rest.map(([key, cat], i) => (
-                    <li key={key}>
-                      <Link href={`/shop/${key}`} className="group flex items-center gap-5 py-4">
-                        <span className="font-mono w-10 shrink-0 text-[11px] tracking-tight text-[var(--muted-foreground)]">{String(i + 2).padStart(2, "0")}</span>
-                        <div className="relative aspect-square w-16 shrink-0 overflow-hidden bg-[var(--muted)]">
-                          <Image src={cat.image} alt={cat.label} fill sizes="64px" className="object-cover transition duration-500 group-hover:scale-110" quality={55} />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="font-display text-2xl leading-none">{cat.label}.</div>
-                          <div className="mt-1 line-clamp-1 text-xs text-[var(--muted-foreground)]">{cat.blurb}</div>
-                        </div>
-                        <span className="font-mono text-[11px] uppercase tracking-wider text-[var(--brand-priceless)] opacity-0 transition group-hover:opacity-100">Browse →</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ol>
-              </>
-            );
-          })()}
-        </div>
-      </section>
 
       {/* REAL WORK. After/before install pair where the product grid used to live. */}
       <section className="border-y bg-[var(--muted)] py-14 md:py-16">
@@ -403,7 +424,7 @@ export default function HomePage() {
             <div className="flex items-baseline gap-3">
               <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">From the install crew</span>
               <h2 className="font-display text-3xl leading-none md:text-4xl">
-                What real work looks like.
+                Before and after.
               </h2>
             </div>
             <Link href="/four-squared" className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4">
@@ -453,68 +474,45 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FEATURED PRODUCTS. On-the-floor catalog showcase. */}
-      <section className="border-b bg-white py-14 md:py-16">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3 border-b border-[var(--border)] pb-6">
-            <div className="flex items-baseline gap-3">
-              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">On the floor today</span>
-              <h2 className="font-display text-3xl leading-none md:text-4xl">
-                New stock arrives every Wednesday.
-              </h2>
-            </div>
-            <Link href="/shop" className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4">
-              Shop all 3,200+ items →
-            </Link>
-          </div>
-          <div className="mt-8 grid grid-cols-1 gap-px bg-[var(--border)] sm:grid-cols-2 lg:grid-cols-4">
-            {items.map((it) => <ProductCard key={it.id} item={it} />)}
-          </div>
-        </div>
-      </section>
-
-      {/* THREE-BRAND CALLOUT. One horizontal row of 3 cards. */}
+      {/* THREE-BRAND CALLOUT. Logos lead. One address, three businesses, one
+          owner. The three cards visually connect via shared border + the
+          "ONE ADDRESS · ONE OWNER" header band so they read as a cohort. */}
       <section className="mx-auto max-w-7xl px-6 py-14 md:py-16">
-        <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3 border-b border-[var(--border)] pb-6">
-          <div className="flex items-baseline gap-3">
-            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">Same family, three businesses</span>
-            <h2 className="font-display text-3xl leading-none md:text-4xl">
-              Materials. Design. Install.
-            </h2>
-          </div>
-          <span className="text-sm text-[var(--muted-foreground)]">
-            One address. Use any one, or hand us the whole project.
+        <div className="border-b border-[var(--border)] pb-6 text-center">
+          <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)]">
+            One address · One owner · Three businesses
           </span>
+          <h2 className="font-display mt-3 text-4xl leading-[1.05] md:text-5xl">
+            Materials. Design. Install.
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-sm text-[var(--muted-foreground)] md:text-base">
+            All three operate out of 825 Washington Street under Josh Nickel.
+            Use any one on its own, or hand us the whole project.
+          </p>
         </div>
 
-        <div className="mt-8 grid gap-5 md:grid-cols-3">
+        <div className="mt-8 grid gap-px overflow-hidden border border-[var(--border)] bg-[var(--border)] md:grid-cols-3">
           <BrandCard
             href="/shop"
-            image="/real-photos/storefront-signage.webp"
             logoBrand="priceless"
             tone="red"
-            tag="Materials"
-            name="Price-Less Building"
+            tag="01 · Materials"
             body="Surplus doors, windows, cabinets, vanities, hardware, trim. Same factories that supply the big-box. Around half off retail."
             cta="Shop everything"
           />
           <BrandCard
             href="/builders-corner"
-            image={SHOWROOM}
             logoBrand="builders"
             tone="navy"
-            tag="Design"
-            name="Builders Corner"
+            tag="02 · Design"
             body="Custom kitchen and bath cabinetry. We measure, draw it up in 3D, walk you through finish samples. First consult is free."
             cta="See cabinetry"
           />
           <BrandCard
             href="/four-squared"
-            image="/real-photos/install-kitchen-walnut-island-windows.webp"
             logoBrand="four-squared"
             tone="ink"
-            tag="Install"
-            name="Four Squared"
+            tag="03 · Install"
             body="Josh's install crew. Demo, plumbing, electrical, tile, finish carpentry. One schedule, one lead from start to walkthrough."
             cta="Meet the crew"
           />
@@ -532,9 +530,9 @@ export default function HomePage() {
           <h2 className="font-display mt-3 max-w-3xl text-4xl leading-[1.05] md:text-5xl">
             What we&apos;ve been up to this week.
           </h2>
-          <div className="mt-10 grid gap-10 md:grid-cols-12">
-            <div className="md:col-span-7">
-              <div className="overflow-hidden border border-[var(--border)] bg-white">
+          <div className="mt-10 grid items-start gap-10 md:grid-cols-12">
+            <div className="flex justify-center md:col-span-6 md:justify-end">
+              <div className="w-full max-w-[500px] overflow-hidden border border-[var(--border)] bg-white">
                 <iframe
                   src={`https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(
                     PRICELESS.socials.facebook,
@@ -548,7 +546,7 @@ export default function HomePage() {
                 />
               </div>
             </div>
-            <div className="md:col-span-5">
+            <div className="md:col-span-6">
               <p className="text-base leading-relaxed text-[var(--muted-foreground)] md:text-lg">
                 New stock photos, holiday hours, customer thank-you cards, mural updates. The Facebook page is the most current view of what&apos;s going on at 825 Washington Street. We post a few times a week.
               </p>
@@ -588,7 +586,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h2 className="font-display text-4xl leading-[1.05] md:text-5xl">
-              Real prices. Real <span className="text-[var(--brand-priceless)]">quality.</span> No surprises.
+              Honest prices. Builder-grade <span className="text-[var(--brand-priceless)]">quality.</span> No surprises.
             </h2>
             <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
               Three things we don't budge on
@@ -611,7 +609,7 @@ export default function HomePage() {
               </p>
             </li>
             <li className="bg-white p-7">
-              <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">03 · Real store</div>
+              <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">03 · Walk-in store</div>
               <h3 className="font-display mt-3 text-2xl leading-tight md:text-3xl">In Wausau since 1978.</h3>
               <p className="mt-3 text-base leading-[1.5] text-[var(--muted-foreground)]">
                 825 Washington Street. Owner-operated by Josh Nickel. Open Monday through Saturday. Come walk it.
@@ -650,14 +648,12 @@ function Stat({ label, value }: { label: string; value: string }) {
 }
 
 function BrandCard({
-  href, image, logoBrand, tone, tag, name, body, cta,
+  href, logoBrand, tone, tag, body, cta,
 }: {
   href: string;
-  image: string;
   logoBrand: "priceless" | "builders" | "four-squared";
   tone: "red" | "navy" | "ink";
   tag: string;
-  name: string;
   body: string;
   cta: string;
 }) {
@@ -669,28 +665,27 @@ function BrandCard({
     tone === "red" ? "decoration-[var(--brand-priceless)]" :
     tone === "navy" ? "decoration-[var(--brand-builders)]" :
     "decoration-[#0b1220]";
+  // Each card gets a brand-tinted hero block so the THREE logos sit in
+  // three distinct color zones — Price-Less red wash, Builders Corner
+  // navy wash, Four Squared ink wash. Reads instantly as three businesses,
+  // one row.
+  const tintBg =
+    tone === "red" ? "bg-[color-mix(in_srgb,var(--brand-priceless)_8%,white)]" :
+    tone === "navy" ? "bg-[color-mix(in_srgb,var(--brand-builders)_8%,white)]" :
+    "bg-[#f3f5f8]";
   return (
     <Link
       href={href}
-      className="group flex flex-col overflow-hidden border border-[var(--border)] bg-white transition hover:border-[var(--foreground)]/30"
+      className="group flex flex-col bg-white transition hover:bg-[var(--muted)]"
     >
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-black">
-        <Image
-          src={image}
-          alt={name}
-          fill
-          sizes="(min-width:768px) 33vw, 100vw"
-          className="object-cover transition duration-700 group-hover:scale-105"
-          quality={75}
-        />
+      {/* HERO. Logo dominates. Min height so the three sit at matching scale. */}
+      <div className={`flex min-h-[180px] items-center justify-center px-6 py-10 md:min-h-[200px] ${tintBg}`}>
+        <BrandLogo brand={logoBrand} size="lg" className="max-h-[120px]" />
       </div>
-      <div className="flex flex-1 flex-col p-5">
-        <div className={`font-mono text-[11px] uppercase tracking-[0.18em] ${accent}`}>{tag}</div>
-        <div className="mt-3">
-          <BrandLogo brand={logoBrand} size="sm" />
-        </div>
-        <p className="mt-3 flex-1 text-sm leading-relaxed text-[var(--muted-foreground)]">{body}</p>
-        <span className={`font-mono mt-4 inline-block text-[11px] uppercase tracking-[0.18em] underline decoration-2 underline-offset-4 ${ruleColor} ${accent}`}>
+      <div className="flex flex-1 flex-col p-6">
+        <div className={`font-mono text-[11px] uppercase tracking-[0.22em] ${accent}`}>{tag}</div>
+        <p className="mt-3 flex-1 text-sm leading-relaxed text-[var(--muted-foreground)] md:text-base">{body}</p>
+        <span className={`font-mono mt-5 inline-block text-[11px] uppercase tracking-[0.22em] underline decoration-2 underline-offset-4 ${ruleColor} ${accent}`}>
           {cta} →
         </span>
       </div>
