@@ -1,0 +1,238 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #0b1220;
+  --muted: #f4f6f9;
+  --muted-foreground: #4a5568;
+  --border: #e2e8f0;
+  --accent: #d97706;
+  --accent-foreground: #ffffff;
+  --brand-priceless: #b91c1c;
+  --brand-priceless-dark: #7f1d1d;
+  --brand-builders: #1c3a5e;
+  --brand-builders-gold: #b08945;
+
+  /* Utopia FYI fluid type scale.
+     Min: 320px viewport, body 16px (1rem), minor third (1.2).
+     Max: 1240px viewport, body 19px (1.1875rem), major third (1.25).
+     Steps -2..8 cover everything Tailwind exposes (text-xs through
+     text-8xl). Every value is a real clamp() with a slope in vw and an
+     intercept in rem, so every size scales fluidly between 320px and
+     1240px and clamps cleanly outside that range. Generated using the
+     utopia.fyi formula. */
+  --text-2xs: clamp(0.6944rem, 0.6716rem + 0.1141vw, 0.76rem);     /* step -2 */
+  --text-xs:  clamp(0.8333rem, 0.7927rem + 0.2029vw, 0.95rem);     /* step -1 */
+  --text-sm:  clamp(0.8333rem, 0.7927rem + 0.2029vw, 0.95rem);     /* step -1, alias */
+  --text-base: clamp(1rem, 0.9348rem + 0.3261vw, 1.1875rem);       /* step 0 */
+  --text-lg:  clamp(1.2rem, 1.0011rem + 0.4946vw, 1.4844rem);      /* step 1 */
+  --text-xl:  clamp(1.44rem, 0.9955rem + 0.7226vw, 1.8555rem);     /* step 2 */
+  --text-2xl: clamp(1.728rem, 0.7212rem + 1.0285vw, 2.3193rem);    /* step 3 */
+  --text-3xl: clamp(2.0736rem, 0.2069rem + 1.4316vw, 2.8992rem);   /* step 4 */
+  --text-4xl: clamp(2.4883rem, -0.5419rem + 1.975vw, 3.624rem);    /* step 5 */
+  --text-5xl: clamp(2.986rem, -1.3884rem + 2.6852vw, 4.5299rem);   /* step 6 */
+  --text-6xl: clamp(3.5832rem, -2.6478rem + 3.616vw, 5.6624rem);   /* step 7 */
+  --text-7xl: clamp(4.2998rem, -4.3635rem + 4.8317vw, 7.0781rem);  /* step 8 */
+  --text-8xl: clamp(4.2998rem, -4.3635rem + 4.8317vw, 7.0781rem);  /* step 8, alias */
+
+  /* Line-heights paired to the scale. Body breathes, display tightens. */
+  --leading-tight: 1.05;
+  --leading-snug: 1.25;
+  --leading-base: 1.6;
+  --leading-relaxed: 1.75;
+
+  /* Vertical rhythm. Fluid spacing on the same scale as type. */
+  --space-3xs: clamp(0.25rem, 0.2283rem + 0.1087vw, 0.3125rem);
+  --space-2xs: clamp(0.5rem, 0.4783rem + 0.1087vw, 0.5625rem);
+  --space-xs: clamp(0.75rem, 0.7065rem + 0.2174vw, 0.875rem);
+  --space-s: clamp(1rem, 0.9348rem + 0.3261vw, 1.1875rem);
+  --space-m: clamp(1.5rem, 1.413rem + 0.4348vw, 1.75rem);
+  --space-l: clamp(2rem, 1.8696rem + 0.6522vw, 2.375rem);
+  --space-xl: clamp(3rem, 2.7826rem + 1.087vw, 3.625rem);
+  --space-2xl: clamp(4rem, 3.6304rem + 1.8478vw, 5.0625rem);
+  --space-3xl: clamp(6rem, 5.4391rem + 2.8043vw, 7.6125rem);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-priceless: var(--brand-priceless);
+  --color-priceless-dark: var(--brand-priceless-dark);
+  --color-builders: var(--brand-builders);
+  --color-builders-gold: var(--brand-builders-gold);
+
+  /* Tell Tailwind v4 to use the Utopia scale for every text-* utility.
+     Each maps to a real fluid clamp(): text-xs starts at step -1 and
+     text-8xl ends at step 8, so the whole scale is genuinely fluid
+     instead of jumping at breakpoints. */
+  --text-xs: var(--text-xs);
+  --text-sm: var(--text-sm);
+  --text-base: var(--text-base);
+  --text-lg: var(--text-lg);
+  --text-xl: var(--text-xl);
+  --text-2xl: var(--text-2xl);
+  --text-3xl: var(--text-3xl);
+  --text-4xl: var(--text-4xl);
+  --text-5xl: var(--text-5xl);
+  --text-6xl: var(--text-6xl);
+  --text-7xl: var(--text-7xl);
+  --text-8xl: var(--text-8xl);
+}
+
+html, body {
+  background: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: var(--text-base);
+  line-height: var(--leading-base);
+}
+
+.font-display { font-family: var(--font-display); letter-spacing: 0.02em; line-height: 0.9; }
+.font-serif { font-family: var(--font-serif); }
+.font-mono { font-family: var(--font-mono); }
+/* Fraunces. Builders Corner's voice. Default weight 400 (not 300) so
+   it reads warm and welcoming, not skeletal. Subtle letter-tracking and
+   slightly looser leading by default. Display use cases override with
+   text-{4xl..6xl} and tighten line-height inline. */
+.font-couture {
+  font-family: var(--font-couture);
+  font-weight: 400;
+  font-variation-settings: "opsz" 24, "SOFT" 50;
+  letter-spacing: -0.005em;
+  line-height: 1.1;
+}
+
+/* Editorial detail: small caps + tracking for eyebrow labels. Borrowed
+   from the anti-AI-slop playbook. Every block should NOT share the
+   same "shadow-card rounded-xl border" template. */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-priceless);
+}
+
+/* Marker headline. Used sparingly to break the Tailwind-rounded
+   monotony. */
+.headline-marker {
+  background-image: linear-gradient(90deg, transparent 0, transparent 0.1em, rgba(185, 28, 28, 0.18) 0.1em, rgba(185, 28, 28, 0.18) calc(100% - 0.1em), transparent calc(100% - 0.1em));
+  padding: 0 0.05em;
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  font-family: var(--font-mono);
+  font-weight: 600; font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  transition: background .2s, color .2s, border-color .2s;
+  border: 1px solid transparent;
+}
+.btn::after {
+  content: "→"; font-family: var(--font-mono); margin-left: 0.25rem; transition: transform .2s;
+}
+.btn:hover::after { transform: translateX(2px); }
+.btn-priceless { background: var(--brand-priceless); color: white; }
+.btn-priceless:hover { background: var(--brand-priceless-dark); }
+.btn-builders { background: var(--brand-builders); color: white; }
+.btn-builders:hover { background: #0f2c47; }
+.btn-outline { border-color: currentColor; color: var(--foreground); background: transparent; }
+.btn-outline:hover { background: var(--foreground); color: var(--background); }
+
+.shadow-card { box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 6px 24px -10px rgba(0,0,0,.10); }
+
+/* ---------------------------------------------------------------------------
+   Admin utility primitives. Sans-only, sentence case, fast-to-scan.
+   Used everywhere under /admin. Keep these separate from .btn (storefront).
+   --------------------------------------------------------------------------- */
+.admin-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+  padding: 0.5rem 0.95rem;
+  font-weight: 500; font-size: 0.875rem; line-height: 1.25rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  transition: background .15s, color .15s, border-color .15s, box-shadow .15s;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.admin-btn:disabled { opacity: .5; cursor: not-allowed; }
+.admin-btn-primary { background: var(--brand-priceless); color: #fff; }
+.admin-btn-primary:hover:not(:disabled) { background: var(--brand-priceless-dark); }
+.admin-btn-outline { border-color: var(--border); color: var(--foreground); background: #fff; }
+.admin-btn-outline:hover:not(:disabled) { background: #f8f8f7; }
+.admin-btn-ghost { color: var(--foreground); background: transparent; }
+.admin-btn-ghost:hover:not(:disabled) { background: #f4f4f3; }
+.admin-btn-danger { background: #b91c1c; color: #fff; }
+.admin-btn-danger:hover:not(:disabled) { background: #7f1d1d; }
+
+.admin-input {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: #fff;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  line-height: 1.25rem;
+  border-radius: 6px;
+  color: var(--foreground);
+  transition: border-color .15s, box-shadow .15s;
+}
+.admin-input:focus {
+  outline: none;
+  border-color: var(--brand-priceless);
+  box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.12);
+}
+.admin-input::placeholder { color: var(--muted-foreground); opacity: .7; }
+
+.admin-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--foreground);
+  margin-bottom: 0.375rem;
+}
+.admin-help {
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+  line-height: 1.4;
+}
+
+.admin-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.admin-pill {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.75rem; font-weight: 500;
+  border-radius: 999px;
+  line-height: 1.1rem;
+}
+
+.admin-table { width: 100%; font-size: 0.875rem; border-collapse: collapse; }
+.admin-table thead th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  background: #fafaf9;
+}
+.admin-table tbody td {
+  padding: 0.625rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.admin-table tbody tr:last-child td { border-bottom: 0; }
+.admin-table tbody tr:hover { background: #fafaf9; }

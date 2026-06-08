@@ -1,0 +1,16 @@
+{
+  "name": "Price-Less Building Center",
+  "short_name": "Price-Less",
+  "description": "Discount and surplus building materials in Wausau, WI since 1978.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#b91c1c",
+  "icons": [
+    {
+      "src": "/real-photos/logo-priceless-circular@2x.webp",
+      "sizes": "446x558",
+      "type": "image/webp"
+    }
+  ]
+}
