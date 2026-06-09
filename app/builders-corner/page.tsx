@@ -179,7 +179,7 @@ export default function BuildersCornerPage() {
               </div>
             </div>
             <div className="md:col-span-5">
-              <div className="relative aspect-[4/5] w-full overflow-hidden bg-black">
+              <div className="relative aspect-[4/5] w-full overflow-hidden bg-[var(--muted)]">
                 <Image
                   src={HERO}
                   alt="A custom Builders Corner kitchen: walnut shaker cabinetry, white marble counter, natural light."
@@ -217,7 +217,7 @@ export default function BuildersCornerPage() {
                 data-reveal-delay={(i * 0.06).toFixed(2)}
                 className="group overflow-hidden border border-[var(--border)] bg-white transition hover:border-[var(--brand-priceless)]"
               >
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-black">
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
                   <Image
                     src={c.img}
                     alt={c.alt}
@@ -295,7 +295,7 @@ export default function BuildersCornerPage() {
                   data-reveal-delay={(i * 0.04).toFixed(2)}
                   className={`${span} group`}
                 >
-                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-black">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
                     <Image
                       src={p.src}
                       alt={p.caption}

@@ -23,7 +23,7 @@ export default function ContactPage() {
       <SiteHeader brand="priceless" />
 
       {/* HERO. Editorial asymmetric */}
-      <section className="relative overflow-hidden bg-black">
+      <section className="relative overflow-hidden bg-[var(--muted)]">
         <div className="absolute inset-0">
           <Image src={STOREFRONT} alt="Price-Less Building Center storefront" fill priority className="object-cover opacity-75" quality={80} />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_transparent_0%,_rgba(0,0,0,0.65)_55%,_rgba(0,0,0,0.9)_100%)]" />
@@ -176,7 +176,7 @@ export default function ContactPage() {
                   required
                   type="text"
                   placeholder="Pat Lindgren"
-                  className="w-full rounded-md border border-[var(--border)] bg-white px-3.5 py-3 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0"
+                  className="w-full rounded-md border-2 border-[var(--foreground)]/25 bg-white px-3.5 py-3 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0"
                 />
               </Field>
 
@@ -186,7 +186,7 @@ export default function ContactPage() {
                   required
                   type="email"
                   placeholder="you@example.com"
-                  className="w-full rounded-md border border-[var(--border)] bg-white px-3.5 py-3 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0"
+                  className="w-full rounded-md border-2 border-[var(--foreground)]/25 bg-white px-3.5 py-3 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0"
                 />
               </Field>
 
@@ -195,7 +195,7 @@ export default function ContactPage() {
                   name="phone"
                   type="tel"
                   placeholder="(715) 555-0123"
-                  className="w-full rounded-md border border-[var(--border)] bg-white px-3.5 py-3 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0"
+                  className="w-full rounded-md border-2 border-[var(--foreground)]/25 bg-white px-3.5 py-3 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0"
                 />
               </Field>
 
@@ -204,7 +204,7 @@ export default function ContactPage() {
                   name="looking_for"
                   required
                   defaultValue=""
-                  className="w-full rounded-md border border-[var(--border)] bg-white px-3.5 py-3 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0"
+                  className="w-full rounded-md border-2 border-[var(--foreground)]/25 bg-white px-3.5 py-3 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0"
                 >
                   <option value="" disabled>Choose a department…</option>
                   <option value="doors">Doors (interior, exterior, reclaimed)</option>

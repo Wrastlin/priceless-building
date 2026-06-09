@@ -8,7 +8,7 @@ const POPULAR: Array<keyof typeof CATEGORIES> = ["doors", "windows", "cabinets",
 
 export default function NotFound() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-black text-white">
+    <main className="relative min-h-screen overflow-hidden bg-[var(--muted)] text-white">
       <div className="absolute inset-0">
         <Image src={EMPTY_AISLE} alt="An empty warehouse aisle" fill priority className="object-cover opacity-40" quality={70} />
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/90" />

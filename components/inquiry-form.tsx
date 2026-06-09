@@ -115,11 +115,13 @@ export function InquiryForm({ brand, heading, intro, submitLabel }: Props) {
     "mt-6 max-w-xl text-base leading-relaxed text-[var(--foreground)] md:text-lg";
   const labelBase =
     "font-mono text-xs font-semibold uppercase tracking-[0.14em] text-[var(--foreground)]";
+  // Darker default border so input boundaries are obvious on light bgs
+  // for older customers.
   const fieldBase =
-    "w-full rounded-md border bg-white px-3.5 py-3 text-base text-[var(--foreground)] outline-none focus:ring-0";
+    "w-full rounded-md border-2 bg-white px-3.5 py-3 text-base text-[var(--foreground)] outline-none focus:ring-0";
   const underline = isBuilders
-    ? "border-[var(--border)] focus:border-[var(--brand-priceless)]"
-    : "border-[var(--border)] focus:border-emerald-600";
+    ? "border-[var(--foreground)]/25 focus:border-[var(--brand-priceless)]"
+    : "border-[var(--foreground)]/25 focus:border-emerald-600";
   const submitClass = isBuilders
     ? "inline-flex items-center justify-center gap-2 rounded-md bg-[var(--brand-priceless)] px-6 py-3.5 text-base font-semibold text-white transition hover:bg-[var(--brand-priceless-dark)] disabled:opacity-50"
     : "inline-flex items-center justify-center gap-2 rounded-md bg-emerald-600 px-6 py-3.5 text-base font-semibold text-white transition hover:bg-emerald-700 disabled:opacity-50";

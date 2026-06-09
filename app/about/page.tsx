@@ -23,7 +23,7 @@ export default function AboutPage() {
       <SiteHeader brand="priceless" />
 
       {/* HERO. Editorial asymmetric */}
-      <section className="relative overflow-hidden bg-black">
+      <section className="relative overflow-hidden bg-[var(--muted)]">
         <div className="absolute inset-0">
           <Image src={HERO} alt="The Price-Less storefront on Washington St" fill priority className="object-cover opacity-75" quality={80} />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_transparent_0%,_rgba(0,0,0,0.65)_55%,_rgba(0,0,0,0.9)_100%)]" />

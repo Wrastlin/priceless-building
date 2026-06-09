@@ -369,7 +369,7 @@ export default function HomePage() {
               <>
                 <Link
                   href={`/shop/${featKey}`}
-                  className="group relative col-span-12 block aspect-[4/3] overflow-hidden bg-black md:col-span-7 md:aspect-[16/10]"
+                  className="group relative col-span-12 block aspect-[4/3] overflow-hidden bg-[var(--muted)] md:col-span-7 md:aspect-[16/10]"
                 >
                   <Image src={feat.image} alt={feat.label} fill sizes="(min-width:768px) 60vw, 100vw" className="object-cover opacity-85 transition duration-700 group-hover:scale-105 group-hover:opacity-100" quality={75} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
@@ -576,7 +576,7 @@ export default function HomePage() {
                 data-reveal-delay={((i % 3) * 0.06).toFixed(2)}
                 className="group overflow-hidden border border-white/10 bg-white/[0.03] transition hover:border-emerald-400/60"
               >
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-black">
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
                   <Image
                     src={s.img}
                     alt={s.alt}
@@ -931,7 +931,7 @@ function BrandCard({
     >
       {/* PHOTO with logo chip in upper-left. The chip is a white pad
           around the brand mark so it stays legible over any photo. */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-black">
+      <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
         <Image
           src={image}
           alt={imageAlt}

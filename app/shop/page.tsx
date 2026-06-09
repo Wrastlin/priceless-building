@@ -37,7 +37,7 @@ export default function ShopIndex() {
           <ul className="-mx-6 flex snap-x snap-mandatory gap-px overflow-x-auto bg-[var(--border)] px-6 pb-3">
             {entries.map(([key, cat], i) => (
               <li key={key} className="snap-start shrink-0" style={{ width: "min(72vw, 320px)" }}>
-                <Link href={`/shop/${key}`} className="group relative block aspect-[3/4] overflow-hidden bg-black">
+                <Link href={`/shop/${key}`} className="group relative block aspect-[3/4] overflow-hidden bg-[var(--muted)]">
                   <Image src={cat.image} alt={cat.label} fill sizes="320px" className="object-cover transition duration-700 group-hover:scale-105" quality={70} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
                   <div className="absolute left-4 top-4 font-mono bg-white px-2 py-1 text-xs uppercase tracking-[0.14em] text-[var(--foreground)]">

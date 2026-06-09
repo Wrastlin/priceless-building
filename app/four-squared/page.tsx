@@ -150,7 +150,7 @@ export default function FourSquaredPage() {
                 <h3 className="font-display mt-3 text-xl leading-snug text-white md:text-2xl">
                   {p.name}
                 </h3>
-                <p className="mt-2 text-sm leading-[1.55] text-white/85">{p.body}</p>
+                <p className="mt-2 text-base leading-[1.6] text-white/90">{p.body}</p>
               </li>
             ))}
           </ol>
