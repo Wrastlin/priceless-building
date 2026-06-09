@@ -7,20 +7,21 @@ import { NewsletterBar } from "@/components/newsletter-bar";
 import { TrustBlock } from "@/components/trust-block";
 import { BrandLogo } from "@/components/brand-logo";
 import { SectionHead } from "@/components/section-head";
+import { PressCycle } from "@/components/press-cycle";
 import { GOOGLE_RATING } from "@/lib/google-reviews";
 import { ADDRESS, PRICELESS } from "@/lib/brands";
 import { CATEGORIES, byBrand } from "@/lib/catalog";
 
 const MURAL_HERO = "/real-photos/mural-wide.webp";
 
-const PRESS: { publisher: string; date: string; headline: string; teaser: string; attribution: string; url: string; image?: string }[] = [
+const PRESS: { publisher: string; date: string; headline: string; teaser: string; attribution: string; url: string; image: string }[] = [
   {
     publisher: "WSAW NewsChannel 7",
     date: "Dec 11, 2025",
     headline: "Wausau business transforms shop into Santa's workshop",
     teaser:
       "\"The kids loved it. To see the look on their faces and have the parents ask, 'Hey, are you going to do this again?'\"",
-    attribution: "From the WSAW story · 2025",
+    attribution: "From the WSAW story, December 2025",
     url: "https://www.wsaw.com/2025/12/11/wausau-business-transforms-shop-into-santas-workshop/",
     image: "/real-photos/santa-at-storefront.webp",
   },
@@ -30,26 +31,29 @@ const PRESS: { publisher: string; date: string; headline: string; teaser: string
     headline: "Easter Bunny visits local Wausau business",
     teaser:
       "\"It's pure joy. It's not a staged smile. It's 'Wow, I get to see Santa Claus,' or 'I get to see the Easter Bunny.'\"",
-    attribution: "Josh Nickel, owner",
+    attribution: "From the WSAW story, April 2025",
     url: "https://www.wsaw.com/2025/04/13/easter-bunny-visits-local-wausau-business/",
+    image: "/real-photos/community-county-fair.webp",
   },
   {
     publisher: "WSAW NewsChannel 7",
     date: "Jun 17, 2023",
     headline: "New mural coming to downtown Wausau",
     teaser:
-      "\"Trades is a dying breed. So we want to do something that represents what us hard-working guys do.\"",
-    attribution: "Josh Nickel, owner · on the Build Your Future mural",
+      "\"Trades is a dying breed. So we want to do something that represents what us hard-working guys do.\" The Build Your Future mural was painted by 50 Wausau volunteers in June 2023.",
+    attribution: "From the WSAW story, June 2023",
     url: "https://www.wsaw.com/2023/06/18/new-mural-coming-downtown-wausau/",
+    image: "/real-photos/mural-wide.webp",
   },
   {
     publisher: "The Business News",
     date: "May 3, 2021",
     headline: "They're building something",
     teaser:
-      "Josh Nickel and partners bought Builder's Corner Cabinetry and Price-Less Building Center in May 2019. Sales grew about 40% through 2020. Josh runs the businesses today.",
-    attribution: "North Central WI business profile",
+      "A profile of the 2019 partnership that bought Builders Corner Cabinetry and Price-Less Building Center, and of the sales growth they saw through 2020.",
+    attribution: "North Central Wisconsin business profile",
     url: "https://www.readthebusinessnews.com/features/growth_strategies/they-re-building-something/article_70b4788e-a8e3-11eb-ba26-e3a990b7c281.html",
+    image: "/real-photos/building-exterior.webp",
   },
 ];
 
@@ -194,7 +198,6 @@ export default function HomePage() {
       <section className="bg-[var(--muted)]">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
-            kicker="Browse the aisles"
             headline={<>Eight departments. <span className="text-[var(--brand-priceless)]">One warehouse.</span></>}
             link={{ href: "/shop", label: "See everything" }}
           />
@@ -208,7 +211,7 @@ export default function HomePage() {
               <>
                 <Link
                   href={`/shop/${featKey}`}
-                  className="group relative col-span-12 block aspect-[4/3] overflow-hidden bg-black md:col-span-7 md:aspect-[5/6]"
+                  className="group relative col-span-12 block aspect-[4/3] overflow-hidden bg-black md:col-span-7 md:aspect-[16/10]"
                 >
                   <Image src={feat.image} alt={feat.label} fill sizes="(min-width:768px) 60vw, 100vw" className="object-cover opacity-85 transition duration-700 group-hover:scale-105 group-hover:opacity-100" quality={75} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
@@ -247,7 +250,6 @@ export default function HomePage() {
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
-            kicker="On the floor today"
             headline="New stock arrives every Wednesday."
             link={{ href: "/shop", label: "Shop everything" }}
           />
@@ -261,9 +263,8 @@ export default function HomePage() {
       <section className="bg-[var(--muted)]">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
-            kicker="What customers actually say"
-            headline={<>What people <span className="text-[var(--brand-priceless)]">tell us.</span></>}
-            sub="Every quote here links straight to the Google or Facebook review you can verify in a click."
+            headline="What our customers have said about us."
+            sub="Every quote on the page links back to the original Google or Facebook review, so you can read it in context if you want."
           />
 
         {/* Handwritten card + 3 review tiles */}
@@ -326,9 +327,8 @@ export default function HomePage() {
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
-            kicker="Around 825 Washington"
-            headline={<>The store, the crew, <span className="text-[var(--brand-priceless)]">the mural.</span></>}
-            sub="The mural was painted by 50 Wausau volunteers in June 2023. The rest is what an average week looks like at 825 Washington."
+            headline="A look around 825 Washington Street."
+            sub="The mural on the side of the building was painted by fifty Wausau volunteers in June 2023. The rest of the photos are roughly what an average week at the store looks like."
           />
           <ul className="mt-10 grid gap-4 md:grid-cols-3">
             {REAL_PHOTOS.map((p) => (
@@ -349,38 +349,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* IN THE NEWS. Press coverage, owner quotes. */}
+      {/* IN THE NEWS. Compact cycling layout: list of headlines on the
+          left, single rotating preview card on the right. Keeps the
+          section short so the before/after sits closer to the top. */}
       <section className="bg-[var(--muted)]">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
-            kicker="In the news"
-            headline={<>What people <span className="text-[var(--brand-priceless)]">have written</span> about us.</>}
-            sub="Local press coverage from the past few years. Every link goes to the original article."
+            headline="What local press has written about us."
+            sub="Coverage from Wausau and central Wisconsin over the past few years. Each headline links to the original article."
           />
-          <ul className="mt-10 grid gap-5 md:grid-cols-2">
-            {PRESS.map((p) => (
-              <li key={p.url} className="overflow-hidden border border-[var(--border)] bg-white transition hover:border-[var(--brand-priceless)]">
-                {p.image ? (
-                  <div className="relative aspect-[16/9] w-full overflow-hidden bg-[var(--muted)]">
-                    <Image src={p.image} alt={p.headline} fill className="object-cover" sizes="(min-width:768px) 50vw, 100vw" />
-                  </div>
-                ) : null}
-                <div className="p-6">
-                  <div className="flex items-baseline justify-between gap-3 text-sm">
-                    <span className="font-medium text-[var(--foreground)]">{p.publisher}</span>
-                    <span className="font-mono text-xs text-[var(--muted-foreground)]">{p.date}</span>
-                  </div>
-                  <h3 className="font-display mt-3 text-2xl leading-snug text-[var(--foreground)]">
-                    <a href={p.url} target="_blank" rel="noreferrer" className="hover:text-[var(--brand-priceless)]">
-                      {p.headline} →
-                    </a>
-                  </h3>
-                  <p className="mt-3 text-base leading-relaxed text-[var(--foreground)]">{p.teaser}</p>
-                  <div className="mt-3 text-xs text-[var(--muted-foreground)]">{p.attribution}</div>
-                </div>
-              </li>
-            ))}
-          </ul>
+          <PressCycle items={PRESS} />
         </div>
       </section>
 
@@ -389,7 +367,6 @@ export default function HomePage() {
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
-            kicker="From the install crew"
             headline="Before and after."
             link={{ href: "/four-squared", label: "Meet the install crew" }}
           />
@@ -487,8 +464,8 @@ export default function HomePage() {
       <section className="bg-[var(--muted)]">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
-            kicker="Latest from our Facebook"
-            headline="What we've been up to this week."
+            headline="What we have been up to this week."
+            sub="Our Facebook page is the most current view of what is going on at the store. New stock photos, holiday hours, customer thank-you cards, mural updates. We post a few times a week."
           />
           <div className="mt-12 grid items-start gap-10 md:grid-cols-12">
             <div className="flex justify-center md:col-span-6 md:justify-end">
@@ -507,8 +484,8 @@ export default function HomePage() {
               </div>
             </div>
             <div className="md:col-span-6">
-              <p className="text-base leading-relaxed text-[var(--muted-foreground)] md:text-lg">
-                New stock photos, holiday hours, customer thank-you cards, mural updates. The Facebook page is the most current view of what&apos;s going on at 825 Washington Street. We post a few times a week.
+              <p className="text-base leading-relaxed text-[var(--foreground)] md:text-lg">
+                If you would rather follow along between visits, the easiest way is one of the platforms below. Yelp is mostly older reviews; Instagram and Facebook get the day-to-day photos.
               </p>
               <div className="mt-8 flex flex-col gap-4">
                 <a
@@ -541,39 +518,71 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* WHY PRICE-LESS. Compact 3-card callout, scannable, ends in a popping CTA. */}
+      {/* WHAT TO EXPECT. Replaces the old 3-card grid of choppy fragments
+          with three image cards. Each card uses a real photo so the cards
+          differentiate visually, and the copy reads as plain prose. */}
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
-            kicker="What to expect when you come in"
             headline="A few things worth knowing before you visit."
+            sub="If you have not been to a surplus warehouse before, the floor can look chaotic. Here is what is actually going on, and how the prices work."
           />
 
-          <ul className="mt-12 grid gap-px bg-[var(--border)] md:grid-cols-3">
-            <li className="bg-white p-7">
-              <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">01 · Quality</div>
-              <h3 className="font-display mt-3 text-2xl leading-tight md:text-3xl">New in the box.</h3>
-              <p className="mt-3 text-base leading-[1.5] text-[var(--muted-foreground)]">
-                Cancelled contractor orders, mis-ships, factory overstock. Same brands as the big-box stores. No seconds.
-              </p>
+          <ul className="mt-12 grid gap-6 md:grid-cols-3">
+            <li className="overflow-hidden border border-[var(--border)] bg-white">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
+                <Image
+                  src="/real-photos/storefront-sign-on-brick.webp"
+                  alt="The hand-painted Price-Less Building Center sign on the brick exterior"
+                  fill
+                  sizes="(min-width:768px) 33vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="font-display text-2xl leading-snug">Where the inventory comes from</h3>
+                <p className="mt-3 text-base leading-relaxed text-[var(--foreground)]">
+                  Most of what we sell is brand-new in the box, sourced from cancelled contractor orders, mis-shipments, and factory overstock. The brands are the same ones you would find at the big-box stores down the road.
+                </p>
+              </div>
             </li>
-            <li className="bg-white p-7">
-              <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">02 · Price</div>
-              <h3 className="font-display mt-3 text-2xl leading-tight md:text-3xl">Below retail, on every tag.</h3>
-              <p className="mt-3 text-base leading-[1.5] text-[var(--muted-foreground)]">
-                Our price next to retail at Home Depot, Lowe&apos;s, Menards. Right on the tag. Math you can check.
-              </p>
+            <li className="overflow-hidden border border-[var(--border)] bg-white">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
+                <Image
+                  src="/real-photos/storefront-signage.webp"
+                  alt="The Price-Less Building Center storefront, with everyday pricing displayed"
+                  fill
+                  sizes="(min-width:768px) 33vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="font-display text-2xl leading-snug">How the pricing works</h3>
+                <p className="mt-3 text-base leading-relaxed text-[var(--foreground)]">
+                  Every tag shows our price next to the current retail at Home Depot, Lowe&apos;s, or Menards. Bring your phone and check it yourself. We would rather you compare than wonder.
+                </p>
+              </div>
             </li>
-            <li className="bg-white p-7">
-              <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">03 · Walk-in store</div>
-              <h3 className="font-display mt-3 text-2xl leading-tight md:text-3xl">In Wausau since 1978.</h3>
-              <p className="mt-3 text-base leading-[1.5] text-[var(--muted-foreground)]">
-                825 Washington Street. Three partners ran it through the 2019 acquisition and still do. Open Monday through Saturday. Come walk it.
-              </p>
+            <li className="overflow-hidden border border-[var(--border)] bg-white">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
+                <Image
+                  src="/real-photos/building-exterior.webp"
+                  alt="The Price-Less Building Center at 825 Washington Street, Wausau"
+                  fill
+                  sizes="(min-width:768px) 33vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="font-display text-2xl leading-snug">Where to find us</h3>
+                <p className="mt-3 text-base leading-relaxed text-[var(--foreground)]">
+                  We have been at 825 Washington Street in Wausau since 1978. A group of partners bought the business in 2019 and still runs it. We are open Monday through Saturday if you want to walk the floor.
+                </p>
+              </div>
             </li>
           </ul>
 
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-5 border-t border-[var(--border)] pt-10">
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-5 border-t border-[var(--border)] pt-10">
             <Link href="/shop" className="btn btn-priceless">Shop everything →</Link>
             <Link href="/reviews" className="text-base text-[var(--brand-priceless)] underline decoration-[var(--brand-priceless)]/30 underline-offset-4 hover:decoration-[var(--brand-priceless)] md:text-lg">
               Read our 9 Google reviews

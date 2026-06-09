@@ -285,7 +285,6 @@ export default function FourSquaredPage() {
         <div className="mx-auto max-w-7xl px-6">
           <SectionHead
             accent="emerald"
-            kicker="The work"
             headline="Recent installs."
             sub="Photos from completed Builders Corner / Four Squared projects. Small resolution on a few comes from the original posts; we are getting higher-res shots from the homeowners."
           />
@@ -326,7 +325,6 @@ export default function FourSquaredPage() {
         <div className="mx-auto max-w-7xl px-6">
           <SectionHead
             accent="emerald"
-            kicker="Mid-install and finished"
             headline="The middle and the end."
             sub="The before is from a different project than the after. Showing both because one captures the work, the other captures the room."
           />
