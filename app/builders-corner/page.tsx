@@ -57,13 +57,15 @@ const SERVICES = [
   },
 ];
 
+// Real install + showroom photos imported from the storefront's
+// Facebook archive (see lib/business-photos.ts).
 const SHOWROOM = [
-  { src: "/real-photos/install-kitchen-walnut-marble.webp", caption: "Walnut shaker with white marble counter." },
-  { src: "/real-photos/install-kitchen-island-globes.webp", caption: "White cabinetry, quartz island, globe pendants." },
-  { src: "/real-photos/install-kitchen-rustic-beam.webp", caption: "Rustic kitchen with exposed beam and reclaimed wood vent shroud." },
-  { src: "/real-photos/install-bathroom-yellow-green-tile.webp", caption: "Warm traditional bath, green wainscot, dark-stained oak vanity." },
-  { src: "/real-photos/install-kitchen-galley-green-wall.webp", caption: "Galley kitchen, two-tone, slate-green accent." },
-  { src: "/real-photos/install-kitchen-honey-oak.webp", caption: "Honey-oak shaker with white quartz." },
+  { src: "/real-photos/business/white-kitchen-marble-island.jpg", caption: "White kitchen with marble island." },
+  { src: "/real-photos/business/white-kitchen-wood-island.jpg", caption: "White cabinetry with a warm wood island." },
+  { src: "/real-photos/business/rustic-wood-kitchen-island.jpg", caption: "Rustic kitchen with a heavy wood island." },
+  { src: "/real-photos/business/dark-cabinet-kitchen-install.jpg", caption: "Dark-cabinet kitchen with quartz counters." },
+  { src: "/real-photos/business/white-shaker-kitchen-cabinets.jpg", caption: "Classic white-shaker kitchen build." },
+  { src: "/real-photos/business/dark-double-vanity-bathroom-install.jpg", caption: "Dark double-vanity bath with white counter." },
 ];
 
 const STEPS = [

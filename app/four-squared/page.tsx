@@ -22,13 +22,15 @@ const EMAIL_MAILTO = `mailto:${EMAIL}?subject=Four%20Squared%20estimate%20reques
 
 const HERO_IMAGE = "/real-photos/install-kitchen-walnut-island-windows.webp";
 
+// Real install + showroom photos imported from the storefront's
+// Facebook archive (see lib/business-photos.ts).
 const WORK_TILES = [
-  { img: "/real-photos/install-kitchen-walnut-marble.webp", caption: "Walnut shaker cabinets, white marble counter.", tag: "Kitchen" },
-  { img: "/real-photos/install-kitchen-modern-banquette.webp", caption: "White slab kitchen with built-in banquette.", tag: "Kitchen" },
-  { img: "/real-photos/install-bathroom-shaker.webp", caption: "Shaker vanity, butcher-block top, floating shelves.", tag: "Bath" },
-  { img: "/real-photos/install-bathroom-blue-tile-shower.webp", caption: "Blue subway-tile shower with frameless glass.", tag: "Bath" },
-  { img: "/real-photos/install-french-doors-exterior.webp", caption: "White French entry doors on a brick home.", tag: "Exterior" },
-  { img: "/real-photos/install-kitchen-hickory-galley.webp", caption: "Knotty hickory galley kitchen with white quartz.", tag: "Kitchen" },
+  { img: "/real-photos/business/kitchen-island-wood-cabinets-range.jpg", caption: "Custom kitchen island with wood cabinetry and gas range.", tag: "Kitchen" },
+  { img: "/real-photos/business/wood-cabinets-granite-kitchen.jpg", caption: "Wood cabinets paired with granite counters.", tag: "Kitchen" },
+  { img: "/real-photos/business/dark-double-vanity-install.jpg", caption: "Dark double-vanity bath install.", tag: "Bath" },
+  { img: "/real-photos/business/blue-patterned-bath-sink.jpg", caption: "Blue-patterned bath vanity with stone counter.", tag: "Bath" },
+  { img: "/real-photos/business/white-kitchen-rustic-island.jpg", caption: "Bright white kitchen anchored by a rustic island.", tag: "Kitchen" },
+  { img: "/real-photos/business/wood-cabinet-kitchen-display.jpg", caption: "Wood cabinetry display from the showroom floor.", tag: "Kitchen" },
 ];
 
 const PROCESS = [
