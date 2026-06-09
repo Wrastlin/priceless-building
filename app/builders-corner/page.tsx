@@ -36,8 +36,6 @@ const HERO = "/real-photos/install-kitchen-walnut.webp";
 const TILE_KITCHENS = "/real-photos/install-kitchen-walnut-island-bar.webp";
 const TILE_BATHS = "/real-photos/install-bathroom-shaker.webp";
 const TILE_BUILTINS = "/real-photos/install-kitchen-floating-shelf-bowls.webp";
-const MURAL = "/real-photos/mural-detail.webp";
-
 const SERVICES = [
   {
     t: "Custom kitchens",
@@ -162,8 +160,8 @@ export default function BuildersCornerPage() {
               <h1 className="font-display mt-4 text-[clamp(2.5rem,1.4rem+4vw,4.5rem)] leading-[1.02] tracking-tight text-white">
                 Premium custom cabinetry, designed and built in Wausau.
               </h1>
-              <p className="mt-7 max-w-xl text-lg leading-[1.7] text-white/85 md:text-xl">
-                The upscale side of 825 Washington Street. We design your kitchen, bath, or built-in with you in the showroom, build the cabinets in our own shop, and install with the Four Squared crew.
+              <p className="mt-7 max-w-xl text-lg leading-[1.7] text-white/90 md:text-xl">
+                If you are thinking about a kitchen, a bath, or a built-in that is genuinely yours, this is where to start. We sit down with you in the showroom, draw your room out together, build the cabinets in our own shop, and the Four Squared crew installs them. There is no pressure to start big — small projects are welcome too.
               </p>
               <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
                 <Link
@@ -199,41 +197,6 @@ export default function BuildersCornerPage() {
             <BCStat n="1983" label="Designing and building cabinetry in Wausau." />
             <BCStat n="4.8★" label="On Google across all three brands." />
             <BCStat n="MON–SAT" label="Showroom open six days a week." />
-          </div>
-        </div>
-      </section>
-
-      {/* THE PAIRING. Positions BC as the premium counterpart to PL,
-          but in the Price-Less type system so it feels like one family. */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
-          <div className="grid items-center gap-10 md:grid-cols-12 md:gap-14">
-            <figure className="md:col-span-6" data-reveal>
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
-                <Image
-                  src={TILE_KITCHENS}
-                  alt="A premium Builders Corner kitchen with walnut shaker cabinetry, island bar, and pendant lighting."
-                  fill
-                  sizes="(min-width:768px) 50vw, 100vw"
-                  className="object-cover"
-                  quality={82}
-                />
-              </div>
-            </figure>
-            <div className="md:col-span-6" data-reveal data-reveal-delay="0.08">
-              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
-                When the surplus floor isn&apos;t the project
-              </div>
-              <h2 className="font-display mt-4 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05] text-[var(--foreground)]">
-                Style and class at <span className="text-[var(--brand-priceless)]">every price point.</span>
-              </h2>
-              <p className="mt-5 text-lg leading-[1.7] text-[var(--foreground)] md:text-xl">
-                Price-Less keeps the budget room in materials. Builders Corner picks up where the surplus floor stops, with cabinetry, counters, and built-ins designed and built specifically for your house.
-              </p>
-              <p className="mt-4 text-base leading-[1.7] text-[var(--muted-foreground)] md:text-lg">
-                Same building. Different tier. Both ours.
-              </p>
-            </div>
           </div>
         </div>
       </section>
@@ -352,111 +315,10 @@ export default function BuildersCornerPage() {
         </div>
       </section>
 
-      {/* PRESS / MURAL. Quote from the WSAW story paired with the mural. */}
-      <section className="bg-[var(--muted)]">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
-          <div className="grid gap-x-14 gap-y-10 md:grid-cols-12">
-            <figure className="md:col-span-5" data-reveal>
-              <div className="relative aspect-[4/5] w-full overflow-hidden bg-black">
-                <Image
-                  src={MURAL}
-                  alt="A detail from the Build Your Future mural on the south wall of the building, painted by fifty Wausau volunteers in June 2023."
-                  fill
-                  sizes="(min-width:768px) 40vw, 100vw"
-                  className="object-cover"
-                  quality={85}
-                />
-              </div>
-              <figcaption className="mt-5 text-sm text-[var(--muted-foreground)]">
-                Build Your Future mural · south wall · painted June 2023
-              </figcaption>
-            </figure>
-
-            <div className="md:col-span-7 md:pt-3" data-reveal data-reveal-delay="0.08">
-              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
-                In the press
-              </div>
-              <blockquote className="mt-6 border-l-2 border-[var(--brand-priceless)] pl-6">
-                <p className="font-display text-2xl leading-[1.2] text-[var(--foreground)] md:text-3xl">
-                  &ldquo;Trades is a dying breed. So we want to do something that represents what us hard-working guys do.&rdquo;
-                </p>
-                <footer className="mt-4 text-sm text-[var(--muted-foreground)]">
-                  <a
-                    href="https://www.wsaw.com/2023/06/18/new-mural-coming-downtown-wausau/"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline decoration-[var(--brand-priceless)] decoration-2 underline-offset-4"
-                  >
-                    WSAW NewsChannel 7, June 2023
-                  </a>
-                </footer>
-              </blockquote>
-              <p className="mt-8 text-base leading-[1.7] text-[var(--foreground)] md:text-lg">
-                The mural was painted on the side of the building by about fifty volunteers from across Wausau. The cabinet shop has been at 825 Washington Street since 1983, and Builders Corner has been the in-house custom side of the operation since the 2019 partnership took over.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CONSULT INQUIRY. Lead capture, anchored for the hero CTA. */}
       <section id="consult" className="scroll-mt-24 bg-white">
         <div className="mx-auto max-w-4xl px-6 py-16 md:py-20" data-reveal>
           <InquiryForm brand="builders" />
-        </div>
-      </section>
-
-      {/* VISIT. Address, hours, and a second call CTA. */}
-      <section className="bg-[#0b1220] text-white">
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-12 md:py-20">
-          <div className="md:col-span-7" data-reveal>
-            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[#ff8b85]">
-              Come walk the showroom
-            </div>
-            <h2 className="font-display mt-4 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05] text-white">
-              First meeting is free.
-            </h2>
-            <p className="mt-6 max-w-xl text-lg leading-[1.7] text-white/85 md:text-xl">
-              Door samples on the wall, slab pieces on the table, hardware to hold. Walk in any time we are open, or call ahead and we will save you a seat with a designer.
-            </p>
-            <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
-              <Link
-                href="#consult"
-                className="btn btn-priceless"
-              >
-                Book a consultation
-              </Link>
-              <a
-                href={`tel:${ADDRESS.phone.replace(/[^0-9+]/g, "")}`}
-                className="text-base font-semibold text-white/85 underline decoration-white/30 decoration-2 underline-offset-[6px] transition hover:text-white md:text-lg"
-              >
-                Or call {ADDRESS.phone}
-              </a>
-            </div>
-          </div>
-
-          <div className="md:col-span-5" data-reveal data-reveal-delay="0.08">
-            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[#ff8b85]">
-              Visit us
-            </div>
-            <div className="font-display mt-3 text-3xl leading-tight md:text-4xl">
-              {ADDRESS.street}
-            </div>
-            <div className="mt-1 text-base text-white/85">
-              {ADDRESS.city}, {ADDRESS.state} {ADDRESS.zip}
-            </div>
-            <ul className="mt-8 divide-y divide-white/10 border-t border-b border-white/10">
-              {BUILDERS.hours.map((h) => (
-                <li
-                  key={h.day}
-                  className="flex items-baseline justify-between gap-4 py-3 text-base"
-                >
-                  <span className="text-white">{h.day}</span>
-                  <span className="text-white/85">{h.hours}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </section>
 
