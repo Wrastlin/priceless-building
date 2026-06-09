@@ -165,6 +165,24 @@ export async function TrustBlock() {
                 Call {ADDRESS.phone}
               </a>
             </div>
+
+            {/* Project CTA. Fills the desktop whitespace under the hours
+                and cross-links to the design walkthrough section on the
+                home page. */}
+            <div className="mt-10 border border-[var(--brand-priceless)] bg-white p-6">
+              <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">
+                Have a project in mind?
+              </div>
+              <p className="mt-2 text-base leading-relaxed text-[var(--foreground)]">
+                We are putting together a step-by-step walkthrough that lets you take a photo of the space, pick out the pieces, and see the finished room before any of it leaves the warehouse.
+              </p>
+              <Link
+                href="/#design-walkthrough"
+                className="font-mono mt-4 inline-flex items-center text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
+              >
+                See how it works →
+              </Link>
+            </div>
           </div>
         </div>
 

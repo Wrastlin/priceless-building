@@ -579,9 +579,93 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* NEWSLETTER */}
-      <section className="mx-auto max-w-7xl px-6 py-16">
-        <NewsletterBar />
+      {/* DESIGN WALKTHROUGH. Explains the upcoming visualization process
+          in plain language with no "AI" framing. Two-column layout fills
+          desktop whitespace and bridges into the newsletter below as
+          the natural way to be told when the tool goes live. */}
+      <section id="design-walkthrough" className="bg-[var(--muted)] scroll-mt-24">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+          <SectionHead
+            headline="See it in your home before you buy it."
+            sub="We are putting together a step-by-step walkthrough that lets you take a photo of your space, pick out the pieces you would like to add, and see the finished room before any of it leaves the warehouse. Here is how the process goes."
+          />
+
+          <div className="mt-12 grid gap-10 md:grid-cols-12 md:gap-14">
+            <ol className="md:col-span-7">
+              {[
+                {
+                  n: "01",
+                  t: "Take a photo of the space.",
+                  b: "A picture of the wall, the room, the doorway, or the front of the house where you are thinking about adding something. A phone shot is plenty.",
+                },
+                {
+                  n: "02",
+                  t: "Tell us what you want.",
+                  b: "Pick from the categories we carry: door, window, vanity, cabinet, siding, shelf, trim, lighting, hardware. Stack as many as you need.",
+                },
+                {
+                  n: "03",
+                  t: "Walk through colors and styles with us.",
+                  b: "We narrow the look down with you first, using real swatches and side-by-side comparisons. Nothing gets rendered until you are happy with the direction.",
+                },
+                {
+                  n: "04",
+                  t: "See it placed in your own photo.",
+                  b: "A full visualization of the finished space, rendered into the picture you took, so you can see exactly how the new pieces sit in your actual room.",
+                },
+                {
+                  n: "05",
+                  t: "Get the matching products and the price.",
+                  b: "Every render uses items we carry on the surplus floor or build in the cabinet shop. The price is shown next to each one, so you know what the full room costs before you decide.",
+                },
+              ].map((s) => (
+                <li
+                  key={s.n}
+                  className="grid grid-cols-[56px_1fr] items-start gap-x-5 border-b border-[var(--border)] py-6 first:pt-0 last:border-b-0 last:pb-0 md:grid-cols-[80px_1fr] md:gap-x-8"
+                >
+                  <div className="font-display text-3xl leading-none text-[var(--brand-priceless)] md:text-4xl">
+                    {s.n}
+                  </div>
+                  <div>
+                    <h3 className="font-display text-xl leading-snug md:text-2xl">{s.t}</h3>
+                    <p className="mt-2 text-base leading-relaxed text-[var(--foreground)]">
+                      {s.b}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+
+            <figure className="md:col-span-5">
+              <div className="relative aspect-[4/5] w-full overflow-hidden bg-white">
+                <Image
+                  src="/real-photos/install-kitchen-walnut-island-windows.webp"
+                  alt="A finished walnut kitchen install, the kind of finished room the walkthrough helps you preview in your own house before you commit."
+                  fill
+                  sizes="(min-width:768px) 42vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+              <figcaption className="mt-4 text-sm leading-relaxed text-[var(--muted-foreground)]">
+                A real finished install. The walkthrough lets you see something like this rendered into your own room first, with each piece and its price written out next to it, before anything gets ordered.
+              </figcaption>
+            </figure>
+          </div>
+
+          <div className="mt-14 border-t border-[var(--border)] pt-10">
+            <p className="mx-auto max-w-3xl text-center text-base leading-relaxed text-[var(--foreground)] md:text-lg">
+              We pride ourselves on honest pricing, quality work, and supporting you in the project you have in mind. The walkthrough is something we are putting together right now. If you would like to be the first to use it when it goes live, the newsletter below is the fastest way to hear about it.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* NEWSLETTER. Doubles as the signup hook for the upcoming
+          walkthrough launch in addition to the weekly inventory drop. */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-16">
+          <NewsletterBar />
+        </div>
       </section>
 
       <TrustBlock />
