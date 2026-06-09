@@ -515,61 +515,51 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
             headline="A few things worth knowing before you visit."
-            sub="If you have not been to a surplus warehouse before, the floor can look chaotic. Here is what is actually going on, and how the prices work."
+            sub="We have built this place to be welcoming to anyone looking to liven up their home, at any price range. Here is what is actually going on inside the warehouse."
           />
 
           <ul className="mt-12 grid gap-6 md:grid-cols-3">
-            <li className="overflow-hidden border border-[var(--border)] bg-white">
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
-                <Image
-                  src="/real-photos/storefront-sign-on-brick.webp"
-                  alt="The hand-painted Price-Less Building Center sign on the brick exterior"
-                  fill
-                  sizes="(min-width:768px) 33vw, 100vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="font-display text-2xl leading-snug">Where the inventory comes from</h3>
-                <p className="mt-3 text-base leading-relaxed text-[var(--foreground)]">
-                  Most of what we sell is brand-new in the box, sourced from cancelled contractor orders, mis-shipments, and factory overstock. The brands are the same ones you would find at the big-box stores down the road.
-                </p>
-              </div>
-            </li>
-            <li className="overflow-hidden border border-[var(--border)] bg-white">
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
-                <Image
-                  src="/real-photos/storefront-signage.webp"
-                  alt="The Price-Less Building Center storefront, with everyday pricing displayed"
-                  fill
-                  sizes="(min-width:768px) 33vw, 100vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="font-display text-2xl leading-snug">How the pricing works</h3>
-                <p className="mt-3 text-base leading-relaxed text-[var(--foreground)]">
-                  Every tag shows our price next to the current retail at Home Depot, Lowe&apos;s, or Menards. Bring your phone and check it yourself. We would rather you compare than wonder.
-                </p>
-              </div>
-            </li>
-            <li className="overflow-hidden border border-[var(--border)] bg-white">
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
-                <Image
-                  src="/real-photos/building-exterior.webp"
-                  alt="The Price-Less Building Center at 825 Washington Street, Wausau"
-                  fill
-                  sizes="(min-width:768px) 33vw, 100vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="font-display text-2xl leading-snug">Where to find us</h3>
-                <p className="mt-3 text-base leading-relaxed text-[var(--foreground)]">
-                  We have been at 825 Washington Street in Wausau since 1978. A group of partners bought the business in 2019 and still runs it. We are open Monday through Saturday if you want to walk the floor.
-                </p>
-              </div>
-            </li>
+            {[
+              {
+                src: "/real-photos/storefront-sign-on-brick.webp",
+                alt: "Hand-painted Price-Less sign on the brick exterior",
+                t: "The inventory",
+                b: "Brand-new in-the-box stock from cancelled contractor orders, mis-shipments, and factory overstock. Same brands as the big-box stores.",
+              },
+              {
+                src: "/real-photos/storefront-signage.webp",
+                alt: "Storefront sign with everyday pricing",
+                t: "The pricing",
+                b: "Every tag shows our price next to current retail at Home Depot, Lowe's, or Menards. Bring your phone and check.",
+              },
+              {
+                src: "/real-photos/building-exterior.webp",
+                alt: "825 Washington Street, Wausau",
+                t: "Where to find us",
+                b: "825 Washington Street, Wausau. In the same building since 1978. Open Monday through Saturday.",
+              },
+            ].map((c, i) => (
+              <li
+                key={c.t}
+                data-reveal
+                data-reveal-delay={(i * 0.06).toFixed(2)}
+                className="overflow-hidden border border-[var(--border)] bg-white"
+              >
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
+                  <Image
+                    src={c.src}
+                    alt={c.alt}
+                    fill
+                    sizes="(min-width:768px) 33vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-display text-2xl leading-snug">{c.t}</h3>
+                  <p className="mt-3 text-base leading-relaxed text-[var(--foreground)]">{c.b}</p>
+                </div>
+              </li>
+            ))}
           </ul>
 
           <div className="mt-12 flex flex-wrap items-center justify-center gap-5 border-t border-[var(--border)] pt-10">
@@ -591,74 +581,54 @@ export default function HomePage() {
           <SectionHead
             invert
             headline="See it in your home before you buy it."
-            sub="We are putting together a step-by-step walkthrough that lets you take a photo of your space, pick out the pieces you would like to add, and see the finished room before any of it leaves the warehouse. Here is how the process goes."
+            sub="A walkthrough we are putting together. Photo of your space, the pieces you want, the colors, a render in the same photo, real pricing."
           />
 
           <div className="mt-12 grid gap-10 md:grid-cols-12 md:gap-14">
             <ol className="md:col-span-7">
               {[
-                {
-                  n: "01",
-                  t: "Take a photo of the space.",
-                  b: "A picture of the wall, the room, the doorway, or the front of the house where you are thinking about adding something. A phone shot is plenty.",
-                },
-                {
-                  n: "02",
-                  t: "Tell us what you want.",
-                  b: "Pick from the categories we carry: door, window, vanity, cabinet, siding, shelf, trim, lighting, hardware. Stack as many as you need.",
-                },
-                {
-                  n: "03",
-                  t: "Walk through colors and styles with us.",
-                  b: "We narrow the look down with you first, using real swatches and side-by-side comparisons. Nothing gets rendered until you are happy with the direction.",
-                },
-                {
-                  n: "04",
-                  t: "See it placed in your own photo.",
-                  b: "A full visualization of the finished space, rendered into the picture you took, so you can see exactly how the new pieces sit in your actual room.",
-                },
-                {
-                  n: "05",
-                  t: "Get the matching products and the price.",
-                  b: "Every render uses items we carry on the surplus floor or build in the cabinet shop. The price is shown next to each one, so you know what the full room costs before you decide.",
-                },
-              ].map((s) => (
+                { n: "01", t: "Take a photo.", b: "Wall, room, doorway, or the front of the house." },
+                { n: "02", t: "Pick what you want.", b: "Door, window, vanity, cabinet, siding, shelf, trim." },
+                { n: "03", t: "Choose colors with us.", b: "Real swatches, side by side, before anything renders." },
+                { n: "04", t: "See it in the photo.", b: "A full render placed into the picture you took." },
+                { n: "05", t: "Get the price.", b: "Items we actually carry, with the cost next to each one." },
+              ].map((s, i) => (
                 <li
                   key={s.n}
-                  className="grid grid-cols-[56px_1fr] items-start gap-x-5 border-b border-white/10 py-6 first:pt-0 last:border-b-0 last:pb-0 md:grid-cols-[80px_1fr] md:gap-x-8"
+                  data-reveal
+                  data-reveal-delay={(i * 0.06).toFixed(2)}
+                  className="grid grid-cols-[56px_1fr] items-start gap-x-5 border-b border-white/10 py-5 first:pt-0 last:border-b-0 last:pb-0 md:grid-cols-[80px_1fr] md:gap-x-8 md:py-6"
                 >
                   <div className="font-display text-3xl leading-none text-[#ff8b85] md:text-4xl">
                     {s.n}
                   </div>
                   <div>
                     <h3 className="font-display text-xl leading-snug text-white md:text-2xl">{s.t}</h3>
-                    <p className="mt-2 text-base leading-relaxed text-white/75">
-                      {s.b}
-                    </p>
+                    <p className="mt-1.5 text-base leading-relaxed text-white/75">{s.b}</p>
                   </div>
                 </li>
               ))}
             </ol>
 
-            <figure className="md:col-span-5">
+            <figure className="md:col-span-5" data-reveal data-reveal-delay="0.12">
               <div className="relative aspect-[4/5] w-full overflow-hidden bg-white">
                 <Image
                   src="/real-photos/install-kitchen-walnut-island-windows.webp"
-                  alt="A finished walnut kitchen install, the kind of finished room the walkthrough helps you preview in your own house before you commit."
+                  alt="A finished walnut kitchen install."
                   fill
                   sizes="(min-width:768px) 42vw, 100vw"
                   className="object-cover"
                 />
               </div>
               <figcaption className="mt-4 text-sm leading-relaxed text-white/70">
-                A real finished install. The walkthrough lets you see something like this rendered into your own room first, with each piece and its price written out next to it, before anything gets ordered.
+                A finished install. The walkthrough lets you preview something like this in your own room first.
               </figcaption>
             </figure>
           </div>
 
-          <div className="mt-14 border-t border-white/10 pt-10">
-            <p className="mx-auto max-w-3xl text-center text-base leading-relaxed text-white/85 md:text-lg">
-              We pride ourselves on honest pricing, quality work, and supporting you in the project you have in mind. The walkthrough is something we are putting together right now. If you would like to be the first to use it when it goes live, the newsletter below is the fastest way to hear about it.
+          <div className="mt-14 border-t border-white/10 pt-8 text-center" data-reveal>
+            <p className="mx-auto max-w-2xl text-base leading-relaxed text-white/85 md:text-lg">
+              Style and class at every price point. We pride ourselves on being affordable to anyone looking to liven up their home, and we try to make the rest of it as easy as possible. Subscribe below to be first when the walkthrough launches.
             </p>
           </div>
         </div>
@@ -702,6 +672,7 @@ function BrandCard({
   return (
     <Link
       href={href}
+      data-reveal
       className="group flex flex-col overflow-hidden border border-white/10 bg-white transition hover:border-white/30"
     >
       {/* PHOTO with logo chip in upper-left. The chip is a white pad

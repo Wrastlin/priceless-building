@@ -33,6 +33,8 @@ export function TimelineRail({ events }: { events: TimelineEvent[] }) {
         return (
           <li
             key={`${e.year}-${e.title}`}
+            data-reveal
+            data-reveal-delay={(i * 0.04).toFixed(2)}
             className="relative pb-12 pl-12 last:pb-0 md:pl-14"
           >
             <span

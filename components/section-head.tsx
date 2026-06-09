@@ -56,6 +56,7 @@ export function SectionHead({
       : "max-w-3xl";
   return (
     <header
+      data-reveal
       className={`${wrap} ${bordered ? `border-b ${borderColor} pb-7` : ""} ${className}`}
     >
       {kicker ? (
