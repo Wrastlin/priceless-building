@@ -60,9 +60,9 @@ export const BUILDERS = {
 export const FOUR_SQUARED = {
   name: "Four Squared Construction",
   shortName: "Four Squared",
-  tagline: "Install crew run by Josh Nickel.",
+  tagline: "Custom installation and home renovations in central Wisconsin.",
   description:
-    "Four Squared Construction is Josh Nickel's install crew. Kitchens, baths, basements, and whole-house remodels in and around Wausau. Two-year labor warranty. Call (715) 848-3855.",
+    "Four Squared Construction is the install crew for the 825 Washington Street operation. Kitchens, baths, basements, and whole-house remodels in and around Wausau. Two-year labor warranty. Call (715) 848-3855.",
   hours: PRICELESS.hours,
   socials: {},
 } as const;

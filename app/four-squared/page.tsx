@@ -147,7 +147,7 @@ const FAQ = [
   },
   {
     q: "How do I reach you?",
-    a: `Call (715) 848-3855 or email ${EMAIL}. Josh or the crew lead gets back the same week.`,
+    a: `Call (715) 848-3855 or email ${EMAIL}. A crew lead gets back the same week.`,
   },
 ];
 
@@ -163,7 +163,7 @@ export default function FourSquaredPage() {
           <div className="flex items-center gap-4 text-white/70">
             <span className="inline-flex size-2 rounded-full bg-emerald-400" />
             <span className="font-mono text-[11px] uppercase tracking-[0.22em]">
-              Wausau and Marathon County · Josh Nickel
+              Wausau and Marathon County
             </span>
           </div>
           <div className="flex items-center gap-6">
@@ -198,7 +198,7 @@ export default function FourSquaredPage() {
 
             <p className="mt-8 max-w-xl text-base leading-relaxed text-white/85 md:text-lg">
               Four Squared is the install side of the 825 Washington Street operation. Kitchens,
-              baths, doors, finish carpentry. Owner-operated by Josh Nickel, 28 years in the trades.
+              Kitchens, baths, doors, finish carpentry. A local crew with decades of combined experience in the trades.
             </p>
 
             <div className="mt-10 max-w-xl">
@@ -488,14 +488,15 @@ export default function FourSquaredPage() {
         </div>
       </section>
 
-      {/* OWNER. Josh, 28 years in the trades, on-site for the install. */}
+      {/* THE CREW. One caption from Josh, otherwise the section is
+          about the crew and the install operation in general. */}
       <section className="border-b bg-[var(--muted)] py-12">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 md:grid-cols-12">
           <div className="md:col-span-5">
             <div className="relative aspect-[4/5] overflow-hidden bg-[#0a0e14]">
               <Image
                 src={QUOTE_PORTRAIT}
-                alt="A photo of Josh inside the showroom, in a grey Price-Less zip jacket with the circular logo on the chest."
+                alt="Inside the Four Squared install workshop."
                 fill
                 className="object-cover object-right"
                 sizes="(min-width: 768px) 40vw, 100vw"
@@ -503,23 +504,22 @@ export default function FourSquaredPage() {
               />
             </div>
             <div className="mt-3 font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
-              Josh Nickel · 825 Washington Street
+              At the 825 Washington Street workshop
             </div>
           </div>
 
           <div className="md:col-span-7">
-            <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-emerald-700">Owner</div>
+            <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-emerald-700">
+              The crew
+            </div>
             <h2 className="font-display mt-3 text-5xl leading-[1.05] md:text-6xl">
-              Josh Nickel.
+              Local install crew, finish-carpentry first.
             </h2>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-[var(--foreground)]">
-              Twenty-eight years in the trades. Bought the 825 Washington Street operation in
-              May 2019 with two partners and runs it today as the sole owner. At the showroom
-              when you stop in for materials, on-site for the install.
+              The Four Squared crew has worked together on kitchens, baths, and finish carpentry across central Wisconsin for years. Cabinets from Builders Corner, materials from the Price-Less floor, or anything you bring on your own.
             </p>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-[var(--muted-foreground)]">
-              Four Squared is the install brand. Same phone number as Price-Less, same
-              parking lot as Builders Corner. One person to call for the whole project.
+              Same phone number as Price-Less, same parking lot as Builders Corner. One number to call for the whole project.
             </p>
           </div>
         </div>
@@ -605,7 +605,7 @@ export default function FourSquaredPage() {
               Before you call.
             </h2>
             <p className="mt-5 text-base text-[var(--muted-foreground)]">
-              If your question isn&apos;t here, call {PHONE}. Josh or the crew lead answers.
+              If your question isn&apos;t here, call {PHONE}. A crew lead answers.
             </p>
           </div>
           <div className="md:col-span-8">
@@ -660,7 +660,7 @@ export default function FourSquaredPage() {
             </a>
           </div>
           <div className="mt-8 text-sm text-white/55">
-            Four Squared Construction · Josh Nickel · {ADDRESS.street}, {ADDRESS.city}, {ADDRESS.state}
+            Four Squared Construction · {ADDRESS.street}, {ADDRESS.city}, {ADDRESS.state}
           </div>
         </div>
       </section>

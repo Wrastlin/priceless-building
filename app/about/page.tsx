@@ -112,7 +112,7 @@ export default function AboutPage() {
               <BrandLogo brand="four-squared" size="sm" />
             </div>
             <p className="mt-5 text-[var(--muted-foreground)]">
-              At 825 Washington Street you&apos;ll find three related operations: Price-Less Building Center for surplus retail; Builders Corner Cabinetry &amp; Design for custom kitchens and baths; and Four Squared Construction, the install crew run by Josh Nickel.
+              At 825 Washington Street you&apos;ll find three related brands: Price-Less Building Center for discount and surplus retail; Builders Corner Cabinetry &amp; Design for premium custom kitchens and baths; and Four Squared Construction, the install crew that handles full remodels.
             </p>
             <p className="mt-4 text-[var(--muted-foreground)]">
               Most projects use more than one. Walk in for a vanity, leave with a designer&apos;s number. Walk in for a quote, leave with a stack of doors.
