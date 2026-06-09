@@ -26,7 +26,7 @@ export function NewsletterBar() {
   return (
     <form onSubmit={sub} className="grid items-center gap-4 rounded-2xl border bg-[var(--brand-priceless)] p-6 text-white shadow-card md:grid-cols-[1.5fr_1fr] md:p-8">
       <div>
-        <div className="text-xs font-semibold uppercase tracking-wider text-white/70">Stay in the loop</div>
+        <div className="text-xs font-semibold uppercase tracking-wider text-white/85">Stay in the loop</div>
         <div className="font-display mt-1 text-2xl">Get the new inventory list as it lands.</div>
         <div className="mt-1 text-sm text-white/85">
           A short email when fresh doors, windows, or cabinets hit the floor, plus first dibs on the design walkthrough when it launches. No spam.

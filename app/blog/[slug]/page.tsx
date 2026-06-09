@@ -162,7 +162,7 @@ export default async function BlogPostPage({
             </div>
             <div>
               <div className="font-semibold">{post.author}</div>
-              <div className="text-xs text-white/70">
+              <div className="text-xs text-white/85">
                 {post.date} · {post.readTime}
               </div>
             </div>

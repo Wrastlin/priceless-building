@@ -136,7 +136,7 @@ export default function ComparePage() {
       <section className="mx-auto max-w-7xl px-6 py-20">
         <div className="grid items-center gap-6 rounded-2xl bg-[var(--brand-priceless-dark)] p-10 text-white md:grid-cols-[2fr_1fr]">
           <div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-white/70">
+            <div className="text-xs font-semibold uppercase tracking-wider text-white/85">
               The smart move
             </div>
             <h2 className="font-display mt-2 text-3xl md:text-4xl">See it in person before you buy.</h2>

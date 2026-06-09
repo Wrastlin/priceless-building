@@ -59,7 +59,7 @@ export default function ReviewsPage() {
       {/* LEAVE A REVIEW */}
       <section className="border-t bg-[var(--brand-priceless-dark)] py-20 text-white">
         <div className="mx-auto max-w-4xl px-6 text-center">
-          <div className="text-xs font-semibold uppercase tracking-wider text-white/70">
+          <div className="text-xs font-semibold uppercase tracking-wider text-white/85">
             Bought from us recently?
           </div>
           <h2 className="font-display mt-2 text-4xl md:text-5xl">Leave us a review.</h2>

@@ -159,7 +159,7 @@ export default function FinancingPage() {
       {/* HOW IT WORKS */}
       <section className="bg-[var(--brand-priceless-dark)] py-20 text-white">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="text-xs font-semibold uppercase tracking-wider text-white/70">How it works</div>
+          <div className="text-xs font-semibold uppercase tracking-wider text-white/85">How it works</div>
           <h2 className="font-display mt-2 text-3xl md:text-4xl">From your phone to the load bay in one afternoon.</h2>
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {STEPS.map((s) => (

@@ -134,12 +134,12 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
       {/* BASELINE */}
       <div className="border-t bg-[var(--brand-priceless-dark)] text-white">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-2 px-6 py-3">
-          <span className="font-mono text-xs uppercase tracking-[0.14em] text-white/70">
+          <span className="font-mono text-xs uppercase tracking-[0.14em] text-white/85">
             © {new Date().getFullYear()} Price-Less Building · Builders Corner · Four Squared
           </span>
-          <span className="flex flex-wrap items-center gap-3 font-mono text-xs uppercase tracking-[0.14em] text-white/70">
+          <span className="flex flex-wrap items-center gap-3 font-mono text-xs uppercase tracking-[0.14em] text-white/85">
             <span>{ADDRESS.city}, {ADDRESS.state} · Same building since 1978</span>
-            <a href="/admin" className="text-white/60 underline decoration-white/30 underline-offset-2 hover:text-white">
+            <a href="/admin" className="text-white/80 underline decoration-white/30 underline-offset-2 hover:text-white">
               Staff sign in
             </a>
           </span>

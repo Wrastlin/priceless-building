@@ -46,7 +46,7 @@ export function SectionHead({
     accent === "emerald" ? "text-emerald-300" :
     "text-[#ff8b85]";
   const headlineColor = invert ? "text-white" : "text-[var(--foreground)]";
-  const subColor = invert ? "text-white/70" : "text-[var(--muted-foreground)]";
+  const subColor = invert ? "text-white/85" : "text-[var(--muted-foreground)]";
   const kickerColor = invert ? accentInvert : accentColor;
   const linkColor = invert ? accentInvert : accentColor;
   const borderColor = invert ? "border-white/10" : "border-[var(--border)]";

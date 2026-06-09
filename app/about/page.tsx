@@ -30,7 +30,7 @@ export default function AboutPage() {
         </div>
         <div className="relative mx-auto grid max-w-7xl gap-10 px-6 pt-28 pb-20 text-white md:grid-cols-12 md:pt-40 md:pb-28">
           <div className="md:col-span-8">
-            <div className="font-mono flex items-center gap-3 text-xs uppercase tracking-[0.14em] text-white/70">
+            <div className="font-mono flex items-center gap-3 text-xs uppercase tracking-[0.14em] text-white/85">
               <span className="size-1.5 rounded-full bg-[var(--brand-priceless)]" />
               <span>Origin</span>
               <span className="opacity-50">/</span>
@@ -47,7 +47,7 @@ export default function AboutPage() {
           </div>
           <aside className="md:col-span-4 md:pt-16">
             <div className="border-l border-white/20 pl-5">
-              <div className="font-mono text-xs uppercase tracking-[0.14em] text-white/60">In numbers</div>
+              <div className="font-mono text-xs uppercase tracking-[0.14em] text-white/80">In numbers</div>
               <dl className="mt-5 space-y-5 text-white">
                 <AboutStat n="1978" label="founded as a weekend venture" />
                 <AboutStat n="1982" label="went full-time" />
@@ -127,7 +127,7 @@ export default function AboutPage() {
       {/* SECTION 4. THE MURAL + COMMUNITY */}
       <section className="bg-[var(--brand-priceless-dark)] py-20 text-white">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="text-xs font-semibold uppercase tracking-wider text-white/70">Chapter Four · 2023 onward</div>
+          <div className="text-xs font-semibold uppercase tracking-wider text-white/85">Chapter Four · 2023 onward</div>
           <h2 className="font-display mt-3 max-w-3xl text-3xl md:text-5xl">
             Build Your Future.
           </h2>
@@ -138,7 +138,7 @@ export default function AboutPage() {
             <p className="font-serif text-lg italic leading-snug md:text-xl">
               &ldquo;Trades is a dying breed. So we want to do something that represents what us hard-working guys do.&rdquo;
             </p>
-            <footer className="mt-3 text-xs uppercase tracking-wider text-white/70">
+            <footer className="mt-3 text-xs uppercase tracking-wider text-white/85">
               Josh Nickel · WSAW NewsChannel 7, June 2023
             </footer>
           </blockquote>
@@ -279,7 +279,7 @@ export default function AboutPage() {
 function Differentiator({ kicker, title, body }: { kicker: string; title: string; body: string }) {
   return (
     <div>
-      <div className="text-xs font-semibold uppercase tracking-wider text-white/70">{kicker}</div>
+      <div className="text-xs font-semibold uppercase tracking-wider text-white/85">{kicker}</div>
       <div className="font-display mt-2 text-2xl" dangerouslySetInnerHTML={{ __html: title }} />
       <p className="mt-3 text-sm text-white/80" dangerouslySetInnerHTML={{ __html: body }} />
     </div>
@@ -291,9 +291,9 @@ function AboutStat({ n, label, sub }: { n: string; label: string; sub?: string }
     <div>
       <div className="flex items-baseline gap-2">
         <span className="font-display text-4xl leading-none text-white md:text-5xl">{n}</span>
-        {sub ? <span className="font-mono text-xs uppercase tracking-[0.14em] text-white/60">{sub}</span> : null}
+        {sub ? <span className="font-mono text-xs uppercase tracking-[0.14em] text-white/80">{sub}</span> : null}
       </div>
-      <div className="font-mono mt-1 text-xs uppercase tracking-[0.14em] text-white/70">{label}</div>
+      <div className="font-mono mt-1 text-xs uppercase tracking-[0.14em] text-white/85">{label}</div>
     </div>
   );
 }

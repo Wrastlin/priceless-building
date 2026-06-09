@@ -300,7 +300,7 @@ export default function BuildersCornerPage() {
                 <h3 className="font-display mt-3 text-xl leading-snug text-white md:text-2xl">
                   {s.t}
                 </h3>
-                <p className="mt-2 text-sm leading-[1.55] text-white/75">
+                <p className="mt-2 text-sm leading-[1.55] text-white/85">
                   {s.b}
                 </p>
               </li>
@@ -442,7 +442,7 @@ export default function BuildersCornerPage() {
             <div className="font-display mt-3 text-3xl leading-tight md:text-4xl">
               {ADDRESS.street}
             </div>
-            <div className="mt-1 text-base text-white/70">
+            <div className="mt-1 text-base text-white/85">
               {ADDRESS.city}, {ADDRESS.state} {ADDRESS.zip}
             </div>
             <ul className="mt-8 divide-y divide-white/10 border-t border-b border-white/10">
@@ -452,7 +452,7 @@ export default function BuildersCornerPage() {
                   className="flex items-baseline justify-between gap-4 py-3 text-base"
                 >
                   <span className="text-white">{h.day}</span>
-                  <span className="text-white/70">{h.hours}</span>
+                  <span className="text-white/85">{h.hours}</span>
                 </li>
               ))}
             </ul>
@@ -471,7 +471,7 @@ function BCStat({ n, label }: { n: string; label: string }) {
       <div className="font-display text-4xl leading-none text-white md:text-5xl">
         {n}
       </div>
-      <div className="mt-3 max-w-[24ch] text-sm leading-snug text-white/70 md:text-base">
+      <div className="mt-3 max-w-[24ch] text-sm leading-snug text-white/85 md:text-base">
         {label}
       </div>
     </div>

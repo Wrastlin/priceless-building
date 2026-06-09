@@ -30,7 +30,7 @@ export default function ContactPage() {
         </div>
         <div className="relative mx-auto grid max-w-7xl gap-10 px-6 pt-28 pb-20 text-white md:grid-cols-12 md:pt-40 md:pb-28">
           <div className="md:col-span-8">
-            <div className="font-mono flex items-center gap-3 text-xs uppercase tracking-[0.14em] text-white/70">
+            <div className="font-mono flex items-center gap-3 text-xs uppercase tracking-[0.14em] text-white/85">
               <span className="size-1.5 animate-pulse rounded-full bg-emerald-400" />
               <span>Walk-ins welcome</span>
               <span className="opacity-50">/</span>
@@ -58,7 +58,7 @@ export default function ContactPage() {
           </div>
           <aside className="md:col-span-4 md:pt-16">
             <div className="border-l border-white/20 pl-5">
-              <div className="font-mono text-xs uppercase tracking-[0.14em] text-white/60">
+              <div className="font-mono text-xs uppercase tracking-[0.14em] text-white/80">
                 When we&apos;re open
               </div>
               <p className="mt-4 text-base leading-relaxed text-white/85">
@@ -245,7 +245,7 @@ export default function ContactPage() {
       <section className="bg-[var(--brand-priceless-dark)] py-14 text-white">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-6 md:flex-row md:items-center">
           <div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-white/70">Faster than a form</div>
+            <div className="text-xs font-semibold uppercase tracking-wider text-white/85">Faster than a form</div>
             <div className="font-display mt-2 text-3xl md:text-4xl">Pick up the phone.</div>
             <p className="mt-2 max-w-xl text-sm text-white/80">
               During warehouse hours, a real person on the floor answers every call. Tell us what

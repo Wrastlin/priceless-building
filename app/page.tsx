@@ -206,8 +206,8 @@ export default function HomePage() {
               <h1 className="font-display mt-6 text-5xl leading-[1.05] md:text-6xl lg:text-7xl">
                 Discount building materials.<br /><span className="text-[var(--brand-priceless)]">Half off retail.</span>
               </h1>
-              <p className="mt-6 max-w-md text-base text-[var(--muted-foreground)] md:text-lg">
-                Same brands as the big-box stores, at warehouse prices. 825 Washington Street, Wausau.
+              <p className="mt-6 max-w-md text-base text-[var(--foreground)] md:text-lg">
+                The same brands you would find at the big-box stores, usually for about half the retail price. Come walk the floor at 825 Washington Street, Wausau. We are happy to help you find whatever you came in for.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-5">
                 <Link href="/shop" className="btn btn-priceless">Shop everything</Link>
@@ -374,7 +374,7 @@ export default function HomePage() {
                   <Image src={feat.image} alt={feat.label} fill sizes="(min-width:768px) 60vw, 100vw" className="object-cover opacity-85 transition duration-700 group-hover:scale-105 group-hover:opacity-100" quality={75} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
                   <div className="absolute left-6 right-6 bottom-6 text-white">
-                    <div className="font-mono text-xs uppercase tracking-[0.14em] text-white/70">Department 01 / Aisle D</div>
+                    <div className="font-mono text-xs uppercase tracking-[0.14em] text-white/85">Department 01 / Aisle D</div>
                     <div className="font-display mt-2 text-5xl md:text-6xl">{feat.label}.</div>
                     <p className="font-serif mt-2 max-w-md text-base italic text-white/85">{feat.blurb}</p>
                   </div>
@@ -590,7 +590,7 @@ export default function HomePage() {
                   <h3 className="font-display text-xl leading-snug text-white md:text-2xl">
                     {s.t}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-white/75">
+                  <p className="mt-2 text-sm leading-relaxed text-white/85">
                     {s.b}
                   </p>
                 </div>
@@ -667,7 +667,7 @@ export default function HomePage() {
               </div>
               <figcaption className="mt-3 flex items-baseline gap-2 text-sm">
                 <span className="font-semibold uppercase tracking-[0.14em] text-[#ff8b85]">After</span>
-                <span className="text-white/70">Finished install by the Four Squared crew.</span>
+                <span className="text-white/85">Finished install by the Four Squared crew.</span>
               </figcaption>
             </figure>
             <figure>
@@ -681,14 +681,14 @@ export default function HomePage() {
                 />
               </div>
               <figcaption className="mt-3 flex items-baseline gap-2 text-sm">
-                <span className="font-semibold uppercase tracking-[0.14em] text-white/55">Mid-install</span>
-                <span className="text-white/70">Paper down, tape up, new shaker uppers going in.</span>
+                <span className="font-semibold uppercase tracking-[0.14em] text-white/80">Mid-install</span>
+                <span className="text-white/85">Paper down, tape up, new shaker uppers going in.</span>
               </figcaption>
             </figure>
           </div>
 
           <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-6">
-            <div className="text-sm text-white/65">
+            <div className="text-sm text-white/85">
               The surplus floor changes often. Come walk it any day we are open.
             </div>
             <Link href="/shop" className="btn btn-priceless">Shop all products →</Link>
@@ -964,9 +964,9 @@ function NumStat({ n, label, sub }: { n: string; label: string; sub?: string }) 
     <div>
       <div className="flex items-baseline gap-2">
         <span className="font-display text-4xl leading-none text-white md:text-5xl">{n}</span>
-        {sub ? <span className="font-mono text-xs uppercase tracking-wider text-white/60">{sub}</span> : null}
+        {sub ? <span className="font-mono text-xs uppercase tracking-wider text-white/80">{sub}</span> : null}
       </div>
-      <div className="mt-1 text-xs leading-snug text-white/70">{label}</div>
+      <div className="mt-1 text-xs leading-snug text-white/85">{label}</div>
     </div>
   );
 }

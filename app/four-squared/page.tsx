@@ -160,7 +160,7 @@ export default function FourSquaredPage() {
           fabricated "now booking" copy. */}
       <div className="hidden border-b bg-[#0a0e14] text-white md:block">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-2 text-sm">
-          <div className="flex items-center gap-4 text-white/70">
+          <div className="flex items-center gap-4 text-white/85">
             <span className="inline-flex size-2 rounded-full bg-emerald-400" />
             <span className="font-mono text-xs uppercase tracking-[0.14em]">
               Wausau and Marathon County
@@ -182,7 +182,7 @@ export default function FourSquaredPage() {
       <section className="border-b bg-[#0a0e14] text-white">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 pt-16 pb-20 md:grid-cols-12 md:pt-24 md:pb-28">
           <div className="md:col-span-7">
-            <div className="font-mono flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.14em] text-white/70">
+            <div className="font-mono flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.14em] text-white/85">
               <span>Finish carpentry and install crew</span>
               <span className="opacity-50">/</span>
               <span>Wausau, Wisconsin</span>
@@ -209,7 +209,7 @@ export default function FourSquaredPage() {
                 <p className="text-xl leading-[1.4] text-white md:text-2xl">
                   &ldquo;Trades is a dying breed. So we want to do something that represents what us hard-working guys do.&rdquo;
                 </p>
-                <footer className="mt-3 text-sm text-white/65">
+                <footer className="mt-3 text-sm text-white/85">
                   Josh Nickel, owner · to WSAW NewsChannel 7, June 2023
                 </footer>
               </blockquote>
@@ -241,7 +241,7 @@ export default function FourSquaredPage() {
                 quality={85}
               />
             </div>
-            <div className="mt-3 font-mono text-xs uppercase tracking-[0.14em] text-white/55">
+            <div className="mt-3 font-mono text-xs uppercase tracking-[0.14em] text-white/80">
               Representative kitchen. White-oak shaker, island, quartz, pendants.
             </div>
           </aside>
@@ -442,7 +442,7 @@ export default function FourSquaredPage() {
                   </blockquote>
                   <figcaption className="mt-6 border-t border-white/10 pt-4">
                     <div className="text-sm font-semibold text-white">{r.name}</div>
-                    <div className="font-mono mt-1 text-xs uppercase tracking-[0.14em] text-white/60">
+                    <div className="font-mono mt-1 text-xs uppercase tracking-[0.14em] text-white/80">
                       {r.source}
                     </div>
                   </figcaption>
@@ -451,7 +451,7 @@ export default function FourSquaredPage() {
             ))}
           </div>
 
-          <div className="mt-10 text-center text-sm text-white/60">
+          <div className="mt-10 text-center text-sm text-white/80">
             Want to leave one?{" "}
             <a
               href="https://www.google.com/maps/search/?api=1&query=Price-Less+Building+Center+825+Washington+St+Wausau+WI"
@@ -659,7 +659,7 @@ export default function FourSquaredPage() {
               Call {PHONE}
             </a>
           </div>
-          <div className="mt-8 text-sm text-white/55">
+          <div className="mt-8 text-sm text-white/80">
             Four Squared Construction · {ADDRESS.street}, {ADDRESS.city}, {ADDRESS.state}
           </div>
         </div>
