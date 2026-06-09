@@ -1,0 +1,4 @@
+# Screenshots + Gemini review JSONs are regenerated on demand.
+*.png
+*.jpg
+*.json

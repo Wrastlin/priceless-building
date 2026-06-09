@@ -1,0 +1,9 @@
+# Staging-only inputs from a Facebook/Instagram export. The processed
+# outputs are checked in under public/real-photos/business/ via the
+# generated lib/business-photos.ts manifest. The raw imports + the
+# transient JSONL labels don't need git history.
+*.jpg
+*.jpeg
+*.png
+*.webp
+manifest.jsonl

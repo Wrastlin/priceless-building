@@ -1,6 +1,7 @@
 /**
- * Real business photos imported from the storefront's Facebook page.
- * Generated from labels produced by Gemini 3.1 Pro Preview.
+ * Real business photos imported from the storefront's Facebook +
+ * Instagram archives. Generated from labels produced by Gemini 3.1
+ * Pro Preview via tools/photo-import/label-all.sh.
  *
  * Subjects:
  *   storefront-exterior, warehouse-interior, mural, install-kitchen,
@@ -25,6 +26,24 @@ export interface BusinessPhoto {
 
 export const BUSINESS_PHOTOS: BusinessPhoto[] = [
   {
+    "src": "/real-photos/business/giveaway-prize-tote-bag.webp",
+    "alt": "A black tote bag filled with gift certificates and small items, likely a giveaway prize.",
+    "subject": "community-event",
+    "brand": "community",
+    "quality": "good",
+    "best_for": "timeline-event",
+    "notes": "Shows community involvement via a giveaway."
+  },
+  {
+    "src": "/real-photos/business/price-less-paint-day-flyer.webp",
+    "alt": "Flyer for Price-Less Paint Day mural event",
+    "subject": "community-event",
+    "brand": "community",
+    "quality": "good",
+    "best_for": "timeline-event",
+    "notes": "Flyer for community mural painting event."
+  },
+  {
     "src": "/real-photos/business/dark-double-vanity-bathroom-install.jpg",
     "alt": "Double vanity with dark cabinets, white top, black fixtures, and two mirrors in a bathroom.",
     "subject": "install-bath",
@@ -32,6 +51,15 @@ export const BUSINESS_PHOTOS: BusinessPhoto[] = [
     "quality": "good",
     "best_for": "gallery",
     "notes": "Good shot of a completed bathroom vanity install. Lighting is a bit harsh from the fixture, but overall quality is good."
+  },
+  {
+    "src": "/real-photos/business/double-sink-bathroom-vanity-black.webp",
+    "alt": "Bathroom vanity with double sinks, black cabinets, and black framed mirrors.",
+    "subject": "install-bath",
+    "brand": "builders-corner",
+    "quality": "good",
+    "best_for": "gallery",
+    "notes": "Shows completed bathroom vanity project."
   },
   {
     "src": "/real-photos/business/kitchen-remodel-before-after.jpg",
@@ -115,6 +143,15 @@ export const BUSINESS_PHOTOS: BusinessPhoto[] = [
     "notes": "Shows completed cabinetry work."
   },
   {
+    "src": "/real-photos/business/kitchen-sink-dark-wood-cabinets.webp",
+    "alt": "Kitchen sink area with dark wood cabinets and laminate countertop",
+    "subject": "install-kitchen",
+    "brand": "builders-corner",
+    "quality": "good",
+    "best_for": "gallery",
+    "notes": "Shows completed kitchen install, good for gallery."
+  },
+  {
     "src": "/real-photos/business/kitchen-and-bath-remodel-split.jpg",
     "alt": "Split image showing a dark wood kitchen remodel and a bright white bathroom remodel with glass shower",
     "subject": "install-other",
@@ -131,6 +168,15 @@ export const BUSINESS_PHOTOS: BusinessPhoto[] = [
     "quality": "good",
     "best_for": "brand-card",
     "notes": "Logo graphic for brand card."
+  },
+  {
+    "src": "/real-photos/business/newspaper-feature-branded-hat.webp",
+    "alt": "Newspaper article about business growth next to branded hat.",
+    "subject": "other",
+    "brand": "mixed",
+    "quality": "good",
+    "best_for": "timeline-event",
+    "notes": "Press clipping showing company history."
   },
   {
     "src": "/real-photos/business/pendant-light-fixture-warehouse.jpg",
@@ -313,6 +359,24 @@ export const BUSINESS_PHOTOS: BusinessPhoto[] = [
     "notes": "Logo graphic for two brands"
   },
   {
+    "src": "/real-photos/business/priceless-builders-corner-logo.webp",
+    "alt": "Logo featuring a tree made of tools and house silhouettes",
+    "subject": "sign",
+    "brand": "mixed",
+    "quality": "good",
+    "best_for": "brand-card",
+    "notes": "Clear logo graphic suitable for brand identification."
+  },
+  {
+    "src": "/real-photos/business/staff-member-showroom-display.webp",
+    "alt": "Man standing next to flooring and cabinet displays in a showroom.",
+    "subject": "team-or-staff",
+    "brand": "mixed",
+    "quality": "good",
+    "best_for": "gallery",
+    "notes": "Shows staff in showroom setting."
+  },
+  {
     "src": "/real-photos/business/bathroom-vanities-warehouse-display.jpg",
     "alt": "Rows of bathroom vanity cabinets with sinks on display in the warehouse",
     "subject": "warehouse-interior",
@@ -376,6 +440,33 @@ export const BUSINESS_PHOTOS: BusinessPhoto[] = [
     "notes": "Shows inventory well."
   },
   {
+    "src": "/real-photos/business/oak-double-vanity-warehouse-2.webp",
+    "alt": "Long oak bathroom vanity with double sink top on warehouse floor",
+    "subject": "warehouse-interior",
+    "brand": "priceless",
+    "quality": "good",
+    "best_for": "gallery",
+    "notes": "Shows surplus inventory available in warehouse"
+  },
+  {
+    "src": "/real-photos/business/paint-stain-caulk-inventory-shelves.webp",
+    "alt": "Metal shelves stocked with paint cans, stains, and caulking tubes.",
+    "subject": "warehouse-interior",
+    "brand": "priceless",
+    "quality": "good",
+    "best_for": "gallery",
+    "notes": "Shows paint and caulk inventory. Good for warehouse gallery."
+  },
+  {
+    "src": "/real-photos/business/contest-winners-collage-priceless.webp",
+    "alt": "Collage of contest winners holding prizes by store sign.",
+    "subject": "community-event",
+    "brand": "priceless",
+    "quality": "acceptable",
+    "best_for": "timeline-event",
+    "notes": "Giveaway winners collage. Best for social."
+  },
+  {
     "src": "/real-photos/business/dark-double-vanity-install.jpg",
     "alt": "Dark double vanity with white top.",
     "subject": "install-bath",
@@ -401,6 +492,15 @@ export const BUSINESS_PHOTOS: BusinessPhoto[] = [
     "quality": "acceptable",
     "best_for": "gallery",
     "notes": "Shows completed cabinets but counter is cluttered."
+  },
+  {
+    "src": "/real-photos/business/exterior-mural-build-your-future.webp",
+    "alt": "Exterior building mural with tools and text.",
+    "subject": "mural",
+    "brand": "community",
+    "quality": "acceptable",
+    "best_for": "gallery",
+    "notes": "Split image showing physical mural and digital art."
   },
   {
     "src": "/real-photos/business/customer-thank-you-note.jpg",
@@ -662,6 +762,24 @@ export const BUSINESS_PHOTOS: BusinessPhoto[] = [
     "quality": "acceptable",
     "best_for": "catalog-tile",
     "notes": "Surplus inventory product shot."
+  },
+  {
+    "src": "/real-photos/business/door-inventory-collage.webp",
+    "alt": "Collage of various interior and exterior doors in warehouse",
+    "subject": "product-shot",
+    "brand": "priceless",
+    "quality": "acceptable",
+    "best_for": "gallery",
+    "notes": "Collage format shows variety but is less ideal for clean web design."
+  },
+  {
+    "src": "/real-photos/business/blank-wall-planning.webp",
+    "alt": "Two people looking at a blank exterior wall, plus a wider shot of the same wall.",
+    "subject": "storefront-exterior",
+    "brand": "priceless",
+    "quality": "acceptable",
+    "best_for": "timeline-event",
+    "notes": "Shows planning phase for mural."
   },
   {
     "src": "/real-photos/business/warehouse-lighting-inventory.jpg",
