@@ -396,17 +396,19 @@ export default function HomePage() {
       </section>
 
 
-      {/* BEFORE/AFTER. Install pair where the product grid used to live. */}
-      <section className="bg-white">
+      {/* BEFORE/AFTER. Install pair on a dark anchor band so the kitchen
+          photos read like a portfolio spread. */}
+      <section className="bg-[#0b1220] text-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
+            invert
             headline="Before and after."
             link={{ href: "/four-squared", label: "Meet the install crew" }}
           />
 
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             <figure>
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#0b1220]">
                 <Image
                   src="/real-photos/install-kitchen-white-open.webp"
                   alt="A finished real kitchen install: white shaker cabinetry, island, vent hood, LVP floor"
@@ -416,12 +418,12 @@ export default function HomePage() {
                 />
               </div>
               <figcaption className="mt-3 flex items-baseline gap-2 text-sm">
-                <span className="font-semibold uppercase tracking-[0.18em] text-[var(--brand-priceless)]">After</span>
-                <span className="text-[var(--muted-foreground)]">Finished install by the Four Squared crew.</span>
+                <span className="font-semibold uppercase tracking-[0.22em] text-[#ff8b85]">After</span>
+                <span className="text-white/70">Finished install by the Four Squared crew.</span>
               </figcaption>
             </figure>
             <figure>
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#0b1220]">
                 <Image
                   src="/real-photos/install-before-kitchen.webp"
                   alt="A real Wausau kitchen mid-install: white shaker uppers in, kraft paper on the counters, painter's tape edging the floor"
@@ -431,14 +433,14 @@ export default function HomePage() {
                 />
               </div>
               <figcaption className="mt-3 flex items-baseline gap-2 text-sm">
-                <span className="font-semibold uppercase tracking-[0.18em] text-[var(--muted-foreground)]">Mid-install</span>
-                <span className="text-[var(--muted-foreground)]">Paper down, tape up, new shaker uppers going in.</span>
+                <span className="font-semibold uppercase tracking-[0.22em] text-white/55">Mid-install</span>
+                <span className="text-white/70">Paper down, tape up, new shaker uppers going in.</span>
               </figcaption>
             </figure>
           </div>
 
-          <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--border)] pt-6">
-            <div className="text-sm text-[var(--muted-foreground)]">
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-6">
+            <div className="text-sm text-white/65">
               New surplus inventory hits the floor every Wednesday.
             </div>
             <Link href="/shop" className="btn btn-priceless">Shop everything →</Link>
@@ -580,12 +582,14 @@ export default function HomePage() {
       </section>
 
       {/* DESIGN WALKTHROUGH. Explains the upcoming visualization process
-          in plain language with no "AI" framing. Two-column layout fills
-          desktop whitespace and bridges into the newsletter below as
-          the natural way to be told when the tool goes live. */}
-      <section id="design-walkthrough" className="bg-[var(--muted)] scroll-mt-24">
+          in plain language with no "AI" framing. Sits on a dark anchor
+          band so the section reads as a featured CTA rather than just
+          more body content, and so the install photo on the right
+          carries the room. */}
+      <section id="design-walkthrough" className="bg-[#0b1220] text-white scroll-mt-24">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
+            invert
             headline="See it in your home before you buy it."
             sub="We are putting together a step-by-step walkthrough that lets you take a photo of your space, pick out the pieces you would like to add, and see the finished room before any of it leaves the warehouse. Here is how the process goes."
           />
@@ -621,14 +625,14 @@ export default function HomePage() {
               ].map((s) => (
                 <li
                   key={s.n}
-                  className="grid grid-cols-[56px_1fr] items-start gap-x-5 border-b border-[var(--border)] py-6 first:pt-0 last:border-b-0 last:pb-0 md:grid-cols-[80px_1fr] md:gap-x-8"
+                  className="grid grid-cols-[56px_1fr] items-start gap-x-5 border-b border-white/10 py-6 first:pt-0 last:border-b-0 last:pb-0 md:grid-cols-[80px_1fr] md:gap-x-8"
                 >
-                  <div className="font-display text-3xl leading-none text-[var(--brand-priceless)] md:text-4xl">
+                  <div className="font-display text-3xl leading-none text-[#ff8b85] md:text-4xl">
                     {s.n}
                   </div>
                   <div>
-                    <h3 className="font-display text-xl leading-snug md:text-2xl">{s.t}</h3>
-                    <p className="mt-2 text-base leading-relaxed text-[var(--foreground)]">
+                    <h3 className="font-display text-xl leading-snug text-white md:text-2xl">{s.t}</h3>
+                    <p className="mt-2 text-base leading-relaxed text-white/75">
                       {s.b}
                     </p>
                   </div>
@@ -646,14 +650,14 @@ export default function HomePage() {
                   className="object-cover"
                 />
               </div>
-              <figcaption className="mt-4 text-sm leading-relaxed text-[var(--muted-foreground)]">
+              <figcaption className="mt-4 text-sm leading-relaxed text-white/70">
                 A real finished install. The walkthrough lets you see something like this rendered into your own room first, with each piece and its price written out next to it, before anything gets ordered.
               </figcaption>
             </figure>
           </div>
 
-          <div className="mt-14 border-t border-[var(--border)] pt-10">
-            <p className="mx-auto max-w-3xl text-center text-base leading-relaxed text-[var(--foreground)] md:text-lg">
+          <div className="mt-14 border-t border-white/10 pt-10">
+            <p className="mx-auto max-w-3xl text-center text-base leading-relaxed text-white/85 md:text-lg">
               We pride ourselves on honest pricing, quality work, and supporting you in the project you have in mind. The walkthrough is something we are putting together right now. If you would like to be the first to use it when it goes live, the newsletter below is the fastest way to hear about it.
             </p>
           </div>
