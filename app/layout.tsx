@@ -4,21 +4,44 @@ import { Toaster } from "sonner";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import "./globals.css";
 
-const display = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--font-display" });
-const serif = Playfair_Display({ subsets: ["latin"], variable: "--font-serif", style: ["normal", "italic"] });
-const sans = Inter_Tight({ subsets: ["latin"], variable: "--font-sans" });
-const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
-// Fraunces. Builders Corner's primary display + emphasis face.
-// Picked over Cormorant because Cormorant Light reads "thin elegance"
-// (fragrance house) when we actually want "premium but warm"
-// (designer kitchen studio). Fraunces ships an opsz axis so display
-// sizes feel sculpted and body sizes feel friendly without swapping
-// families.
+// display: 'swap' on every face so the H1 (LCP element on mobile)
+// paints with the fallback font immediately and swaps in the web
+// font when it arrives. Without this Lighthouse measures LCP as
+// gated by font load (~900ms element render delay). preload: true
+// on the display face since it's used in the hero H1.
+const display = Bebas_Neue({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+  preload: true,
+});
+const serif = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  style: ["normal", "italic"],
+  display: "swap",
+  preload: false,
+});
+const sans = Inter_Tight({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+  preload: true,
+});
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+  preload: false,
+});
 const couture = Fraunces({
   subsets: ["latin"],
   style: ["normal", "italic"],
   variable: "--font-couture",
   axes: ["opsz", "SOFT"],
+  display: "swap",
+  preload: false,
 });
 
 const SITE_URL = "https://pricelessbuilding.com";
