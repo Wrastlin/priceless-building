@@ -33,7 +33,6 @@ const QUOTE_PORTRAIT = "/real-photos/team-josh-jamus-portrait.webp";
 const BEFORE_IMAGE = "/real-photos/install-before-kitchen.webp";
 const AFTER_IMAGE = "/real-photos/install-kitchen-white-open.webp";
 const THANK_YOU_CARD = "/real-photos/thank-you-card-rosalie-noah.webp";
-const PEGGY_DOOR = "/real-photos/install-blue-door-peggy.webp";
 const BUILDING_IMAGE = "/real-photos/building-exterior.webp";
 
 const WORK_TILES = [
@@ -88,13 +87,6 @@ const REVIEWS: Review[] = [
       "My wife and I bought our quartz counter tops from Price-Less Building Center and couldn't be happier! From the expertise in the store to the installation, they were top notch! Thanks guys!",
     name: "Gary G.",
     source: "Google review, 5 stars",
-  },
-  {
-    quote: "I love the blue door he made for my home. Nice work.",
-    name: "Peggy L.",
-    source: "Google review, 5 stars",
-    image: PEGGY_DOOR,
-    imageAlt: "The dark teal blue front entry door Peggy Lindner picked, installed on a brick home with white-painted brick surround.",
   },
 ];
 
@@ -264,11 +256,11 @@ export default function FourSquaredPage() {
             target="_blank"
             rel="noreferrer"
             className="group flex flex-col gap-1 px-6 py-7"
-            aria-label="Read all 10 Google reviews"
+            aria-label="Read all 9 Google reviews"
           >
             <div className="text-2xl text-[#f5a524]" aria-hidden>★★★★★</div>
             <div className="mt-1 text-base font-semibold text-[var(--foreground)]">4.8 on Google</div>
-            <div className="text-sm text-[var(--muted-foreground)] transition group-hover:text-emerald-700">10 reviews →</div>
+            <div className="text-sm text-[var(--muted-foreground)] transition group-hover:text-emerald-700">9 reviews →</div>
           </a>
           <div className="flex flex-col gap-1 px-6 py-7">
             <div className="font-display text-4xl leading-none text-emerald-700">5.0</div>

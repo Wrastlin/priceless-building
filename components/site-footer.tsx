@@ -142,7 +142,7 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
             © {new Date().getFullYear()} Price-Less Building · Builders Corner · Four Squared
           </span>
           <span className="flex flex-wrap items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-white/70">
-            <span>{ADDRESS.city}, {ADDRESS.state} · Owner-operated by Josh Nickel · Same building since 1978</span>
+            <span>{ADDRESS.city}, {ADDRESS.state} · Same building since 1978</span>
             <a href="/admin" className="text-white/60 underline decoration-white/30 underline-offset-2 hover:text-white">
               Staff sign in
             </a>

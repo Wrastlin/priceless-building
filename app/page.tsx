@@ -147,7 +147,7 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-y-6 px-6 py-8 md:grid-cols-4 md:gap-x-6 md:py-10">
           <NumStat n="HUGE" label="savings vs. big-box retail" />
           <NumStat n="1978" label="serving central Wisconsin since" />
-          <NumStat n="4.8★" label="on Google · 10 reviews" />
+          <NumStat n="4.8★" label="on Google · 9 reviews" />
           <NumStat n="MON-SAT" label="open six days a week" />
         </div>
       </section>
@@ -436,46 +436,48 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* THREE-BRAND CALLOUT. Logos lead. One address, one owner, three
-          businesses. Dark band so it acts as the second anchor (the stat
-          strip is the first). Logos pop on dark; the three brand-tinted
-          card backs sit on top. */}
+      {/* THREE-BRAND CALLOUT. Logos lead. Two store concepts in the same
+          building (Price-Less = surplus / discount, Builders Corner =
+          premium / custom) plus the Four Squared install crew. Dark band
+          acts as the second page anchor (the stat strip is the first). */}
       <section className="bg-[#0b1220] text-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
             align="center"
             invert
-            kicker="One address · One owner · Three businesses"
-            headline="Materials. Design. Install."
-            sub="All three operate out of 825 Washington Street under Josh Nickel. Use any one on its own, or hand us the whole project."
+            headline="Three businesses at the same address."
+            sub="All three share the building at 825 Washington Street. You can use just one of them, or have all three work together on a project."
           />
 
-          <div className="mt-10 grid gap-px overflow-hidden border border-white/10 bg-white/10 md:grid-cols-3">
-          <BrandCard
-            href="/shop"
-            logoBrand="priceless"
-            tone="red"
-            tag="01 · Materials"
-            body="Surplus doors, windows, cabinets, vanities, hardware, trim. Same factories that supply the big-box. Around half off retail."
-            cta="Shop everything"
-          />
-          <BrandCard
-            href="/builders-corner"
-            logoBrand="builders"
-            tone="navy"
-            tag="02 · Design"
-            body="Custom kitchen and bath cabinetry. We measure, draw it up in 3D, walk you through finish samples. First consult is free."
-            cta="See cabinetry"
-          />
-          <BrandCard
-            href="/four-squared"
-            logoBrand="four-squared"
-            tone="ink"
-            tag="03 · Install"
-            body="Josh's install crew. Demo, plumbing, electrical, tile, finish carpentry. One schedule, one lead from start to walkthrough."
-            cta="Meet the crew"
-          />
-        </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            <BrandCard
+              href="/shop"
+              logoBrand="priceless"
+              image="/real-photos/storefront-signage.webp"
+              imageAlt="The Price-Less Building Center storefront on Washington Street"
+              headline="Surplus and discount building materials."
+              body="Doors, windows, cabinets, vanities, hardware, and trim from the same factories that supply the big-box stores. Most things are around half the retail price."
+              cta="Shop the floor"
+            />
+            <BrandCard
+              href="/builders-corner"
+              logoBrand="builders"
+              image="/catalog-images/PL-000404-hero.jpg"
+              imageAlt="A finished Builders Corner showroom kitchen in white shaker with island and quartz"
+              headline="Custom kitchens, baths, and built-ins."
+              body="If you want something designed and built specifically for your house, this is the cabinet shop. We measure at your place, draw it in 3D, and build it in our Wausau shop."
+              cta="See the cabinet shop"
+            />
+            <BrandCard
+              href="/four-squared"
+              logoBrand="four-squared"
+              image="/real-photos/install-kitchen-walnut-island-windows.webp"
+              imageAlt="A finished walnut kitchen installed by the Four Squared crew, with island, windows, and pendant lights"
+              headline="The install crew that does the work."
+              body="Whether you bought materials at Price-Less or had cabinets built at Builders Corner, the same install crew finishes the job. Demo through final walkthrough."
+              cta="Meet the install crew"
+            />
+          </div>
         </div>
       </section>
 
@@ -543,8 +545,8 @@ export default function HomePage() {
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
-            kicker="Three things we don't budge on"
-            headline={<>Honest prices. Builder-grade <span className="text-[var(--brand-priceless)]">quality.</span> No surprises.</>}
+            kicker="What to expect when you come in"
+            headline="A few things worth knowing before you visit."
           />
 
           <ul className="mt-12 grid gap-px bg-[var(--border)] md:grid-cols-3">
@@ -566,7 +568,7 @@ export default function HomePage() {
               <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">03 · Walk-in store</div>
               <h3 className="font-display mt-3 text-2xl leading-tight md:text-3xl">In Wausau since 1978.</h3>
               <p className="mt-3 text-base leading-[1.5] text-[var(--muted-foreground)]">
-                825 Washington Street. Owner-operated by Josh Nickel. Open Monday through Saturday. Come walk it.
+                825 Washington Street. Three partners ran it through the 2019 acquisition and still do. Open Monday through Saturday. Come walk it.
               </p>
             </li>
           </ul>
@@ -574,7 +576,7 @@ export default function HomePage() {
           <div className="mt-10 flex flex-wrap items-center justify-center gap-5 border-t border-[var(--border)] pt-10">
             <Link href="/shop" className="btn btn-priceless">Shop everything →</Link>
             <Link href="/reviews" className="text-base text-[var(--brand-priceless)] underline decoration-[var(--brand-priceless)]/30 underline-offset-4 hover:decoration-[var(--brand-priceless)] md:text-lg">
-              Read our 10 Google reviews
+              Read our 9 Google reviews
             </Link>
           </div>
         </div>
@@ -602,44 +604,44 @@ function Stat({ label, value }: { label: string; value: string }) {
 }
 
 function BrandCard({
-  href, logoBrand, tone, tag, body, cta,
+  href, logoBrand, image, imageAlt, headline, body, cta,
 }: {
   href: string;
   logoBrand: "priceless" | "builders" | "four-squared";
-  tone: "red" | "navy" | "ink";
-  tag: string;
+  image: string;
+  imageAlt: string;
+  headline: string;
   body: string;
   cta: string;
 }) {
-  const accent =
-    tone === "red" ? "text-[var(--brand-priceless)]" :
-    tone === "navy" ? "text-[var(--brand-builders)]" :
-    "text-[#0b1220]";
-  const ruleColor =
-    tone === "red" ? "decoration-[var(--brand-priceless)]" :
-    tone === "navy" ? "decoration-[var(--brand-builders)]" :
-    "decoration-[#0b1220]";
-  // Each card gets a brand-tinted hero block so the THREE logos sit in
-  // three distinct color zones — Price-Less red wash, Builders Corner
-  // navy wash, Four Squared ink wash. Reads instantly as three businesses,
-  // one row.
-  const tintBg =
-    tone === "red" ? "bg-[color-mix(in_srgb,var(--brand-priceless)_8%,white)]" :
-    tone === "navy" ? "bg-[color-mix(in_srgb,var(--brand-builders)_8%,white)]" :
-    "bg-[#f3f5f8]";
   return (
     <Link
       href={href}
-      className="group flex flex-col bg-white transition hover:bg-[var(--muted)]"
+      className="group flex flex-col overflow-hidden border border-white/10 bg-white transition hover:border-white/30"
     >
-      {/* HERO. Logo dominates. Min height so the three sit at matching scale. */}
-      <div className={`flex min-h-[180px] items-center justify-center px-6 py-10 md:min-h-[200px] ${tintBg}`}>
-        <BrandLogo brand={logoBrand} size="lg" className="max-h-[120px]" />
+      {/* PHOTO with logo chip in upper-left. The chip is a white pad
+          around the brand mark so it stays legible over any photo. */}
+      <div className="relative aspect-[4/3] w-full overflow-hidden bg-black">
+        <Image
+          src={image}
+          alt={imageAlt}
+          fill
+          sizes="(min-width:768px) 33vw, 100vw"
+          className="object-cover transition duration-700 group-hover:scale-[1.03]"
+          quality={78}
+        />
+        <div className="absolute left-4 top-4 inline-flex items-center bg-white px-3 py-2 shadow-sm">
+          <BrandLogo brand={logoBrand} size="sm" />
+        </div>
       </div>
       <div className="flex flex-1 flex-col p-6">
-        <div className={`font-mono text-[11px] uppercase tracking-[0.22em] ${accent}`}>{tag}</div>
-        <p className="mt-3 flex-1 text-sm leading-relaxed text-[var(--muted-foreground)] md:text-base">{body}</p>
-        <span className={`font-mono mt-5 inline-block text-[11px] uppercase tracking-[0.22em] underline decoration-2 underline-offset-4 ${ruleColor} ${accent}`}>
+        <h3 className="font-display text-2xl leading-snug text-[var(--foreground)] md:text-[1.625rem]">
+          {headline}
+        </h3>
+        <p className="mt-3 flex-1 text-base leading-relaxed text-[var(--muted-foreground)]">
+          {body}
+        </p>
+        <span className="font-mono mt-5 inline-block text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4">
           {cta} →
         </span>
       </div>

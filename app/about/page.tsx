@@ -14,7 +14,7 @@ const AISLE = "/real-photos/paint-day-flyer.webp";
 export const metadata = {
   title: "About · Price-Less Building Center",
   description:
-    "A Wausau, Wisconsin discount and surplus building supply warehouse, founded in 1978 and owner-operated by Josh Nickel.",
+    "A Wausau, Wisconsin discount and surplus building supply warehouse, founded in 1978 and acquired in 2019 by three local partners.",
 };
 
 export default function AboutPage() {
@@ -172,9 +172,9 @@ export default function AboutPage() {
         <div className="grid items-center gap-12 md:grid-cols-12">
           <div className="md:col-span-7">
             <div className="text-xs font-semibold uppercase tracking-wider text-[var(--brand-priceless)]">Today</div>
-            <h2 className="font-display mt-3 text-3xl md:text-4xl">Owner-operated by Josh Nickel.</h2>
+            <h2 className="font-display mt-3 text-3xl md:text-4xl">Run by the partners.</h2>
             <p className="mt-4 text-[var(--muted-foreground)]">
-              Josh is the current owner of Price-Less Building Center and Builders Corner Cabinetry &amp; Design, and runs Four Squared Construction. The cabinet showroom, the surplus floor, and the install crew all come from the same crew at the same address.
+              Price-Less Building Center, Builders Corner Cabinetry &amp; Design, and Four Squared Construction share the building at 825 Washington and are run by the partner group. Most customers meet whoever&apos;s on the floor that day, not the same person every time.
             </p>
             <blockquote className="mt-8 border-l-2 border-[var(--brand-priceless)] pl-5">
               <p className="font-serif text-lg italic leading-snug text-[var(--foreground)] md:text-xl">

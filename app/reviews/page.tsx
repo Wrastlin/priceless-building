@@ -19,17 +19,6 @@ interface Review {
 const REVIEWS: Review[] = [
   // GOOGLE
   {
-    name: "Peggy L.",
-    source: "Google",
-    stars: 5,
-    body: "Jamus takes pride in the work he does for his customers. I love the blue door he made for my home. Nice work Jamus!",
-    date: "7 months ago",
-    photo: {
-      src: "/real-photos/install-blue-door-peggy.webp",
-      alt: "The dark teal-blue front entry door Peggy bought, installed on her brick home",
-    },
-  },
-  {
     name: "Pamela M.",
     source: "Google",
     stars: 5,

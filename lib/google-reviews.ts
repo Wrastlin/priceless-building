@@ -37,19 +37,12 @@ export type Review = {
 /**
  * Real Google reviews from the Price-Less Building Center listing
  * (Priceless Building Center / Builder's Corner Cabinetry,
- * 825 Washington St, Wausau, WI — 4.8 stars, 10 reviews as of 2026-06).
- * These are real quotes from real customers, attributed by first name.
- * When Google Places API is wired up the live reviews replace these.
+ * 825 Washington St, Wausau, WI — 4.8 stars, 9 displayed reviews
+ * as of 2026-06). These are real quotes from real customers, attributed
+ * by first name. When Google Places API is wired up the live reviews
+ * replace these.
  */
 const FALLBACK_REVIEWS: Review[] = [
-  {
-    quote:
-      "Jamus takes pride in the work he does for his customers. I love the blue door he made for my home. Nice work Jamus!",
-    source: "Google",
-    author: "Peggy L.",
-    rating: 5,
-    relative: "7 months ago",
-  },
   {
     quote:
       "Contacted the staff to see if they had a countertop size we were having trouble finding. They searched for our measurements, sent us updates and went above and beyond to help. The best part? We found one in great condition for $25! Crazy good deal with the best customer service around.",
@@ -114,7 +107,7 @@ const FALLBACK_REVIEWS: Review[] = [
   },
 ];
 
-export const GOOGLE_RATING = { average: 4.8, count: 10 } as const;
+export const GOOGLE_RATING = { average: 4.8, count: 9 } as const;
 
 type CacheEntry = { fetched: number; reviews: Review[] };
 const CACHE_TTL_MS = 6 * 60 * 60 * 1000;

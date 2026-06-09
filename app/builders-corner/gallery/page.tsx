@@ -114,11 +114,11 @@ export default function GalleryPage() {
                   target="_blank"
                   rel="noreferrer"
                   className="group block border-l border-white/15 pl-5"
-                  aria-label="Read all 10 Google reviews"
+                  aria-label="Read all 9 Google reviews"
                 >
                   <div className="text-2xl text-[#f5a524]" aria-hidden>★★★★★</div>
                   <div className="mt-3 text-sm uppercase tracking-[0.16em] text-white/65 transition group-hover:text-white">
-                    4.8 on Google · 10 reviews →
+                    4.8 on Google · 9 reviews →
                   </div>
                 </a>
               </dl>
