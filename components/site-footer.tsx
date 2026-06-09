@@ -151,7 +151,10 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
 
 function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
-    <Link href={href} className="text-[var(--foreground)] hover:text-[var(--brand-priceless)]">
+    <Link
+      href={href}
+      className="block py-2 text-base text-[var(--foreground)] hover:text-[var(--brand-priceless)]"
+    >
       {children}
     </Link>
   );

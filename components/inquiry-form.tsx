@@ -104,26 +104,25 @@ export function InquiryForm({ brand, heading, intro, submitLabel }: Props) {
 
   // Brand-aware class fragments. Kept inline so the whole component is
   // grep-able for either brand's tokens.
-  const accent = isBuilders ? "text-[var(--brand-builders-gold)]" : "text-emerald-400";
-  const headingClass = isBuilders
-    ? "font-couture text-5xl leading-[1.05] tracking-[-0.02em] text-[var(--brand-builders)] md:text-6xl"
-    : "font-display text-5xl leading-[1.02] text-[var(--foreground)] md:text-6xl";
-  const introClass = isBuilders
-    ? "mt-6 max-w-xl text-lg leading-[1.7] text-[var(--muted-foreground)] md:text-xl"
-    : "mt-6 max-w-xl text-base leading-relaxed text-[var(--muted-foreground)] md:text-lg";
-  const labelBase = isBuilders
-    ? "font-couture text-base italic text-[var(--brand-builders)]"
-    : "font-mono text-xs uppercase tracking-[0.14em] text-emerald-700";
-  // Full bordered input boxes (not bottom-borders) so older customers
-  // immediately recognize them as tappable form fields.
+  // Unified visual treatment across both brands. Both forms now use
+  // the Price-Less display + sans typography, full bordered input
+  // boxes, and a real solid submit button so older customers always
+  // see a tappable target.
+  const accent = isBuilders ? "text-[var(--brand-priceless)]" : "text-emerald-400";
+  const headingClass =
+    "font-display text-5xl leading-[1.02] text-[var(--foreground)] md:text-6xl";
+  const introClass =
+    "mt-6 max-w-xl text-base leading-relaxed text-[var(--foreground)] md:text-lg";
+  const labelBase =
+    "font-mono text-xs font-semibold uppercase tracking-[0.14em] text-[var(--foreground)]";
   const fieldBase =
     "w-full rounded-md border bg-white px-3.5 py-3 text-base text-[var(--foreground)] outline-none focus:ring-0";
   const underline = isBuilders
-    ? "border-[var(--brand-builders)]/30 focus:border-[var(--brand-builders)]"
+    ? "border-[var(--border)] focus:border-[var(--brand-priceless)]"
     : "border-[var(--border)] focus:border-emerald-600";
   const submitClass = isBuilders
-    ? "font-couture inline-flex items-center gap-2 border-b-2 border-[var(--brand-builders-gold)] pb-1.5 text-base italic text-[var(--brand-builders)] transition hover:text-[var(--brand-builders-gold)] disabled:opacity-50 md:text-lg"
-    : "inline-flex items-center gap-2 bg-emerald-600 px-6 py-3 font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-emerald-700 disabled:opacity-50";
+    ? "inline-flex items-center justify-center gap-2 rounded-md bg-[var(--brand-priceless)] px-6 py-3.5 text-base font-semibold text-white transition hover:bg-[var(--brand-priceless-dark)] disabled:opacity-50"
+    : "inline-flex items-center justify-center gap-2 rounded-md bg-emerald-600 px-6 py-3.5 text-base font-semibold text-white transition hover:bg-emerald-700 disabled:opacity-50";
 
   return (
     <div>

@@ -23,7 +23,7 @@ export default function ShopIndex() {
             The whole <span className="text-[var(--brand-priceless)]">warehouse,</span> by department.
           </h1>
           <p className="font-serif mt-5 max-w-2xl text-base italic text-[var(--muted-foreground)] md:text-lg">
-            Pricing reflects current floor stock. Tap &ldquo;Online Hold&rdquo; on any item and we&apos;ll set it aside for 48 hours.
+            Pricing reflects current floor stock. Call us at (715) 848-3855 to put a hold on something you want to come pick up.
           </p>
         </header>
       </section>
@@ -36,7 +36,7 @@ export default function ShopIndex() {
           </div>
           <ul className="-mx-6 flex snap-x snap-mandatory gap-px overflow-x-auto bg-[var(--border)] px-6 pb-3">
             {entries.map(([key, cat], i) => (
-              <li key={key} className="snap-start" style={{ width: "min(72vw, 320px)" }}>
+              <li key={key} className="snap-start shrink-0" style={{ width: "min(72vw, 320px)" }}>
                 <Link href={`/shop/${key}`} className="group relative block aspect-[3/4] overflow-hidden bg-black">
                   <Image src={cat.image} alt={cat.label} fill sizes="320px" className="object-cover transition duration-700 group-hover:scale-105" quality={70} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />

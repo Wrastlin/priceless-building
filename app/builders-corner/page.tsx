@@ -317,14 +317,14 @@ export default function BuildersCornerPage() {
             sub="A few directions to start from. Every photo is a real install."
           />
 
-          <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-6 md:gap-4">
+          <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-6 sm:gap-4">
             {SHOWROOM.map((p, i) => {
               const span =
                 i === 0 || i === 1
-                  ? "col-span-2 md:col-span-3"
+                  ? "sm:col-span-3"
                   : i === 5
-                    ? "col-span-2 md:col-span-3"
-                    : "col-span-1 md:col-span-2";
+                    ? "sm:col-span-3"
+                    : "sm:col-span-2";
               return (
                 <figure
                   key={p.src}
