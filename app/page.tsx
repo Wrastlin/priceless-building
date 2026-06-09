@@ -210,10 +210,10 @@ export default function HomePage() {
                 <span>Wausau, WI</span>
               </div>
               <h1 className="font-display mt-6 text-5xl leading-[1.05] md:text-6xl lg:text-7xl">
-                Discount building materials.<br /><span className="text-[var(--brand-priceless)]">Half off retail.</span>
+                Brand-new building materials, big-box brands,<br /><span className="text-[var(--brand-priceless)]">a fraction of the cost.</span>
               </h1>
-              <p className="mt-6 max-w-md text-base text-[var(--foreground)] md:text-lg">
-                The same brands you would find at the big-box stores, usually for about half the retail price. Come walk the floor at 825 Washington Street, Wausau. We are happy to help you find whatever you came in for.
+              <p className="mt-6 max-w-xl text-base text-[var(--foreground)] md:text-lg">
+                Plus a premium custom cabinet shop and an install crew across the parking lot — three local brands under one roof at 825 Washington Street in Wausau. We are happy to help you find whatever you came in for.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-5">
                 <Link href="/shop" className="btn btn-priceless">Shop everything</Link>
