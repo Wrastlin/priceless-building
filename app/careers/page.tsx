@@ -57,7 +57,7 @@ export default function CareersPage() {
       <section className="border-b bg-white">
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 pt-14 pb-12 md:grid-cols-12 md:gap-12 md:pt-20 md:pb-20">
           <div className="md:col-span-7">
-            <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">
+            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
               Hiring in {ADDRESS.city}, {ADDRESS.state}
             </div>
             <h1 className="font-display mt-4 text-5xl leading-[1.05] md:text-6xl lg:text-7xl">
@@ -105,7 +105,7 @@ export default function CareersPage() {
         <div className="mx-auto max-w-7xl px-6 py-14 md:py-20">
           <div className="grid items-end gap-6 md:grid-cols-12">
             <div className="md:col-span-7">
-              <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">
+              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
                 Do you have…
               </div>
               <h2 className="font-display mt-3 text-4xl leading-tight md:text-5xl">
@@ -131,7 +131,7 @@ export default function CareersPage() {
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-24">
           <div className="grid items-end gap-6 md:grid-cols-12">
             <div className="md:col-span-7">
-              <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">
+              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
                 Open positions
               </div>
               <h2 className="font-display mt-3 text-4xl leading-tight md:text-5xl">
@@ -147,7 +147,7 @@ export default function CareersPage() {
               <li key={p.title} className="border border-[var(--border)] bg-white p-6 md:p-8">
                 <div className="flex flex-wrap items-baseline justify-between gap-3">
                   <h3 className="font-display text-3xl leading-tight md:text-4xl">{p.title}</h3>
-                  <div className="font-mono text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+                  <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
                     {p.type} · {p.location}
                   </div>
                 </div>

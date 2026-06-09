@@ -95,13 +95,13 @@ export default function ComparePage() {
                     {/* Price-Less hero row */}
                     <div className="mt-4 flex items-end justify-between rounded-lg bg-[var(--brand-priceless)] p-4 text-white">
                       <div>
-                        <div className="text-[11px] font-semibold uppercase tracking-wider text-white/80">
+                        <div className="text-xs font-semibold uppercase tracking-wider text-white/80">
                           Price-Less tag
                         </div>
                         <div className="font-display text-4xl">{formatCurrency(it.price)}</div>
                       </div>
                       <div className="text-right">
-                        <div className="text-[11px] font-semibold uppercase tracking-wider text-white/80">
+                        <div className="text-xs font-semibold uppercase tracking-wider text-white/80">
                           You save
                         </div>
                         <div className="font-display text-2xl">{formatCurrency(savings)}</div>

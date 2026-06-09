@@ -52,7 +52,7 @@ export function TimelineRail({ events }: { events: TimelineEvent[] }) {
                   {e.year}
                 </div>
                 {e.month ? (
-                  <div className="font-mono mt-1.5 text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
+                  <div className="font-mono mt-1.5 text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
                     {e.month}
                   </div>
                 ) : null}
@@ -81,7 +81,7 @@ export function TimelineRail({ events }: { events: TimelineEvent[] }) {
                       href={e.source.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="font-mono mt-4 inline-flex text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
+                      className="font-mono mt-4 inline-flex text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
                     >
                       {e.source.label} →
                     </a>

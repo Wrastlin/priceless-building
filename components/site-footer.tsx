@@ -15,7 +15,7 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
         {/* OVERSIZED BRAND ROW */}
         <div className="grid items-end gap-10 border-b pb-12 md:grid-cols-12">
           <div className="md:col-span-8">
-            <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)]">
+            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
               Visit us · {ADDRESS.city}, {ADDRESS.state}
             </div>
             <div className="font-display mt-4 text-6xl leading-[1.05] md:text-8xl">
@@ -26,7 +26,7 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
           <div className="md:col-span-4">
             <a
               href={`tel:${ADDRESS.phone.replace(/[^0-9+]/g, "")}`}
-              className="font-mono block text-sm uppercase tracking-[0.18em] underline decoration-[var(--brand-priceless)] decoration-2 underline-offset-4"
+              className="font-mono block text-sm uppercase tracking-[0.14em] underline decoration-[var(--brand-priceless)] decoration-2 underline-offset-4"
             >
               {ADDRESS.phone} →
             </a>
@@ -34,7 +34,7 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
               href={`https://maps.google.com/?q=${encodeURIComponent(`${ADDRESS.street}, ${ADDRESS.city}, ${ADDRESS.state} ${ADDRESS.zip}`)}`}
               target="_blank"
               rel="noreferrer"
-              className="font-mono mt-3 block text-sm uppercase tracking-[0.18em] underline decoration-[var(--muted-foreground)]/40 decoration-2 underline-offset-4"
+              className="font-mono mt-3 block text-sm uppercase tracking-[0.14em] underline decoration-[var(--muted-foreground)]/40 decoration-2 underline-offset-4"
             >
               Get directions →
             </a>
@@ -44,10 +44,10 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
         {/* COLUMNS */}
         <div className="mt-12 grid gap-10 md:grid-cols-12">
           <div className="md:col-span-3">
-            <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--muted-foreground)]">Hours</div>
+            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">Hours</div>
             <ul className="mt-4 space-y-1.5">
               {b.hours.map((h) => (
-                <li key={h.day} className="font-mono flex justify-between gap-3 text-[11px] uppercase tracking-[0.12em]">
+                <li key={h.day} className="font-mono flex justify-between gap-3 text-xs uppercase tracking-[0.12em]">
                   <span className="text-[var(--foreground)]">{h.day}</span>
                   <span className="text-[var(--muted-foreground)]">{h.hours}</span>
                 </li>
@@ -56,7 +56,7 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
           </div>
 
           <div className="md:col-span-3">
-            <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
               {brand === "priceless" ? "Shop" : "Studio"}
             </div>
             <ul className="mt-4 space-y-2 text-sm">
@@ -79,7 +79,7 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
           </div>
 
           <div className="md:col-span-3">
-            <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
               Sister brands
             </div>
             <div className="mt-4 flex items-start gap-4">
@@ -90,7 +90,7 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
                 <li><FooterLink href="/four-squared">Four Squared</FooterLink></li>
               </ul>
             </div>
-            <div className="font-mono mt-6 text-[11px] uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+            <div className="font-mono mt-6 text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
               Policies
             </div>
             <ul className="mt-4 space-y-2 text-sm">
@@ -99,7 +99,7 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
           </div>
 
           <div className="md:col-span-3">
-            <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
               Follow
             </div>
             <ul className="mt-4 space-y-2 text-sm">
@@ -134,10 +134,10 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
       {/* BASELINE */}
       <div className="border-t bg-[var(--brand-priceless-dark)] text-white">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-2 px-6 py-3">
-          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/70">
+          <span className="font-mono text-xs uppercase tracking-[0.14em] text-white/70">
             © {new Date().getFullYear()} Price-Less Building · Builders Corner · Four Squared
           </span>
-          <span className="flex flex-wrap items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-white/70">
+          <span className="flex flex-wrap items-center gap-3 font-mono text-xs uppercase tracking-[0.14em] text-white/70">
             <span>{ADDRESS.city}, {ADDRESS.state} · Same building since 1978</span>
             <a href="/admin" className="text-white/60 underline decoration-white/30 underline-offset-2 hover:text-white">
               Staff sign in

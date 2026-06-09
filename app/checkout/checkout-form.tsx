@@ -84,7 +84,7 @@ export function CheckoutForm({ catalog }: { catalog: CatalogItem[] }) {
                   <input type="radio" name="fulfillment" checked={active} onChange={() => setFulfillment(f)} className="mt-1" />
                   <div>
                     <div className="font-display text-xl leading-tight">{f === "pickup" ? "Pickup" : "Local delivery"}</div>
-                    <div className="font-mono mt-2 text-[10px] uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+                    <div className="font-mono mt-2 text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
                       {f === "pickup" ? "Free · usually 60 min" : "$79 flat · 25 mi · 1–3 day"}
                     </div>
                   </div>
@@ -111,7 +111,7 @@ export function CheckoutForm({ catalog }: { catalog: CatalogItem[] }) {
                   <input type="radio" checked={active} onChange={() => setPay(p)} className="mt-1" />
                   <div>
                     <div className="font-display text-xl leading-tight">{p === "hold" ? "Hold + pay in store" : "Card · Stripe"}</div>
-                    <div className="font-mono mt-2 text-[10px] uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+                    <div className="font-mono mt-2 text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
                       {p === "hold" ? "No card needed · reserved 48 hours" : "Charged when we confirm stock"}
                     </div>
                   </div>
@@ -123,7 +123,7 @@ export function CheckoutForm({ catalog }: { catalog: CatalogItem[] }) {
       </div>
 
       <aside className="h-fit border-l border-[var(--border)] pl-8 md:col-span-5">
-        <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">
+        <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
           Order · {rows.length} item{rows.length === 1 ? "" : "s"}
         </div>
         <ul className="mt-6 divide-y">
@@ -134,7 +134,7 @@ export function CheckoutForm({ catalog }: { catalog: CatalogItem[] }) {
               </div>
               <div className="min-w-0">
                 <div className="font-display line-clamp-1 text-base leading-tight">{r.item.title}</div>
-                <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--muted-foreground)]">× {r.qty}</div>
+                <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">× {r.qty}</div>
               </div>
               <div className="font-display text-base">{formatCurrency(r.item.price * r.qty)}</div>
             </li>
@@ -146,7 +146,7 @@ export function CheckoutForm({ catalog }: { catalog: CatalogItem[] }) {
           <Row label={fulfillment === "pickup" ? "Pickup" : "Delivery"} value={delivery === 0 ? "Free" : formatCurrency(delivery)} />
         </dl>
         <div className="mt-6 flex items-end justify-between border-t pt-4">
-          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--muted-foreground)]">Total</span>
+          <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">Total</span>
           <span className="font-display text-4xl">{formatCurrency(total)}</span>
         </div>
         <button type="submit" className="btn btn-priceless mt-6 w-full">Place order</button>
@@ -162,7 +162,7 @@ function Section({ index, title, children }: { index: string; title: string; chi
   return (
     <section>
       <div className="flex items-baseline gap-4 border-b pb-3">
-        <span className="font-mono text-[11px] tracking-tighter text-[var(--brand-priceless)]">{index}</span>
+        <span className="font-mono text-xs tracking-tighter text-[var(--brand-priceless)]">{index}</span>
         <h2 className="font-display text-2xl">{title}.</h2>
       </div>
       <div className="mt-6">{children}</div>
@@ -173,7 +173,7 @@ function Section({ index, title, children }: { index: string; title: string; chi
 function Input({ label, wide, ...rest }: { label: string; wide?: boolean } & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <label className={"block " + (wide ? "md:col-span-2" : "")}>
-      <span className="font-mono mb-2 block text-[10px] uppercase tracking-[0.18em] text-[var(--muted-foreground)]">{label}</span>
+      <span className="font-mono mb-2 block text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">{label}</span>
       <input className="w-full border-0 border-b border-[var(--border)] bg-transparent px-0 py-2 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0" {...rest} />
     </label>
   );
@@ -182,7 +182,7 @@ function Input({ label, wide, ...rest }: { label: string; wide?: boolean } & Rea
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-center justify-between">
-      <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--muted-foreground)]">{label}</dt>
+      <dt className="font-mono text-xs uppercase tracking-[0.12em] text-[var(--muted-foreground)]">{label}</dt>
       <dd className="font-display text-base">{value}</dd>
     </div>
   );

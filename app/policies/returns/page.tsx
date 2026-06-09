@@ -18,7 +18,7 @@ export default function ReturnsPolicy() {
     <>
       <SiteHeader brand="priceless" />
       <section className="mx-auto max-w-5xl px-6 pt-14 pb-10">
-        <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">Policies</div>
+        <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">Policies</div>
         <h1 className="font-display mt-3 text-5xl leading-[1.05] md:text-7xl">
           Returns & <span className="text-[var(--brand-priceless)]">exchanges.</span>
         </h1>
@@ -29,7 +29,7 @@ export default function ReturnsPolicy() {
         <div className="mt-10 grid gap-10 md:grid-cols-[200px_1fr]">
           <aside className="md:sticky md:top-20 md:self-start">
             <nav className="rounded-xl border bg-white p-4 shadow-card">
-              <div className="text-[10px] font-semibold uppercase tracking-wider text-[var(--muted-foreground)]">On this page</div>
+              <div className="text-xs font-semibold uppercase tracking-wider text-[var(--muted-foreground)]">On this page</div>
               <ul className="mt-2 space-y-1.5 text-sm">
                 {SECTIONS.map((s) => (
                   <li key={s.id}><a href={`#${s.id}`} className="hover:underline">{s.title}</a></li>

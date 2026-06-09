@@ -113,19 +113,21 @@ export function InquiryForm({ brand, heading, intro, submitLabel }: Props) {
     : "mt-6 max-w-xl text-base leading-relaxed text-[var(--muted-foreground)] md:text-lg";
   const labelBase = isBuilders
     ? "font-couture text-base italic text-[var(--brand-builders)]"
-    : "font-mono text-[11px] uppercase tracking-[0.22em] text-emerald-700";
+    : "font-mono text-xs uppercase tracking-[0.14em] text-emerald-700";
+  // Full bordered input boxes (not bottom-borders) so older customers
+  // immediately recognize them as tappable form fields.
   const fieldBase =
-    "w-full border-0 bg-transparent px-0 py-2 text-base text-[var(--foreground)] outline-none focus:ring-0";
+    "w-full rounded-md border bg-white px-3.5 py-3 text-base text-[var(--foreground)] outline-none focus:ring-0";
   const underline = isBuilders
-    ? "border-b border-[var(--brand-builders)]/25 focus:border-[var(--brand-builders)]"
-    : "border-b border-[var(--foreground)]/20 focus:border-emerald-600";
+    ? "border-[var(--brand-builders)]/30 focus:border-[var(--brand-builders)]"
+    : "border-[var(--border)] focus:border-emerald-600";
   const submitClass = isBuilders
     ? "font-couture inline-flex items-center gap-2 border-b-2 border-[var(--brand-builders-gold)] pb-1.5 text-base italic text-[var(--brand-builders)] transition hover:text-[var(--brand-builders-gold)] disabled:opacity-50 md:text-lg"
-    : "inline-flex items-center gap-2 bg-emerald-600 px-6 py-3 font-mono text-[12px] font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-emerald-700 disabled:opacity-50";
+    : "inline-flex items-center gap-2 bg-emerald-600 px-6 py-3 font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-emerald-700 disabled:opacity-50";
 
   return (
     <div>
-      <div className={`font-${isBuilders ? "couture" : "mono"} ${isBuilders ? "text-2xl italic" : "text-[11px] uppercase tracking-[0.22em]"} ${accent}`}>
+      <div className={`font-${isBuilders ? "couture" : "mono"} ${isBuilders ? "text-2xl italic" : "text-xs uppercase tracking-[0.14em]"} ${accent}`}>
         {isBuilders ? "Get in touch" : "Project intake"}
       </div>
       <h2
@@ -330,7 +332,7 @@ function SuccessPanel({
         className={
           isBuilders
             ? "font-couture text-2xl italic text-[var(--brand-builders-gold)]"
-            : "font-mono text-[11px] uppercase tracking-[0.22em] text-emerald-700"
+            : "font-mono text-xs uppercase tracking-[0.14em] text-emerald-700"
         }
       >
         Got it.

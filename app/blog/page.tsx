@@ -160,7 +160,7 @@ export default function BlogPage() {
                 />
                 <span
                   className={
-                    "absolute left-4 top-4 rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider " +
+                    "absolute left-4 top-4 rounded-full px-2.5 py-1 text-xs font-semibold uppercase tracking-wider " +
                     CAT_COLORS[p.category]
                   }
                 >

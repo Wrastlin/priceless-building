@@ -175,7 +175,7 @@ export default function ContractorsPage() {
                 <p className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: `&ldquo;${t.quote}&rdquo;` }} />
                 <div className="mt-3 font-display text-base">{t.name}</div>
                 <div className="text-xs text-[var(--muted-foreground)]">{t.company}</div>
-                <div className="mt-1 inline-flex rounded-full bg-[var(--brand-priceless)]/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[var(--brand-priceless)]">
+                <div className="mt-1 inline-flex rounded-full bg-[var(--brand-priceless)]/10 px-2 py-0.5 text-xs font-semibold uppercase tracking-wider text-[var(--brand-priceless)]">
                   {t.trade}
                 </div>
               </div>

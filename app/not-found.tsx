@@ -48,7 +48,7 @@ export default function NotFound() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
                   <div className="absolute bottom-3 left-3 right-3">
                     <div className="font-display text-lg text-white">{cat.label}</div>
-                    <div className="mt-0.5 text-[11px] text-white/75">{cat.blurb}</div>
+                    <div className="mt-0.5 text-xs text-white/75">{cat.blurb}</div>
                   </div>
                 </Link>
               );

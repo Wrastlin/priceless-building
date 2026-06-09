@@ -133,7 +133,7 @@ export default function FinancingPage() {
                 (i === 0 ? "ring-2 ring-[var(--brand-priceless)]" : "")
               }
             >
-              <span className="inline-flex w-fit rounded-full bg-[var(--brand-priceless)]/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-[var(--brand-priceless)]">
+              <span className="inline-flex w-fit rounded-full bg-[var(--brand-priceless)]/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-wider text-[var(--brand-priceless)]">
                 {t.badge}
               </span>
               <h3 className="font-display mt-4 text-2xl">{t.title}</h3>

@@ -20,7 +20,7 @@ export function MobileTabbar() {
           <Link
             key={t.href}
             href={t.href}
-            className="flex flex-1 flex-col items-center gap-0.5 rounded-xl px-2 py-2 text-[10px] font-semibold text-[var(--muted-foreground)] hover:bg-[var(--muted)]"
+            className="flex flex-1 flex-col items-center gap-0.5 rounded-xl px-2 py-2 text-xs font-semibold text-[var(--muted-foreground)] hover:bg-[var(--muted)]"
           >
             <span aria-hidden className="text-base">{t.icon}</span>
             {t.label}

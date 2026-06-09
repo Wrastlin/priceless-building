@@ -42,7 +42,7 @@ export function SiteHeader({ brand }: { brand: "priceless" | "builders" | "four-
             <span className="font-display text-lg tracking-tight text-foreground md:text-xl">
               Price-<span className="text-[var(--brand-priceless)]">Less</span> Building
             </span>
-            <span className="mt-1 truncate text-[10px] uppercase tracking-[0.18em] text-[var(--muted-foreground)] md:text-xs">
+            <span className="mt-1 truncate text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)] md:text-xs">
               Wausau, WI · Est. 1978
             </span>
           </span>

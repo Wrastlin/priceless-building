@@ -146,7 +146,7 @@ export default async function BlogPostPage({
           </Link>
           <span
             className={
-              "mt-5 inline-flex rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider " +
+              "mt-5 inline-flex rounded-full px-2.5 py-1 text-xs font-semibold uppercase tracking-wider " +
               CAT_COLORS[post.category]
             }
           >
@@ -233,7 +233,7 @@ export default async function BlogPostPage({
                 <Image src={p.cover} alt={p.title} fill className="object-cover transition group-hover:scale-[1.02]" sizes="33vw" />
               </div>
               <div className="p-5">
-                <div className="text-[11px] font-semibold uppercase tracking-wider text-[var(--brand-priceless)]">
+                <div className="text-xs font-semibold uppercase tracking-wider text-[var(--brand-priceless)]">
                   {p.category}
                 </div>
                 <div

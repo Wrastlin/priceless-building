@@ -99,7 +99,7 @@ export function MainMenu({
         style={{ transitionTimingFunction: "cubic-bezier(.2,.8,.2,1)" }}
       >
         <div className="flex items-center justify-between border-b border-[var(--border)] px-5 py-4">
-          <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)]">
+          <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
             Menu
           </span>
           <button
@@ -116,7 +116,7 @@ export function MainMenu({
 
         <div className="flex-1 overflow-y-auto">
           <section className="px-5 pt-5">
-            <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
+            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
               Shop by department
             </div>
             <ul className="mt-3 grid grid-cols-2 gap-3">
@@ -140,7 +140,7 @@ export function MainMenu({
                       <span className="font-display text-base leading-none">
                         {dept.label}
                       </span>
-                      <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--brand-priceless)] opacity-0 transition group-hover:opacity-100">
+                      <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] opacity-0 transition group-hover:opacity-100">
                         →
                       </span>
                     </div>
@@ -151,14 +151,14 @@ export function MainMenu({
             <Link
               href="/shop"
               onClick={() => setOpen(false)}
-              className="font-mono mt-4 inline-flex items-center text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
+              className="font-mono mt-4 inline-flex items-center text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
             >
               Shop everything →
             </Link>
           </section>
 
           <section className="mt-8 border-t border-[var(--border)] px-5 pt-5">
-            <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
+            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
               The rest of the site
             </div>
             <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1">
@@ -177,7 +177,7 @@ export function MainMenu({
           </section>
 
           <section className="mt-8 border-t border-[var(--border)] px-5 pt-5 pb-6">
-            <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
+            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
               Our other brands
             </div>
             <div className="mt-3 flex flex-col gap-2">
@@ -261,7 +261,7 @@ function BrandPill({
         <span className="font-display text-base">{title}</span>
         <span className="text-xs text-[var(--muted-foreground)]">{subtitle}</span>
       </span>
-      <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--muted-foreground)] group-hover:text-[var(--brand-priceless)]">
+      <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)] group-hover:text-[var(--brand-priceless)]">
         {active ? "Current" : "Visit →"}
       </span>
     </Link>

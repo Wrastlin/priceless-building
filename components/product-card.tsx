@@ -39,6 +39,17 @@ export function ProductCard({ item, href }: { item: CatalogItem; href?: string }
         }}
       />
       <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
+        {/* Fallback placeholder so a missing image reads as "photo
+            coming soon" instead of empty gray space. The real Image
+            sits on top and covers the placeholder when it loads. */}
+        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-1.5 text-[var(--muted-foreground)]/55">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <polyline points="21 15 16 10 5 21" />
+          </svg>
+          <span className="text-xs uppercase tracking-wider">Photo coming soon</span>
+        </div>
         <Image
           src={item.image}
           alt={item.title}
@@ -53,7 +64,7 @@ export function ProductCard({ item, href }: { item: CatalogItem; href?: string }
           </span>
         ) : null}
         {item.badges?.[0] ? (
-          <span className="font-mono absolute right-3 top-3 bg-black/75 px-2.5 py-1 text-[10px] uppercase tracking-wider text-white">
+          <span className="font-mono absolute right-3 top-3 bg-black/75 px-2.5 py-1 text-xs uppercase tracking-wider text-white">
             {item.badges[0]}
           </span>
         ) : null}
@@ -65,12 +76,12 @@ export function ProductCard({ item, href }: { item: CatalogItem; href?: string }
           <div>
             <div className="font-display text-2xl">{formatCurrency(item.price)}</div>
             {item.msrp && item.msrp > item.price ? (
-              <div className="font-mono mt-0.5 text-[11px] text-[var(--muted-foreground)] line-through">
+              <div className="font-mono mt-0.5 text-xs text-[var(--muted-foreground)] line-through">
                 Retail {formatCurrency(item.msrp)}
               </div>
             ) : null}
           </div>
-          <div className="font-mono text-right text-[10px] uppercase tracking-wider text-[var(--muted-foreground)]">
+          <div className="font-mono text-right text-xs uppercase tracking-wider text-[var(--muted-foreground)]">
             <div>{item.location}</div>
             <div className="mt-0.5">SKU {item.sku}</div>
           </div>

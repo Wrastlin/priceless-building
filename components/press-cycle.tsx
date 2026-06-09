@@ -66,7 +66,7 @@ export function PressCycle({
               >
                 <span
                   className={
-                    "font-mono mt-1 w-7 shrink-0 text-[11px] tracking-tight " +
+                    "font-mono mt-1 w-7 shrink-0 text-xs tracking-tight " +
                     (isActive
                       ? "text-[var(--brand-priceless)]"
                       : "text-[var(--muted-foreground)]")
@@ -132,7 +132,7 @@ export function PressCycle({
           <div className="mt-3 text-xs text-[var(--muted-foreground)]">
             {current.attribution}
           </div>
-          <span className="font-mono mt-5 inline-block text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4">
+          <span className="font-mono mt-5 inline-block text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4">
             Read the full story →
           </span>
         </div>
@@ -151,7 +151,7 @@ export function PressCycle({
               }
             />
           ))}
-          <span className="ml-auto text-[10px] uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+          <span className="ml-auto text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
             {active + 1} of {items.length}
           </span>
         </div>

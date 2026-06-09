@@ -16,7 +16,7 @@ export default function ShopIndex() {
       {/* HEADER */}
       <section className="mx-auto max-w-7xl px-6 pt-14 pb-12">
         <header className="max-w-3xl">
-          <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)]">
+          <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
             Shop · {all.length} items on the floor right now
           </div>
           <h1 className="font-display mt-3 text-[clamp(2.5rem,1.6rem+4vw,5rem)] leading-[1.02]">
@@ -31,7 +31,7 @@ export default function ShopIndex() {
       {/* DEPARTMENTS. Horizontal scroll strip */}
       <section className="border-y bg-[var(--muted)]">
         <div className="mx-auto max-w-7xl px-6 py-10">
-          <div className="font-mono mb-4 text-[11px] uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+          <div className="font-mono mb-4 text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
             8 departments
           </div>
           <ul className="-mx-6 flex snap-x snap-mandatory gap-px overflow-x-auto bg-[var(--border)] px-6 pb-3">
@@ -40,7 +40,7 @@ export default function ShopIndex() {
                 <Link href={`/shop/${key}`} className="group relative block aspect-[3/4] overflow-hidden bg-black">
                   <Image src={cat.image} alt={cat.label} fill sizes="320px" className="object-cover transition duration-700 group-hover:scale-105" quality={70} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-                  <div className="absolute left-4 top-4 font-mono bg-white px-2 py-1 text-[10px] uppercase tracking-[0.18em] text-[var(--foreground)]">
+                  <div className="absolute left-4 top-4 font-mono bg-white px-2 py-1 text-xs uppercase tracking-[0.14em] text-[var(--foreground)]">
                     {String(i + 1).padStart(2, "0")} / Dept
                   </div>
                   <div className="absolute left-5 right-5 bottom-5 text-white">
@@ -57,13 +57,13 @@ export default function ShopIndex() {
       {/* INVENTORY GRID */}
       <section className="mx-auto max-w-7xl px-6 pt-14 pb-20">
         <header className="max-w-3xl">
-          <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)]">
+          <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
             Everything in stock
           </div>
           <h2 className="font-display mt-3 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05]">
             {all.length} items, <span className="text-[var(--brand-priceless)]">last refreshed today.</span>
           </h2>
-          <div className="font-mono mt-5 text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
+          <div className="font-mono mt-5 text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
             Sort · Featured / Newest / Price ↑ / Price ↓
           </div>
         </header>

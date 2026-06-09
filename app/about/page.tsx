@@ -30,7 +30,7 @@ export default function AboutPage() {
         </div>
         <div className="relative mx-auto grid max-w-7xl gap-10 px-6 pt-28 pb-20 text-white md:grid-cols-12 md:pt-40 md:pb-28">
           <div className="md:col-span-8">
-            <div className="font-mono flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-white/70">
+            <div className="font-mono flex items-center gap-3 text-xs uppercase tracking-[0.14em] text-white/70">
               <span className="size-1.5 rounded-full bg-[var(--brand-priceless)]" />
               <span>Origin</span>
               <span className="opacity-50">/</span>
@@ -47,7 +47,7 @@ export default function AboutPage() {
           </div>
           <aside className="md:col-span-4 md:pt-16">
             <div className="border-l border-white/20 pl-5">
-              <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/60">In numbers</div>
+              <div className="font-mono text-xs uppercase tracking-[0.14em] text-white/60">In numbers</div>
               <dl className="mt-5 space-y-5 text-white">
                 <AboutStat n="1978" label="founded as a weekend venture" />
                 <AboutStat n="1982" label="went full-time" />
@@ -205,7 +205,7 @@ export default function AboutPage() {
       {/* COMMUNITY photo strip */}
       <section className="border-y border-[var(--border)] bg-[var(--muted)]">
         <div className="mx-auto max-w-7xl px-6 py-16">
-          <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">
+          <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
             With our community
           </div>
           <h2 className="font-display mt-3 text-3xl leading-tight md:text-4xl">Beyond the doors and cabinets.</h2>
@@ -253,7 +253,7 @@ export default function AboutPage() {
             <Image src={AISLE} alt="A community mural paint day at the warehouse" fill className="object-cover" sizes="(min-width:768px) 60vw, 100vw" quality={75} />
           </div>
           <div className="bg-white p-8 md:col-span-5 md:p-12">
-            <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">Drop in</div>
+            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">Drop in</div>
             <h2 className="font-display mt-3 text-5xl leading-[1.05]">
               Come walk the <span className="text-[var(--brand-priceless)]">warehouse.</span>
             </h2>
@@ -291,9 +291,9 @@ function AboutStat({ n, label, sub }: { n: string; label: string; sub?: string }
     <div>
       <div className="flex items-baseline gap-2">
         <span className="font-display text-4xl leading-none text-white md:text-5xl">{n}</span>
-        {sub ? <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/60">{sub}</span> : null}
+        {sub ? <span className="font-mono text-xs uppercase tracking-[0.14em] text-white/60">{sub}</span> : null}
       </div>
-      <div className="font-mono mt-1 text-[10px] uppercase tracking-[0.18em] text-white/70">{label}</div>
+      <div className="font-mono mt-1 text-xs uppercase tracking-[0.14em] text-white/70">{label}</div>
     </div>
   );
 }

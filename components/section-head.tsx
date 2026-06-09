@@ -60,7 +60,7 @@ export function SectionHead({
       className={`${wrap} ${bordered ? `border-b ${borderColor} pb-7` : ""} ${className}`}
     >
       {kicker ? (
-        <div className={`font-mono text-[11px] uppercase tracking-[0.22em] ${kickerColor}`}>
+        <div className={`font-mono text-xs uppercase tracking-[0.14em] ${kickerColor}`}>
           {kicker}
         </div>
       ) : null}
@@ -78,7 +78,7 @@ export function SectionHead({
         <div className={`mt-5 ${align === "center" ? "" : ""}`}>
           <Link
             href={link.href}
-            className={`font-mono inline-flex items-center text-[11px] uppercase tracking-[0.22em] underline decoration-2 underline-offset-4 ${linkColor}`}
+            className={`font-mono inline-flex items-center text-xs uppercase tracking-[0.14em] underline decoration-2 underline-offset-4 ${linkColor}`}
           >
             {link.label} →
           </Link>

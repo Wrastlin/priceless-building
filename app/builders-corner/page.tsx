@@ -156,7 +156,7 @@ export default function BuildersCornerPage() {
 
           <div className="mt-10 grid gap-x-12 gap-y-10 md:mt-14 md:grid-cols-12">
             <div className="md:col-span-7">
-              <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#ff8b85]">
+              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[#ff8b85]">
                 The premium side of Price-Less
               </div>
               <h1 className="font-display mt-4 text-[clamp(2.5rem,1.4rem+4vw,4.5rem)] leading-[1.02] tracking-tight text-white">
@@ -221,7 +221,7 @@ export default function BuildersCornerPage() {
               </div>
             </figure>
             <div className="md:col-span-6" data-reveal data-reveal-delay="0.08">
-              <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)]">
+              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
                 When the surplus floor isn&apos;t the project
               </div>
               <h2 className="font-display mt-4 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05] text-[var(--foreground)]">
@@ -373,7 +373,7 @@ export default function BuildersCornerPage() {
             </figure>
 
             <div className="md:col-span-7 md:pt-3" data-reveal data-reveal-delay="0.08">
-              <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)]">
+              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
                 In the press
               </div>
               <blockquote className="mt-6 border-l-2 border-[var(--brand-priceless)] pl-6">
@@ -410,7 +410,7 @@ export default function BuildersCornerPage() {
       <section className="bg-[#0b1220] text-white">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-12 md:py-20">
           <div className="md:col-span-7" data-reveal>
-            <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#ff8b85]">
+            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[#ff8b85]">
               Come walk the showroom
             </div>
             <h2 className="font-display mt-4 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05] text-white">
@@ -436,7 +436,7 @@ export default function BuildersCornerPage() {
           </div>
 
           <div className="md:col-span-5" data-reveal data-reveal-delay="0.08">
-            <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#ff8b85]">
+            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[#ff8b85]">
               Visit us
             </div>
             <div className="font-display mt-3 text-3xl leading-tight md:text-4xl">

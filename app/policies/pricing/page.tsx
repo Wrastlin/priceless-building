@@ -13,7 +13,7 @@ export default function PricingPolicy() {
     <>
       <SiteHeader brand="priceless" />
       <section className="mx-auto max-w-3xl px-6 pt-14 pb-10">
-        <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">
+        <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
           Policies
         </div>
         <h1 className="font-display mt-3 text-5xl leading-[1.05] md:text-7xl">

@@ -19,7 +19,7 @@ export default function GiftCardsPage() {
           <p className="max-w-xl text-sm text-white/85">Good at Price-Less Building and Builders Corner. Never expires. Spend in-store or online.</p>
           <div className="mt-3 flex items-center gap-5 rounded-md bg-white/90 px-4 py-2 backdrop-blur w-fit">
             <BrandLogo brand="priceless" size="sm" />
-            <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--muted-foreground)]">+</span>
+            <span className="text-xs font-mono uppercase tracking-[0.14em] text-[var(--muted-foreground)]">+</span>
             <BrandLogo brand="builders" size="sm" />
           </div>
         </div>
@@ -35,11 +35,11 @@ export default function GiftCardsPage() {
           <div className="rounded-xl border-2 border-dashed border-[var(--brand-priceless)] bg-gradient-to-br from-white to-red-50 p-6">
             <div className="flex items-center justify-between">
               <BrandLogo brand="priceless" size="sm" />
-              <span className="text-[10px] font-mono">GC-•••• 4429</span>
+              <span className="text-xs font-mono">GC-•••• 4429</span>
             </div>
             <div className="mt-6 font-display text-4xl">$ 100.00</div>
             <div className="mt-4 text-xs text-[var(--muted-foreground)]">For Aunt Diane, happy renovating! ❤️</div>
-            <div className="mt-6 border-t pt-4 text-[10px] font-mono uppercase tracking-wider text-[var(--muted-foreground)]">No expiration · Redeem in store or at checkout</div>
+            <div className="mt-6 border-t pt-4 text-xs font-mono uppercase tracking-wider text-[var(--muted-foreground)]">No expiration · Redeem in store or at checkout</div>
           </div>
         </aside>
       </section>

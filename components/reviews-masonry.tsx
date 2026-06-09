@@ -45,7 +45,7 @@ export function ReviewsMasonry({
             <Stars n={r.stars} />
             <span
               className={
-                "rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider " +
+                "rounded-full px-2 py-0.5 text-xs font-semibold uppercase tracking-wider " +
                 SOURCE_BADGE[r.source]
               }
             >

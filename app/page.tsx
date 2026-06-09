@@ -195,10 +195,12 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-6 pt-14 pb-12 md:pt-20 md:pb-20">
           <div className="grid items-center gap-10 md:grid-cols-12 md:gap-12">
             <div className="md:col-span-7">
-              <div className="flex items-center gap-3 text-base text-[var(--muted-foreground)] md:text-lg">
-                <span className="size-2 rounded-full bg-emerald-500" />
-                <OpenToday />
-                <span className="text-[var(--muted-foreground)]/50">·</span>
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-base text-[var(--muted-foreground)] md:text-lg">
+                <span className="inline-flex items-center gap-2">
+                  <span className="size-2 rounded-full bg-emerald-500" />
+                  <OpenToday />
+                </span>
+                <span className="hidden sm:inline text-[var(--muted-foreground)]/50">·</span>
                 <span>Wausau, WI</span>
               </div>
               <h1 className="font-display mt-6 text-5xl leading-[1.05] md:text-6xl lg:text-7xl">
@@ -227,7 +229,7 @@ export default function HomePage() {
                   <source src="/real-photos/storefront-bg.webm" type="video/webm" />
                   <source src="/real-photos/storefront-bg.mp4" type="video/mp4" />
                 </video>
-                <div className="pointer-events-none absolute bottom-3 right-3 inline-flex items-center gap-1.5 bg-black/70 px-2 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-white">
+                <div className="pointer-events-none absolute bottom-3 right-3 inline-flex items-center gap-1.5 bg-black/70 px-2 py-1 text-xs font-medium uppercase tracking-[0.14em] text-white">
                   <span className="size-1.5 rounded-full bg-emerald-400" />
                   Live walkthrough
                 </div>
@@ -255,7 +257,7 @@ export default function HomePage() {
               href="https://www.wsaw.com/2023/06/18/new-mural-coming-downtown-wausau/"
               target="_blank"
               rel="noreferrer"
-              className="font-mono shrink-0 text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
+              className="font-mono shrink-0 text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
             >
               WSAW story →
             </a>
@@ -324,7 +326,7 @@ export default function HomePage() {
             className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between md:gap-8"
             data-reveal
           >
-            <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)]">
+            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
               The catalog · eight departments
             </div>
             <form
@@ -372,7 +374,7 @@ export default function HomePage() {
                   <Image src={feat.image} alt={feat.label} fill sizes="(min-width:768px) 60vw, 100vw" className="object-cover opacity-85 transition duration-700 group-hover:scale-105 group-hover:opacity-100" quality={75} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
                   <div className="absolute left-6 right-6 bottom-6 text-white">
-                    <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/70">Department 01 / Aisle D</div>
+                    <div className="font-mono text-xs uppercase tracking-[0.14em] text-white/70">Department 01 / Aisle D</div>
                     <div className="font-display mt-2 text-5xl md:text-6xl">{feat.label}.</div>
                     <p className="font-serif mt-2 max-w-md text-base italic text-white/85">{feat.blurb}</p>
                   </div>
@@ -382,7 +384,7 @@ export default function HomePage() {
                   {rest.map(([key, cat], i) => (
                     <li key={key}>
                       <Link href={`/shop/${key}`} className="group flex items-center gap-5 py-4">
-                        <span className="font-mono w-10 shrink-0 text-[11px] tracking-tight text-[var(--muted-foreground)]">{String(i + 2).padStart(2, "0")}</span>
+                        <span className="font-mono w-10 shrink-0 text-xs tracking-tight text-[var(--muted-foreground)]">{String(i + 2).padStart(2, "0")}</span>
                         <div className="relative aspect-square w-16 shrink-0 overflow-hidden bg-[var(--muted)]">
                           <Image src={cat.image} alt={cat.label} fill sizes="64px" className="object-cover transition duration-500 group-hover:scale-110" quality={60} />
                         </div>
@@ -390,7 +392,7 @@ export default function HomePage() {
                           <div className="font-display text-2xl leading-none">{cat.label}.</div>
                           <div className="mt-1 line-clamp-1 text-xs text-[var(--muted-foreground)]">{cat.blurb}</div>
                         </div>
-                        <span className="font-mono text-[11px] uppercase tracking-wider text-[var(--brand-priceless)] opacity-0 transition group-hover:opacity-100">Browse →</span>
+                        <span className="font-mono text-xs uppercase tracking-wider text-[var(--brand-priceless)] opacity-0 transition group-hover:opacity-100">Browse →</span>
                       </Link>
                     </li>
                   ))}
@@ -486,7 +488,7 @@ export default function HomePage() {
               </div>
             </figure>
             <div className="md:col-span-6" data-reveal data-reveal-delay="0.08">
-              <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)]">
+              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
                 The premium side
               </div>
               <h2 className="font-display mt-4 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05]">
@@ -602,7 +604,7 @@ export default function HomePage() {
             </p>
             <Link
               href="/four-squared"
-              className="font-mono inline-flex text-[11px] uppercase tracking-[0.22em] text-emerald-300 underline decoration-2 underline-offset-4 hover:text-emerald-200"
+              className="font-mono inline-flex text-xs uppercase tracking-[0.14em] text-emerald-300 underline decoration-2 underline-offset-4 hover:text-emerald-200"
             >
               See the install crew →
             </Link>
@@ -664,7 +666,7 @@ export default function HomePage() {
                 />
               </div>
               <figcaption className="mt-3 flex items-baseline gap-2 text-sm">
-                <span className="font-semibold uppercase tracking-[0.22em] text-[#ff8b85]">After</span>
+                <span className="font-semibold uppercase tracking-[0.14em] text-[#ff8b85]">After</span>
                 <span className="text-white/70">Finished install by the Four Squared crew.</span>
               </figcaption>
             </figure>
@@ -679,7 +681,7 @@ export default function HomePage() {
                 />
               </div>
               <figcaption className="mt-3 flex items-baseline gap-2 text-sm">
-                <span className="font-semibold uppercase tracking-[0.22em] text-white/55">Mid-install</span>
+                <span className="font-semibold uppercase tracking-[0.14em] text-white/55">Mid-install</span>
                 <span className="text-white/70">Paper down, tape up, new shaker uppers going in.</span>
               </figcaption>
             </figure>
@@ -728,7 +730,7 @@ export default function HomePage() {
                   href={PRICELESS.socials.facebook}
                   target="_blank"
                   rel="noreferrer"
-                  className="font-mono inline-flex w-fit items-center border border-[var(--border)] bg-white px-4 py-2 text-[11px] uppercase tracking-[0.18em] text-[var(--foreground)] hover:bg-[var(--muted)]"
+                  className="font-mono inline-flex w-fit items-center border border-[var(--border)] bg-white px-4 py-2 text-xs uppercase tracking-[0.14em] text-[var(--foreground)] hover:bg-[var(--muted)]"
                 >
                   Follow on Facebook →
                 </a>
@@ -736,7 +738,7 @@ export default function HomePage() {
                   href={PRICELESS.socials.instagram}
                   target="_blank"
                   rel="noreferrer"
-                  className="font-mono inline-flex w-fit items-center border border-[var(--border)] bg-white px-4 py-2 text-[11px] uppercase tracking-[0.18em] text-[var(--foreground)] hover:bg-[var(--muted)]"
+                  className="font-mono inline-flex w-fit items-center border border-[var(--border)] bg-white px-4 py-2 text-xs uppercase tracking-[0.14em] text-[var(--foreground)] hover:bg-[var(--muted)]"
                 >
                   Follow on Instagram →
                 </a>
@@ -744,7 +746,7 @@ export default function HomePage() {
                   href={PRICELESS.socials.yelp}
                   target="_blank"
                   rel="noreferrer"
-                  className="font-mono inline-flex w-fit items-center border border-[var(--border)] bg-white px-4 py-2 text-[11px] uppercase tracking-[0.18em] text-[var(--foreground)] hover:bg-[var(--muted)]"
+                  className="font-mono inline-flex w-fit items-center border border-[var(--border)] bg-white px-4 py-2 text-xs uppercase tracking-[0.14em] text-[var(--foreground)] hover:bg-[var(--muted)]"
                 >
                   Read us on Yelp →
                 </a>
@@ -949,7 +951,7 @@ function BrandCard({
         <p className="mt-3 flex-1 text-base leading-relaxed text-[var(--muted-foreground)]">
           {body}
         </p>
-        <span className="font-mono mt-5 inline-block text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4">
+        <span className="font-mono mt-5 inline-block text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4">
           {cta} →
         </span>
       </div>

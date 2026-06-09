@@ -162,12 +162,12 @@ export default function FourSquaredPage() {
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-2 text-sm">
           <div className="flex items-center gap-4 text-white/70">
             <span className="inline-flex size-2 rounded-full bg-emerald-400" />
-            <span className="font-mono text-[11px] uppercase tracking-[0.22em]">
+            <span className="font-mono text-xs uppercase tracking-[0.14em]">
               Wausau and Marathon County
             </span>
           </div>
           <div className="flex items-center gap-6">
-            <a href={EMAIL_MAILTO} className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/80 hover:text-white">
+            <a href={EMAIL_MAILTO} className="font-mono text-xs uppercase tracking-[0.14em] text-white/80 hover:text-white">
               {EMAIL}
             </a>
             <a href={PHONE_TEL} className="font-mono text-[13px] font-semibold tracking-tight text-emerald-300 hover:text-emerald-200">
@@ -182,7 +182,7 @@ export default function FourSquaredPage() {
       <section className="border-b bg-[#0a0e14] text-white">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 pt-16 pb-20 md:grid-cols-12 md:pt-24 md:pb-28">
           <div className="md:col-span-7">
-            <div className="font-mono flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-white/70">
+            <div className="font-mono flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.14em] text-white/70">
               <span>Finish carpentry and install crew</span>
               <span className="opacity-50">/</span>
               <span>Wausau, Wisconsin</span>
@@ -202,7 +202,7 @@ export default function FourSquaredPage() {
             </p>
 
             <div className="mt-10 max-w-xl">
-              <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-emerald-300">
+              <div className="font-mono text-xs uppercase tracking-[0.14em] text-emerald-300">
                 From the owner
               </div>
               <blockquote className="mt-4 border-l-2 border-emerald-400 pl-6">
@@ -221,7 +221,7 @@ export default function FourSquaredPage() {
               </a>
               <a
                 href={PHONE_TEL}
-                className="inline-flex items-center gap-3 rounded-sm border border-white/30 px-5 py-3 font-mono text-[12px] font-semibold uppercase tracking-[0.18em] text-white hover:border-emerald-400 hover:text-emerald-300"
+                className="inline-flex items-center gap-3 rounded-sm border border-white/30 px-5 py-3 font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-white hover:border-emerald-400 hover:text-emerald-300"
               >
                 <span aria-hidden className="text-emerald-400">●</span>
                 Call {PHONE}
@@ -241,7 +241,7 @@ export default function FourSquaredPage() {
                 quality={85}
               />
             </div>
-            <div className="mt-3 font-mono text-[10px] uppercase tracking-[0.22em] text-white/55">
+            <div className="mt-3 font-mono text-xs uppercase tracking-[0.14em] text-white/55">
               Representative kitchen. White-oak shaker, island, quartz, pendants.
             </div>
           </aside>
@@ -302,10 +302,10 @@ export default function FourSquaredPage() {
                     quality={75}
                   />
                   <div className="absolute left-3 top-3 flex items-center gap-2">
-                    <span className="font-mono bg-white px-2 py-1 text-[10px] uppercase tracking-[0.18em] text-[var(--foreground)]">
+                    <span className="font-mono bg-white px-2 py-1 text-xs uppercase tracking-[0.14em] text-[var(--foreground)]">
                       No. {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="font-mono bg-emerald-600 px-2 py-1 text-[10px] uppercase tracking-[0.18em] text-white">
+                    <span className="font-mono bg-emerald-600 px-2 py-1 text-xs uppercase tracking-[0.14em] text-white">
                       {t.tag}
                     </span>
                   </div>
@@ -340,11 +340,11 @@ export default function FourSquaredPage() {
                   sizes="(min-width: 768px) 50vw, 100vw"
                   quality={80}
                 />
-                <span className="font-mono absolute left-3 top-3 bg-white px-2 py-1 text-[10px] uppercase tracking-[0.18em] text-[var(--foreground)]">
+                <span className="font-mono absolute left-3 top-3 bg-white px-2 py-1 text-xs uppercase tracking-[0.14em] text-[var(--foreground)]">
                   Mid-install
                 </span>
               </div>
-              <figcaption className="mt-3 font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
+              <figcaption className="mt-3 font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
                 Kraft paper, painter's tape, surfaces protected.
               </figcaption>
             </figure>
@@ -358,11 +358,11 @@ export default function FourSquaredPage() {
                   sizes="(min-width: 768px) 50vw, 100vw"
                   quality={80}
                 />
-                <span className="font-mono absolute left-3 top-3 bg-emerald-600 px-2 py-1 text-[10px] uppercase tracking-[0.18em] text-white">
+                <span className="font-mono absolute left-3 top-3 bg-emerald-600 px-2 py-1 text-xs uppercase tracking-[0.14em] text-white">
                   Finished
                 </span>
               </div>
-              <figcaption className="mt-3 font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
+              <figcaption className="mt-3 font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
                 Bone-white inset cabinetry, island, integrated paneling.
               </figcaption>
             </figure>
@@ -387,13 +387,13 @@ export default function FourSquaredPage() {
                   quality={85}
                 />
               </div>
-              <figcaption className="mt-3 font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
+              <figcaption className="mt-3 font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
                 A handwritten thank-you card.
               </figcaption>
             </figure>
 
             <div className="md:col-span-6">
-              <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-emerald-700">
+              <div className="font-mono text-xs uppercase tracking-[0.14em] text-emerald-700">
                 From a recent kitchen
               </div>
               <blockquote className="mt-5">
@@ -415,7 +415,7 @@ export default function FourSquaredPage() {
           the photo of the actual blue door. */}
       <section className="border-b bg-[#0a0e14] py-12 text-white">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-emerald-300">From Google</div>
+          <div className="font-mono text-xs uppercase tracking-[0.14em] text-emerald-300">From Google</div>
           <h2 className="font-display mt-3 max-w-3xl text-5xl leading-[1.02] md:text-6xl">
             From our customers.
           </h2>
@@ -442,7 +442,7 @@ export default function FourSquaredPage() {
                   </blockquote>
                   <figcaption className="mt-6 border-t border-white/10 pt-4">
                     <div className="text-sm font-semibold text-white">{r.name}</div>
-                    <div className="font-mono mt-1 text-[10px] uppercase tracking-[0.22em] text-white/60">
+                    <div className="font-mono mt-1 text-xs uppercase tracking-[0.14em] text-white/60">
                       {r.source}
                     </div>
                   </figcaption>
@@ -468,7 +468,7 @@ export default function FourSquaredPage() {
       {/* PROCESS. Four steps, plain English, no fabricated timelines. */}
       <section className="border-b bg-white py-12">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-emerald-700">How a project runs</div>
+          <div className="font-mono text-xs uppercase tracking-[0.14em] text-emerald-700">How a project runs</div>
           <h2 className="font-display mt-3 max-w-3xl text-5xl leading-[1.02] md:text-6xl">
             Four steps.
           </h2>
@@ -477,7 +477,7 @@ export default function FourSquaredPage() {
             {PROCESS.map((p) => (
               <div key={p.n} className="bg-white p-7">
                 <div className="font-display text-5xl leading-none text-emerald-700">{p.n}</div>
-                <div className="font-mono mt-4 text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
+                <div className="font-mono mt-4 text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
                   Step {p.n}
                 </div>
                 <div className="mt-2 text-xl font-semibold text-[var(--foreground)]">{p.name}</div>
@@ -503,13 +503,13 @@ export default function FourSquaredPage() {
                 quality={80}
               />
             </div>
-            <div className="mt-3 font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
+            <div className="mt-3 font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
               At the 825 Washington Street workshop
             </div>
           </div>
 
           <div className="md:col-span-7">
-            <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-emerald-700">
+            <div className="font-mono text-xs uppercase tracking-[0.14em] text-emerald-700">
               The crew
             </div>
             <h2 className="font-display mt-3 text-5xl leading-[1.05] md:text-6xl">
@@ -529,7 +529,7 @@ export default function FourSquaredPage() {
       <section className="border-b bg-white py-12">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 md:grid-cols-12">
           <div className="md:col-span-7">
-            <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-emerald-700">Where we work</div>
+            <div className="font-mono text-xs uppercase tracking-[0.14em] text-emerald-700">Where we work</div>
             <h2 className="font-display mt-3 text-5xl leading-[1.02]">
               Wausau and the surrounding towns.
             </h2>
@@ -559,7 +559,7 @@ export default function FourSquaredPage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
               <div className="absolute bottom-5 left-5 text-white">
-                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-emerald-300">Home base</div>
+                <div className="font-mono text-xs uppercase tracking-[0.14em] text-emerald-300">Home base</div>
                 <div className="mt-1 text-xl font-semibold">{ADDRESS.street}, {ADDRESS.city}, {ADDRESS.state} {ADDRESS.zip}</div>
               </div>
             </div>
@@ -567,7 +567,7 @@ export default function FourSquaredPage() {
 
           <aside className="md:col-span-5">
             <div className="border border-[var(--border)] bg-[var(--muted)] p-7">
-              <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
+              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
                 Call us
               </div>
               <a href={PHONE_TEL} className="font-display mt-2 block text-5xl text-[var(--foreground)] hover:text-emerald-700">
@@ -577,7 +577,7 @@ export default function FourSquaredPage() {
                 Mon through Thu 8:30 AM to 5:30 PM, Fri 8:30 AM to 4:30 PM, Sat 8:30 AM to 12:30 PM. Closed Sun.
               </div>
               <div className="mt-6 border-t border-[var(--border)] pt-5">
-                <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
+                <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
                   Email
                 </div>
                 <a href={EMAIL_MAILTO} className="mt-2 block text-base text-[var(--foreground)] hover:text-emerald-700">
@@ -600,7 +600,7 @@ export default function FourSquaredPage() {
       <section className="border-b bg-[var(--muted)] py-12">
         <div className="mx-auto grid max-w-6xl gap-12 px-6 md:grid-cols-12">
           <div className="md:col-span-4">
-            <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-emerald-700">Common questions</div>
+            <div className="font-mono text-xs uppercase tracking-[0.14em] text-emerald-700">Common questions</div>
             <h2 className="font-display mt-3 text-5xl leading-[1.02]">
               Before you call.
             </h2>
@@ -640,7 +640,7 @@ export default function FourSquaredPage() {
       {/* FINAL CTA. Phone-first close. */}
       <section className="bg-[#0a0e14] py-12 text-white">
         <div className="mx-auto max-w-5xl px-6 text-center">
-          <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-emerald-300">When you&apos;re ready</div>
+          <div className="font-mono text-xs uppercase tracking-[0.14em] text-emerald-300">When you&apos;re ready</div>
           <h2 className="font-display mt-4 text-5xl leading-[0.98] md:text-7xl">
             Bring the room, a budget, some photos.
           </h2>
@@ -653,7 +653,7 @@ export default function FourSquaredPage() {
             </a>
             <a
               href={PHONE_TEL}
-              className="inline-flex items-center gap-3 border border-white/30 px-5 py-3 font-mono text-[12px] font-semibold uppercase tracking-[0.18em] text-white hover:border-emerald-400 hover:text-emerald-300"
+              className="inline-flex items-center gap-3 border border-white/30 px-5 py-3 font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-white hover:border-emerald-400 hover:text-emerald-300"
             >
               <span aria-hidden className="text-emerald-400">●</span>
               Call {PHONE}

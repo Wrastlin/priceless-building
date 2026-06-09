@@ -38,22 +38,41 @@ export function SmoothScroll() {
     const ctx = gsap.context(() => {
       gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
         const delay = parseFloat(el.dataset.revealDelay ?? "0");
-        gsap.from(el, {
-          opacity: 0,
-          y: 28,
-          duration: 0.85,
-          delay,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 88%",
-            toggleActions: "play none none none",
+        // fromTo (not from): if anything in the pipeline misfires, the
+        // element still ends visible at opacity:1, y:0 — never stuck
+        // hidden. start: "top 95%" fires earlier so content is on screen
+        // by the time the user gets there.
+        gsap.fromTo(
+          el,
+          { opacity: 0, y: 24 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            delay,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 95%",
+              toggleActions: "play none none none",
+            },
           },
-        });
+        );
       });
     });
 
+    // Belt-and-suspenders safety: after 5 seconds, force every reveal
+    // element visible regardless of scroll state, so a missed trigger
+    // never leaves the page looking broken.
+    const safety = window.setTimeout(() => {
+      document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
+        el.style.opacity = "1";
+        el.style.transform = "none";
+      });
+    }, 5000);
+
     return () => {
+      window.clearTimeout(safety);
       gsap.ticker.remove(raf);
       ctx.revert();
       lenis.destroy();

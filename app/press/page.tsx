@@ -139,7 +139,7 @@ export default function PressPage() {
                   <span aria-hidden>·</span>
                   <span>{c.date}</span>
                   <span aria-hidden>·</span>
-                  <span className="rounded-full bg-[var(--muted)] px-2 py-0.5 text-[10px] font-semibold">
+                  <span className="rounded-full bg-[var(--muted)] px-2 py-0.5 text-xs font-semibold">
                     {c.type}
                   </span>
                 </div>

@@ -30,7 +30,7 @@ export async function TrustBlock() {
       <div className="mx-auto max-w-7xl px-6 py-20">
         <div className="grid items-end gap-6 md:grid-cols-12">
           <div className="md:col-span-7">
-            <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">
+            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
               Real store. Real reviews.
             </div>
             <h2 className="font-display mt-3 text-5xl leading-[1.05] md:text-6xl">
@@ -56,7 +56,7 @@ export async function TrustBlock() {
                 href={PRICELESS.socials.googleMaps}
                 target="_blank"
                 rel="noreferrer"
-                className="font-mono inline-flex items-center gap-2 border border-[var(--border)] bg-white px-4 py-2 text-[11px] uppercase tracking-[0.18em] text-[var(--foreground)] hover:bg-[var(--muted)]"
+                className="font-mono inline-flex items-center gap-2 border border-[var(--border)] bg-white px-4 py-2 text-xs uppercase tracking-[0.14em] text-[var(--foreground)] hover:bg-[var(--muted)]"
               >
                 See reviews on Google →
               </a>
@@ -64,7 +64,7 @@ export async function TrustBlock() {
                 href={PRICELESS.socials.yelp}
                 target="_blank"
                 rel="noreferrer"
-                className="font-mono inline-flex items-center gap-2 border border-[var(--border)] bg-white px-4 py-2 text-[11px] uppercase tracking-[0.18em] text-[var(--foreground)] hover:bg-[var(--muted)]"
+                className="font-mono inline-flex items-center gap-2 border border-[var(--border)] bg-white px-4 py-2 text-xs uppercase tracking-[0.14em] text-[var(--foreground)] hover:bg-[var(--muted)]"
               >
                 Yelp →
               </a>
@@ -72,7 +72,7 @@ export async function TrustBlock() {
                 href={PRICELESS.socials.facebook}
                 target="_blank"
                 rel="noreferrer"
-                className="font-mono inline-flex items-center gap-2 border border-[var(--border)] bg-white px-4 py-2 text-[11px] uppercase tracking-[0.18em] text-[var(--foreground)] hover:bg-[var(--muted)]"
+                className="font-mono inline-flex items-center gap-2 border border-[var(--border)] bg-white px-4 py-2 text-xs uppercase tracking-[0.14em] text-[var(--foreground)] hover:bg-[var(--muted)]"
               >
                 Facebook →
               </a>
@@ -109,7 +109,7 @@ export async function TrustBlock() {
                 href={directions}
                 target="_blank"
                 rel="noreferrer"
-                className="font-mono inline-flex shrink-0 items-center text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
+                className="font-mono inline-flex shrink-0 items-center text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
               >
                 Get directions →
               </a>
@@ -118,7 +118,7 @@ export async function TrustBlock() {
 
           {/* Reviews */}
           <div className="md:col-span-5">
-            <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
               What customers say
             </div>
             <ul className="mt-4 space-y-6">
@@ -138,13 +138,13 @@ export async function TrustBlock() {
             </ul>
             <Link
               href="/reviews"
-              className="font-mono mt-6 inline-flex items-center text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
+              className="font-mono mt-6 inline-flex items-center text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
             >
               Read more reviews →
             </Link>
 
             <div className="mt-10 border-t border-[var(--border)] pt-6">
-              <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
                 Hours
               </div>
               <ul className="mt-3 divide-y divide-[var(--border)]/60">
@@ -160,7 +160,7 @@ export async function TrustBlock() {
               </ul>
               <a
                 href={`tel:+1${ADDRESS.phone.replace(/[^0-9]/g, "")}`}
-                className="font-mono mt-5 inline-flex items-center text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
+                className="font-mono mt-5 inline-flex items-center text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
               >
                 Call {ADDRESS.phone}
               </a>
@@ -170,7 +170,7 @@ export async function TrustBlock() {
                 and cross-links to the design walkthrough section on the
                 home page. */}
             <div className="mt-10 border border-[var(--brand-priceless)] bg-white p-6">
-              <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">
+              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
                 Have a project in mind?
               </div>
               <p className="mt-2 text-base leading-relaxed text-[var(--foreground)]">
@@ -178,7 +178,7 @@ export async function TrustBlock() {
               </p>
               <Link
                 href="/#design-walkthrough"
-                className="font-mono mt-4 inline-flex items-center text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
+                className="font-mono mt-4 inline-flex items-center text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
               >
                 See how it works →
               </Link>
@@ -191,7 +191,7 @@ export async function TrustBlock() {
             overflow tiles here). */}
         {REVIEWS.length > 3 ? (
           <div className="mt-14 border-t border-[var(--border)] pt-10">
-            <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
               More from our customers
             </div>
             <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-4">

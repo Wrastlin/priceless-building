@@ -30,7 +30,7 @@ export default function ContactPage() {
         </div>
         <div className="relative mx-auto grid max-w-7xl gap-10 px-6 pt-28 pb-20 text-white md:grid-cols-12 md:pt-40 md:pb-28">
           <div className="md:col-span-8">
-            <div className="font-mono flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-white/70">
+            <div className="font-mono flex items-center gap-3 text-xs uppercase tracking-[0.14em] text-white/70">
               <span className="size-1.5 animate-pulse rounded-full bg-emerald-400" />
               <span>Walk-ins welcome</span>
               <span className="opacity-50">/</span>
@@ -50,7 +50,7 @@ export default function ContactPage() {
                 href={`https://maps.google.com/?q=${encodeURIComponent(`${ADDRESS.street}, ${ADDRESS.city}, ${ADDRESS.state} ${ADDRESS.zip}`)}`}
                 target="_blank"
                 rel="noreferrer"
-                className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/85 underline decoration-[var(--brand-priceless)] decoration-2 underline-offset-4"
+                className="font-mono text-xs uppercase tracking-[0.14em] text-white/85 underline decoration-[var(--brand-priceless)] decoration-2 underline-offset-4"
               >
                 Get directions →
               </a>
@@ -58,18 +58,18 @@ export default function ContactPage() {
           </div>
           <aside className="md:col-span-4 md:pt-16">
             <div className="border-l border-white/20 pl-5">
-              <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/60">When we're open</div>
-              <ul className="mt-5 divide-y divide-white/10 border-y border-white/10">
-                {PRICELESS.hours.map((h) => (
-                  <li key={h.day} className="font-mono flex items-center justify-between py-2 text-[11px] uppercase tracking-[0.12em]">
-                    <span className="text-white">{h.day}</span>
-                    <span className="text-white/60">{h.hours}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="font-serif mt-5 text-sm italic text-white/70">
-                Wednesdays land fresh inventory. Saturday is half-day (close at 12:30 PM).
+              <div className="font-mono text-xs uppercase tracking-[0.14em] text-white/60">
+                When we&apos;re open
+              </div>
+              <p className="mt-4 text-base leading-relaxed text-white/85">
+                Monday through Friday until 5:30 PM, Saturday morning until 12:30 PM. Full week shown below.
               </p>
+              <a
+                href="#hours"
+                className="font-mono mt-4 inline-flex text-xs uppercase tracking-[0.14em] text-white/80 underline decoration-white/40 decoration-2 underline-offset-4 hover:text-white"
+              >
+                Jump to full hours →
+              </a>
             </div>
           </aside>
         </div>
@@ -94,19 +94,19 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <div className="md:col-span-1">
+          <div id="hours" className="md:col-span-1 scroll-mt-24">
             <div className="text-xs font-semibold uppercase tracking-wider text-[var(--brand-priceless)]">Hours</div>
-            <h2 className="font-display mt-2 text-2xl md:text-3xl">When we're open.</h2>
+            <h2 className="font-display mt-2 text-2xl md:text-3xl">When we&apos;re open.</h2>
             <ul className="mt-4 divide-y rounded-xl border bg-white">
               {PRICELESS.hours.map((h) => (
-                <li key={h.day} className="flex items-center justify-between px-4 py-2.5 text-sm">
-                  <span className="font-medium">{h.day}</span>
+                <li key={h.day} className="flex items-center justify-between px-4 py-3 text-base">
+                  <span className="font-semibold">{h.day}</span>
                   <span className={h.hours === "Closed" ? "text-[var(--muted-foreground)]" : "text-[var(--foreground)]"}>{h.hours}</span>
                 </li>
               ))}
             </ul>
-            <p className="mt-3 text-xs text-[var(--muted-foreground)]">
-              Closed Sunday through Tuesday. Wednesdays are delivery day. Best floor of the week.
+            <p className="mt-3 text-sm text-[var(--muted-foreground)]">
+              Closed Sundays. If we are not on the floor when you walk in, ring the bell at the counter.
             </p>
           </div>
 
@@ -141,7 +141,7 @@ export default function ContactPage() {
               />
             </div>
             <div className="border-t p-8">
-              <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">Drop a pin</div>
+              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">Drop a pin</div>
               <h3 className="font-display mt-3 text-3xl leading-tight">
                 Eight minutes from <span className="text-[var(--brand-priceless)]">the freeway.</span>
               </h3>
@@ -152,7 +152,7 @@ export default function ContactPage() {
                 href={`https://maps.google.com/?q=${encodeURIComponent(`${ADDRESS.street}, ${ADDRESS.city}, ${ADDRESS.state} ${ADDRESS.zip}`)}`}
                 target="_blank"
                 rel="noreferrer"
-                className="font-mono mt-4 inline-block text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
+                className="font-mono mt-4 inline-block text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
               >
                 Open in Google Maps →
               </a>
@@ -161,7 +161,7 @@ export default function ContactPage() {
 
           {/* FORM */}
           <div className="bg-white p-8 md:p-12">
-            <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">Send us a note</div>
+            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">Send us a note</div>
             <h2 className="font-display mt-3 text-4xl leading-[1.05] md:text-5xl">
               Got a project? <span className="text-[var(--brand-priceless)]">Tell us.</span>
             </h2>
@@ -176,7 +176,7 @@ export default function ContactPage() {
                   required
                   type="text"
                   placeholder="Pat Lindgren"
-                  className="w-full border-0 border-b border-[var(--border)] bg-transparent px-0 py-2 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0"
+                  className="w-full rounded-md border border-[var(--border)] bg-white px-3.5 py-3 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0"
                 />
               </Field>
 
@@ -186,7 +186,7 @@ export default function ContactPage() {
                   required
                   type="email"
                   placeholder="you@example.com"
-                  className="w-full border-0 border-b border-[var(--border)] bg-transparent px-0 py-2 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0"
+                  className="w-full rounded-md border border-[var(--border)] bg-white px-3.5 py-3 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0"
                 />
               </Field>
 
@@ -195,7 +195,7 @@ export default function ContactPage() {
                   name="phone"
                   type="tel"
                   placeholder="(715) 555-0123"
-                  className="w-full border-0 border-b border-[var(--border)] bg-transparent px-0 py-2 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0"
+                  className="w-full rounded-md border border-[var(--border)] bg-white px-3.5 py-3 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0"
                 />
               </Field>
 
@@ -204,7 +204,7 @@ export default function ContactPage() {
                   name="looking_for"
                   required
                   defaultValue=""
-                  className="w-full border-0 border-b border-[var(--border)] bg-transparent px-0 py-2 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0"
+                  className="w-full rounded-md border border-[var(--border)] bg-white px-3.5 py-3 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0"
                 >
                   <option value="" disabled>Choose a department…</option>
                   <option value="doors">Doors (interior, exterior, reclaimed)</option>

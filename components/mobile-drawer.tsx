@@ -99,7 +99,7 @@ export function MobileDrawer({
         style={{ transitionTimingFunction: "cubic-bezier(.2,.8,.2,1)" }}
       >
         <div className="flex items-center justify-between border-b border-[var(--border)] px-5 py-4">
-          <span className="font-mono text-[11px] uppercase tracking-[0.18em]" style={{ color: accent }}>
+          <span className="font-mono text-xs uppercase tracking-[0.14em]" style={{ color: accent }}>
             Menu
           </span>
           <button
