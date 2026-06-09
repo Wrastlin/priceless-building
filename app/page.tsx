@@ -8,6 +8,8 @@ import { TrustBlock } from "@/components/trust-block";
 import { BrandLogo } from "@/components/brand-logo";
 import { SectionHead } from "@/components/section-head";
 import { TimelineRail, type TimelineEvent } from "@/components/timeline-rail";
+import { ReviewsMasonry } from "@/components/reviews-masonry";
+import { CURATED_REVIEWS } from "@/lib/reviews-data";
 import { GOOGLE_RATING } from "@/lib/google-reviews";
 import { ADDRESS, PRICELESS } from "@/lib/brands";
 import { CATEGORIES, byBrand } from "@/lib/catalog";
@@ -362,8 +364,84 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FEATURED PRODUCTS. On-the-floor catalog showcase. Now sits high so items present early. */}
+      {/* SEARCH. A real search bar inline on the page. People can start
+          typing right away; submit goes to /search?q=... where the
+          standalone results page renders. Pairs with the department
+          grid above so browsing and known-item lookup sit side by side. */}
       <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-14 md:py-16" data-reveal>
+          <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)]">
+            Looking for something specific?
+          </div>
+          <h2 className="font-display mt-3 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05]">
+            What are you <span className="text-[var(--brand-priceless)]">looking for?</span>
+          </h2>
+          <form
+            role="search"
+            action="/search"
+            method="get"
+            className="mt-8 flex items-center border-b-2 border-[var(--brand-priceless)] pb-2"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="mr-3 shrink-0 text-[var(--brand-priceless)]"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input
+              name="q"
+              type="search"
+              placeholder="doors · windows · brands · SKU"
+              className="font-serif flex-1 min-w-0 border-0 bg-transparent px-0 py-2 text-lg italic placeholder:text-[var(--muted-foreground)]/60 focus:outline-none focus:ring-0 md:text-2xl"
+            />
+            <button
+              type="submit"
+              className="font-mono shrink-0 text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
+            >
+              Search →
+            </button>
+          </form>
+          <div className="mt-7">
+            <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
+              Popular searches
+            </div>
+            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+              {[
+                "doors",
+                "windows",
+                "cabinets",
+                "vanities",
+                "hardware",
+                "quartz",
+                "shaker",
+                "reclaimed",
+              ].map((t) => (
+                <Link
+                  key={t}
+                  href={`/search?q=${t}`}
+                  className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--foreground)] underline decoration-[var(--brand-priceless)] decoration-2 underline-offset-4 hover:text-[var(--brand-priceless)]"
+                >
+                  {t} →
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURED PRODUCTS. On-the-floor catalog showcase. Sits high so
+          items present early. Muted band so it alternates with the
+          white categories above and the dark three-brand band below. */}
+      <section className="bg-[var(--muted)]">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
             headline="New stock arrives every Wednesday."
@@ -476,62 +554,15 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
             headline="What our customers have said about us."
-            sub="Every quote on the page links back to the original Google or Facebook review, so you can read it in context if you want."
+            sub="Every quote here is a real Google, Facebook, or Yelp review. The full set lives on the reviews page; a sample sits below."
+            link={{ href: "/reviews", label: "Read all the reviews" }}
           />
 
-        {/* Handwritten card + 3 review tiles */}
-        <div className="mt-12 grid gap-8 md:grid-cols-12 md:gap-12">
-          <figure className="md:col-span-6">
-            <div className="relative w-full overflow-hidden bg-[var(--muted)]">
-              <Image
-                src="/real-photos/thank-you-card-rosalie-noah.webp"
-                alt="Handwritten thank-you card from Rosalie and Noah to Josh, on a new kitchen install"
-                width={640}
-                height={760}
-                className="block h-auto w-full object-contain"
-                sizes="(min-width:768px) 50vw, 100vw"
-              />
-            </div>
-            <figcaption className="mt-3 text-sm text-[var(--muted-foreground)]">
-              A handwritten card from Rosalie and Noah after Josh and Ty wrapped their kitchen install. We get a lot of these.
-            </figcaption>
-          </figure>
-          <ul className="space-y-5 md:col-span-6">
-            <li className="border-l-2 border-[var(--brand-priceless)] pl-5">
-              <div className="text-[#f5a524]" aria-hidden>★★★★★</div>
-              <p className="mt-2 text-base leading-relaxed text-[var(--foreground)] md:text-lg">
-                &ldquo;Great people to deal with! Josh installed our granite island and countertops with great detail and craftsmanship. Highly recommend.&rdquo;
-              </p>
-              <div className="mt-2 text-xs text-[var(--muted-foreground)]">
-                <span className="font-medium text-[var(--foreground)]">Ryan T.</span> · Google · a year ago
-              </div>
-            </li>
-            <li className="border-l-2 border-[var(--brand-priceless)] pl-5">
-              <div className="text-[#f5a524]" aria-hidden>★★★★★</div>
-              <p className="mt-2 text-base leading-relaxed text-[var(--foreground)] md:text-lg">
-                &ldquo;Contacted the staff to see if they had a countertop size we were having trouble finding. They searched for our measurements, sent us updates and went above and beyond to help. The best part? We found one in great condition for $25!&rdquo;
-              </p>
-              <div className="mt-2 text-xs text-[var(--muted-foreground)]">
-                <span className="font-medium text-[var(--foreground)]">Pamela M.</span> · Google · a year ago
-              </div>
-            </li>
-            <li className="border-l-2 border-[var(--brand-priceless)] pl-5">
-              <div className="text-[#f5a524]" aria-hidden>★★★★★</div>
-              <p className="mt-2 text-base leading-relaxed text-[var(--foreground)] md:text-lg">
-                &ldquo;My wife and I bought our quartz counter tops from Price-Less and couldn&apos;t be happier. From the expertise in the store to the installation, they were top notch.&rdquo;
-              </p>
-              <div className="mt-2 text-xs text-[var(--muted-foreground)]">
-                <span className="font-medium text-[var(--foreground)]">Gary G.</span> · Google · a year ago
-              </div>
-            </li>
-            <Link
-              href="/reviews"
-              className="font-mono inline-flex items-center text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
-            >
-              Read all reviews →
-            </Link>
-          </ul>
-        </div>
+          {/* Six-card subset using the same masonry treatment as the
+              dedicated reviews page. */}
+          <div className="mt-12">
+            <ReviewsMasonry items={CURATED_REVIEWS} limit={6} />
+          </div>
         </div>
       </section>
 

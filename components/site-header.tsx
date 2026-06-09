@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BrandLogo } from "./brand-logo";
 import { CartButton } from "./cart-button";
+import { HeaderSearch } from "./header-search";
 import { MainMenu } from "./main-menu";
 
 const PHONE_DISPLAY = "(715) 848-3855";
@@ -28,10 +29,12 @@ export function SiteHeader({ brand }: { brand: "priceless" | "builders" | "four-
             full positioning (Premium materials / Custom installation). */}
         <ActiveBrand brand={brand} />
 
-        {/* Right cluster. All three controls share the same h-11 pill
-            shape, neutral border, and mono uppercase weight so they
-            read as one group instead of three competing sizes. */}
+        {/* Right cluster. All controls share the same h-11 pill shape,
+            neutral border, and consistent gap so they read as one
+            group instead of competing sizes. The search input is
+            visible at lg+ so people can start typing without clicking. */}
         <div className="flex shrink-0 items-center gap-2">
+          <HeaderSearch />
           <a
             href={`tel:${PHONE_DISPLAY.replace(/[^0-9+]/g, "")}`}
             aria-label={`Call ${PHONE_DISPLAY}`}
