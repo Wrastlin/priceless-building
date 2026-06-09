@@ -81,13 +81,13 @@ export default function BuildersHome() {
               </p>
               <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-5">
                 <Link
-                  href="/builders-corner/consultation"
+                  href="/contact"
                   className="font-couture inline-block border-b-2 border-[var(--brand-builders-gold)] pb-1.5 text-base italic text-white transition hover:text-[var(--brand-builders-gold)] md:text-lg"
                 >
                   Book a free consultation
                 </Link>
                 <Link
-                  href="/builders-corner/gallery"
+                  href="/builders-corner"
                   className="font-couture inline-block border-b border-white/30 pb-1.5 text-base italic text-white/85 transition hover:border-white hover:text-white md:text-lg"
                 >
                   See real installs
@@ -138,28 +138,28 @@ export default function BuildersHome() {
         <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2">
           <BCTile
             tag="Kitchens"
-            href="/builders-corner/kitchens"
+            href="/builders-corner"
             image={TILE_KITCHENS}
             alt="A white-oak shaker kitchen with island and quartz counters. Representative of Builders Corner kitchen work."
             caption="Custom kitchens: white-oak shaker, island with quartz, our design and our install."
           />
           <BCTile
             tag="Baths"
-            href="/builders-corner/baths"
+            href="/builders-corner"
             image={TILE_BATHS}
             alt="A representative bathroom: white shaker vanity, quartz top, brushed pulls."
             caption="Custom baths: vanities, quartz tops, tile work. Designed here, installed by Four Squared."
           />
           <BCTile
             tag="Built-ins"
-            href="/builders-corner/consultation"
+            href="/contact"
             image={TILE_BUILTINS}
             alt="A pantry-style cabinet detail: tall doors, brushed hardware, integrated panels."
             caption="Built-ins for vanities, pantries, office walls, laundry. Same shop, same finish booth."
           />
           <BCTile
             tag="Mudrooms and details"
-            href="/builders-corner/consultation"
+            href="/contact"
             image={TILE_MUDROOMS}
             alt="A stack of painted trim and moulding samples, sharp and crisp from our finish booth."
             caption="Trim, panel detail, finish work. The small stuff that makes a room read finished."
@@ -176,7 +176,7 @@ export default function BuildersHome() {
               Four steps.
             </h2>
             <Link
-              href="/builders-corner/process"
+              href="/builders-corner"
               className="mt-5 inline-flex text-sm text-white/80 underline decoration-[var(--brand-builders-gold)] decoration-2 underline-offset-[6px] transition hover:text-[var(--brand-builders-gold)]"
             >
               See the full process →
@@ -208,7 +208,7 @@ export default function BuildersHome() {
             A few directions to start from.
           </h2>
           <Link
-            href="/builders-corner/gallery"
+            href="/builders-corner"
             className="mt-5 inline-flex text-base text-[var(--brand-builders)] underline decoration-[var(--brand-builders-gold)] decoration-2 underline-offset-[6px] hover:text-[var(--brand-builders-gold)] md:text-lg"
           >
             See the full gallery →
@@ -306,7 +306,7 @@ export default function BuildersHome() {
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-5">
               <Link
-                href="/builders-corner/consultation"
+                href="/contact"
                 className="inline-block border-b-2 border-[var(--brand-builders-gold)] pb-1.5 text-base text-[var(--brand-builders)] transition hover:text-[var(--brand-builders-gold)] md:text-lg"
               >
                 Book a consultation

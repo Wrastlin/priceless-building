@@ -8,8 +8,8 @@ import Link from "next/link";
 export function MobileTabbar() {
   const tabs = [
     { href: "/shop", label: "Shop", icon: "🛒" },
-    { href: "/aisle-map", label: "Map", icon: "🗺️" },
-    { href: "/tour", label: "Tour", icon: "📷" },
+    { href: "/reviews", label: "Reviews", icon: "★" },
+    { href: "/builders-corner", label: "Premier", icon: "✦" },
     { href: "/cart", label: "Cart", icon: "🧾" },
     { href: "/contact", label: "Help", icon: "📞" },
   ];

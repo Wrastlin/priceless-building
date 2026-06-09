@@ -102,7 +102,7 @@ const VIEWPOINTS: Viewpoint[] = [
     map: { x: 50, y: 12 },
     hotspots: [
       { x: 50, y: 60, label: "Visit Builders Corner →", href: "/builders-corner" },
-      { x: 20, y: 50, label: "Book a consult", href: "/builders-corner/consultation" },
+      { x: 20, y: 50, label: "Book a consult", href: "/builders-corner" },
       { x: 85, y: 50, label: "← back to entrance", targetViewpoint: "entrance" },
     ],
   },

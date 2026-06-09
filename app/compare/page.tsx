@@ -149,8 +149,8 @@ export default function ComparePage() {
             <Link href="/shop" className="btn bg-white text-[var(--brand-priceless)]">
               Shop the warehouse
             </Link>
-            <Link href="/tour" className="btn btn-outline border-white/50 bg-transparent text-white">
-              Virtual tour
+            <Link href="/contact" className="btn btn-outline border-white/50 bg-transparent text-white">
+              Visit the store
             </Link>
           </div>
         </div>

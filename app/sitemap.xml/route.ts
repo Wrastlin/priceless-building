@@ -8,19 +8,13 @@ import { CATEGORIES, CATALOG } from "@/lib/catalog";
 const BASE = "https://pricelessbuilding.com";
 
 const STATIC: string[] = [
-  "/", "/shop", "/tour", "/aisle-map", "/search",
+  "/", "/shop", "/search",
   "/about", "/contact", "/track", "/financing", "/compare",
   "/contractors", "/reviews", "/blog", "/gift-cards", "/cart",
-  "/builders-corner",
-  "/builders-corner/kitchens", "/builders-corner/baths", "/builders-corner/gallery",
-  "/builders-corner/process", "/builders-corner/consultation", "/builders-corner/showroom",
-  "/builders-corner/door-styles", "/builders-corner/finishes", "/builders-corner/shop",
-  "/builders-corner/build-your-kitchen",
+  "/builders-corner", "/four-squared",
 ];
 
 const BLOG_SLUGS = ["buying-surplus-doors", "how-we-price", "reclaimed-windows", "cabinet-boxes-revealed"];
-// Portfolio case-study routes were removed (they were fabricated). The real
-// install gallery is at /builders-corner/gallery.
 
 export async function GET() {
   const urls: string[] = [];

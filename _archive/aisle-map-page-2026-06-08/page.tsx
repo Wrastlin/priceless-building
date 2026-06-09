@@ -17,7 +17,7 @@ const ZONES: Zone[] = [
   { id: "POS", x: 4, y: 54, w: 22, h: 10, label: "Checkout · Counter 1+2", href: "/cart", tone: "accent" },
   { id: "LOAD", x: 28, y: 54, w: 26, h: 10, label: "Rear Load-Bay (pickup)", href: "/track", tone: "neutral" },
   { id: "OFFICE", x: 56, y: 54, w: 18, h: 10, label: "Office + Will-Call", href: "/contractors", tone: "neutral" },
-  { id: "DESIGN", x: 76, y: 54, w: 20, h: 10, label: "Design Consult Room", href: "/builders-corner/consultation", tone: "cool" },
+  { id: "DESIGN", x: 76, y: 54, w: 20, h: 10, label: "Design Consult Room", href: "/builders-corner", tone: "cool" },
 ];
 
 const TONE_BG: Record<Zone["tone"], string> = {

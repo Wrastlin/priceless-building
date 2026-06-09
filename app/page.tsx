@@ -104,7 +104,7 @@ export default function HomePage() {
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-5">
                 <Link href="/shop" className="btn btn-priceless">Shop everything</Link>
-                <Link href="/tour" className="text-base text-[var(--brand-priceless)] underline decoration-[var(--brand-priceless)]/30 underline-offset-4 hover:decoration-[var(--brand-priceless)] md:text-lg">Walk the warehouse →</Link>
+                <Link href="/reviews" className="text-base text-[var(--brand-priceless)] underline decoration-[var(--brand-priceless)]/30 underline-offset-4 hover:decoration-[var(--brand-priceless)] md:text-lg">Read our reviews →</Link>
               </div>
             </div>
             <div className="md:col-span-5">
@@ -571,15 +571,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* DESIGN WALKTHROUGH. Explains the upcoming visualization process
-          in plain language with no "AI" framing. Sits on a dark anchor
-          band so the section reads as a featured CTA rather than just
-          more body content, and so the install photo on the right
-          carries the room. */}
-      <section id="design-walkthrough" className="bg-[#0b1220] text-white scroll-mt-24">
+      {/* DESIGN WALKTHROUGH. Light band so the step text is comfortable
+          to read. The closing brand statement lives in its own dark
+          band right after so the contrast actually pops. */}
+      <section id="design-walkthrough" className="bg-[var(--muted)] scroll-mt-24">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
-            invert
             headline="See it in your home before you buy it."
             sub="A walkthrough we are putting together. Photo of your space, the pieces you want, the colors, a render in the same photo, real pricing."
           />
@@ -597,14 +594,14 @@ export default function HomePage() {
                   key={s.n}
                   data-reveal
                   data-reveal-delay={(i * 0.06).toFixed(2)}
-                  className="grid grid-cols-[56px_1fr] items-start gap-x-5 border-b border-white/10 py-5 first:pt-0 last:border-b-0 last:pb-0 md:grid-cols-[80px_1fr] md:gap-x-8 md:py-6"
+                  className="grid grid-cols-[56px_1fr] items-start gap-x-5 border-b border-[var(--border)] py-5 first:pt-0 last:border-b-0 last:pb-0 md:grid-cols-[80px_1fr] md:gap-x-8 md:py-6"
                 >
-                  <div className="font-display text-3xl leading-none text-[#ff8b85] md:text-4xl">
+                  <div className="font-display text-3xl leading-none text-[var(--brand-priceless)] md:text-4xl">
                     {s.n}
                   </div>
                   <div>
-                    <h3 className="font-display text-xl leading-snug text-white md:text-2xl">{s.t}</h3>
-                    <p className="mt-1.5 text-base leading-relaxed text-white/75">{s.b}</p>
+                    <h3 className="font-display text-xl leading-snug md:text-2xl">{s.t}</h3>
+                    <p className="mt-1.5 text-base leading-relaxed text-[var(--foreground)]">{s.b}</p>
                   </div>
                 </li>
               ))}
@@ -620,17 +617,26 @@ export default function HomePage() {
                   className="object-cover"
                 />
               </div>
-              <figcaption className="mt-4 text-sm leading-relaxed text-white/70">
+              <figcaption className="mt-4 text-sm leading-relaxed text-[var(--muted-foreground)]">
                 A finished install. The walkthrough lets you preview something like this in your own room first.
               </figcaption>
             </figure>
           </div>
+        </div>
+      </section>
 
-          <div className="mt-14 border-t border-white/10 pt-8 text-center" data-reveal>
-            <p className="mx-auto max-w-2xl text-base leading-relaxed text-white/85 md:text-lg">
-              Style and class at every price point. We pride ourselves on being affordable to anyone looking to liven up their home, and we try to make the rest of it as easy as possible. Subscribe below to be first when the walkthrough launches.
-            </p>
-          </div>
+      {/* BRAND STATEMENT. One sentence on a dark band, the focus is
+          all on the message. Sits between the walkthrough body and the
+          newsletter signup so the visual rhythm is: light explainer →
+          dark statement → red call to action. */}
+      <section className="bg-[#0b1220] text-white">
+        <div className="mx-auto max-w-3xl px-6 py-20 text-center md:py-28" data-reveal>
+          <p className="font-display text-3xl leading-tight md:text-5xl">
+            Style and class at <span className="text-[#ff8b85]">every</span> price point.
+          </p>
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/80 md:text-lg">
+            We pride ourselves on being affordable to anyone looking to liven up their home, and we try to make the rest of it as easy as possible.
+          </p>
         </div>
       </section>
 

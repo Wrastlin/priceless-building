@@ -264,7 +264,7 @@ export default function AboutPage() {
               {ADDRESS.street} · {ADDRESS.city}, {ADDRESS.state} {ADDRESS.zip} · {ADDRESS.phone}
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/tour" className="btn btn-priceless">Take the virtual tour</Link>
+              <Link href="/shop" className="btn btn-priceless">Shop the surplus floor</Link>
               <Link href="/contact" className="btn btn-outline">Plan your visit</Link>
             </div>
           </div>

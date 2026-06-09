@@ -67,16 +67,12 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
                   <li><FooterLink href="/shop/cabinets">Cabinets</FooterLink></li>
                   <li><FooterLink href="/shop/vanities">Vanities</FooterLink></li>
                   <li><FooterLink href="/shop/hardware">Hardware</FooterLink></li>
-                  <li><FooterLink href="/tour">Virtual tour</FooterLink></li>
-                  <li><FooterLink href="/aisle-map">Aisle map</FooterLink></li>
                 </>
               ) : (
                 <>
-                  <li><FooterLink href="/builders-corner/kitchens">Kitchens</FooterLink></li>
-                  <li><FooterLink href="/builders-corner/baths">Baths</FooterLink></li>
-                  <li><FooterLink href="/builders-corner/gallery">Gallery</FooterLink></li>
-                  <li><FooterLink href="/builders-corner/process">Process</FooterLink></li>
-                  <li><FooterLink href="/builders-corner/consultation">Book a consult</FooterLink></li>
+                  <li><FooterLink href="/builders-corner">Builders Corner</FooterLink></li>
+                  <li><FooterLink href="/four-squared">Four Squared install</FooterLink></li>
+                  <li><FooterLink href="/contact">Visit the showroom</FooterLink></li>
                 </>
               )}
             </ul>
