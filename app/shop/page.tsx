@@ -14,20 +14,18 @@ export default function ShopIndex() {
       <SiteHeader brand="priceless" />
 
       {/* HEADER */}
-      <section className="mx-auto max-w-7xl px-6 pt-14 pb-10">
-        <div className="grid items-end gap-x-10 gap-y-4 md:grid-cols-12">
-          <div className="md:col-span-8">
-            <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">
-              Shop · {all.length} items on the floor right now
-            </div>
-            <h1 className="font-display mt-3 text-6xl leading-[1.05] md:text-8xl">
-              The whole <span className="text-[var(--brand-priceless)]">warehouse,</span><br />by department.
-            </h1>
+      <section className="mx-auto max-w-7xl px-6 pt-14 pb-12">
+        <header className="max-w-3xl">
+          <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)]">
+            Shop · {all.length} items on the floor right now
           </div>
-          <p className="font-serif text-base italic text-[var(--muted-foreground)] md:col-span-4 md:text-lg">
-            Pricing reflects current floor stock. Tap "Online Hold" on any item and we'll set it aside for 48 hours.
+          <h1 className="font-display mt-3 text-[clamp(2.5rem,1.6rem+4vw,5rem)] leading-[1.02]">
+            The whole <span className="text-[var(--brand-priceless)]">warehouse,</span> by department.
+          </h1>
+          <p className="font-serif mt-5 max-w-2xl text-base italic text-[var(--muted-foreground)] md:text-lg">
+            Pricing reflects current floor stock. Tap &ldquo;Online Hold&rdquo; on any item and we&apos;ll set it aside for 48 hours.
           </p>
-        </div>
+        </header>
       </section>
 
       {/* DEPARTMENTS. Horizontal scroll strip */}
@@ -58,19 +56,17 @@ export default function ShopIndex() {
 
       {/* INVENTORY GRID */}
       <section className="mx-auto max-w-7xl px-6 pt-14 pb-20">
-        <div className="grid items-end gap-x-10 gap-y-4 md:grid-cols-12">
-          <div className="md:col-span-8">
-            <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">
-              Everything in stock
-            </div>
-            <h2 className="font-display mt-3 text-4xl leading-[1.05] md:text-5xl">
-              {all.length} items, <span className="text-[var(--brand-priceless)]">last refreshed today.</span>
-            </h2>
+        <header className="max-w-3xl">
+          <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)]">
+            Everything in stock
           </div>
-          <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--muted-foreground)] md:col-span-4 md:text-right">
+          <h2 className="font-display mt-3 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05]">
+            {all.length} items, <span className="text-[var(--brand-priceless)]">last refreshed today.</span>
+          </h2>
+          <div className="font-mono mt-5 text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
             Sort · Featured / Newest / Price ↑ / Price ↓
           </div>
-        </div>
+        </header>
 
         <div className="mt-10 grid grid-cols-1 gap-px bg-[var(--border)] sm:grid-cols-2 lg:grid-cols-4">
           {all.map((it) => <ProductCard key={it.id} item={it} />)}

@@ -124,18 +124,16 @@ export default function BuildersHome() {
       </section>
 
       {/* WHAT WE MAKE. Four tiles, real install photos, honest captions. */}
-      <section className="mx-auto max-w-7xl px-6 py-14 md:py-16">
-        <div className="grid items-end gap-x-10 gap-y-5 md:grid-cols-12">
-          <div className="md:col-span-7">
-            <div className="font-couture text-2xl italic text-[var(--brand-builders-gold)]">What we make</div>
-            <h2 className="font-couture mt-5 text-5xl leading-[1] tracking-[-0.015em] text-[var(--brand-builders)] md:text-6xl">
-              Kitchens. Baths. Built-ins for the rest of the house.
-            </h2>
-          </div>
-          <p className="text-lg leading-[1.7] text-[var(--muted-foreground)] md:col-span-5 md:text-xl">
+      <section className="mx-auto max-w-7xl px-6 py-14 md:py-20">
+        <header className="max-w-3xl">
+          <div className="font-couture text-2xl italic text-[var(--brand-builders-gold)]">What we make</div>
+          <h2 className="font-couture mt-5 text-[clamp(2.25rem,1.4rem+3.4vw,3.75rem)] leading-[1] tracking-[-0.015em] text-[var(--brand-builders)]">
+            Kitchens. Baths. Built-ins for the rest of the house.
+          </h2>
+          <p className="mt-5 max-w-2xl text-lg leading-[1.7] text-[var(--muted-foreground)] md:text-xl">
             One bath, the whole first floor, a mudroom, a pantry. We design and build the cabinets here. Four Squared installs them.
           </p>
-        </div>
+        </header>
 
         <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2">
           <BCTile
@@ -172,20 +170,18 @@ export default function BuildersHome() {
       {/* PROCESS. Four compact steps in a row at desktop, stack at mobile. */}
       <section className="border-y border-[#0b1729]/15 bg-[#0b1729] text-white">
         <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
-          <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3 border-b border-white/10 pb-6">
-            <div className="flex items-baseline gap-3">
-              <span className="text-xs uppercase tracking-[0.18em] text-[var(--brand-builders-gold)]">How it works</span>
-              <h2 className="font-couture text-3xl leading-none tracking-[-0.01em] md:text-4xl">
-                Four steps.
-              </h2>
-            </div>
+          <header className="max-w-3xl border-b border-white/10 pb-6">
+            <div className="text-xs uppercase tracking-[0.18em] text-[var(--brand-builders-gold)]">How it works</div>
+            <h2 className="font-couture mt-3 text-[clamp(2rem,1.4rem+2.6vw,3rem)] leading-[1.05] tracking-[-0.01em]">
+              Four steps.
+            </h2>
             <Link
               href="/builders-corner/process"
-              className="text-sm text-white/80 underline decoration-[var(--brand-builders-gold)] decoration-2 underline-offset-[6px] transition hover:text-[var(--brand-builders-gold)]"
+              className="mt-5 inline-flex text-sm text-white/80 underline decoration-[var(--brand-builders-gold)] decoration-2 underline-offset-[6px] transition hover:text-[var(--brand-builders-gold)]"
             >
               See the full process →
             </Link>
-          </div>
+          </header>
 
           <ol className="mt-8 grid gap-px bg-white/10 md:grid-cols-4">
             {[
@@ -204,23 +200,20 @@ export default function BuildersHome() {
         </div>
       </section>
 
-      {/* FROM THE SHOWROOM. Magazine-style asymmetric grid of real installs.
-          Honest descriptor captions. */}
+      {/* FROM THE SHOWROOM. Magazine-style asymmetric grid of installs. */}
       <section className="mx-auto max-w-7xl px-6 py-14 md:py-20">
-        <div className="grid items-end gap-x-10 gap-y-5 md:grid-cols-12">
-          <div className="md:col-span-8">
-            <div className="font-couture text-2xl italic text-[var(--brand-builders-gold)]">From the showroom</div>
-            <h2 className="font-couture mt-5 text-5xl leading-[1] tracking-[-0.015em] text-[var(--brand-builders)] md:text-6xl">
-              A few directions to start from.
-            </h2>
-          </div>
+        <header className="max-w-3xl">
+          <div className="font-couture text-2xl italic text-[var(--brand-builders-gold)]">From the showroom</div>
+          <h2 className="font-couture mt-5 text-[clamp(2.25rem,1.4rem+3.4vw,3.75rem)] leading-[1] tracking-[-0.015em] text-[var(--brand-builders)]">
+            A few directions to start from.
+          </h2>
           <Link
             href="/builders-corner/gallery"
-            className="text-base text-[var(--brand-builders)] underline decoration-[var(--brand-builders-gold)] decoration-2 underline-offset-[6px] hover:text-[var(--brand-builders-gold)] md:col-span-4 md:justify-self-end md:text-lg"
+            className="mt-5 inline-flex text-base text-[var(--brand-builders)] underline decoration-[var(--brand-builders-gold)] decoration-2 underline-offset-[6px] hover:text-[var(--brand-builders-gold)] md:text-lg"
           >
             See the full gallery →
           </Link>
-        </div>
+        </header>
 
         <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-6 md:gap-4">
           {SHOWROOM_GRID.map((p, i) => {

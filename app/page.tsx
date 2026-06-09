@@ -6,6 +6,7 @@ import { ProductCard } from "@/components/product-card";
 import { NewsletterBar } from "@/components/newsletter-bar";
 import { TrustBlock } from "@/components/trust-block";
 import { BrandLogo } from "@/components/brand-logo";
+import { SectionHead } from "@/components/section-head";
 import { GOOGLE_RATING } from "@/lib/google-reviews";
 import { ADDRESS, PRICELESS } from "@/lib/brands";
 import { CATEGORIES, byBrand } from "@/lib/catalog";
@@ -190,20 +191,15 @@ export default function HomePage() {
       </section>
 
       {/* CATEGORY STRIP. Editorial split: one feature tile + an indexed list. Moved up so the catalog hits early. */}
-      <section className="mx-auto max-w-7xl px-6 py-14 md:py-20">
-        <div className="grid items-end gap-x-10 gap-y-6 md:grid-cols-12">
-          <div className="md:col-span-7">
-            <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">Browse the aisles</div>
-            <h2 className="font-display mt-3 text-5xl leading-[1.05] md:text-7xl">
-              Eight departments.<br /><span className="text-[var(--brand-priceless)]">One warehouse.</span>
-            </h2>
-          </div>
-          <Link href="/shop" className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--foreground)] underline decoration-[var(--brand-priceless)] decoration-2 underline-offset-4 md:col-span-5 md:justify-self-end">
-            See everything →
-          </Link>
-        </div>
+      <section className="bg-[var(--muted)]">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+          <SectionHead
+            kicker="Browse the aisles"
+            headline={<>Eight departments. <span className="text-[var(--brand-priceless)]">One warehouse.</span></>}
+            link={{ href: "/shop", label: "See everything" }}
+          />
 
-        <div className="mt-12 grid gap-x-10 gap-y-6 md:grid-cols-12">
+          <div className="mt-12 grid gap-x-10 gap-y-6 md:grid-cols-12">
           {(() => {
             const entries = Object.entries(CATEGORIES) as [keyof typeof CATEGORIES, (typeof CATEGORIES)[keyof typeof CATEGORIES]][];
             const [featKey, feat] = entries[0];
@@ -244,43 +240,31 @@ export default function HomePage() {
             );
           })()}
         </div>
+        </div>
       </section>
 
       {/* FEATURED PRODUCTS. On-the-floor catalog showcase. Now sits high so items present early. */}
-      <section className="border-y bg-white py-14 md:py-16">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3 border-b border-[var(--border)] pb-6">
-            <div className="flex items-baseline gap-3">
-              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">On the floor today</span>
-              <h2 className="font-display text-3xl leading-none md:text-4xl">
-                New stock arrives every Wednesday.
-              </h2>
-            </div>
-            <Link href="/shop" className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4">
-              Shop everything →
-            </Link>
-          </div>
-          <div className="mt-8 grid grid-cols-1 gap-px bg-[var(--border)] sm:grid-cols-2 lg:grid-cols-4">
+      <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+          <SectionHead
+            kicker="On the floor today"
+            headline="New stock arrives every Wednesday."
+            link={{ href: "/shop", label: "Shop everything" }}
+          />
+          <div className="mt-10 grid grid-cols-1 gap-px bg-[var(--border)] sm:grid-cols-2 lg:grid-cols-4">
             {items.map((it) => <ProductCard key={it.id} item={it} />)}
           </div>
         </div>
       </section>
 
-      {/* CUSTOMER STORIES. Real handwritten card + real Google reviews + real before/after */}
-      <section className="mx-auto max-w-7xl px-6 py-20">
-        <div className="grid items-end gap-x-10 gap-y-4 md:grid-cols-12">
-          <div className="md:col-span-8">
-            <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">
-              What customers actually say
-            </div>
-            <h2 className="font-display mt-3 text-5xl leading-[1.05] md:text-6xl">
-              What people <span className="text-[var(--brand-priceless)]">tell us.</span>
-            </h2>
-          </div>
-          <p className="text-base text-[var(--muted-foreground)] md:col-span-4 md:text-lg">
-            Every quote here links straight to the Google or Facebook review you can verify in a click.
-          </p>
-        </div>
+      {/* CUSTOMER STORIES. Handwritten card + Google reviews. */}
+      <section className="bg-[var(--muted)]">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+          <SectionHead
+            kicker="What customers actually say"
+            headline={<>What people <span className="text-[var(--brand-priceless)]">tell us.</span></>}
+            sub="Every quote here links straight to the Google or Facebook review you can verify in a click."
+          />
 
         {/* Handwritten card + 3 review tiles */}
         <div className="mt-12 grid gap-8 md:grid-cols-12 md:gap-12">
@@ -335,25 +319,17 @@ export default function HomePage() {
             </Link>
           </ul>
         </div>
-
+        </div>
       </section>
 
       {/* REAL PHOTOS. Actual store, customers, and the community mural */}
-      <section className="border-y border-[var(--border)] bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-20">
-          <div className="grid items-end gap-x-10 gap-y-4 md:grid-cols-12">
-            <div className="md:col-span-8">
-              <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">
-                Around 825 Washington
-              </div>
-              <h2 className="font-display mt-3 text-5xl leading-[1.05] md:text-6xl">
-                The store, the crew, <span className="text-[var(--brand-priceless)]">the mural.</span>
-              </h2>
-            </div>
-            <p className="text-base text-[var(--muted-foreground)] md:col-span-4 md:text-lg">
-              The mural was painted by 50 Wausau volunteers in June 2023. The rest is what an average week looks like at 825 Washington.
-            </p>
-          </div>
+      <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+          <SectionHead
+            kicker="Around 825 Washington"
+            headline={<>The store, the crew, <span className="text-[var(--brand-priceless)]">the mural.</span></>}
+            sub="The mural was painted by 50 Wausau volunteers in June 2023. The rest is what an average week looks like at 825 Washington."
+          />
           <ul className="mt-10 grid gap-4 md:grid-cols-3">
             {REAL_PHOTOS.map((p) => (
               <li key={p.src} className="group relative aspect-[4/3] overflow-hidden bg-[var(--muted)]">
@@ -373,22 +349,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* IN THE NEWS. Real press coverage, real owner quotes */}
+      {/* IN THE NEWS. Press coverage, owner quotes. */}
       <section className="bg-[var(--muted)]">
-        <div className="mx-auto max-w-7xl px-6 py-20">
-          <div className="grid items-end gap-x-10 gap-y-4 md:grid-cols-12">
-            <div className="md:col-span-8">
-              <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">
-                In the news
-              </div>
-              <h2 className="font-display mt-3 text-5xl leading-[1.05] md:text-6xl">
-                What people <span className="text-[var(--brand-priceless)]">have written</span> about us.
-              </h2>
-            </div>
-            <p className="text-base text-[var(--muted-foreground)] md:col-span-4 md:text-lg">
-              Local press coverage from the past few years. Every link goes to the original article.
-            </p>
-          </div>
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+          <SectionHead
+            kicker="In the news"
+            headline={<>What people <span className="text-[var(--brand-priceless)]">have written</span> about us.</>}
+            sub="Local press coverage from the past few years. Every link goes to the original article."
+          />
           <ul className="mt-10 grid gap-5 md:grid-cols-2">
             {PRESS.map((p) => (
               <li key={p.url} className="overflow-hidden border border-[var(--border)] bg-white transition hover:border-[var(--brand-priceless)]">
@@ -417,22 +385,16 @@ export default function HomePage() {
       </section>
 
 
-      {/* REAL WORK. After/before install pair where the product grid used to live. */}
-      <section className="border-y bg-[var(--muted)] py-14 md:py-16">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3 border-b border-[var(--border)] pb-6">
-            <div className="flex items-baseline gap-3">
-              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">From the install crew</span>
-              <h2 className="font-display text-3xl leading-none md:text-4xl">
-                Before and after.
-              </h2>
-            </div>
-            <Link href="/four-squared" className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4">
-              Meet the install crew →
-            </Link>
-          </div>
+      {/* BEFORE/AFTER. Install pair where the product grid used to live. */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+          <SectionHead
+            kicker="From the install crew"
+            headline="Before and after."
+            link={{ href: "/four-squared", label: "Meet the install crew" }}
+          />
 
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
             <figure>
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
                 <Image
@@ -474,24 +436,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* THREE-BRAND CALLOUT. Logos lead. One address, three businesses, one
-          owner. The three cards visually connect via shared border + the
-          "ONE ADDRESS · ONE OWNER" header band so they read as a cohort. */}
-      <section className="mx-auto max-w-7xl px-6 py-14 md:py-16">
-        <div className="border-b border-[var(--border)] pb-6 text-center">
-          <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)]">
-            One address · One owner · Three businesses
-          </span>
-          <h2 className="font-display mt-3 text-4xl leading-[1.05] md:text-5xl">
-            Materials. Design. Install.
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm text-[var(--muted-foreground)] md:text-base">
-            All three operate out of 825 Washington Street under Josh Nickel.
-            Use any one on its own, or hand us the whole project.
-          </p>
-        </div>
+      {/* THREE-BRAND CALLOUT. Logos lead. One address, one owner, three
+          businesses. Dark band so it acts as the second anchor (the stat
+          strip is the first). Logos pop on dark; the three brand-tinted
+          card backs sit on top. */}
+      <section className="bg-[#0b1220] text-white">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+          <SectionHead
+            align="center"
+            invert
+            kicker="One address · One owner · Three businesses"
+            headline="Materials. Design. Install."
+            sub="All three operate out of 825 Washington Street under Josh Nickel. Use any one on its own, or hand us the whole project."
+          />
 
-        <div className="mt-8 grid gap-px overflow-hidden border border-[var(--border)] bg-[var(--border)] md:grid-cols-3">
+          <div className="mt-10 grid gap-px overflow-hidden border border-white/10 bg-white/10 md:grid-cols-3">
           <BrandCard
             href="/shop"
             logoBrand="priceless"
@@ -517,20 +476,19 @@ export default function HomePage() {
             cta="Meet the crew"
           />
         </div>
+        </div>
       </section>
 
       {/* LATEST FROM FACEBOOK. Compact 2-col block: live Page Plugin on the
           left, short paragraph + social outbound links on the right. Sits
           just above the WHY callout so it acts as a live-pulse signal. */}
-      <section className="border-t border-[var(--border)] bg-white">
+      <section className="bg-[var(--muted)]">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
-          <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">
-            Latest from our Facebook
-          </div>
-          <h2 className="font-display mt-3 max-w-3xl text-4xl leading-[1.05] md:text-5xl">
-            What we&apos;ve been up to this week.
-          </h2>
-          <div className="mt-10 grid items-start gap-10 md:grid-cols-12">
+          <SectionHead
+            kicker="Latest from our Facebook"
+            headline="What we've been up to this week."
+          />
+          <div className="mt-12 grid items-start gap-10 md:grid-cols-12">
             <div className="flex justify-center md:col-span-6 md:justify-end">
               <div className="w-full max-w-[500px] overflow-hidden border border-[var(--border)] bg-white">
                 <iframe
@@ -582,18 +540,14 @@ export default function HomePage() {
       </section>
 
       {/* WHY PRICE-LESS. Compact 3-card callout, scannable, ends in a popping CTA. */}
-      <section className="border-y border-[var(--border)] bg-white">
+      <section className="bg-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <h2 className="font-display text-4xl leading-[1.05] md:text-5xl">
-              Honest prices. Builder-grade <span className="text-[var(--brand-priceless)]">quality.</span> No surprises.
-            </h2>
-            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
-              Three things we don't budge on
-            </span>
-          </div>
+          <SectionHead
+            kicker="Three things we don't budge on"
+            headline={<>Honest prices. Builder-grade <span className="text-[var(--brand-priceless)]">quality.</span> No surprises.</>}
+          />
 
-          <ul className="mt-10 grid gap-px bg-[var(--border)] md:grid-cols-3">
+          <ul className="mt-12 grid gap-px bg-[var(--border)] md:grid-cols-3">
             <li className="bg-white p-7">
               <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)]">01 · Quality</div>
               <h3 className="font-display mt-3 text-2xl leading-tight md:text-3xl">New in the box.</h3>

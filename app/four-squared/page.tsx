@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { BrandLogo } from "@/components/brand-logo";
 import { InquiryForm } from "@/components/inquiry-form";
+import { SectionHead } from "@/components/section-head";
 import { ADDRESS } from "@/lib/brands";
 
 /**
@@ -290,19 +291,12 @@ export default function FourSquaredPage() {
       {/* THE WORK. 6 real install tiles with honest, descriptive captions. */}
       <section className="border-b bg-white py-12">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="grid items-end gap-x-10 gap-y-6 md:grid-cols-12">
-            <div className="md:col-span-8">
-              <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-emerald-700">The work</div>
-              <h2 className="font-display mt-3 text-5xl leading-[1.02] md:text-6xl">
-                Recent installs.
-              </h2>
-            </div>
-            <p className="text-base text-[var(--muted-foreground)] md:col-span-4 md:text-lg">
-              Photos from completed Builders Corner / Four Squared projects.
-              Small resolution on a few comes from the original posts; we are
-              getting higher-res shots from the homeowners.
-            </p>
-          </div>
+          <SectionHead
+            accent="emerald"
+            kicker="The work"
+            headline="Recent installs."
+            sub="Photos from completed Builders Corner / Four Squared projects. Small resolution on a few comes from the original posts; we are getting higher-res shots from the homeowners."
+          />
 
           <div className="mt-14 grid grid-cols-1 gap-px bg-[var(--border)] sm:grid-cols-2 lg:grid-cols-3">
             {WORK_TILES.map((t, i) => (
@@ -338,18 +332,12 @@ export default function FourSquaredPage() {
           (painter's tape and kraft paper) next to a real installed kitchen. */}
       <section className="border-b bg-[var(--muted)] py-12">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="grid items-end gap-x-10 gap-y-6 md:grid-cols-12">
-            <div className="md:col-span-8">
-              <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-emerald-700">Mid-install and finished</div>
-              <h2 className="font-display mt-3 text-5xl leading-[1.02] md:text-6xl">
-                The middle and the end.
-              </h2>
-            </div>
-            <p className="text-base text-[var(--muted-foreground)] md:col-span-4 md:text-lg">
-              The before is from a different project than the after. Showing both because
-              one captures the work, the other captures the room.
-            </p>
-          </div>
+          <SectionHead
+            accent="emerald"
+            kicker="Mid-install and finished"
+            headline="The middle and the end."
+            sub="The before is from a different project than the after. Showing both because one captures the work, the other captures the room."
+          />
 
           <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2">
             <figure className="relative">
