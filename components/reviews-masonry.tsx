@@ -8,10 +8,12 @@ import type { CuratedReview } from "@/lib/reviews-data";
  * (Google/Facebook/Yelp), the body, and an optional photo + date.
  */
 
+// Darker text on the source pill so the badge passes WCAG AA contrast
+// against its light tinted background.
 const SOURCE_BADGE: Record<CuratedReview["source"], string> = {
-  Google: "bg-[#4285F4]/10 text-[#1a73e8]",
-  Facebook: "bg-[#1877F2]/10 text-[#1877F2]",
-  Yelp: "bg-[#d32323]/10 text-[#d32323]",
+  Google: "bg-[#4285F4]/15 text-[#0b3d91]",
+  Facebook: "bg-[#1877F2]/15 text-[#0c3a86]",
+  Yelp: "bg-[#d32323]/15 text-[#8a0b0b]",
 };
 
 function Stars({ n }: { n: number }) {

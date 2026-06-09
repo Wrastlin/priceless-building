@@ -71,7 +71,7 @@ export function HomeHero() {
             alt="Build Your Future community mural on the side of the Price-Less Building Center, painted by 50 Wausau volunteers in June 2023."
             width={2400}
             height={750}
-            priority
+            loading="lazy"
             className="block h-auto w-full object-contain"
             sizes="100vw"
           />

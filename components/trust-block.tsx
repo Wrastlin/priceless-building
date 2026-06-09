@@ -221,7 +221,7 @@ function Stars({ value, size = "md" }: { value: number; size?: "sm" | "md" }) {
   const half = value - full >= 0.5;
   const px = size === "sm" ? "text-sm" : "text-lg";
   return (
-    <span aria-label={`${value.toFixed(1)} out of 5 stars`} className={`inline-flex items-center gap-px text-[#f5a524] ${px}`}>
+    <span role="img" aria-label={`${value.toFixed(1)} out of 5 stars`} className={`inline-flex items-center gap-px text-[#f5a524] ${px}`}>
       {Array.from({ length: 5 }, (_, i) => {
         const filled = i < full || (i === full && half);
         return (
