@@ -79,10 +79,113 @@ const TIMELINE: TimelineEvent[] = [
   },
 ];
 
+// JSON-LD structured data for the home page. Tells search engines and
+// LLMs that this is one local business with two related departments
+// (Builders Corner + Four Squared), the address, phone, hours, areas
+// served, aggregated rating, and the high-level offer catalog. The
+// goal is for any AI-powered or organic search for "kitchen remodel
+// Wausau", "discount building materials Wisconsin", or "custom
+// cabinetry Wausau" to surface Price-Less and its two sister brands
+// together as the unified answer.
+const HOME_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "HomeImprovementBusiness", "HomeAndConstructionBusiness"],
+  "@id": "https://pricelessbuilding.com#org",
+  name: "Price-Less Building Center",
+  alternateName: ["Price-Less Building", "Priceless Building Center"],
+  description:
+    "Discount and surplus building materials, premium custom cabinetry, and a professional install crew in Wausau, WI. Doors, windows, cabinets, vanities, hardware, plus full kitchen and bath remodels.",
+  url: "https://pricelessbuilding.com",
+  telephone: "+1-715-848-3855",
+  priceRange: "$ – $$$",
+  foundingDate: "1978",
+  image: "https://pricelessbuilding.com/og-image.jpg",
+  logo: "https://pricelessbuilding.com/real-photos/logo-priceless-circular@2x.webp",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: ADDRESS.street,
+    addressLocality: ADDRESS.city,
+    addressRegion: ADDRESS.state,
+    postalCode: ADDRESS.zip,
+    addressCountry: "US",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 44.9591,
+    longitude: -89.6301,
+  },
+  openingHoursSpecification: PRICELESS.hours
+    .filter((h) => h.hours !== "Closed")
+    .map((h) => ({
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: h.day,
+      ...(h.hours.includes("–")
+        ? {
+            opens: h.hours.split("–")[0]?.trim(),
+            closes: h.hours.split("–")[1]?.trim(),
+          }
+        : {}),
+    })),
+  areaServed: [
+    "Wausau, WI",
+    "Schofield, WI",
+    "Weston, WI",
+    "Rib Mountain, WI",
+    "Rothschild, WI",
+    "Mosinee, WI",
+    "Marathon, WI",
+    "Marathon County, WI",
+    "Central Wisconsin",
+  ],
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: GOOGLE_RATING.average.toString(),
+    reviewCount: GOOGLE_RATING.count.toString(),
+  },
+  sameAs: [
+    PRICELESS.socials.facebook,
+    PRICELESS.socials.instagram,
+    PRICELESS.socials.yelp,
+    PRICELESS.socials.googleMaps,
+  ],
+  department: [
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://pricelessbuilding.com/builders-corner#org",
+      name: "Builders Corner Cabinetry & Design",
+      url: "https://pricelessbuilding.com/builders-corner",
+      description:
+        "Premium custom kitchen and bath cabinetry, designed and built in Wausau, WI since 1983.",
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://pricelessbuilding.com/four-squared#org",
+      name: "Four Squared Construction",
+      url: "https://pricelessbuilding.com/four-squared",
+      description:
+        "Professional installation crew for custom kitchen remodels, bath remodels, and full home renovations in central Wisconsin.",
+    },
+  ],
+  makesOffer: [
+    { "@type": "Offer", name: "Discount and surplus building materials" },
+    { "@type": "Offer", name: "Surplus doors, windows, cabinets, vanities, and hardware" },
+    { "@type": "Offer", name: "Custom kitchen cabinetry design and build" },
+    { "@type": "Offer", name: "Custom bathroom cabinetry design and build" },
+    { "@type": "Offer", name: "Built-in cabinetry for pantries, mudrooms, and home offices" },
+    { "@type": "Offer", name: "Full kitchen remodel design and installation" },
+    { "@type": "Offer", name: "Bath remodel design and installation" },
+    { "@type": "Offer", name: "Home renovation general contracting" },
+  ],
+};
+
 export default function HomePage() {
   const items = byBrand("priceless").slice(0, 8);
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(HOME_JSON_LD) }}
+      />
       <SiteHeader brand="priceless" />
 
       {/* HERO. Two clean columns: text on the left, looping FB video on the right */}
@@ -313,6 +416,57 @@ export default function HomePage() {
               body="An independent finish-carpentry and install company. They handle demo, plumbing, electrical, tile, and trim — start to final walkthrough. They install Builders Corner cabinetry, and they install anything you bring home from Price-Less."
               cta="Meet the install crew"
             />
+          </div>
+        </div>
+      </section>
+
+      {/* BC FEATURE BAND. Goes deeper into Builders Corner specifically
+          right after the three-brand row introduces all three. Positions
+          BC as the premium pair to Price-Less and bridges into the
+          full BC article. */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+          <div className="grid items-center gap-10 md:grid-cols-12 md:gap-14">
+            <figure className="md:col-span-6" data-reveal>
+              <div className="relative aspect-[4/5] w-full overflow-hidden bg-[var(--muted)]">
+                <Image
+                  src="/real-photos/install-kitchen-walnut-island-bar.webp"
+                  alt="A premium Builders Corner kitchen with walnut shaker cabinetry, island bar, and pendant lighting."
+                  fill
+                  sizes="(min-width:768px) 50vw, 100vw"
+                  className="object-cover"
+                  quality={82}
+                />
+              </div>
+            </figure>
+            <div className="md:col-span-6" data-reveal data-reveal-delay="0.08">
+              <div className="font-couture text-xl italic text-[var(--brand-builders-gold)] md:text-2xl">
+                Premium side
+              </div>
+              <h2 className="font-couture mt-4 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05] tracking-[-0.015em] text-[var(--brand-builders)]">
+                When the surplus floor isn&apos;t the project.
+              </h2>
+              <p className="mt-5 text-lg leading-[1.7] text-[var(--foreground)] md:text-xl">
+                <span className="font-medium">Builders Corner</span> is our premium custom cabinet shop next door. Kitchens, baths, and built-ins designed in the showroom and built in our own shop in Wausau. Installed by the Four Squared crew.
+              </p>
+              <p className="mt-4 text-base leading-[1.7] text-[var(--muted-foreground)] md:text-lg">
+                Same building. Different tier. Style and class at every price point.
+              </p>
+              <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-4">
+                <Link
+                  href="/builders-corner"
+                  className="font-couture inline-block border-b-2 border-[var(--brand-builders-gold)] pb-1.5 text-base italic text-[var(--brand-builders)] transition hover:text-[var(--brand-builders-gold)] md:text-lg"
+                >
+                  Read the Builders Corner story
+                </Link>
+                <Link
+                  href="/four-squared"
+                  className="font-couture inline-block border-b border-[var(--brand-builders)]/30 pb-1.5 text-base italic text-[var(--brand-builders)]/85 transition hover:border-[var(--brand-builders)] hover:text-[var(--brand-builders)] md:text-lg"
+                >
+                  Meet the install crew
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>

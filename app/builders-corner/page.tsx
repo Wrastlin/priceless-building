@@ -7,248 +7,361 @@ import { BrandLogo } from "@/components/brand-logo";
 import { InquiryForm } from "@/components/inquiry-form";
 import { ADDRESS, BUILDERS } from "@/lib/brands";
 
+/**
+ * Builders Corner. Single premium-positioning article inside the
+ * Price-Less family of brands. The old multi-page mini-site has been
+ * archived; this one page now covers the entire BC story: who it is,
+ * what it makes, how it works, how to come visit. SEO-loaded with the
+ * remodeling + custom-cabinetry + Wausau keywords search engines (and
+ * LLMs) need to surface the operation.
+ */
+
 export const metadata: Metadata = {
-  title: "Builders Corner Cabinetry & Design · Custom kitchens and baths in Wausau",
+  title:
+    "Builders Corner · Premium custom cabinetry, kitchens, and baths in Wausau, WI",
   description:
-    "Custom cabinets, built in Wausau since 1983. Walk into the showroom at 825 Washington Street and hold the door samples in your own hand. (715) 848-3855.",
+    "Premium custom cabinetry designed and built in Wausau since 1983. Custom kitchen design, bath remodels, built-ins, and full home renovations under one roof with our install crew. The upscale side of Price-Less Building Center.",
+  alternates: { canonical: "https://pricelessbuilding.com/builders-corner" },
+  openGraph: {
+    title:
+      "Builders Corner · Custom kitchens, baths, and remodels in Wausau, WI",
+    description:
+      "Premium custom cabinetry designed and built in Wausau. Designed with you in the showroom, built and finished in our shop, installed by Four Squared.",
+    url: "https://pricelessbuilding.com/builders-corner",
+    type: "website",
+  },
 };
 
-// Image policy: the hero and the four big category tiles use AI renders
-// from /test-images and /catalog-images (1024+ wide) because the real
-// install thumbnails are 223px native and pixelate at hero / large-card
-// scale. The smaller showroom-grid figures stay on real installs since
-// they render at proof-tile size. The mural keeps its real photo.
 const HERO = "/real-photos/install-kitchen-walnut.webp";
+const PAIRING_IMAGE = "/real-photos/install-kitchen-walnut-island-bar.webp";
 const TILE_KITCHENS = "/real-photos/install-kitchen-walnut-island-bar.webp";
 const TILE_BATHS = "/real-photos/install-bathroom-shaker.webp";
 const TILE_BUILTINS = "/real-photos/install-kitchen-floating-shelf-bowls.webp";
-const TILE_MUDROOMS = "/real-photos/install-floor-grey-lvp.webp";
-const SHOWROOM_GRID = [
-  { src: "/real-photos/install-kitchen-walnut-marble.webp", caption: "Walnut shaker with white marble counter." },
-  { src: "/real-photos/install-kitchen-island-globes.webp", caption: "White cabinetry with quartz island and globe pendants." },
-  { src: "/real-photos/install-kitchen-rustic-beam.webp", caption: "Rustic kitchen with exposed ceiling beam and reclaimed wood vent shroud." },
-  { src: "/real-photos/install-bathroom-yellow-green-tile.webp", caption: "Warm traditional bath, green subway wainscot, dark-stained oak vanity." },
-  { src: "/real-photos/install-kitchen-galley-green-wall.webp", caption: "Galley kitchen, two-tone, slate-green accent wall." },
-  { src: "/real-photos/install-kitchen-honey-oak.webp", caption: "Honey-oak shaker with white quartz." },
-];
 const MURAL = "/real-photos/mural-detail.webp";
 
-export default function BuildersHome() {
+const SHOWROOM = [
+  { src: "/real-photos/install-kitchen-walnut-marble.webp", caption: "Walnut shaker with white marble counter." },
+  { src: "/real-photos/install-kitchen-island-globes.webp", caption: "White cabinetry, quartz island, globe pendants." },
+  { src: "/real-photos/install-kitchen-rustic-beam.webp", caption: "Rustic kitchen with exposed beam and reclaimed wood vent shroud." },
+  { src: "/real-photos/install-bathroom-yellow-green-tile.webp", caption: "Warm traditional bath, green wainscot, dark-stained oak vanity." },
+  { src: "/real-photos/install-kitchen-galley-green-wall.webp", caption: "Galley kitchen, two-tone, slate-green accent." },
+  { src: "/real-photos/install-kitchen-honey-oak.webp", caption: "Honey-oak shaker with white quartz." },
+];
+
+const STEPS = [
+  { n: "01", t: "Free consultation", b: "Showroom visit or we come to your home. Bring photos, sketches, or just an idea." },
+  { n: "02", t: "Design with you", b: "We measure, draw your room, and walk you through real door and finish samples." },
+  { n: "03", t: "Build in the shop", b: "Doors, drawers, and finishes built locally in Wausau. Sprayed, sanded, sprayed again." },
+  { n: "04", t: "Installed by Four Squared", b: "The install crew sets the cabinets, runs the counters, and walks the punch list with you." },
+];
+
+// JSON-LD structured data. Tells Google and LLMs exactly who this
+// business is, what it offers, where it is, and how it relates to
+// Price-Less Building Center and Four Squared. Critical for local
+// remodeling + custom cabinetry search visibility in central WI.
+const BC_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "HomeAndConstructionBusiness", "GeneralContractor"],
+  "@id": "https://pricelessbuilding.com/builders-corner#org",
+  name: "Builders Corner Cabinetry & Design",
+  description:
+    "Premium custom cabinetry, kitchen and bath design, and built-ins in Wausau, Wisconsin. Designed and built locally since 1983, installed by Four Squared.",
+  url: "https://pricelessbuilding.com/builders-corner",
+  telephone: "+1-715-848-3855",
+  priceRange: "$$$",
+  foundingDate: "1983",
+  image: `https://pricelessbuilding.com${HERO}`,
+  parentOrganization: {
+    "@type": "LocalBusiness",
+    "@id": "https://pricelessbuilding.com#org",
+    name: "Price-Less Building Center",
+  },
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: ADDRESS.street,
+    addressLocality: ADDRESS.city,
+    addressRegion: ADDRESS.state,
+    postalCode: ADDRESS.zip,
+    addressCountry: "US",
+  },
+  areaServed: [
+    "Wausau, WI",
+    "Schofield, WI",
+    "Weston, WI",
+    "Rib Mountain, WI",
+    "Rothschild, WI",
+    "Mosinee, WI",
+    "Marathon County, WI",
+  ],
+  makesOffer: [
+    { "@type": "Offer", name: "Custom kitchen cabinetry design and build" },
+    { "@type": "Offer", name: "Custom bathroom cabinetry design and build" },
+    { "@type": "Offer", name: "Built-in cabinetry for pantries, mudrooms, and home offices" },
+    { "@type": "Offer", name: "Full kitchen remodel design and project management" },
+    { "@type": "Offer", name: "Bath remodel design and project management" },
+  ],
+  sameAs: ["https://pricelessbuilding.com"],
+  openingHoursSpecification: BUILDERS.hours
+    .filter((h) => h.hours !== "Closed")
+    .map((h) => ({
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: h.day,
+      ...(h.hours.includes("–")
+        ? {
+            opens: h.hours.split("–")[0]?.trim(),
+            closes: h.hours.split("–")[1]?.trim(),
+          }
+        : {}),
+    })),
+};
+
+export default function BuildersCornerPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(BC_JSON_LD) }}
+      />
       <SiteHeader brand="builders" />
 
-      {/* HERO. Real installed walnut shaker kitchen, big BC wordmark, one
-          honest line of history. */}
+      {/* HERO. Dark premium band. Headline, sub, two CTAs, hero photo. */}
       <section className="relative bg-[#0b1729] text-white">
-        <div className="mx-auto max-w-[1600px] px-6 pt-10 md:px-12 md:pt-14">
-          <div className="flex flex-wrap items-center justify-between gap-4 whitespace-nowrap border-b border-white/15 pb-7">
-            <div className="flex items-center gap-5">
-              <BrandLogo brand="builders" size="lg" />
-              <span className="font-couture hidden text-base italic text-white/70 md:inline md:text-lg">
-                · Wausau, Wisconsin
-              </span>
-            </div>
-            <div className="hidden items-baseline gap-6 md:flex">
-              <span className="font-couture text-xs uppercase tracking-[0.28em] text-white/55">
-                Cabinet shop est. 1983
-              </span>
-              <a href={`tel:${ADDRESS.phone.replace(/[^0-9+]/g, "")}`} className="text-base text-white/85 underline decoration-[var(--brand-builders-gold)] decoration-2 underline-offset-[6px] md:text-lg">
-                {ADDRESS.phone}
-              </a>
-            </div>
+        <div className="mx-auto max-w-7xl px-6 pt-14 md:pt-20" data-reveal>
+          <div className="flex items-baseline justify-between gap-6 border-b border-white/10 pb-6">
+            <BrandLogo brand="builders" size="lg" />
+            <a
+              href={`tel:${ADDRESS.phone.replace(/[^0-9+]/g, "")}`}
+              className="hidden text-sm text-white/80 underline decoration-[var(--brand-builders-gold)] decoration-2 underline-offset-[6px] md:inline md:text-base"
+            >
+              {ADDRESS.phone}
+            </a>
           </div>
 
-          <div className="relative mt-10 aspect-[16/9] w-full overflow-hidden md:mt-14">
-            <Image
-              src={HERO}
-              alt="A representative bone-white inset kitchen with island, integrated paneling, warm lighting. The kind of work Builders Corner designs."
-              fill
-              priority
-              className="object-cover"
-              sizes="(min-width:1600px) 1600px, 100vw"
-              quality={85}
-            />
-          </div>
-
-          <div className="mt-10 grid gap-x-12 gap-y-6 pb-20 md:mt-14 md:grid-cols-12 md:pb-32">
-            <h1 className="font-couture text-5xl leading-[1.05] tracking-[-0.02em] text-white md:col-span-7 md:text-6xl">
-              Custom cabinets, built in Wausau since 1983.
-            </h1>
-            <div className="md:col-span-5 md:pt-3">
-              <p className="max-w-md text-base leading-[1.7] text-white/90 md:text-lg">
-                Walk into the showroom on Washington Street. Look at real door samples, hold a slab piece, sit down with someone who&apos;ll draw your room. Four Squared installs across the parking lot.
+          <div className="mt-10 grid gap-x-12 gap-y-10 md:mt-14 md:grid-cols-12">
+            <div className="md:col-span-7">
+              <h1 className="font-couture text-[clamp(2.5rem,1.4rem+4vw,4.5rem)] leading-[1.02] tracking-[-0.02em] text-white">
+                Premium custom cabinetry, designed and built in Wausau.
+              </h1>
+              <p className="mt-7 max-w-xl text-lg leading-[1.7] text-white/85 md:text-xl">
+                The upscale side of 825 Washington Street. We design your kitchen, bath, or built-in with you in the showroom, build the cabinets in our own shop, and install with the Four Squared crew.
               </p>
-              <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-5">
+              <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
                 <Link
-                  href="/contact"
+                  href="#consult"
                   className="font-couture inline-block border-b-2 border-[var(--brand-builders-gold)] pb-1.5 text-base italic text-white transition hover:text-[var(--brand-builders-gold)] md:text-lg"
                 >
                   Book a free consultation
                 </Link>
-                <Link
-                  href="/builders-corner"
+                <a
+                  href={`tel:${ADDRESS.phone.replace(/[^0-9+]/g, "")}`}
                   className="font-couture inline-block border-b border-white/30 pb-1.5 text-base italic text-white/85 transition hover:border-white hover:text-white md:text-lg"
                 >
-                  See real installs
-                </Link>
+                  Call {ADDRESS.phone}
+                </a>
+              </div>
+            </div>
+            <div className="md:col-span-5">
+              <div className="relative aspect-[4/5] w-full overflow-hidden bg-black">
+                <Image
+                  src={HERO}
+                  alt="A custom Builders Corner kitchen: walnut shaker cabinetry, white marble counter, natural light."
+                  fill
+                  priority
+                  sizes="(min-width:768px) 42vw, 100vw"
+                  className="object-cover"
+                  quality={85}
+                />
               </div>
             </div>
           </div>
 
-          {/* Real address + reviews. No duplication with the hero copy. */}
-          <div className="grid grid-cols-1 gap-y-6 border-t border-white/10 pt-10 pb-12 md:grid-cols-2 md:items-center md:gap-x-10 md:py-12">
-            <div>
-              <div className="text-xs uppercase tracking-[0.18em] text-[var(--brand-builders-gold)]">Visit the showroom</div>
-              <div className="font-couture mt-2 text-2xl leading-tight text-white md:text-3xl">
-                825 Washington Street · Wausau, WI
-              </div>
-              <div className="mt-1 text-sm text-white/65">
-                Open Monday through Saturday
-              </div>
-            </div>
-            <a
-              href="https://www.google.com/maps/search/?api=1&query=Price-Less+Building+Center+825+Washington+St+Wausau+WI"
-              target="_blank"
-              rel="noreferrer"
-              className="group block md:justify-self-end md:text-right"
-              aria-label="Read all 9 Google reviews"
-            >
-              <div className="text-2xl text-[#f5a524]" aria-hidden>★★★★★</div>
-              <div className="mt-2 text-sm uppercase tracking-[0.16em] text-white/65 transition group-hover:text-white">
-                4.8 on Google · 9 reviews →
-              </div>
-            </a>
+          <div className="mt-12 grid grid-cols-1 gap-6 border-t border-white/10 pt-8 pb-16 md:grid-cols-3 md:gap-10 md:pb-20">
+            <BCStat n="1983" label="Designing and building cabinetry in Wausau." />
+            <BCStat n="4.8★" label="On Google across all three brands." />
+            <BCStat n="MON–SAT" label="Showroom open six days a week." />
           </div>
         </div>
       </section>
 
-      {/* WHAT WE MAKE. Four tiles, real install photos, honest captions. */}
-      <section className="mx-auto max-w-7xl px-6 py-14 md:py-20">
-        <header className="max-w-3xl">
-          <div className="font-couture text-2xl italic text-[var(--brand-builders-gold)]">What we make</div>
-          <h2 className="font-couture mt-5 text-[clamp(2.25rem,1.4rem+3.4vw,3.75rem)] leading-[1] tracking-[-0.015em] text-[var(--brand-builders)]">
-            Kitchens. Baths. Built-ins for the rest of the house.
-          </h2>
-          <p className="mt-5 max-w-2xl text-lg leading-[1.7] text-[var(--muted-foreground)] md:text-xl">
-            One bath, the whole first floor, a mudroom, a pantry. We design and build the cabinets here. Four Squared installs them.
-          </p>
-        </header>
-
-        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <BCTile
-            tag="Kitchens"
-            href="/builders-corner"
-            image={TILE_KITCHENS}
-            alt="A white-oak shaker kitchen with island and quartz counters. Representative of Builders Corner kitchen work."
-            caption="Custom kitchens: white-oak shaker, island with quartz, our design and our install."
-          />
-          <BCTile
-            tag="Baths"
-            href="/builders-corner"
-            image={TILE_BATHS}
-            alt="A representative bathroom: white shaker vanity, quartz top, brushed pulls."
-            caption="Custom baths: vanities, quartz tops, tile work. Designed here, installed by Four Squared."
-          />
-          <BCTile
-            tag="Built-ins"
-            href="/contact"
-            image={TILE_BUILTINS}
-            alt="A pantry-style cabinet detail: tall doors, brushed hardware, integrated panels."
-            caption="Built-ins for vanities, pantries, office walls, laundry. Same shop, same finish booth."
-          />
-          <BCTile
-            tag="Mudrooms and details"
-            href="/contact"
-            image={TILE_MUDROOMS}
-            alt="A stack of painted trim and moulding samples, sharp and crisp from our finish booth."
-            caption="Trim, panel detail, finish work. The small stuff that makes a room read finished."
-          />
+      {/* THE PAIRING. Positions BC as the premium counterpart to PL. */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+          <div className="grid items-center gap-10 md:grid-cols-12 md:gap-14">
+            <figure className="md:col-span-6" data-reveal>
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
+                <Image
+                  src={PAIRING_IMAGE}
+                  alt="A premium Builders Corner kitchen with island and bar seating, the kind of custom design you cannot pick off the surplus floor."
+                  fill
+                  sizes="(min-width:768px) 50vw, 100vw"
+                  className="object-cover"
+                  quality={82}
+                />
+              </div>
+            </figure>
+            <div className="md:col-span-6" data-reveal data-reveal-delay="0.08">
+              <div className="font-couture text-xl italic text-[var(--brand-builders-gold)] md:text-2xl">
+                When the surplus floor isn&apos;t the project.
+              </div>
+              <h2 className="font-couture mt-4 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05] tracking-[-0.015em] text-[var(--brand-builders)]">
+                Style and class at every price point.
+              </h2>
+              <p className="mt-5 text-lg leading-[1.7] text-[var(--foreground)] md:text-xl">
+                Price-Less keeps the budget room in materials. Builders Corner picks up where the surplus floor stops, with cabinetry, counters, and built-ins designed and built specifically for your house.
+              </p>
+              <p className="mt-4 text-base leading-[1.7] text-[var(--muted-foreground)] md:text-lg">
+                Same building. Different tier. Both ours.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* PROCESS. Four compact steps in a row at desktop, stack at mobile. */}
-      <section className="border-y border-[#0b1729]/15 bg-[#0b1729] text-white">
-        <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
-          <header className="max-w-3xl border-b border-white/10 pb-6">
-            <div className="text-xs uppercase tracking-[0.18em] text-[var(--brand-builders-gold)]">How it works</div>
-            <h2 className="font-couture mt-3 text-[clamp(2rem,1.4rem+2.6vw,3rem)] leading-[1.05] tracking-[-0.01em]">
-              Four steps.
+      {/* WHAT WE MAKE. Three image cards: kitchens, baths, built-ins. */}
+      <section className="bg-[var(--muted)]">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+          <header className="max-w-3xl" data-reveal>
+            <div className="font-couture text-xl italic text-[var(--brand-builders-gold)] md:text-2xl">
+              What we make
+            </div>
+            <h2 className="font-couture mt-4 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05] tracking-[-0.015em] text-[var(--brand-builders)]">
+              Kitchens, baths, and built-ins for the rest of the house.
             </h2>
-            <Link
-              href="/builders-corner"
-              className="mt-5 inline-flex text-sm text-white/80 underline decoration-[var(--brand-builders-gold)] decoration-2 underline-offset-[6px] transition hover:text-[var(--brand-builders-gold)]"
-            >
-              See the full process →
-            </Link>
+            <p className="mt-5 max-w-2xl text-lg leading-[1.7] text-[var(--muted-foreground)] md:text-xl">
+              One bath, a whole first floor, a mudroom, a pantry. Designed and built here, installed by Four Squared.
+            </p>
           </header>
 
-          <ol className="mt-8 grid gap-px bg-white/10 md:grid-cols-4">
+          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
             {[
-              { n: "01", t: "Free consult", c: "Showroom visit or we come to your house. Bring photos or a rough idea." },
-              { n: "02", t: "Design with you", c: "We measure, draw it up. You hold the door samples and slab pieces yourself." },
-              { n: "03", t: "Build in the shop", c: "Doors and drawers built and finished here in Wausau. Sprayed, sanded, sprayed again." },
-              { n: "04", t: "Install with Four Squared", c: "Four Squared sets the cabinets, runs the counters, walks the punch list at the end." },
-            ].map((s) => (
-              <li key={s.n} className="bg-[#0b1729] p-5">
-                <div className="font-couture text-2xl text-[var(--brand-builders-gold)]">{s.n}</div>
-                <h3 className="font-couture mt-3 text-xl leading-snug md:text-2xl">{s.t}</h3>
-                <p className="mt-2 text-sm leading-[1.55] text-white/80">{s.c}</p>
+              { tag: "Kitchens", image: TILE_KITCHENS, alt: "Custom kitchen with white-oak shaker doors and a quartz island.", body: "Custom kitchens: white-oak shaker, painted inset, hidden fridge panels, slab-front islands. Drawn to your room." },
+              { tag: "Baths", image: TILE_BATHS, alt: "Custom bath with shaker vanity and tile shower.", body: "Vanities, linen towers, quartz tops, custom tile work. Designed in the showroom, finished in the shop." },
+              { tag: "Built-ins", image: TILE_BUILTINS, alt: "Built-in pantry shelving with tall doors and brushed hardware.", body: "Mudrooms, pantries, home offices, libraries, laundry rooms. Same finish booth, same crew." },
+            ].map((c, i) => (
+              <article
+                key={c.tag}
+                data-reveal
+                data-reveal-delay={(i * 0.06).toFixed(2)}
+                className="group"
+              >
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-black">
+                  <Image
+                    src={c.image}
+                    alt={c.alt}
+                    fill
+                    sizes="(min-width:768px) 33vw, 100vw"
+                    className="object-cover transition duration-700 group-hover:scale-[1.03]"
+                    quality={80}
+                  />
+                </div>
+                <div className="mt-5">
+                  <div className="font-couture text-xl italic text-[var(--brand-builders-gold)] md:text-2xl">
+                    {c.tag}
+                  </div>
+                  <p className="mt-2.5 text-base leading-[1.65] text-[var(--foreground)] md:text-lg">
+                    {c.body}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PROCESS. Compact four-step flow on a dark band. */}
+      <section className="bg-[#0b1729] text-white">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+          <header className="max-w-3xl" data-reveal>
+            <div className="font-couture text-xl italic text-[var(--brand-builders-gold)] md:text-2xl">
+              How it works
+            </div>
+            <h2 className="font-couture mt-4 text-[clamp(2rem,1.4rem+2.8vw,3rem)] leading-[1.05] tracking-[-0.01em]">
+              Four steps from idea to install.
+            </h2>
+          </header>
+
+          <ol className="mt-10 grid gap-px bg-white/10 md:grid-cols-4">
+            {STEPS.map((s, i) => (
+              <li
+                key={s.n}
+                data-reveal
+                data-reveal-delay={(i * 0.05).toFixed(2)}
+                className="bg-[#0b1729] p-6"
+              >
+                <div className="font-couture text-3xl text-[var(--brand-builders-gold)]">
+                  {s.n}
+                </div>
+                <h3 className="font-couture mt-3 text-xl leading-snug md:text-2xl">
+                  {s.t}
+                </h3>
+                <p className="mt-2 text-sm leading-[1.55] text-white/80">
+                  {s.b}
+                </p>
               </li>
             ))}
           </ol>
         </div>
       </section>
 
-      {/* FROM THE SHOWROOM. Magazine-style asymmetric grid of installs. */}
-      <section className="mx-auto max-w-7xl px-6 py-14 md:py-20">
-        <header className="max-w-3xl">
-          <div className="font-couture text-2xl italic text-[var(--brand-builders-gold)]">From the showroom</div>
-          <h2 className="font-couture mt-5 text-[clamp(2.25rem,1.4rem+3.4vw,3.75rem)] leading-[1] tracking-[-0.015em] text-[var(--brand-builders)]">
-            A few directions to start from.
-          </h2>
-          <Link
-            href="/builders-corner"
-            className="mt-5 inline-flex text-base text-[var(--brand-builders)] underline decoration-[var(--brand-builders-gold)] decoration-2 underline-offset-[6px] hover:text-[var(--brand-builders-gold)] md:text-lg"
-          >
-            See the full gallery →
-          </Link>
-        </header>
+      {/* SHOWROOM. Magazine-style asymmetric grid of recent work. */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+          <header className="max-w-3xl" data-reveal>
+            <div className="font-couture text-xl italic text-[var(--brand-builders-gold)] md:text-2xl">
+              From the showroom
+            </div>
+            <h2 className="font-couture mt-4 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05] tracking-[-0.015em] text-[var(--brand-builders)]">
+              Recent rooms.
+            </h2>
+            <p className="mt-5 max-w-2xl text-base leading-[1.7] text-[var(--muted-foreground)] md:text-lg">
+              A few directions to start from. Every photo is a real install.
+            </p>
+          </header>
 
-        <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-6 md:gap-4">
-          {SHOWROOM_GRID.map((p, i) => {
-            // Asymmetric magazine spans: 3-3, 2-2-2, 3-3 for variety.
-            const span = i === 0 || i === 1 ? "col-span-2 md:col-span-3" : i === 5 ? "col-span-2 md:col-span-3" : "col-span-1 md:col-span-2";
-            return (
-              <figure key={p.src} className={`${span} group`}>
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-black">
-                  <Image
-                    src={p.src}
-                    alt={p.caption}
-                    fill
-                    sizes="(min-width:1024px) 33vw, 50vw"
-                    className="object-cover transition duration-[900ms] group-hover:scale-[1.03]"
-                    quality={80}
-                  />
-                </div>
-                <figcaption className="font-couture mt-3 text-base italic text-[var(--brand-builders-gold)] md:text-lg">
-                  {p.caption}
-                </figcaption>
-              </figure>
-            );
-          })}
+          <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-6 md:gap-4">
+            {SHOWROOM.map((p, i) => {
+              const span =
+                i === 0 || i === 1
+                  ? "col-span-2 md:col-span-3"
+                  : i === 5
+                    ? "col-span-2 md:col-span-3"
+                    : "col-span-1 md:col-span-2";
+              return (
+                <figure
+                  key={p.src}
+                  data-reveal
+                  data-reveal-delay={(i * 0.04).toFixed(2)}
+                  className={`${span} group`}
+                >
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-black">
+                    <Image
+                      src={p.src}
+                      alt={p.caption}
+                      fill
+                      sizes="(min-width:1024px) 33vw, 50vw"
+                      className="object-cover transition duration-[900ms] group-hover:scale-[1.03]"
+                      quality={80}
+                    />
+                  </div>
+                  <figcaption className="font-couture mt-3 text-base italic text-[var(--brand-builders-gold)] md:text-lg">
+                    {p.caption}
+                  </figcaption>
+                </figure>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      {/* FROM THE OWNER. Real Josh quote from WSAW, with the mural photo. */}
-      <section className="border-t border-[var(--brand-builders)]/10 bg-white py-14 md:py-20">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="grid gap-x-14 gap-y-12 md:grid-cols-12">
-            <figure className="md:col-span-5">
+      {/* PRESS / MURAL. Quote from the WSAW story, paired with the mural. */}
+      <section className="bg-[var(--muted)]">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+          <div className="grid gap-x-14 gap-y-10 md:grid-cols-12">
+            <figure className="md:col-span-5" data-reveal>
               <div className="relative aspect-[4/5] w-full overflow-hidden bg-black">
                 <Image
                   src={MURAL}
-                  alt="A detail from the Build Your Future mural on the side of the Builders Corner showroom in Wausau, painted by Stephanie Kohli in June 2023."
+                  alt="A detail from the Build Your Future mural on the south wall of the building, painted by fifty Wausau volunteers in June 2023."
                   fill
                   sizes="(min-width:768px) 40vw, 100vw"
                   className="object-cover"
@@ -260,84 +373,90 @@ export default function BuildersHome() {
               </figcaption>
             </figure>
 
-            <div className="md:col-span-7 md:pt-3">
-              <div className="text-xs uppercase tracking-[0.18em] text-[var(--brand-builders-gold)]">
-                From the owner
+            <div className="md:col-span-7 md:pt-3" data-reveal data-reveal-delay="0.08">
+              <div className="font-couture text-xl italic text-[var(--brand-builders-gold)] md:text-2xl">
+                In the press
               </div>
               <blockquote className="mt-6 border-l-2 border-[var(--brand-builders-gold)] pl-6">
                 <p className="font-couture text-2xl leading-[1.35] text-[var(--brand-builders)] md:text-3xl">
                   &ldquo;Trades is a dying breed. So we want to do something that represents what us hard-working guys do.&rdquo;
                 </p>
                 <footer className="mt-4 text-sm text-[var(--muted-foreground)]">
-                  Josh Nickel, owner · to WSAW NewsChannel 7, June 2023
+                  <a
+                    href="https://www.wsaw.com/2023/06/18/new-mural-coming-downtown-wausau/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline decoration-[var(--brand-builders-gold)] decoration-2 underline-offset-4"
+                  >
+                    WSAW NewsChannel 7, June 2023
+                  </a>
                 </footer>
               </blockquote>
-              <div className="mt-10 space-y-4 text-base leading-[1.7] text-[var(--foreground)] md:text-lg">
-                <p>
-                  Josh said that when the &ldquo;Build Your Future&rdquo; mural got painted on the side of the building. About fifty people from the neighborhood showed up with brushes. Stephanie Kohli designed the artwork.
-                </p>
-                <p>
-                  The cabinet shop has been at 825 Washington Street since 1983. Josh has been running it since 2019. The showroom is open Monday through Saturday.
-                </p>
-              </div>
+              <p className="mt-8 text-base leading-[1.7] text-[var(--foreground)] md:text-lg">
+                The mural was painted on the side of the building by about fifty volunteers from across Wausau. The cabinet shop has been at 825 Washington Street since 1983, and Builders Corner has been the in-house custom side of the operation since the 2019 partnership took over.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CONSULTATION INQUIRY FORM. Primary lead capture on the home
-          page, paired below with the showroom visit + hours block. */}
-      <section className="border-t border-[var(--brand-builders)]/10 bg-[var(--muted)]/40 py-14 md:py-20">
-        <div className="mx-auto max-w-4xl px-6">
+      {/* CONSULT INQUIRY. Lead capture, anchored for the hero CTA. */}
+      <section id="consult" className="scroll-mt-24 bg-white">
+        <div className="mx-auto max-w-4xl px-6 py-16 md:py-20" data-reveal>
           <InquiryForm brand="builders" />
         </div>
       </section>
 
-      {/* SHOWROOM VISIT + CTA. Real address, real hours, first consult is free. */}
-      <section className="bg-white py-14 md:py-20">
-        <div className="mx-auto grid max-w-7xl gap-16 px-6 md:grid-cols-12">
-          <div className="md:col-span-7">
-            <div className="font-couture text-2xl italic text-[var(--brand-builders-gold)]">Come see us</div>
-            <h2 className="font-couture mt-5 text-5xl leading-[1.05] tracking-[-0.015em] text-[var(--brand-builders)] md:text-6xl">
-              Stop by the showroom. Or call. First meeting is free.
+      {/* VISIT. Address, hours, and a second call CTA. */}
+      <section className="bg-[#0b1729] text-white">
+        <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-12 md:py-20">
+          <div className="md:col-span-7" data-reveal>
+            <div className="font-couture text-xl italic text-[var(--brand-builders-gold)] md:text-2xl">
+              Come walk the showroom
+            </div>
+            <h2 className="font-couture mt-4 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05] tracking-[-0.015em]">
+              First meeting is free.
             </h2>
-            <p className="mt-7 max-w-xl text-lg leading-[1.7] text-[var(--muted-foreground)] md:text-xl">
-              825 Washington Street, Wausau. Door samples, slab pieces, hardware on the wall. Walk in any time we&apos;re open.
+            <p className="mt-6 max-w-xl text-lg leading-[1.7] text-white/85 md:text-xl">
+              Door samples on the wall, slab pieces on the table, hardware to hold. Walk in any time we are open, or call ahead and we will save you a seat with a designer.
             </p>
-            <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-5">
+            <div className="mt-9 flex flex-wrap items-center gap-x-10 gap-y-4">
               <Link
-                href="/contact"
-                className="inline-block border-b-2 border-[var(--brand-builders-gold)] pb-1.5 text-base text-[var(--brand-builders)] transition hover:text-[var(--brand-builders-gold)] md:text-lg"
+                href="#consult"
+                className="font-couture inline-block border-b-2 border-[var(--brand-builders-gold)] pb-1.5 text-base italic text-white transition hover:text-[var(--brand-builders-gold)] md:text-lg"
               >
                 Book a consultation
               </Link>
               <a
                 href={`tel:${ADDRESS.phone.replace(/[^0-9+]/g, "")}`}
-                className="inline-block border-b border-[var(--brand-builders)]/30 pb-1.5 text-base text-[var(--brand-builders)] transition hover:border-[var(--brand-builders)] md:text-lg"
+                className="font-couture inline-block border-b border-white/30 pb-1.5 text-base italic text-white/85 transition hover:border-white hover:text-white md:text-lg"
               >
                 Call {ADDRESS.phone}
               </a>
             </div>
           </div>
-          <div className="border-l border-[var(--brand-builders)]/20 pl-10 md:col-span-5">
-            <div className="font-couture text-2xl italic text-[var(--brand-builders-gold)]">Visit us</div>
-            <div className="font-couture mt-5 text-3xl leading-tight text-[var(--brand-builders)] md:text-4xl">
+
+          <div className="md:col-span-5" data-reveal data-reveal-delay="0.08">
+            <div className="font-couture text-xl italic text-[var(--brand-builders-gold)] md:text-2xl">
+              Visit us
+            </div>
+            <div className="font-couture mt-3 text-3xl leading-tight md:text-4xl">
               {ADDRESS.street}
             </div>
-            <div className="mt-1 text-base text-[var(--muted-foreground)]">
+            <div className="mt-1 text-base text-white/70">
               {ADDRESS.city}, {ADDRESS.state} {ADDRESS.zip}
             </div>
-            <ul className="mt-10 divide-y divide-[var(--brand-builders)]/15 border-t border-b border-[var(--brand-builders)]/15">
+            <ul className="mt-8 divide-y divide-white/10 border-t border-b border-white/10">
               {BUILDERS.hours.map((h) => (
-                <li key={h.day} className="flex items-baseline justify-between gap-4 py-3 text-base">
-                  <span className="text-[var(--foreground)]">{h.day}</span>
-                  <span className="text-[var(--muted-foreground)]">{h.hours}</span>
+                <li
+                  key={h.day}
+                  className="flex items-baseline justify-between gap-4 py-3 text-base"
+                >
+                  <span className="text-white">{h.day}</span>
+                  <span className="text-white/70">{h.hours}</span>
                 </li>
               ))}
             </ul>
-            <p className="mt-6 text-base text-[var(--muted-foreground)]">
-              Closed Sunday through Tuesday. Evening visits by appointment.
-            </p>
           </div>
         </div>
       </section>
@@ -347,47 +466,15 @@ export default function BuildersHome() {
   );
 }
 
-function BCTile({
-  tag,
-  href,
-  image,
-  alt,
-  caption,
-}: {
-  tag: string;
-  href: string;
-  image: string;
-  alt: string;
-  caption: string;
-}) {
-  return (
-    <Link href={href} className="group block">
-      <div className="relative aspect-[4/3] overflow-hidden bg-black">
-        <Image
-          src={image}
-          alt={alt}
-          fill
-          sizes="(min-width:768px) 50vw, 100vw"
-          className="object-cover transition duration-[900ms] group-hover:scale-[1.03]"
-          quality={80}
-        />
-      </div>
-      <div className="mt-5">
-        <div className="font-couture text-xl italic text-[var(--brand-builders-gold)] md:text-2xl">{tag}</div>
-        <p className="mt-3 max-w-md text-base leading-[1.65] text-[var(--muted-foreground)] md:text-lg">{caption}</p>
-      </div>
-    </Link>
-  );
-}
-
-function BCStat({ n, label, sub }: { n: string; label: string; sub?: string }) {
+function BCStat({ n, label }: { n: string; label: string }) {
   return (
     <div className="border-l border-white/15 pl-5">
-      <div className="font-couture flex items-baseline gap-2 leading-none">
-        <span className="text-5xl text-white md:text-7xl">{n}</span>
-        {sub ? <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-white/55">{sub}</span> : null}
+      <div className="font-couture text-4xl leading-none text-white md:text-5xl">
+        {n}
       </div>
-      <div className="font-serif mt-3 max-w-[16ch] text-[13px] italic leading-snug text-white/65">{label}</div>
+      <div className="font-serif mt-3 max-w-[24ch] text-sm italic leading-snug text-white/70 md:text-base">
+        {label}
+      </div>
     </div>
   );
 }

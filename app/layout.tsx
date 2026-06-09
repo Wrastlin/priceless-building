@@ -26,11 +26,25 @@ const SITE_URL = "https://pricelessbuilding.com";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Price-Less Building Center · Wausau, WI",
+    default:
+      "Price-Less Building Center · Discount materials, custom cabinetry, and remodels in Wausau, WI",
     template: "%s · Price-Less Building",
   },
   description:
-    "The Home Improvement Warehouse. Discount and surplus building materials in central Wisconsin. Doors, windows, cabinets, vanities and more.",
+    "Discount and surplus building materials, premium custom cabinetry, and a professional install crew under one roof in Wausau, WI. Doors, windows, cabinets, vanities, hardware. Full kitchen remodels, bath remodels, and home renovations across central Wisconsin.",
+  keywords: [
+    "discount building materials Wausau",
+    "surplus building materials Wisconsin",
+    "custom cabinetry Wausau",
+    "kitchen remodel Wausau",
+    "bath remodel Wausau",
+    "home renovation Wausau",
+    "remodeling contractor Marathon County",
+    "interior design Wausau",
+    "Builders Corner",
+    "Four Squared Construction",
+    "Price-Less Building Center",
+  ],
   applicationName: "Price-Less Building",
   manifest: "/manifest.json",
   appleWebApp: {
@@ -47,9 +61,10 @@ export const metadata: Metadata = {
     siteName: "Price-Less Building Center",
     locale: "en_US",
     url: SITE_URL,
-    title: "Price-Less Building Center · Wausau, WI",
+    title:
+      "Price-Less Building Center · Discount materials, custom cabinetry, and remodels in Wausau, WI",
     description:
-      "Discount and surplus building materials in central Wisconsin. Doors, windows, cabinets, vanities and more — half off retail.",
+      "Three local brands under one roof. Discount surplus materials, premium custom cabinetry, and a professional install crew. Get the materials and have them installed for a fraction of regional chain cost.",
   },
   twitter: { card: "summary_large_image" },
   formatDetection: { telephone: true, address: false, email: false },
