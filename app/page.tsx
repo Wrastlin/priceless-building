@@ -401,192 +401,41 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* THREE-BRAND CALLOUT. Moved earlier so the brand spectrum
-          (discount → premier → install) is visible before the social
-          proof and history sections. Dark band makes the logos pop and
-          gives the page its second anchor after the stat strip. */}
+      {/* THE REST OF THE FAMILY. Single consolidated band that replaces
+          the old three-brand callout + BC feature band + FS services
+          band. Two big image cards (BC, FS) each with a logo chip,
+          short pitch, visible service tags, and a CTA to the full
+          article. Price-Less doesn't need its own card here — the
+          entire page IS Price-Less. */}
       <section className="bg-[#0b1220] text-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
-            align="center"
             invert
-            headline="Three different ways to get a project done."
-            sub="Most people come for the discount surplus at Price-Less. Some go premier and have Builders Corner design the cabinetry custom. Others hand the whole project to the Four Squared install crew. Each one runs on its own."
+            headline="The rest of the family."
+            sub="Two more local brands across the parking lot. Use just one, or have all three work on the same project."
           />
 
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            <BrandCard
-              href="/shop"
-              logoBrand="priceless"
-              image="/real-photos/storefront-signage.webp"
-              imageAlt="The Price-Less Building Center storefront on Washington Street"
-              headline="Affordable, brand-new building materials."
-              body="A surprisingly cool, wide-open warehouse of doors, windows, cabinets, vanities, hardware, and trim. Same factories as the big-box stores, usually for about half retail. Worth a walk through even if you are just looking for ideas."
-              cta="Shop the surplus floor"
-            />
-            <BrandCard
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            <FamilyCard
               href="/builders-corner"
               logoBrand="builders"
-              image="/catalog-images/PL-000404-hero.jpg"
-              imageAlt="A finished Builders Corner showroom kitchen in white shaker with island and quartz"
-              headline="Premier custom cabinetry, designed in Wausau."
-              body="The premium side. If you want a kitchen, bath, or built-in designed and built specifically for your house, this is the shop. We measure at your place, draw the room, walk you through finish samples, and build the cabinets locally. Custom installs handled by Four Squared."
-              cta="Visit the cabinet showroom"
+              image="/real-photos/install-kitchen-walnut-island-bar.webp"
+              imageAlt="A premium Builders Corner kitchen with walnut shaker cabinetry, island bar, and pendant lighting."
+              headline="Builders Corner."
+              body="Premium custom cabinetry. Kitchens, baths, and built-ins designed in the showroom and built in our own shop in Wausau."
+              tags={["Custom kitchens", "Custom baths", "Built-ins"]}
+              cta="Read the Builders Corner story"
             />
-            <BrandCard
+            <FamilyCard
               href="/four-squared"
               logoBrand="four-squared"
-              image="/real-photos/install-kitchen-walnut-island-windows.webp"
-              imageAlt="A finished walnut kitchen installed by the Four Squared crew, with island, windows, and pendant lights"
-              headline="A professional install crew."
-              body="An independent finish-carpentry and install company. They handle demo, plumbing, electrical, tile, and trim — start to final walkthrough. They install Builders Corner cabinetry, and they install anything you bring home from Price-Less."
+              image="/real-photos/install-kitchen-white-open.webp"
+              imageAlt="A finished kitchen install by the Four Squared crew: white shaker, island, hood, LVP."
+              headline="Four Squared."
+              body="The install crew. Demo, plumbing, electrical, tile, finish carpentry — start to final walkthrough. Installs cabinets from Builders Corner or anything you bring."
+              tags={["Kitchen remodels", "Bath remodels", "Cabinet install", "Built-ins", "Tile + trim", "Doors + windows"]}
               cta="Meet the install crew"
             />
-          </div>
-        </div>
-      </section>
-
-      {/* BC FEATURE BAND. Goes deeper into Builders Corner specifically
-          right after the three-brand row introduces all three. Uses
-          the same Price-Less type system as the rest of the home so
-          the premium feel comes from the photo + copy + service framing,
-          not from a parallel typography world. */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
-          <div className="grid items-center gap-10 md:grid-cols-12 md:gap-14">
-            <figure className="md:col-span-6" data-reveal>
-              <div className="relative aspect-[4/5] w-full overflow-hidden bg-[var(--muted)]">
-                <Image
-                  src="/real-photos/install-kitchen-walnut-island-bar.webp"
-                  alt="A premium Builders Corner kitchen with walnut shaker cabinetry, island bar, and pendant lighting."
-                  fill
-                  sizes="(min-width:768px) 50vw, 100vw"
-                  className="object-cover"
-                  quality={82}
-                />
-              </div>
-            </figure>
-            <div className="md:col-span-6" data-reveal data-reveal-delay="0.08">
-              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
-                The premium side
-              </div>
-              <h2 className="font-display mt-4 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05]">
-                When the surplus floor isn&apos;t the <span className="text-[var(--brand-priceless)]">project.</span>
-              </h2>
-              <p className="mt-5 text-lg leading-[1.7] text-[var(--foreground)] md:text-xl">
-                <span className="font-semibold">Builders Corner</span> is our premium custom cabinet shop next door. Kitchens, baths, and built-ins designed in the showroom and built in our own shop in Wausau. Installed by the Four Squared crew.
-              </p>
-              <p className="mt-4 text-base leading-[1.7] text-[var(--muted-foreground)] md:text-lg">
-                Same building. Different tier. Style and class at every price point.
-              </p>
-              <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
-                <Link
-                  href="/builders-corner"
-                  className="btn btn-priceless"
-                >
-                  Read the Builders Corner story →
-                </Link>
-                <Link
-                  href="/four-squared"
-                  className="text-base font-semibold text-[var(--brand-priceless)] underline decoration-[var(--brand-priceless)]/30 decoration-2 underline-offset-4 hover:decoration-[var(--brand-priceless)] md:text-lg"
-                >
-                  Meet the install crew →
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FOUR SQUARED SERVICES. Service cards on a dark band, parallel
-          to the BC feature band above. Six image cards spell out what
-          the install crew actually does so people don't have to guess. */}
-      <section className="bg-[#0a0e14] text-white">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
-          <SectionHead
-            invert
-            accent="emerald"
-            headline="Need it installed? We do that too."
-            sub="Four Squared is the install crew. Whether you bought materials at Price-Less or had cabinets built at Builders Corner, the same crew handles demo through the final walkthrough."
-          />
-
-          <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                t: "Kitchen remodels",
-                b: "Cabinets, counters, tile, plumbing, electrical. Start to walkthrough.",
-                img: "/real-photos/install-kitchen-white-open.webp",
-                alt: "A finished kitchen install with white shaker cabinets and island.",
-              },
-              {
-                t: "Bath remodels",
-                b: "Vanities, tile showers, fixtures, trim. Demo, install, and finish.",
-                img: "/real-photos/install-bathroom-shaker.webp",
-                alt: "A finished bathroom install with shaker vanity and matte black fixtures.",
-              },
-              {
-                t: "Cabinet installation",
-                b: "Custom cabinets from Builders Corner or anything you bring on your own.",
-                img: "/real-photos/install-kitchen-walnut-marble.webp",
-                alt: "A walnut shaker kitchen with white marble counter.",
-              },
-              {
-                t: "Built-ins and millwork",
-                b: "Pantries, mudrooms, bookshelves, office walls, laundry runs.",
-                img: "/real-photos/install-kitchen-floating-shelf-bowls.webp",
-                alt: "A custom built-in shelf with bowls and storage.",
-              },
-              {
-                t: "Tile and finish work",
-                b: "Subway, mosaic, large-format. Backsplashes, showers, full-room floors.",
-                img: "/real-photos/install-bathroom-blue-tile-shower.webp",
-                alt: "A blue subway-tile shower with frameless glass and marble pebble pan.",
-              },
-              {
-                t: "Doors and windows",
-                b: "Interior, exterior, French entries. Install only or supplied from Price-Less.",
-                img: "/real-photos/install-french-doors-exterior.webp",
-                alt: "A pair of white French entry doors on a brick exterior.",
-              },
-            ].map((s, i) => (
-              <article
-                key={s.t}
-                data-reveal
-                data-reveal-delay={((i % 3) * 0.06).toFixed(2)}
-                className="group overflow-hidden border border-white/10 bg-white/[0.03] transition hover:border-emerald-400/60"
-              >
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
-                  <Image
-                    src={s.img}
-                    alt={s.alt}
-                    fill
-                    sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
-                    className="object-cover opacity-90 transition duration-700 group-hover:scale-[1.03] group-hover:opacity-100"
-                    quality={78}
-                  />
-                </div>
-                <div className="p-5">
-                  <h3 className="font-display text-xl leading-snug text-white md:text-2xl">
-                    {s.t}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-white/85">
-                    {s.b}
-                  </p>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-8" data-reveal>
-            <p className="max-w-2xl text-base leading-relaxed text-white/85 md:text-lg">
-              Free estimate on any of the above. Same phone as Price-Less, same parking lot as Builders Corner.
-            </p>
-            <Link
-              href="/four-squared"
-              className="font-mono inline-flex text-xs uppercase tracking-[0.14em] text-emerald-300 underline decoration-2 underline-offset-4 hover:text-emerald-200"
-            >
-              See the install crew →
-            </Link>
           </div>
         </div>
       </section>
@@ -891,8 +740,8 @@ function Stat({ label, value }: { label: string; value: string }) {
   );
 }
 
-function BrandCard({
-  href, logoBrand, image, imageAlt, headline, body, cta,
+function FamilyCard({
+  href, logoBrand, image, imageAlt, headline, body, tags, cta,
 }: {
   href: string;
   logoBrand: "priceless" | "builders" | "four-squared";
@@ -900,6 +749,7 @@ function BrandCard({
   imageAlt: string;
   headline: string;
   body: string;
+  tags: string[];
   cta: string;
 }) {
   return (
@@ -908,28 +758,36 @@ function BrandCard({
       data-reveal
       className="group flex flex-col overflow-hidden border border-white/10 bg-white transition hover:border-white/30"
     >
-      {/* PHOTO with logo chip in upper-left. The chip is a white pad
-          around the brand mark so it stays legible over any photo. */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-[var(--muted)]">
         <Image
           src={image}
           alt={imageAlt}
           fill
-          sizes="(min-width:768px) 33vw, 100vw"
+          sizes="(min-width:768px) 50vw, 100vw"
           className="object-cover transition duration-700 group-hover:scale-[1.03]"
-          quality={78}
+          quality={80}
         />
         <div className="absolute left-4 top-4 inline-flex items-center bg-white px-3 py-2 shadow-sm">
           <BrandLogo brand={logoBrand} size="sm" />
         </div>
       </div>
       <div className="flex flex-1 flex-col p-6">
-        <h3 className="font-display text-2xl leading-snug text-[var(--foreground)] md:text-[1.625rem]">
+        <h3 className="font-display text-2xl leading-snug text-[var(--foreground)] md:text-3xl">
           {headline}
         </h3>
-        <p className="mt-3 flex-1 text-base leading-relaxed text-[var(--muted-foreground)]">
+        <p className="mt-3 text-base leading-relaxed text-[var(--foreground)]">
           {body}
         </p>
+        <div className="mt-5 flex flex-wrap gap-2">
+          {tags.map((t) => (
+            <span
+              key={t}
+              className="rounded-full border border-[var(--border)] bg-[var(--muted)] px-3 py-1 text-xs font-medium text-[var(--foreground)]"
+            >
+              {t}
+            </span>
+          ))}
+        </div>
         <span className="font-mono mt-5 inline-block text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4">
           {cta} →
         </span>
