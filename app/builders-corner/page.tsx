@@ -5,15 +5,15 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { BrandLogo } from "@/components/brand-logo";
 import { InquiryForm } from "@/components/inquiry-form";
+import { SectionHead } from "@/components/section-head";
 import { ADDRESS, BUILDERS } from "@/lib/brands";
 
 /**
- * Builders Corner. Single premium-positioning article inside the
- * Price-Less family of brands. The old multi-page mini-site has been
- * archived; this one page now covers the entire BC story: who it is,
- * what it makes, how it works, how to come visit. SEO-loaded with the
- * remodeling + custom-cabinetry + Wausau keywords search engines (and
- * LLMs) need to surface the operation.
+ * Builders Corner article page. Lives inside the Price-Less family of
+ * brands and uses the Price-Less visual language (display + sans
+ * typography, brand-red accents, ink dark anchors) instead of a
+ * separate couture/navy/gold system. The "premium" feel comes from
+ * better photos and service cards, not from a different typeface.
  */
 
 export const metadata: Metadata = {
@@ -33,11 +33,31 @@ export const metadata: Metadata = {
 };
 
 const HERO = "/real-photos/install-kitchen-walnut.webp";
-const PAIRING_IMAGE = "/real-photos/install-kitchen-walnut-island-bar.webp";
 const TILE_KITCHENS = "/real-photos/install-kitchen-walnut-island-bar.webp";
 const TILE_BATHS = "/real-photos/install-bathroom-shaker.webp";
 const TILE_BUILTINS = "/real-photos/install-kitchen-floating-shelf-bowls.webp";
 const MURAL = "/real-photos/mural-detail.webp";
+
+const SERVICES = [
+  {
+    t: "Custom kitchens",
+    b: "Cabinets, islands, integrated panels, drawn to your room and built locally.",
+    img: TILE_KITCHENS,
+    alt: "A custom Builders Corner kitchen with white-oak shaker doors and a quartz island.",
+  },
+  {
+    t: "Custom baths",
+    b: "Vanities, linen towers, quartz tops, full tile work — designed in the showroom.",
+    img: TILE_BATHS,
+    alt: "A custom bath with shaker vanity, butcher-block top, and matte black fixtures.",
+  },
+  {
+    t: "Built-ins for the rest of the house",
+    b: "Pantries, mudrooms, home offices, libraries, laundry runs. Same finish booth.",
+    img: TILE_BUILTINS,
+    alt: "A custom built-in pantry shelving wall with tall doors and integrated panels.",
+  },
+];
 
 const SHOWROOM = [
   { src: "/real-photos/install-kitchen-walnut-marble.webp", caption: "Walnut shaker with white marble counter." },
@@ -49,16 +69,12 @@ const SHOWROOM = [
 ];
 
 const STEPS = [
-  { n: "01", t: "Free consultation", b: "Showroom visit or we come to your home. Bring photos, sketches, or just an idea." },
-  { n: "02", t: "Design with you", b: "We measure, draw your room, and walk you through real door and finish samples." },
-  { n: "03", t: "Build in the shop", b: "Doors, drawers, and finishes built locally in Wausau. Sprayed, sanded, sprayed again." },
-  { n: "04", t: "Installed by Four Squared", b: "The install crew sets the cabinets, runs the counters, and walks the punch list with you." },
+  { n: "01", t: "Free consultation", b: "Showroom visit or we come to your home. Bring photos or just an idea." },
+  { n: "02", t: "Design with you", b: "We measure, draw your room, and walk you through real samples." },
+  { n: "03", t: "Build in the shop", b: "Doors, drawers, and finishes built locally in Wausau." },
+  { n: "04", t: "Installed by Four Squared", b: "The install crew sets the cabinets and walks the punch list with you." },
 ];
 
-// JSON-LD structured data. Tells Google and LLMs exactly who this
-// business is, what it offers, where it is, and how it relates to
-// Price-Less Building Center and Four Squared. Critical for local
-// remodeling + custom cabinetry search visibility in central WI.
 const BC_JSON_LD = {
   "@context": "https://schema.org",
   "@type": ["LocalBusiness", "HomeAndConstructionBusiness", "GeneralContractor"],
@@ -124,14 +140,15 @@ export default function BuildersCornerPage() {
       />
       <SiteHeader brand="builders" />
 
-      {/* HERO. Dark premium band. Headline, sub, two CTAs, hero photo. */}
-      <section className="relative bg-[#0b1729] text-white">
+      {/* HERO. Dark anchor band, Price-Less display + sans typography,
+          brand-red accent. No couture/gold. */}
+      <section className="relative bg-[#0b1220] text-white">
         <div className="mx-auto max-w-7xl px-6 pt-14 md:pt-20" data-reveal>
           <div className="flex items-baseline justify-between gap-6 border-b border-white/10 pb-6">
             <BrandLogo brand="builders" size="lg" />
             <a
               href={`tel:${ADDRESS.phone.replace(/[^0-9+]/g, "")}`}
-              className="hidden text-sm text-white/80 underline decoration-[var(--brand-builders-gold)] decoration-2 underline-offset-[6px] md:inline md:text-base"
+              className="hidden text-sm font-semibold text-white/85 underline decoration-[#ff8b85] decoration-2 underline-offset-[6px] md:inline md:text-base"
             >
               {ADDRESS.phone}
             </a>
@@ -139,7 +156,10 @@ export default function BuildersCornerPage() {
 
           <div className="mt-10 grid gap-x-12 gap-y-10 md:mt-14 md:grid-cols-12">
             <div className="md:col-span-7">
-              <h1 className="font-couture text-[clamp(2.5rem,1.4rem+4vw,4.5rem)] leading-[1.02] tracking-[-0.02em] text-white">
+              <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#ff8b85]">
+                The premium side of Price-Less
+              </div>
+              <h1 className="font-display mt-4 text-[clamp(2.5rem,1.4rem+4vw,4.5rem)] leading-[1.02] tracking-tight text-white">
                 Premium custom cabinetry, designed and built in Wausau.
               </h1>
               <p className="mt-7 max-w-xl text-lg leading-[1.7] text-white/85 md:text-xl">
@@ -148,15 +168,15 @@ export default function BuildersCornerPage() {
               <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
                 <Link
                   href="#consult"
-                  className="font-couture inline-block border-b-2 border-[var(--brand-builders-gold)] pb-1.5 text-base italic text-white transition hover:text-[var(--brand-builders-gold)] md:text-lg"
+                  className="btn btn-priceless"
                 >
                   Book a free consultation
                 </Link>
                 <a
                   href={`tel:${ADDRESS.phone.replace(/[^0-9+]/g, "")}`}
-                  className="font-couture inline-block border-b border-white/30 pb-1.5 text-base italic text-white/85 transition hover:border-white hover:text-white md:text-lg"
+                  className="text-base font-semibold text-white/85 underline decoration-white/30 decoration-2 underline-offset-[6px] transition hover:text-white md:text-lg"
                 >
-                  Call {ADDRESS.phone}
+                  Or call {ADDRESS.phone}
                 </a>
               </div>
             </div>
@@ -183,15 +203,16 @@ export default function BuildersCornerPage() {
         </div>
       </section>
 
-      {/* THE PAIRING. Positions BC as the premium counterpart to PL. */}
+      {/* THE PAIRING. Positions BC as the premium counterpart to PL,
+          but in the Price-Less type system so it feels like one family. */}
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <div className="grid items-center gap-10 md:grid-cols-12 md:gap-14">
             <figure className="md:col-span-6" data-reveal>
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
                 <Image
-                  src={PAIRING_IMAGE}
-                  alt="A premium Builders Corner kitchen with island and bar seating, the kind of custom design you cannot pick off the surplus floor."
+                  src={TILE_KITCHENS}
+                  alt="A premium Builders Corner kitchen with walnut shaker cabinetry, island bar, and pendant lighting."
                   fill
                   sizes="(min-width:768px) 50vw, 100vw"
                   className="object-cover"
@@ -200,11 +221,11 @@ export default function BuildersCornerPage() {
               </div>
             </figure>
             <div className="md:col-span-6" data-reveal data-reveal-delay="0.08">
-              <div className="font-couture text-xl italic text-[var(--brand-builders-gold)] md:text-2xl">
-                When the surplus floor isn&apos;t the project.
+              <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)]">
+                When the surplus floor isn&apos;t the project
               </div>
-              <h2 className="font-couture mt-4 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05] tracking-[-0.015em] text-[var(--brand-builders)]">
-                Style and class at every price point.
+              <h2 className="font-display mt-4 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05] text-[var(--foreground)]">
+                Style and class at <span className="text-[var(--brand-priceless)]">every price point.</span>
               </h2>
               <p className="mt-5 text-lg leading-[1.7] text-[var(--foreground)] md:text-xl">
                 Price-Less keeps the budget room in materials. Builders Corner picks up where the surplus floor stops, with cabinetry, counters, and built-ins designed and built specifically for your house.
@@ -217,36 +238,25 @@ export default function BuildersCornerPage() {
         </div>
       </section>
 
-      {/* WHAT WE MAKE. Three image cards: kitchens, baths, built-ins. */}
+      {/* WHAT WE MAKE. Service cards. */}
       <section className="bg-[var(--muted)]">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
-          <header className="max-w-3xl" data-reveal>
-            <div className="font-couture text-xl italic text-[var(--brand-builders-gold)] md:text-2xl">
-              What we make
-            </div>
-            <h2 className="font-couture mt-4 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05] tracking-[-0.015em] text-[var(--brand-builders)]">
-              Kitchens, baths, and built-ins for the rest of the house.
-            </h2>
-            <p className="mt-5 max-w-2xl text-lg leading-[1.7] text-[var(--muted-foreground)] md:text-xl">
-              One bath, a whole first floor, a mudroom, a pantry. Designed and built here, installed by Four Squared.
-            </p>
-          </header>
+          <SectionHead
+            headline={<>What we make. <span className="text-[var(--brand-priceless)]">Three rooms.</span></>}
+            sub="One bath, a whole first floor, a mudroom, a pantry. Designed and built here, installed by Four Squared."
+          />
 
           <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
-            {[
-              { tag: "Kitchens", image: TILE_KITCHENS, alt: "Custom kitchen with white-oak shaker doors and a quartz island.", body: "Custom kitchens: white-oak shaker, painted inset, hidden fridge panels, slab-front islands. Drawn to your room." },
-              { tag: "Baths", image: TILE_BATHS, alt: "Custom bath with shaker vanity and tile shower.", body: "Vanities, linen towers, quartz tops, custom tile work. Designed in the showroom, finished in the shop." },
-              { tag: "Built-ins", image: TILE_BUILTINS, alt: "Built-in pantry shelving with tall doors and brushed hardware.", body: "Mudrooms, pantries, home offices, libraries, laundry rooms. Same finish booth, same crew." },
-            ].map((c, i) => (
+            {SERVICES.map((c, i) => (
               <article
-                key={c.tag}
+                key={c.t}
                 data-reveal
                 data-reveal-delay={(i * 0.06).toFixed(2)}
-                className="group"
+                className="group overflow-hidden border border-[var(--border)] bg-white transition hover:border-[var(--brand-priceless)]"
               >
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-black">
                   <Image
-                    src={c.image}
+                    src={c.img}
                     alt={c.alt}
                     fill
                     sizes="(min-width:768px) 33vw, 100vw"
@@ -254,12 +264,12 @@ export default function BuildersCornerPage() {
                     quality={80}
                   />
                 </div>
-                <div className="mt-5">
-                  <div className="font-couture text-xl italic text-[var(--brand-builders-gold)] md:text-2xl">
-                    {c.tag}
-                  </div>
-                  <p className="mt-2.5 text-base leading-[1.65] text-[var(--foreground)] md:text-lg">
-                    {c.body}
+                <div className="p-5">
+                  <h3 className="font-display text-xl leading-snug md:text-2xl">
+                    {c.t}
+                  </h3>
+                  <p className="mt-2.5 text-base leading-relaxed text-[var(--foreground)]">
+                    {c.b}
                   </p>
                 </div>
               </article>
@@ -268,17 +278,13 @@ export default function BuildersCornerPage() {
         </div>
       </section>
 
-      {/* PROCESS. Compact four-step flow on a dark band. */}
-      <section className="bg-[#0b1729] text-white">
+      {/* PROCESS. Four compact steps on a dark anchor band. */}
+      <section className="bg-[#0b1220] text-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
-          <header className="max-w-3xl" data-reveal>
-            <div className="font-couture text-xl italic text-[var(--brand-builders-gold)] md:text-2xl">
-              How it works
-            </div>
-            <h2 className="font-couture mt-4 text-[clamp(2rem,1.4rem+2.8vw,3rem)] leading-[1.05] tracking-[-0.01em]">
-              Four steps from idea to install.
-            </h2>
-          </header>
+          <SectionHead
+            invert
+            headline="Four steps from idea to install."
+          />
 
           <ol className="mt-10 grid gap-px bg-white/10 md:grid-cols-4">
             {STEPS.map((s, i) => (
@@ -286,15 +292,15 @@ export default function BuildersCornerPage() {
                 key={s.n}
                 data-reveal
                 data-reveal-delay={(i * 0.05).toFixed(2)}
-                className="bg-[#0b1729] p-6"
+                className="bg-[#0b1220] p-6"
               >
-                <div className="font-couture text-3xl text-[var(--brand-builders-gold)]">
+                <div className="font-display text-3xl leading-none text-[#ff8b85]">
                   {s.n}
                 </div>
-                <h3 className="font-couture mt-3 text-xl leading-snug md:text-2xl">
+                <h3 className="font-display mt-3 text-xl leading-snug text-white md:text-2xl">
                   {s.t}
                 </h3>
-                <p className="mt-2 text-sm leading-[1.55] text-white/80">
+                <p className="mt-2 text-sm leading-[1.55] text-white/75">
                   {s.b}
                 </p>
               </li>
@@ -303,20 +309,13 @@ export default function BuildersCornerPage() {
         </div>
       </section>
 
-      {/* SHOWROOM. Magazine-style asymmetric grid of recent work. */}
+      {/* SHOWROOM GRID. Magazine-style asymmetric grid of recent work. */}
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
-          <header className="max-w-3xl" data-reveal>
-            <div className="font-couture text-xl italic text-[var(--brand-builders-gold)] md:text-2xl">
-              From the showroom
-            </div>
-            <h2 className="font-couture mt-4 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05] tracking-[-0.015em] text-[var(--brand-builders)]">
-              Recent rooms.
-            </h2>
-            <p className="mt-5 max-w-2xl text-base leading-[1.7] text-[var(--muted-foreground)] md:text-lg">
-              A few directions to start from. Every photo is a real install.
-            </p>
-          </header>
+          <SectionHead
+            headline="Recent rooms."
+            sub="A few directions to start from. Every photo is a real install."
+          />
 
           <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-6 md:gap-4">
             {SHOWROOM.map((p, i) => {
@@ -343,7 +342,7 @@ export default function BuildersCornerPage() {
                       quality={80}
                     />
                   </div>
-                  <figcaption className="font-couture mt-3 text-base italic text-[var(--brand-builders-gold)] md:text-lg">
+                  <figcaption className="mt-3 text-base text-[var(--foreground)] md:text-lg">
                     {p.caption}
                   </figcaption>
                 </figure>
@@ -353,7 +352,7 @@ export default function BuildersCornerPage() {
         </div>
       </section>
 
-      {/* PRESS / MURAL. Quote from the WSAW story, paired with the mural. */}
+      {/* PRESS / MURAL. Quote from the WSAW story paired with the mural. */}
       <section className="bg-[var(--muted)]">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <div className="grid gap-x-14 gap-y-10 md:grid-cols-12">
@@ -368,17 +367,17 @@ export default function BuildersCornerPage() {
                   quality={85}
                 />
               </div>
-              <figcaption className="font-couture mt-5 text-base italic text-[var(--brand-builders-gold)] md:text-lg">
+              <figcaption className="mt-5 text-sm text-[var(--muted-foreground)]">
                 Build Your Future mural · south wall · painted June 2023
               </figcaption>
             </figure>
 
             <div className="md:col-span-7 md:pt-3" data-reveal data-reveal-delay="0.08">
-              <div className="font-couture text-xl italic text-[var(--brand-builders-gold)] md:text-2xl">
+              <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)]">
                 In the press
               </div>
-              <blockquote className="mt-6 border-l-2 border-[var(--brand-builders-gold)] pl-6">
-                <p className="font-couture text-2xl leading-[1.35] text-[var(--brand-builders)] md:text-3xl">
+              <blockquote className="mt-6 border-l-2 border-[var(--brand-priceless)] pl-6">
+                <p className="font-display text-2xl leading-[1.2] text-[var(--foreground)] md:text-3xl">
                   &ldquo;Trades is a dying breed. So we want to do something that represents what us hard-working guys do.&rdquo;
                 </p>
                 <footer className="mt-4 text-sm text-[var(--muted-foreground)]">
@@ -386,7 +385,7 @@ export default function BuildersCornerPage() {
                     href="https://www.wsaw.com/2023/06/18/new-mural-coming-downtown-wausau/"
                     target="_blank"
                     rel="noreferrer"
-                    className="underline decoration-[var(--brand-builders-gold)] decoration-2 underline-offset-4"
+                    className="underline decoration-[var(--brand-priceless)] decoration-2 underline-offset-4"
                   >
                     WSAW NewsChannel 7, June 2023
                   </a>
@@ -408,39 +407,39 @@ export default function BuildersCornerPage() {
       </section>
 
       {/* VISIT. Address, hours, and a second call CTA. */}
-      <section className="bg-[#0b1729] text-white">
+      <section className="bg-[#0b1220] text-white">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-12 md:py-20">
           <div className="md:col-span-7" data-reveal>
-            <div className="font-couture text-xl italic text-[var(--brand-builders-gold)] md:text-2xl">
+            <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#ff8b85]">
               Come walk the showroom
             </div>
-            <h2 className="font-couture mt-4 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05] tracking-[-0.015em]">
+            <h2 className="font-display mt-4 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05] text-white">
               First meeting is free.
             </h2>
             <p className="mt-6 max-w-xl text-lg leading-[1.7] text-white/85 md:text-xl">
               Door samples on the wall, slab pieces on the table, hardware to hold. Walk in any time we are open, or call ahead and we will save you a seat with a designer.
             </p>
-            <div className="mt-9 flex flex-wrap items-center gap-x-10 gap-y-4">
+            <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
               <Link
                 href="#consult"
-                className="font-couture inline-block border-b-2 border-[var(--brand-builders-gold)] pb-1.5 text-base italic text-white transition hover:text-[var(--brand-builders-gold)] md:text-lg"
+                className="btn btn-priceless"
               >
                 Book a consultation
               </Link>
               <a
                 href={`tel:${ADDRESS.phone.replace(/[^0-9+]/g, "")}`}
-                className="font-couture inline-block border-b border-white/30 pb-1.5 text-base italic text-white/85 transition hover:border-white hover:text-white md:text-lg"
+                className="text-base font-semibold text-white/85 underline decoration-white/30 decoration-2 underline-offset-[6px] transition hover:text-white md:text-lg"
               >
-                Call {ADDRESS.phone}
+                Or call {ADDRESS.phone}
               </a>
             </div>
           </div>
 
           <div className="md:col-span-5" data-reveal data-reveal-delay="0.08">
-            <div className="font-couture text-xl italic text-[var(--brand-builders-gold)] md:text-2xl">
+            <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#ff8b85]">
               Visit us
             </div>
-            <div className="font-couture mt-3 text-3xl leading-tight md:text-4xl">
+            <div className="font-display mt-3 text-3xl leading-tight md:text-4xl">
               {ADDRESS.street}
             </div>
             <div className="mt-1 text-base text-white/70">
@@ -469,10 +468,10 @@ export default function BuildersCornerPage() {
 function BCStat({ n, label }: { n: string; label: string }) {
   return (
     <div className="border-l border-white/15 pl-5">
-      <div className="font-couture text-4xl leading-none text-white md:text-5xl">
+      <div className="font-display text-4xl leading-none text-white md:text-5xl">
         {n}
       </div>
-      <div className="font-serif mt-3 max-w-[24ch] text-sm italic leading-snug text-white/70 md:text-base">
+      <div className="mt-3 max-w-[24ch] text-sm leading-snug text-white/70 md:text-base">
         {label}
       </div>
     </div>

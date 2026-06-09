@@ -481,9 +481,10 @@ export default function HomePage() {
       </section>
 
       {/* BC FEATURE BAND. Goes deeper into Builders Corner specifically
-          right after the three-brand row introduces all three. Positions
-          BC as the premium pair to Price-Less and bridges into the
-          full BC article. */}
+          right after the three-brand row introduces all three. Uses
+          the same Price-Less type system as the rest of the home so
+          the premium feel comes from the photo + copy + service framing,
+          not from a parallel typography world. */}
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <div className="grid items-center gap-10 md:grid-cols-12 md:gap-14">
@@ -500,30 +501,30 @@ export default function HomePage() {
               </div>
             </figure>
             <div className="md:col-span-6" data-reveal data-reveal-delay="0.08">
-              <div className="font-couture text-xl italic text-[var(--brand-builders-gold)] md:text-2xl">
-                Premium side
+              <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)]">
+                The premium side
               </div>
-              <h2 className="font-couture mt-4 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05] tracking-[-0.015em] text-[var(--brand-builders)]">
-                When the surplus floor isn&apos;t the project.
+              <h2 className="font-display mt-4 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05]">
+                When the surplus floor isn&apos;t the <span className="text-[var(--brand-priceless)]">project.</span>
               </h2>
               <p className="mt-5 text-lg leading-[1.7] text-[var(--foreground)] md:text-xl">
-                <span className="font-medium">Builders Corner</span> is our premium custom cabinet shop next door. Kitchens, baths, and built-ins designed in the showroom and built in our own shop in Wausau. Installed by the Four Squared crew.
+                <span className="font-semibold">Builders Corner</span> is our premium custom cabinet shop next door. Kitchens, baths, and built-ins designed in the showroom and built in our own shop in Wausau. Installed by the Four Squared crew.
               </p>
               <p className="mt-4 text-base leading-[1.7] text-[var(--muted-foreground)] md:text-lg">
                 Same building. Different tier. Style and class at every price point.
               </p>
-              <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-4">
+              <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
                 <Link
                   href="/builders-corner"
-                  className="font-couture inline-block border-b-2 border-[var(--brand-builders-gold)] pb-1.5 text-base italic text-[var(--brand-builders)] transition hover:text-[var(--brand-builders-gold)] md:text-lg"
+                  className="btn btn-priceless"
                 >
-                  Read the Builders Corner story
+                  Read the Builders Corner story →
                 </Link>
                 <Link
                   href="/four-squared"
-                  className="font-couture inline-block border-b border-[var(--brand-builders)]/30 pb-1.5 text-base italic text-[var(--brand-builders)]/85 transition hover:border-[var(--brand-builders)] hover:text-[var(--brand-builders)] md:text-lg"
+                  className="text-base font-semibold text-[var(--brand-priceless)] underline decoration-[var(--brand-priceless)]/30 decoration-2 underline-offset-4 hover:decoration-[var(--brand-priceless)] md:text-lg"
                 >
-                  Meet the install crew
+                  Meet the install crew →
                 </Link>
               </div>
             </div>

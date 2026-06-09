@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BrandLogo } from "./brand-logo";
 import { CartButton } from "./cart-button";
 import { HeaderSearch } from "./header-search";
 import { MainMenu } from "./main-menu";
@@ -8,31 +7,49 @@ import { MainMenu } from "./main-menu";
 const PHONE_DISPLAY = "(715) 848-3855";
 
 /**
- * Universal site header.
+ * Universal site header. ONE navigation across the whole site.
  *
- * One layout serves all three brand contexts. The current brand gets
- * the prominent logo + wordmark on the far left; the other two appear
- * as compact brand pills next to it, each with their own icon and
- * brand color. Right side carries the cart, the phone CTA, and the
- * hamburger button that opens the main menu drawer with shop-by-
- * department picture cards.
+ * The Price-Less logo + wordmark always sits on the left and always
+ * links back to the home page, no matter which sub-brand article
+ * (Builders Corner, Four Squared) the user is currently reading.
+ * Builders Corner and Four Squared are sub-facets of the same
+ * operation; they do not replace the brand chrome.
  *
- * No second-row text nav. The hamburger handles the breadth so people
- * see images (cabinets, doors, vanities) instead of twelve text links.
+ * The right side carries search, phone, cart, and the menu hamburger
+ * — same controls across every page so people always know where to
+ * find them.
  */
 export function SiteHeader({ brand }: { brand: "priceless" | "builders" | "four-squared" }) {
   return (
     <header className="sticky top-0 z-40 border-b border-[var(--border)] bg-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 md:gap-6 md:px-6">
-        {/* Active brand on the far left. The other two brands are not
-            promoted up here; they live in the main menu drawer with
-            full positioning (Premium materials / Custom installation). */}
-        <ActiveBrand brand={brand} />
+        {/* Price-Less brand on the left, always. Home is always one
+            click away from anywhere on the site. */}
+        <Link
+          href="/"
+          className="flex shrink-0 items-center gap-3"
+          aria-label="Price-Less Building Center, Wausau, Wisconsin · Home"
+        >
+          <Image
+            src="/real-photos/logo-priceless-circular@2x.webp"
+            alt=""
+            width={446}
+            height={558}
+            priority
+            className="h-12 w-auto object-contain md:h-14"
+          />
+          <span className="hidden min-w-0 flex-col leading-none sm:flex">
+            <span className="font-display text-lg tracking-tight text-foreground md:text-xl">
+              Price-<span className="text-[var(--brand-priceless)]">Less</span> Building
+            </span>
+            <span className="mt-1 truncate text-[10px] uppercase tracking-[0.18em] text-[var(--muted-foreground)] md:text-xs">
+              Wausau, WI · Est. 1978
+            </span>
+          </span>
+        </Link>
 
-        {/* Right cluster. All controls share the same h-11 pill shape,
-            neutral border, and consistent gap so they read as one
-            group instead of competing sizes. The search input is
-            visible at lg+ so people can start typing without clicking. */}
+        {/* Right cluster. Search, phone, cart, menu — same controls
+            on every page so the experience never shifts. */}
         <div className="flex shrink-0 items-center gap-2">
           <HeaderSearch />
           <a
@@ -45,60 +62,10 @@ export function SiteHeader({ brand }: { brand: "priceless" | "builders" | "four-
             </svg>
             <span>{PHONE_DISPLAY}</span>
           </a>
-          {brand === "priceless" ? <CartButton /> : null}
+          <CartButton />
           <MainMenu current={brand} phone={PHONE_DISPLAY} />
         </div>
       </div>
     </header>
   );
 }
-
-function ActiveBrand({ brand }: { brand: "priceless" | "builders" | "four-squared" }) {
-  if (brand === "priceless") {
-    return (
-      <Link
-        href="/"
-        className="flex shrink-0 items-center gap-3"
-        aria-label="Price-Less Building Center, Wausau, Wisconsin"
-      >
-        <Image
-          src="/real-photos/logo-priceless-circular@2x.webp"
-          alt=""
-          width={446}
-          height={558}
-          priority
-          className="h-12 w-auto object-contain md:h-14"
-        />
-        <span className="hidden min-w-0 flex-col leading-none sm:flex">
-          <span className="font-display text-lg tracking-tight text-foreground md:text-xl">
-            Price-<span className="text-[var(--brand-priceless)]">Less</span> Building
-          </span>
-          <span className="mt-1 truncate text-[10px] uppercase tracking-[0.18em] text-[var(--muted-foreground)] md:text-xs">
-            Wausau, WI · Est. 1978
-          </span>
-        </span>
-      </Link>
-    );
-  }
-  if (brand === "builders") {
-    return (
-      <Link
-        href="/builders-corner"
-        className="flex shrink-0 items-center gap-3"
-        aria-label="Builders Corner Cabinetry &amp; Design"
-      >
-        <BrandLogo brand="builders" size="md" />
-      </Link>
-    );
-  }
-  return (
-    <Link
-      href="/four-squared"
-      className="flex shrink-0 items-center gap-2"
-      aria-label="Four Squared Construction"
-    >
-      <BrandLogo brand="four-squared" size="md" />
-    </Link>
-  );
-}
-
