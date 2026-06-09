@@ -7,63 +7,76 @@ import { NewsletterBar } from "@/components/newsletter-bar";
 import { TrustBlock } from "@/components/trust-block";
 import { BrandLogo } from "@/components/brand-logo";
 import { SectionHead } from "@/components/section-head";
-import { PressCycle } from "@/components/press-cycle";
+import { TimelineRail, type TimelineEvent } from "@/components/timeline-rail";
 import { GOOGLE_RATING } from "@/lib/google-reviews";
 import { ADDRESS, PRICELESS } from "@/lib/brands";
 import { CATEGORIES, byBrand } from "@/lib/catalog";
 
 const MURAL_HERO = "/real-photos/mural-wide.webp";
 
-const PRESS: { publisher: string; date: string; headline: string; teaser: string; attribution: string; url: string; image: string }[] = [
+const TIMELINE: TimelineEvent[] = [
   {
-    publisher: "WSAW NewsChannel 7",
-    date: "Dec 11, 2025",
-    headline: "Wausau business transforms shop into Santa's workshop",
-    teaser:
-      "\"The kids loved it. To see the look on their faces and have the parents ask, 'Hey, are you going to do this again?'\"",
-    attribution: "From the WSAW story, December 2025",
-    url: "https://www.wsaw.com/2025/12/11/wausau-business-transforms-shop-into-santas-workshop/",
-    image: "/real-photos/santa-at-storefront.webp",
+    year: "1978",
+    title: "Price-Less Building Center opens in Wausau.",
+    body: "A discount and surplus building-materials warehouse on Washington Street, focused on cancelled contractor orders and factory overstock.",
+    image: "/real-photos/storefront-sign-on-brick.webp",
+    imageAlt: "Hand-painted PRICE-LESS BUILDING CENTER sign on the brick exterior of the original storefront.",
   },
   {
-    publisher: "WSAW NewsChannel 7",
-    date: "Apr 12, 2025",
-    headline: "Easter Bunny visits local Wausau business",
-    teaser:
-      "\"It's pure joy. It's not a staged smile. It's 'Wow, I get to see Santa Claus,' or 'I get to see the Easter Bunny.'\"",
-    attribution: "From the WSAW story, April 2025",
-    url: "https://www.wsaw.com/2025/04/13/easter-bunny-visits-local-wausau-business/",
-    image: "/real-photos/community-county-fair.webp",
+    year: "1983",
+    title: "Builders Corner Cabinetry & Design founded.",
+    body: "A custom cabinet shop opens in Wausau, specializing in kitchens, baths, and built-ins designed and finished locally.",
+    image: "/catalog-images/PL-000404-hero.jpg",
+    imageAlt: "A representative Builders Corner kitchen install.",
   },
   {
-    publisher: "WSAW NewsChannel 7",
-    date: "Jun 17, 2023",
-    headline: "New mural coming to downtown Wausau",
-    teaser:
-      "\"Trades is a dying breed. So we want to do something that represents what us hard-working guys do.\" The Build Your Future mural was painted by 50 Wausau volunteers in June 2023.",
-    attribution: "From the WSAW story, June 2023",
-    url: "https://www.wsaw.com/2023/06/18/new-mural-coming-downtown-wausau/",
-    image: "/real-photos/mural-wide.webp",
-  },
-  {
-    publisher: "The Business News",
-    date: "May 3, 2021",
-    headline: "They're building something",
-    teaser:
-      "A profile of the 2019 partnership that bought Builders Corner Cabinetry and Price-Less Building Center, and of the sales growth they saw through 2020.",
-    attribution: "North Central Wisconsin business profile",
-    url: "https://www.readthebusinessnews.com/features/growth_strategies/they-re-building-something/article_70b4788e-a8e3-11eb-ba26-e3a990b7c281.html",
+    year: "2019",
+    month: "May",
+    title: "A partner group acquires both businesses.",
+    body: "A three-person partnership buys Price-Less Building Center and Builders Corner Cabinetry & Design. The two storefronts keep their separate identities.",
     image: "/real-photos/building-exterior.webp",
+    imageAlt: "The exterior of the building that houses Price-Less and Builders Corner.",
+    source: {
+      label: "Read the 2021 Business News profile",
+      url: "https://www.readthebusinessnews.com/features/growth_strategies/they-re-building-something/article_70b4788e-a8e3-11eb-ba26-e3a990b7c281.html",
+    },
   },
-];
-
-const REAL_PHOTOS = [
-  { src: "/real-photos/mural-detail.webp", alt: "Build Your Future community mural close-up", caption: "Our community mural, painted by 50+ Wausau volunteers in 2023" },
-  { src: "/real-photos/storefront-sign-on-brick.webp", alt: "Real hand-painted PRICE-LESS BUILDING CENTER sign on the brick exterior", caption: "Our actual storefront sign on the brick wall" },
-  { src: "/real-photos/community-county-fair.webp", alt: "Kids holding Price-Less sign at the county fair", caption: "Marathon County Fair, summer 2025" },
-  { src: "/real-photos/building-exterior.webp", alt: "Side of the building", caption: "825 Washington Street" },
-  { src: "/real-photos/paint-day-flyer.webp", alt: "Price-Less Paint Day community event flyer", caption: "Price-Less Paint Day, June 2023" },
-  { src: "/real-photos/memorial-day-hours.webp", alt: "Memorial Day store hours flyer", caption: "Holiday hours, posted to Facebook" },
+  {
+    year: "2023",
+    month: "Jun",
+    title: "The Build Your Future community mural is painted.",
+    body: "Designed by Stephanie Kohli and painted by fifty volunteers from across Wausau, the mural now wraps the side of the building facing Washington Street.",
+    image: "/real-photos/mural-wide.webp",
+    imageAlt: "The Build Your Future mural on the side of the Price-Less Building Center.",
+    source: {
+      label: "Read the WSAW story",
+      url: "https://www.wsaw.com/2023/06/18/new-mural-coming-downtown-wausau/",
+    },
+  },
+  {
+    year: "2025",
+    month: "Apr",
+    title: "First Easter Bunny visit at the storefront.",
+    body: "A community day at the store, with the Easter Bunny visiting kids from across central Wisconsin. The first of what became a recurring seasonal event.",
+    image: "/real-photos/community-county-fair.webp",
+    imageAlt: "Kids holding a Price-Less sign at a community event.",
+    source: {
+      label: "Read the WSAW story",
+      url: "https://www.wsaw.com/2025/04/13/easter-bunny-visits-local-wausau-business/",
+    },
+  },
+  {
+    year: "2025",
+    month: "Dec",
+    title: "Second annual Santa's Workshop at the showroom.",
+    body: "Santa visits the Builders Corner showroom for the second year. WSAW covered both the decorations and the volunteer hours that went into setting it up.",
+    image: "/real-photos/santa-at-storefront.webp",
+    imageAlt: "Santa at the Price-Less storefront for the holiday workshop.",
+    source: {
+      label: "Read the WSAW story",
+      url: "https://www.wsaw.com/2025/12/11/wausau-business-transforms-shop-into-santas-workshop/",
+    },
+  },
 ];
 
 export default function HomePage() {
@@ -259,8 +272,53 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* THREE-BRAND CALLOUT. Moved earlier so the brand spectrum
+          (discount → premier → install) is visible before the social
+          proof and history sections. Dark band makes the logos pop and
+          gives the page its second anchor after the stat strip. */}
+      <section className="bg-[#0b1220] text-white">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+          <SectionHead
+            align="center"
+            invert
+            headline="Three different ways to get a project done."
+            sub="Most people come for the discount surplus at Price-Less. Some go premier and have Builders Corner design the cabinetry custom. Others hand the whole project to the Four Squared install crew. Each one runs on its own."
+          />
+
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            <BrandCard
+              href="/shop"
+              logoBrand="priceless"
+              image="/real-photos/storefront-signage.webp"
+              imageAlt="The Price-Less Building Center storefront on Washington Street"
+              headline="Affordable, brand-new building materials."
+              body="A surprisingly cool, wide-open warehouse of doors, windows, cabinets, vanities, hardware, and trim. Same factories as the big-box stores, usually for about half retail. Worth a walk through even if you are just looking for ideas."
+              cta="Shop the surplus floor"
+            />
+            <BrandCard
+              href="/builders-corner"
+              logoBrand="builders"
+              image="/catalog-images/PL-000404-hero.jpg"
+              imageAlt="A finished Builders Corner showroom kitchen in white shaker with island and quartz"
+              headline="Premier custom cabinetry, designed in Wausau."
+              body="The premium side. If you want a kitchen, bath, or built-in designed and built specifically for your house, this is the shop. We measure at your place, draw the room, walk you through finish samples, and build the cabinets locally. Custom installs handled by Four Squared."
+              cta="Visit the cabinet showroom"
+            />
+            <BrandCard
+              href="/four-squared"
+              logoBrand="four-squared"
+              image="/real-photos/install-kitchen-walnut-island-windows.webp"
+              imageAlt="A finished walnut kitchen installed by the Four Squared crew, with island, windows, and pendant lights"
+              headline="A professional install crew."
+              body="An independent finish-carpentry and install company. They handle demo, plumbing, electrical, tile, and trim — start to final walkthrough. They install Builders Corner cabinetry, and they install anything you bring home from Price-Less."
+              cta="Meet the install crew"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* CUSTOMER STORIES. Handwritten card + Google reviews. */}
-      <section className="bg-[var(--muted)]">
+      <section className="bg-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
             headline="What our customers have said about us."
@@ -323,42 +381,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* REAL PHOTOS. Actual store, customers, and the community mural */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
-          <SectionHead
-            headline="A look around 825 Washington Street."
-            sub="The mural on the side of the building was painted by fifty Wausau volunteers in June 2023. The rest of the photos are roughly what an average week at the store looks like."
-          />
-          <ul className="mt-10 grid gap-4 md:grid-cols-3">
-            {REAL_PHOTOS.map((p) => (
-              <li key={p.src} className="group relative aspect-[4/3] overflow-hidden bg-[var(--muted)]">
-                <Image
-                  src={p.src}
-                  alt={p.alt}
-                  fill
-                  sizes="(min-width:768px) 33vw, 100vw"
-                  className="object-cover transition duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent p-4 text-sm text-white">
-                  {p.caption}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* IN THE NEWS. Compact cycling layout: list of headlines on the
-          left, single rotating preview card on the right. Keeps the
-          section short so the before/after sits closer to the top. */}
+      {/* TIMELINE. Combines the old "look around 825 Washington" photo
+          grid with the in-the-news press cards. One compact chronology
+          of milestones from 1978 through the most recent press coverage,
+          each linked to the original article. */}
       <section className="bg-[var(--muted)]">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
-            headline="What local press has written about us."
-            sub="Coverage from Wausau and central Wisconsin over the past few years. Each headline links to the original article."
+            headline="What has happened along the way."
+            sub="The two storefronts have a few decades of history between them, and local press has covered most of it. The milestones below link back to the original articles."
           />
-          <PressCycle items={PRESS} />
+          <TimelineRail events={TIMELINE} />
         </div>
       </section>
 
@@ -409,51 +442,6 @@ export default function HomePage() {
               New surplus inventory hits the floor every Wednesday.
             </div>
             <Link href="/shop" className="btn btn-priceless">Shop everything →</Link>
-          </div>
-        </div>
-      </section>
-
-      {/* THREE-BRAND CALLOUT. Logos lead. Two store concepts in the same
-          building (Price-Less = surplus / discount, Builders Corner =
-          premium / custom) plus the Four Squared install crew. Dark band
-          acts as the second page anchor (the stat strip is the first). */}
-      <section className="bg-[#0b1220] text-white">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
-          <SectionHead
-            align="center"
-            invert
-            headline="Three businesses at the same address."
-            sub="All three share the building at 825 Washington Street. You can use just one of them, or have all three work together on a project."
-          />
-
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            <BrandCard
-              href="/shop"
-              logoBrand="priceless"
-              image="/real-photos/storefront-signage.webp"
-              imageAlt="The Price-Less Building Center storefront on Washington Street"
-              headline="Surplus and discount building materials."
-              body="Doors, windows, cabinets, vanities, hardware, and trim from the same factories that supply the big-box stores. Most things are around half the retail price."
-              cta="Shop the floor"
-            />
-            <BrandCard
-              href="/builders-corner"
-              logoBrand="builders"
-              image="/catalog-images/PL-000404-hero.jpg"
-              imageAlt="A finished Builders Corner showroom kitchen in white shaker with island and quartz"
-              headline="Custom kitchens, baths, and built-ins."
-              body="If you want something designed and built specifically for your house, this is the cabinet shop. We measure at your place, draw it in 3D, and build it in our Wausau shop."
-              cta="See the cabinet shop"
-            />
-            <BrandCard
-              href="/four-squared"
-              logoBrand="four-squared"
-              image="/real-photos/install-kitchen-walnut-island-windows.webp"
-              imageAlt="A finished walnut kitchen installed by the Four Squared crew, with island, windows, and pendant lights"
-              headline="The install crew that does the work."
-              body="Whether you bought materials at Price-Less or had cabinets built at Builders Corner, the same install crew finishes the job. Demo through final walkthrough."
-              cta="Meet the install crew"
-            />
           </div>
         </div>
       </section>
