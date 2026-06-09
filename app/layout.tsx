@@ -83,6 +83,17 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${display.variable} ${serif.variable} ${sans.variable} ${mono.variable} ${couture.variable}`}>
+      <head>
+        {/* LCP hint. The home hero's looping video is poster-backed
+            by this image. Telling the browser to preload it cuts
+            the LCP discovery delay Lighthouse flags. */}
+        <link
+          rel="preload"
+          as="image"
+          href="/real-photos/storefront-bg-poster.jpg"
+          fetchPriority="high"
+        />
+      </head>
       <body className="font-sans">
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-[100] focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:text-[var(--brand-priceless)] focus:shadow">Skip to main content</a>
         <SmoothScroll />
