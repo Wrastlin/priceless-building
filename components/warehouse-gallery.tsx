@@ -9,26 +9,36 @@ import { photosBy } from "@/lib/business-photos";
  * to 4-col desktop masonry-feel grid.
  */
 export function WarehouseGallery() {
-  // Build a hand-picked mix so the grid stays varied (no all-doors,
-  // no all-kitchen-shots in a row). Pull the top of each subject
-  // bucket then interleave.
-  const warehouses = photosBy({ subject: "warehouse-interior" }).slice(0, 6);
-  const products = photosBy({ subject: "product-shot" }).slice(0, 6);
-  const installs = photosBy({ subject: "install-kitchen" }).slice(0, 3);
-  const signs = photosBy({ subject: "sign" }).slice(0, 1);
+  // Hand-picked subject mix so the grid stays varied: warehouse
+  // interiors, real products, finished installs, the mural, and the
+  // community-day shots (paint day, contest winners, newspaper
+  // feature) all sit alongside each other.
+  const buckets = [
+    photosBy({ subject: "warehouse-interior" }).slice(0, 5),
+    photosBy({ subject: "product-shot" }).slice(0, 5),
+    photosBy({ subject: "install-kitchen" }).slice(0, 3),
+    photosBy({ subject: "community-event" }),
+    photosBy({ subject: "mural" }),
+    photosBy({ subject: "storefront-exterior" }),
+    photosBy({ subject: "sign" }).slice(0, 1),
+    photosBy({ subject: "team-or-staff" }),
+  ];
 
-  const ordered: typeof warehouses = [];
-  const buckets = [warehouses, products, installs, signs];
-  for (let i = 0; ordered.length < 12; i++) {
-    let added = false;
+  // Round-robin interleave so two warehouse shots never sit next to
+  // each other when there are other subjects available.
+  const ordered: ReturnType<typeof photosBy> = [];
+  const targetCount = 12;
+  let bucketHasMore = true;
+  while (bucketHasMore && ordered.length < targetCount) {
+    bucketHasMore = false;
     for (const b of buckets) {
-      if (i < b.length) {
-        ordered.push(b[i]);
-        added = true;
-        if (ordered.length === 12) break;
-      }
+      if (b.length === 0) continue;
+      const item = b.shift();
+      if (!item) continue;
+      ordered.push(item);
+      bucketHasMore = true;
+      if (ordered.length === targetCount) break;
     }
-    if (!added) break;
   }
 
   if (ordered.length === 0) return null;
