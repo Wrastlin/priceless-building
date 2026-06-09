@@ -12,7 +12,7 @@ import { ReviewsMasonry } from "@/components/reviews-masonry";
 import { CURATED_REVIEWS } from "@/lib/reviews-data";
 import { GOOGLE_RATING } from "@/lib/google-reviews";
 import { ADDRESS, PRICELESS } from "@/lib/brands";
-import { CATEGORIES, byBrand } from "@/lib/catalog";
+import { CATEGORIES, byCategory } from "@/lib/catalog";
 
 const MURAL_HERO = "/real-photos/mural-wide.webp";
 
@@ -181,7 +181,13 @@ const HOME_JSON_LD = {
 };
 
 export default function HomePage() {
-  const items = byBrand("priceless").slice(0, 8);
+  // Mixed product grid. Pulls 1-2 items from each category so the
+  // catalog band shows real variety instead of just the first eight
+  // items by id.
+  const categoryKeys = Object.keys(CATEGORIES) as (keyof typeof CATEGORIES)[];
+  const items = categoryKeys
+    .flatMap((cat) => byCategory("priceless", cat).slice(0, 2))
+    .slice(0, 12);
   return (
     <>
       <script
@@ -314,20 +320,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CATEGORY STRIP. The grid is the story; the search bar sits as
-          a quiet, supporting top strip so people who know what they're
-          looking for can jump there without reading a paragraph first. */}
+      {/* CATALOG. Real products on the floor right now, mixed across
+          every category. Quiet eyebrow + search at the top, category
+          pills as a soft browse hint, then twelve actual items so
+          people see what we carry instead of being told categories
+          exist. */}
       <section className="bg-[var(--muted)]">
         <div className="mx-auto max-w-7xl px-6 py-14 md:py-20">
-          {/* Quiet eyebrow + search row. Pairs the "browse the eight
-              departments" framing with a thin search input on the right
-              at md+. Mobile stacks them. */}
+          {/* Eyebrow + search row */}
           <div
             className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between md:gap-8"
             data-reveal
           >
             <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
-              The catalog · eight departments
+              On the floor right now
             </div>
             <form
               role="search"
@@ -353,71 +359,44 @@ export default function HomePage() {
               <input
                 name="q"
                 type="search"
-                placeholder="Or search doors, windows, cabinets…"
+                placeholder="Search doors, windows, cabinets…"
                 aria-label="Search the warehouse"
                 className="flex-1 min-w-0 border-0 bg-transparent p-0 text-sm font-medium text-[var(--foreground)] placeholder:font-medium placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-0 md:text-base"
               />
             </form>
           </div>
 
-          <div className="mt-8 grid gap-x-10 gap-y-6 md:grid-cols-12">
-          {(() => {
-            const entries = Object.entries(CATEGORIES) as [keyof typeof CATEGORIES, (typeof CATEGORIES)[keyof typeof CATEGORIES]][];
-            const [featKey, feat] = entries[0];
-            const rest = entries.slice(1);
-            return (
-              <>
-                <Link
-                  href={`/shop/${featKey}`}
-                  className="group relative col-span-12 block aspect-[4/3] overflow-hidden bg-[var(--muted)] md:col-span-7 md:aspect-[16/10]"
-                >
-                  <Image src={feat.image} alt={feat.label} fill sizes="(min-width:768px) 60vw, 100vw" className="object-cover opacity-85 transition duration-700 group-hover:scale-105 group-hover:opacity-100" quality={75} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-                  <div className="absolute left-6 right-6 bottom-6 text-white">
-                    <div className="font-mono text-xs uppercase tracking-[0.14em] text-white/85">Department 01 / Aisle D</div>
-                    <div className="font-display mt-2 text-5xl md:text-6xl">{feat.label}.</div>
-                    <p className="font-serif mt-2 max-w-md text-base italic text-white/85">{feat.blurb}</p>
-                  </div>
-                </Link>
+          {/* Category pills. Soft filter hint, not a wall of cards. */}
+          <div className="mt-6 flex flex-wrap items-center gap-2" data-reveal>
+            <span className="font-mono mr-1 text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
+              Browse
+            </span>
+            {(Object.entries(CATEGORIES) as [keyof typeof CATEGORIES, (typeof CATEGORIES)[keyof typeof CATEGORIES]][]).map(([key, cat]) => (
+              <Link
+                key={key}
+                href={`/shop/${key}`}
+                className="inline-flex h-9 items-center rounded-full border border-[var(--border)] bg-white px-3.5 text-sm font-medium text-[var(--foreground)] transition hover:border-[var(--brand-priceless)] hover:text-[var(--brand-priceless)]"
+              >
+                {cat.label}
+              </Link>
+            ))}
+          </div>
 
-                <ol className="col-span-12 divide-y border-y md:col-span-5">
-                  {rest.map(([key, cat], i) => (
-                    <li key={key}>
-                      <Link href={`/shop/${key}`} className="group flex items-center gap-5 py-4">
-                        <span className="font-mono w-10 shrink-0 text-xs tracking-tight text-[var(--muted-foreground)]">{String(i + 2).padStart(2, "0")}</span>
-                        <div className="relative aspect-square w-16 shrink-0 overflow-hidden bg-[var(--muted)]">
-                          <Image src={cat.image} alt={cat.label} fill sizes="64px" className="object-cover transition duration-500 group-hover:scale-110" quality={60} />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="font-display text-2xl leading-none">{cat.label}.</div>
-                          <div className="mt-1 line-clamp-1 text-xs text-[var(--muted-foreground)]">{cat.blurb}</div>
-                        </div>
-                        <span className="font-mono text-xs uppercase tracking-wider text-[var(--brand-priceless)] opacity-0 transition group-hover:opacity-100">Browse →</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ol>
-              </>
-            );
-          })()}
-        </div>
-        </div>
-      </section>
-
-      {/* FEATURED PRODUCTS. On-the-floor catalog showcase. Sits right
-          after the catalog browse + search so people land on real items
-          fast. Bg switches back to white now that the standalone search
-          section between Categories and Featured has been folded into
-          the Categories section above. */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
-          <SectionHead
-            headline="Some of what is on the floor right now."
-            sub="A small sample. The full set lives on the shop page; come walk the warehouse for everything else."
-            link={{ href: "/shop", label: "Shop all products" }}
-          />
+          {/* Mixed product grid. Actual items, not abstract categories. */}
           <div className="mt-10 grid grid-cols-1 gap-px bg-[var(--border)] sm:grid-cols-2 lg:grid-cols-4">
-            {items.map((it) => <ProductCard key={it.id} item={it} />)}
+            {items.map((it) => (
+              <ProductCard key={it.id} item={it} />
+            ))}
+          </div>
+
+          {/* Shop-all CTA */}
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--border)] pt-8">
+            <p className="text-base text-[var(--foreground)] md:text-lg">
+              Much more on the floor than what fits here.
+            </p>
+            <Link href="/shop" className="btn btn-priceless">
+              Shop all products →
+            </Link>
           </div>
         </div>
       </section>

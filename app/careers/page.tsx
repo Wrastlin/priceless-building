@@ -12,7 +12,7 @@ const POSITIONS = [
     type: "Full-time",
     location: `${ADDRESS.city}, ${ADDRESS.state} · On-site`,
     body:
-      "Front-of-house customer help: greet walk-ins, walk the aisles, pull will-call orders, answer questions about doors, windows, cabinets, hardware. The first face most customers see.",
+      "Front-of-house customer help: greet walk-ins, walk the floor, pull will-call orders, answer questions about doors, windows, cabinets, hardware. The first face most customers see.",
     bullets: [
       "Comfortable on your feet and with a hand truck",
       "Counter POS and basic computer skills",

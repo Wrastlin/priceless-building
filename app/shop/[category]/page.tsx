@@ -28,7 +28,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
         </div>
         <div className="flex flex-col justify-center gap-6 px-6 py-12 md:col-span-5 md:px-10">
           <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
-            Aisle · {items.length} items in stock
+            Floor · {items.length} items in stock
           </div>
           <h1 className="font-display text-6xl leading-[1.05] md:text-8xl">
             {cat.label}.
@@ -64,7 +64,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
 
           {items.length === 0 ? (
             <div className="mt-10 border bg-white p-16 text-center">
-              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">Empty aisle</div>
+              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">Nothing here yet</div>
               <p className="font-serif mt-3 text-2xl italic">Check back Wednesday. Fresh tags every week.</p>
             </div>
           ) : (

@@ -16,14 +16,14 @@ export default function NotFound() {
 
       <div className="relative mx-auto flex min-h-screen max-w-5xl flex-col items-start justify-center px-6 py-20">
         <div className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs uppercase tracking-wider backdrop-blur">
-          404 · Aisle not found
+          404 · Page not found
         </div>
         <h1 className="font-display mt-6 max-w-3xl text-5xl leading-[1.05] md:text-7xl">
           LOOKS LIKE THIS AISLE IS EMPTY.
         </h1>
         <p className="mt-5 max-w-xl text-white/80">
           We could not find what you came in for. Either the page moved, the link is wrong, or
-          this SKU sold out and rolled off the floor. Try one of the busy aisles instead.
+          this SKU sold out and rolled off the floor. Try one of the busier sections instead.
         </p>
 
         <div className="mt-8 flex flex-wrap gap-3">
@@ -33,7 +33,7 @@ export default function NotFound() {
 
         <div className="mt-12 w-full">
           <div className="text-xs font-semibold uppercase tracking-wider text-white/80">
-            Popular aisles
+            Popular sections
           </div>
           <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
             {POPULAR.map((key) => {

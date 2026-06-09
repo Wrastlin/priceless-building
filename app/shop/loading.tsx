@@ -7,7 +7,7 @@ export default function Loading() {
         className="size-12 animate-spin rounded-full border-4 border-[var(--border)] border-t-[var(--brand-priceless)]"
       />
       <div className="text-xs font-semibold uppercase tracking-wider text-[var(--muted-foreground)]">
-        Walking the aisles…
+        Loading the floor…
       </div>
     </div>
   );
