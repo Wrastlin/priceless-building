@@ -312,13 +312,66 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CATEGORY STRIP. Editorial split: one feature tile + an indexed list. Moved up so the catalog hits early. */}
+      {/* CATEGORY STRIP. Search bar at the top so people can find a
+          known item without scrolling further; eight-department visual
+          browse sits below for everyone else. */}
       <section className="bg-[var(--muted)]">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
-            headline={<>Eight departments. <span className="text-[var(--brand-priceless)]">One warehouse.</span></>}
-            link={{ href: "/shop", label: "See everything" }}
+            headline={<>What are you <span className="text-[var(--brand-priceless)]">looking for?</span></>}
+            sub="Type it in below, or browse the eight departments we carry on the floor."
           />
+
+          <form
+            role="search"
+            action="/search"
+            method="get"
+            data-reveal
+            className="mt-8 flex items-center gap-3 border-b-2 border-[var(--brand-priceless)] pb-2"
+          >
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.25"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="shrink-0 text-[var(--brand-priceless)]"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input
+              name="q"
+              type="search"
+              placeholder="Search doors, windows, cabinets, brands…"
+              aria-label="Search the warehouse"
+              className="flex-1 min-w-0 border-0 bg-transparent px-0 py-2 text-lg font-medium text-[var(--foreground)] placeholder:font-medium placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-0 md:text-2xl"
+            />
+            <button
+              type="submit"
+              className="font-mono shrink-0 text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
+            >
+              Search →
+            </button>
+          </form>
+          <div className="mt-4 flex flex-wrap items-baseline gap-x-5 gap-y-2">
+            <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
+              Popular
+            </span>
+            {["doors", "windows", "cabinets", "vanities", "hardware", "quartz", "shaker"].map((t) => (
+              <Link
+                key={t}
+                href={`/search?q=${t}`}
+                className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--foreground)] underline decoration-[var(--brand-priceless)] decoration-2 underline-offset-4 hover:text-[var(--brand-priceless)]"
+              >
+                {t} →
+              </Link>
+            ))}
+          </div>
 
           <div className="mt-12 grid gap-x-10 gap-y-6 md:grid-cols-12">
           {(() => {
@@ -364,88 +417,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SEARCH. A real search bar inline on the page. People can start
-          typing right away; submit goes to /search?q=... where the
-          standalone results page renders. Pairs with the department
-          grid above so browsing and known-item lookup sit side by side. */}
+      {/* FEATURED PRODUCTS. On-the-floor catalog showcase. Sits right
+          after the catalog browse + search so people land on real items
+          fast. Bg switches back to white now that the standalone search
+          section between Categories and Featured has been folded into
+          the Categories section above. */}
       <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-14 md:py-16" data-reveal>
-          <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)]">
-            Looking for something specific?
-          </div>
-          <h2 className="font-display mt-3 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05]">
-            What are you <span className="text-[var(--brand-priceless)]">looking for?</span>
-          </h2>
-          <form
-            role="search"
-            action="/search"
-            method="get"
-            className="mt-8 flex items-center border-b-2 border-[var(--brand-priceless)] pb-2"
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="mr-3 shrink-0 text-[var(--brand-priceless)]"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-            <input
-              name="q"
-              type="search"
-              placeholder="doors · windows · brands · SKU"
-              className="font-serif flex-1 min-w-0 border-0 bg-transparent px-0 py-2 text-lg italic placeholder:text-[var(--muted-foreground)]/60 focus:outline-none focus:ring-0 md:text-2xl"
-            />
-            <button
-              type="submit"
-              className="font-mono shrink-0 text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
-            >
-              Search →
-            </button>
-          </form>
-          <div className="mt-7">
-            <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
-              Popular searches
-            </div>
-            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
-              {[
-                "doors",
-                "windows",
-                "cabinets",
-                "vanities",
-                "hardware",
-                "quartz",
-                "shaker",
-                "reclaimed",
-              ].map((t) => (
-                <Link
-                  key={t}
-                  href={`/search?q=${t}`}
-                  className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--foreground)] underline decoration-[var(--brand-priceless)] decoration-2 underline-offset-4 hover:text-[var(--brand-priceless)]"
-                >
-                  {t} →
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FEATURED PRODUCTS. On-the-floor catalog showcase. Sits high so
-          items present early. Muted band so it alternates with the
-          white categories above and the dark three-brand band below. */}
-      <section className="bg-[var(--muted)]">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
-            headline="New stock arrives every Wednesday."
-            link={{ href: "/shop", label: "Shop everything" }}
+            headline="Some of what is on the floor right now."
+            sub="A small sample. The full set lives on the shop page; come walk the warehouse for everything else."
+            link={{ href: "/shop", label: "Shop all products" }}
           />
           <div className="mt-10 grid grid-cols-1 gap-px bg-[var(--border)] sm:grid-cols-2 lg:grid-cols-4">
             {items.map((it) => <ProductCard key={it.id} item={it} />)}
@@ -626,9 +608,9 @@ export default function HomePage() {
 
           <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-6">
             <div className="text-sm text-white/65">
-              New surplus inventory hits the floor every Wednesday.
+              The surplus floor changes often. Come walk it any day we are open.
             </div>
-            <Link href="/shop" className="btn btn-priceless">Shop everything →</Link>
+            <Link href="/shop" className="btn btn-priceless">Shop all products →</Link>
           </div>
         </div>
       </section>

@@ -30,9 +30,10 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
             name="q"
             type="search"
             defaultValue={q}
-            placeholder="doors · windows · brands · SKU"
+            placeholder="Search doors, windows, cabinets, brands…"
+            aria-label="Search the warehouse"
             autoFocus
-            className="font-serif flex-1 border-0 bg-transparent px-0 py-2 text-xl italic placeholder:text-[var(--muted-foreground)]/60 focus:outline-none focus:ring-0 md:text-2xl"
+            className="flex-1 border-0 bg-transparent px-0 py-2 text-xl font-medium text-[var(--foreground)] placeholder:font-medium placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-0 md:text-2xl"
           />
           <button className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4">Search →</button>
         </form>

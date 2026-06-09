@@ -70,14 +70,12 @@ export function MainMenu({
         aria-expanded={open}
         aria-controls="main-menu-drawer"
         onClick={() => setOpen(true)}
-        className="inline-flex h-11 items-center gap-2 rounded-md border border-[var(--border)] bg-white px-3 text-[var(--foreground)] transition hover:border-[var(--foreground)]/30 hover:bg-[var(--muted)]"
+        className="inline-flex h-11 items-center gap-2.5 rounded-md border border-[var(--border)] bg-white px-3.5 text-base font-semibold text-[var(--foreground)] transition hover:border-[var(--foreground)]/30 hover:bg-[var(--muted)]"
       >
-        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round">
           <path d="M4 7h16M4 12h16M4 17h16" />
         </svg>
-        <span className="font-mono hidden text-[11px] uppercase tracking-[0.22em] sm:inline">
-          Menu
-        </span>
+        <span className="hidden sm:inline">Menu</span>
       </button>
 
       <div

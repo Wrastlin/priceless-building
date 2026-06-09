@@ -11,14 +11,14 @@ export function NewsletterBar() {
     e.preventDefault();
     if (!email.trim()) return;
     setSent(true);
-    toast.success("Subscribed · we'll send the inventory drop list every Wednesday morning.");
+    toast.success("Subscribed. We'll email when fresh inventory lands and when the design walkthrough opens up.");
   }
 
   if (sent) {
     return (
       <div className="rounded-2xl border bg-[var(--brand-priceless)] p-6 text-white shadow-card md:p-8">
-        <div className="font-display text-2xl">You're on the list.</div>
-        <div className="mt-1 text-sm text-white/85">Watch your inbox Wednesday morning for the weekly drop.</div>
+        <div className="font-display text-2xl">You&apos;re on the list.</div>
+        <div className="mt-1 text-sm text-white/85">We&apos;ll be in touch when there&apos;s something worth saying.</div>
       </div>
     );
   }
@@ -26,11 +26,10 @@ export function NewsletterBar() {
   return (
     <form onSubmit={sub} className="grid items-center gap-4 rounded-2xl border bg-[var(--brand-priceless)] p-6 text-white shadow-card md:grid-cols-[1.5fr_1fr] md:p-8">
       <div>
-        <div className="text-xs font-semibold uppercase tracking-wider text-white/70">Wednesday inventory drop</div>
-        <div className="font-display mt-1 text-2xl">Get the deals before they hit the floor.</div>
+        <div className="text-xs font-semibold uppercase tracking-wider text-white/70">Stay in the loop</div>
+        <div className="font-display mt-1 text-2xl">Get the new inventory list as it lands.</div>
         <div className="mt-1 text-sm text-white/85">
-          Every Wednesday we email the freshly tagged inventory (doors, windows, cabinets) so you
-          can call ahead and hold what you want. No spam, ever.
+          A short email when fresh doors, windows, or cabinets hit the floor, plus first dibs on the design walkthrough when it launches. No spam.
         </div>
       </div>
       <div className="flex gap-2">
