@@ -531,6 +531,99 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* FOUR SQUARED SERVICES. Service cards on a dark band, parallel
+          to the BC feature band above. Six image cards spell out what
+          the install crew actually does so people don't have to guess. */}
+      <section className="bg-[#0a0e14] text-white">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+          <SectionHead
+            invert
+            accent="emerald"
+            headline="Need it installed? We do that too."
+            sub="Four Squared is the install crew. Whether you bought materials at Price-Less or had cabinets built at Builders Corner, the same crew handles demo through the final walkthrough."
+          />
+
+          <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                t: "Kitchen remodels",
+                b: "Cabinets, counters, tile, plumbing, electrical. Start to walkthrough.",
+                img: "/real-photos/install-kitchen-white-open.webp",
+                alt: "A finished kitchen install with white shaker cabinets and island.",
+              },
+              {
+                t: "Bath remodels",
+                b: "Vanities, tile showers, fixtures, trim. Demo, install, and finish.",
+                img: "/real-photos/install-bathroom-shaker.webp",
+                alt: "A finished bathroom install with shaker vanity and matte black fixtures.",
+              },
+              {
+                t: "Cabinet installation",
+                b: "Custom cabinets from Builders Corner or anything you bring on your own.",
+                img: "/real-photos/install-kitchen-walnut-marble.webp",
+                alt: "A walnut shaker kitchen with white marble counter.",
+              },
+              {
+                t: "Built-ins and millwork",
+                b: "Pantries, mudrooms, bookshelves, office walls, laundry runs.",
+                img: "/real-photos/install-kitchen-floating-shelf-bowls.webp",
+                alt: "A custom built-in shelf with bowls and storage.",
+              },
+              {
+                t: "Tile and finish work",
+                b: "Subway, mosaic, large-format. Backsplashes, showers, full-room floors.",
+                img: "/real-photos/install-bathroom-blue-tile-shower.webp",
+                alt: "A blue subway-tile shower with frameless glass and marble pebble pan.",
+              },
+              {
+                t: "Doors and windows",
+                b: "Interior, exterior, French entries. Install only or supplied from Price-Less.",
+                img: "/real-photos/install-french-doors-exterior.webp",
+                alt: "A pair of white French entry doors on a brick exterior.",
+              },
+            ].map((s, i) => (
+              <article
+                key={s.t}
+                data-reveal
+                data-reveal-delay={((i % 3) * 0.06).toFixed(2)}
+                className="group overflow-hidden border border-white/10 bg-white/[0.03] transition hover:border-emerald-400/60"
+              >
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-black">
+                  <Image
+                    src={s.img}
+                    alt={s.alt}
+                    fill
+                    sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
+                    className="object-cover opacity-90 transition duration-700 group-hover:scale-[1.03] group-hover:opacity-100"
+                    quality={78}
+                  />
+                </div>
+                <div className="p-5">
+                  <h3 className="font-display text-xl leading-snug text-white md:text-2xl">
+                    {s.t}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/75">
+                    {s.b}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-8" data-reveal>
+            <p className="max-w-2xl text-base leading-relaxed text-white/85 md:text-lg">
+              Free estimate on any of the above. Same phone as Price-Less, same parking lot as Builders Corner.
+            </p>
+            <Link
+              href="/four-squared"
+              className="font-mono inline-flex text-[11px] uppercase tracking-[0.22em] text-emerald-300 underline decoration-2 underline-offset-4 hover:text-emerald-200"
+            >
+              See the install crew →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* CUSTOMER STORIES. Handwritten card + Google reviews. */}
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
