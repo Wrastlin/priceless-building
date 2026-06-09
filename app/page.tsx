@@ -312,68 +312,53 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CATEGORY STRIP. Search bar at the top so people can find a
-          known item without scrolling further; eight-department visual
-          browse sits below for everyone else. */}
+      {/* CATEGORY STRIP. The grid is the story; the search bar sits as
+          a quiet, supporting top strip so people who know what they're
+          looking for can jump there without reading a paragraph first. */}
       <section className="bg-[var(--muted)]">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
-          <SectionHead
-            headline={<>What are you <span className="text-[var(--brand-priceless)]">looking for?</span></>}
-            sub="Type it in below, or browse the eight departments we carry on the floor."
-          />
-
-          <form
-            role="search"
-            action="/search"
-            method="get"
+        <div className="mx-auto max-w-7xl px-6 py-14 md:py-20">
+          {/* Quiet eyebrow + search row. Pairs the "browse the eight
+              departments" framing with a thin search input on the right
+              at md+. Mobile stacks them. */}
+          <div
+            className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between md:gap-8"
             data-reveal
-            className="mt-8 flex items-center gap-3 border-b-2 border-[var(--brand-priceless)] pb-2"
           >
-            <svg
-              width="22"
-              height="22"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.25"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="shrink-0 text-[var(--brand-priceless)]"
+            <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)]">
+              The catalog · eight departments
+            </div>
+            <form
+              role="search"
+              action="/search"
+              method="get"
+              className="flex h-11 w-full items-center gap-2.5 rounded-md border border-[var(--border)] bg-white px-3.5 transition focus-within:border-[var(--brand-priceless)] hover:border-[var(--foreground)]/30 md:w-96"
             >
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-            <input
-              name="q"
-              type="search"
-              placeholder="Search doors, windows, cabinets, brands…"
-              aria-label="Search the warehouse"
-              className="flex-1 min-w-0 border-0 bg-transparent px-0 py-2 text-lg font-medium text-[var(--foreground)] placeholder:font-medium placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-0 md:text-2xl"
-            />
-            <button
-              type="submit"
-              className="font-mono shrink-0 text-[11px] uppercase tracking-[0.22em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
-            >
-              Search →
-            </button>
-          </form>
-          <div className="mt-4 flex flex-wrap items-baseline gap-x-5 gap-y-2">
-            <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
-              Popular
-            </span>
-            {["doors", "windows", "cabinets", "vanities", "hardware", "quartz", "shaker"].map((t) => (
-              <Link
-                key={t}
-                href={`/search?q=${t}`}
-                className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--foreground)] underline decoration-[var(--brand-priceless)] decoration-2 underline-offset-4 hover:text-[var(--brand-priceless)]"
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.25"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="shrink-0 text-[var(--brand-priceless)]"
               >
-                {t} →
-              </Link>
-            ))}
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <input
+                name="q"
+                type="search"
+                placeholder="Or search doors, windows, cabinets…"
+                aria-label="Search the warehouse"
+                className="flex-1 min-w-0 border-0 bg-transparent p-0 text-sm font-medium text-[var(--foreground)] placeholder:font-medium placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-0 md:text-base"
+              />
+            </form>
           </div>
 
-          <div className="mt-12 grid gap-x-10 gap-y-6 md:grid-cols-12">
+          <div className="mt-8 grid gap-x-10 gap-y-6 md:grid-cols-12">
           {(() => {
             const entries = Object.entries(CATEGORIES) as [keyof typeof CATEGORIES, (typeof CATEGORIES)[keyof typeof CATEGORIES]][];
             const [featKey, feat] = entries[0];
