@@ -1,9 +1,48 @@
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { submitContactLead } from "@/lib/actions/leads";
 
 const HERO = "/real-photos/building-exterior.webp";
+
+async function submitContractorApplication(formData: FormData) {
+  "use server";
+  // Normalize the contractor fields onto the existing contact-lead shape
+  // (the storage layer is the same; trade/company become part of the
+  // free-text message). When Supabase wiring comes online we can split
+  // these into a dedicated contractor_accounts table.
+  const company = String(formData.get("company") ?? "").trim();
+  const trade = String(formData.get("trade") ?? "").trim();
+  const extra = String(formData.get("extra") ?? "").trim();
+  const messageParts = [
+    "[Contractor account application]",
+    company ? `Company: ${company}` : null,
+    trade ? `Trade: ${trade}` : null,
+    extra ? `Notes: ${extra}` : null,
+  ].filter(Boolean);
+
+  const normalized = new FormData();
+  normalized.set("name", String(formData.get("name") ?? ""));
+  normalized.set("email", String(formData.get("email") ?? ""));
+  normalized.set("phone", String(formData.get("phone") ?? ""));
+  normalized.set("looking_for", "contractor_account");
+  normalized.set("message", messageParts.join("\n"));
+
+  const result = await submitContactLead(normalized);
+  if (result.ok) {
+    redirect("/contractors?sent=1");
+  } else {
+    redirect(`/contractors?error=${encodeURIComponent(result.error)}`);
+  }
+}
+
+export const metadata = {
+  title: "Contractor accounts · Net-30 terms · Price-Less Building Center Wausau, WI",
+  description:
+    "Net-30 contractor accounts, will-call hold lockers, jobsite delivery, after-hours load-out, monthly statements. Apply online — Wausau, WI.",
+};
 
 const BENEFITS = [
   {
@@ -44,10 +83,29 @@ const TESTIMONIALS = [
   },
 ];
 
-export default function ContractorsPage() {
+export default async function ContractorsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ sent?: string; error?: string }>;
+}) {
+  const sp = await searchParams;
   return (
     <>
       <SiteHeader brand="priceless" />
+      {sp.sent ? (
+        <div className="bg-emerald-50 border-b border-emerald-200">
+          <div className="mx-auto max-w-7xl px-6 py-3 text-sm text-emerald-900">
+            <strong>Application received.</strong> We&apos;ll call you within one business day to confirm. Urgent? <a href="tel:+17158483855" className="underline">(715) 848-3855</a>.
+          </div>
+        </div>
+      ) : null}
+      {sp.error ? (
+        <div className="bg-rose-50 border-b border-rose-200">
+          <div className="mx-auto max-w-7xl px-6 py-3 text-sm text-rose-900">
+            <strong>Couldn&apos;t submit:</strong> {sp.error}
+          </div>
+        </div>
+      ) : null}
 
       {/* HERO */}
       <section className="relative overflow-hidden border-b">
@@ -117,18 +175,24 @@ export default function ContractorsPage() {
             </ul>
           </div>
 
-          <form className="grid gap-4 rounded-2xl border bg-white p-8 shadow-card">
+          <form
+            action={submitContractorApplication}
+            className="grid gap-4 rounded-2xl border bg-white p-8 shadow-card"
+          >
             <div className="grid gap-4 sm:grid-cols-2">
-              <Field label="Your name" placeholder="First and last" />
-              <Field label="Company / DBA" placeholder="Your business name" />
-              <Field label="Email" placeholder="you@example.com" type="email" />
-              <Field label="Phone" placeholder="(715) 555-0142" type="tel" />
+              <Field label="Your name" name="name" placeholder="First and last" required />
+              <Field label="Company / DBA" name="company" placeholder="Your business name" />
+              <Field label="Email" name="email" placeholder="name@yourbusiness.com" type="email" required />
+              <Field label="Phone" name="phone" placeholder="(715) 555-0142" type="tel" />
             </div>
             <label className="grid gap-1.5">
               <span className="text-xs font-semibold uppercase tracking-wider text-[var(--muted-foreground)]">
                 What trade?
               </span>
-              <select className="rounded-md border bg-white px-4 py-3 text-base outline-none focus:border-[var(--brand-priceless)]">
+              <select
+                name="trade"
+                className="rounded-md border bg-white px-4 py-3 text-base outline-none focus:border-[var(--brand-priceless)]"
+              >
                 <option>General contractor</option>
                 <option>Kitchen &amp; bath</option>
                 <option>Window &amp; door install</option>
@@ -144,6 +208,7 @@ export default function ContractorsPage() {
                 Anything we should know?
               </span>
               <textarea
+                name="extra"
                 rows={3}
                 placeholder="Average monthly spend, types of projects, anything else."
                 className="rounded-md border bg-white px-4 py-3 text-base outline-none focus:border-[var(--brand-priceless)]"

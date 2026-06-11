@@ -1,11 +1,49 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ReviewsMasonry } from "@/components/reviews-masonry";
 import { CURATED_REVIEWS } from "@/lib/reviews-data";
+import { GOOGLE_RATING } from "@/lib/google-reviews";
 
 const HERO = "/real-photos/community-county-fair.webp";
+const SITE_URL = "https://pricelessbuilding.com";
+
+export const metadata: Metadata = {
+  title: `Customer Reviews · ${GOOGLE_RATING.average}★ on Google · Price-Less Building Center Wausau, WI`,
+  description: `Real Google, Facebook, and Yelp reviews from Price-Less Building Center customers in Wausau, Wisconsin. ${GOOGLE_RATING.average} stars across ${GOOGLE_RATING.count} Google reviews. Surplus building materials, custom cabinetry, install crew.`,
+  alternates: { canonical: `${SITE_URL}/reviews` },
+  openGraph: {
+    type: "website",
+    title: `Customer Reviews · ${GOOGLE_RATING.average}★ · Price-Less Building Center`,
+    description: `Real reviews from customers in Wausau, WI.`,
+    url: `${SITE_URL}/reviews`,
+    images: [{ url: "/og-mural.jpg", width: 1200, height: 512 }],
+  },
+};
+
+const REVIEWS_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": `${SITE_URL}#org`,
+  name: "Price-Less Building Center",
+  url: SITE_URL,
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: GOOGLE_RATING.average,
+    reviewCount: GOOGLE_RATING.count,
+    bestRating: 5,
+    worstRating: 1,
+  },
+  review: CURATED_REVIEWS.slice(0, 12).map((r) => ({
+    "@type": "Review",
+    reviewRating: { "@type": "Rating", ratingValue: r.stars, bestRating: 5 },
+    author: { "@type": "Person", name: r.name },
+    reviewBody: r.body,
+    publisher: { "@type": "Organization", name: r.source },
+  })),
+};
 
 export default function ReviewsPage() {
   const avg = (
@@ -14,6 +52,10 @@ export default function ReviewsPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(REVIEWS_JSON_LD) }}
+      />
       <SiteHeader brand="priceless" />
 
       {/* HERO */}

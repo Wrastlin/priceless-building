@@ -1,13 +1,13 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AdminShell } from "@/components/admin-shell";
-import { findItem } from "@/lib/catalog";
+import { findBySku } from "@/lib/items/store";
 import { formatCurrency } from "@/lib/utils";
+import { ItemGallery } from "./item-gallery";
 
 export default async function EditItem({ params }: { params: Promise<{ sku: string }> }) {
   const { sku } = await params;
-  const item = findItem(sku);
+  const item = await findBySku(sku);
   if (!item) notFound();
 
   return (
@@ -20,6 +20,7 @@ export default async function EditItem({ params }: { params: Promise<{ sku: stri
       ]}
       actions={
         <>
+          <Link href={`/admin/marketing?sku=${item.sku}`} className="admin-btn admin-btn-outline">Generate post</Link>
           <Link href={`/admin/tags?sku=${item.sku}`} className="admin-btn admin-btn-outline">Print tag</Link>
           <Link href={`/shop/item/${item.sku}`} className="admin-btn admin-btn-outline">Storefront</Link>
         </>
@@ -31,65 +32,71 @@ export default async function EditItem({ params }: { params: Promise<{ sku: stri
       </div>
 
       <div className="grid gap-5 lg:grid-cols-[1fr_1.4fr]">
-        <div>
-          <div className="admin-card overflow-hidden">
-            <div className="relative aspect-square bg-[#f4f4f3]">
-              <Image src={item.image} alt={item.title} fill className="object-cover" sizes="(min-width:1024px) 30vw, 100vw" quality={80} />
-            </div>
-            <div className="grid grid-cols-4 gap-px border-t border-border bg-border">
-              {[0, 1, 2, 3].map((i) => (
-                <div key={i} className="relative aspect-square overflow-hidden bg-[#f4f4f3] opacity-80">
-                  <Image src={item.image} alt={`angle ${i + 1}`} fill className="object-cover" sizes="20vw" quality={50} />
-                </div>
-              ))}
-            </div>
-          </div>
-          <button className="admin-btn admin-btn-outline mt-3 w-full">+ Add photo</button>
-        </div>
+        <ItemGallery
+          sku={item.sku}
+          cover={item.image}
+          gallery={item.gallery ?? []}
+          alt={item.title}
+        />
 
         <div className="space-y-4">
           <Panel title="Pricing">
             <div className="grid grid-cols-3 gap-3">
               <Stat label="Tag" value={formatCurrency(item.price)} />
-              <Stat label="MSRP" value={item.msrp ? formatCurrency(item.msrp) : "—"} />
-              <Stat label="Margin" value={item.msrp ? `${Math.round((1 - item.price / item.msrp) * 100)}%` : "—"} />
+              <Stat label="MSRP" value={item.msrp ? formatCurrency(item.msrp) : "–"} />
+              <Stat label="Margin" value={item.msrp ? `${Math.round((1 - item.price / item.msrp) * 100)}%` : "–"} />
             </div>
             <button className="admin-btn admin-btn-outline mt-4">Re-run live comparable search</button>
           </Panel>
 
-          <Panel title="Comparables (refreshed 1h ago)">
-            <ul className="divide-y divide-border text-sm">
-              {[
-                { source: "Home Depot", title: `${item.title} (similar SKU)`, price: Math.round((item.msrp ?? item.price * 2) * 0.95) },
-                { source: "Menards", title: item.title, price: Math.round((item.msrp ?? item.price * 2) * 0.92) },
-                { source: "Lowe's", title: item.title, price: Math.round((item.msrp ?? item.price * 2) * 0.88) },
-                { source: "Amazon", title: item.title, price: Math.round((item.msrp ?? item.price * 2) * 1.05) },
-              ].map((c, i) => (
-                <li key={i} className="flex items-center justify-between gap-3 py-2.5">
-                  <div className="min-w-0">
-                    <div className="text-xs font-medium text-[var(--brand-priceless)]">{c.source}</div>
-                    <div className="truncate text-sm text-muted-foreground">{c.title}</div>
-                  </div>
-                  <span className="font-mono font-semibold tabular-nums">{formatCurrency(c.price)}</span>
-                </li>
-              ))}
-            </ul>
-          </Panel>
-
-          <Panel title="Channel listings">
-            <ul className="divide-y divide-border text-sm">
-              <li className="flex items-center justify-between py-2"><span>Storefront (priceless.com)</span><span className="text-emerald-700">Live</span></li>
-              <li className="flex items-center justify-between py-2"><span>Facebook Marketplace</span><span className="text-emerald-700">Live · 18 views today</span></li>
-              <li className="flex items-center justify-between py-2"><span>eBay</span><span className="text-muted-foreground">Not listed</span></li>
-              <li className="flex items-center justify-between py-2"><span>Shopify shipped storefront</span><span className="text-emerald-700">Live</span></li>
-            </ul>
+          <Panel title={item.comparables && item.comparables.length > 0 ? `Live retail comparables (${item.comparables.length})` : "Live retail comparables"}>
+            {item.comparables && item.comparables.length > 0 ? (
+              <ul className="divide-y divide-border text-sm">
+                {item.comparables.map((c, i) => (
+                  <li key={i} className="flex items-center justify-between gap-3 py-2.5">
+                    <div className="min-w-0">
+                      <div className="text-xs font-medium text-[var(--brand-priceless)]">{c.source}</div>
+                      <div className="truncate text-sm text-muted-foreground">{c.title}</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-mono font-semibold tabular-nums">{formatCurrency(c.price)}</div>
+                      <a
+                        href={c.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-xs text-[var(--brand-priceless)] underline decoration-[var(--brand-priceless)]/30 underline-offset-2 hover:decoration-[var(--brand-priceless)]"
+                      >
+                        view →
+                      </a>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className="rounded border border-dashed border-border bg-[#fafaf9] px-3 py-4 text-xs text-muted-foreground">
+                No saved comparables. Re-run analyze on this item from the Add Item flow to capture live retail prices.
+              </div>
+            )}
           </Panel>
 
           <Panel title="History">
             <ul className="space-y-1 text-xs text-muted-foreground">
-              <li>Listed at {formatCurrency(item.price)} on 2026-05-30</li>
-              <li>Photographed by Brian on 2026-05-30</li>
-              <li>Acquired from cancelled contractor order #4421</li>
+              <li>
+                Status: <span className="text-foreground">{item.status}</span>
+              </li>
+              {item.createdAt ? (
+                <li>
+                  Created: <span className="text-foreground">{new Date(item.createdAt).toLocaleString()}</span>
+                </li>
+              ) : null}
+              {item.createdBy ? (
+                <li>
+                  Created by: <span className="text-foreground">{item.createdBy}</span>
+                </li>
+              ) : null}
+              <li>
+                Currently on floor: <span className="text-foreground">{item.inStock}</span>
+              </li>
             </ul>
           </Panel>
         </div>

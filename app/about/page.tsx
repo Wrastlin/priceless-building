@@ -72,7 +72,7 @@ export default function AboutPage() {
               Price-Less Building Center opened in 1978 as a weekend venture, selling discounted and surplus building materials out of the same Wausau address it still occupies today. The model from day one was simple: cancelled-order, surplus, and overstock material from the same manufacturers supplying the national chains, sold for what the big-box wouldn&apos;t.
             </p>
             <p className="mt-4 text-[var(--muted-foreground)]">
-              By 1982 the demand was steady enough to go full-time. A year later, in 1983, the cabinet-manufacturing arm — Builders Corner — opened in the same building.
+              By 1982 the demand was steady enough to go full-time. A year later, in 1983, the cabinet-manufacturing arm, Builders Corner, opened in the same building.
             </p>
           </div>
         </div>

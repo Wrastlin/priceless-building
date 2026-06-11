@@ -1,9 +1,10 @@
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { CheckoutForm } from "./checkout-form";
-import { CATALOG } from "@/lib/catalog";
+import { listCatalog } from "@/lib/catalog";
 
-export default function CheckoutPage() {
+export default async function CheckoutPage() {
+  const catalog = await listCatalog();
   return (
     <>
       <SiteHeader brand="priceless" />
@@ -19,7 +20,7 @@ export default function CheckoutPage() {
             Hold + pay in store is the most popular path. Reserves the items for 48 hours, no card needed.
           </p>
         </div>
-        <CheckoutForm catalog={CATALOG} />
+        <CheckoutForm catalog={catalog} />
       </section>
       <SiteFooter brand="priceless" />
     </>

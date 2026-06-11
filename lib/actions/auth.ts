@@ -4,11 +4,9 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 /**
- * Server Action: sign the current user out and redirect to /login.
- *
- * Server-side sign-out is preferred over client-side because it can clear
- * the cookie atomically with the redirect, and because revocation hits the
- * Supabase Auth server (vs the client-only local clear).
+ * Server Action: sign the current user out of Supabase and bounce to
+ * the login page. Clearing on the server (vs client) atomically clears
+ * the cookie with the redirect and revokes the session upstream.
  */
 export async function signOutAction() {
   const supabase = await createClient();

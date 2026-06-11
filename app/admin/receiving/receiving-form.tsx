@@ -136,7 +136,7 @@ export function ReceivingForm() {
                   </td>
                   <td className="text-right tabular-nums">{d.qty}</td>
                   <td className="capitalize">{d.category}</td>
-                  <td className="text-right font-mono font-semibold tabular-nums">{d.suggestedPrice ? `$${d.suggestedPrice}` : "—"}</td>
+                  <td className="text-right font-mono font-semibold tabular-nums">{d.suggestedPrice ? `$${d.suggestedPrice}` : "–"}</td>
                   <td>
                     <StatusPill s={d.status} />
                     {d.status === "tagged" ? (

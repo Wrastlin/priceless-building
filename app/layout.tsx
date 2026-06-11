@@ -88,8 +88,16 @@ export const metadata: Metadata = {
       "Price-Less Building Center · Discount materials, custom cabinetry, and remodels in Wausau, WI",
     description:
       "Three local brands under one roof. Discount surplus materials, premium custom cabinetry, and a professional install crew. Get the materials and have them installed for a fraction of regional chain cost.",
+    images: [
+      {
+        url: "/og-mural.jpg",
+        width: 1200,
+        height: 512,
+        alt: "Build Your Future community mural on the side of Price-Less Building Center in Wausau, Wisconsin.",
+      },
+    ],
   },
-  twitter: { card: "summary_large_image" },
+  twitter: { card: "summary_large_image", images: ["/og-mural.jpg"] },
   formatDetection: { telephone: true, address: false, email: false },
 };
 

@@ -16,13 +16,16 @@ export function FacebookBand() {
         />
         <div className="mt-12 grid items-start gap-10 md:grid-cols-12">
           <div className="flex justify-center md:col-span-6 md:justify-end">
+            {/* FB plugin renders fixed-width content. Use a smaller
+                width param on mobile and clip overflow on the parent so
+                nothing leaks past the right edge of the card. */}
             <div className="w-full max-w-[500px] overflow-hidden border border-[var(--border)] bg-white">
               <iframe
                 src={`https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(
                   PRICELESS.socials.facebook,
-                )}&tabs=timeline&width=500&height=700&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true`}
+                )}&tabs=timeline&width=340&height=700&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true`}
                 className="block h-[600px] w-full sm:h-[680px] md:h-[700px]"
-                style={{ border: 0 }}
+                style={{ border: 0, maxWidth: "100%" }}
                 scrolling="no"
                 allow="encrypted-media"
                 loading="lazy"

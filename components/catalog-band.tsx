@@ -65,9 +65,13 @@ export function CatalogBand({ items }: { items: CatalogItem[] }) {
           ))}
         </div>
 
+        {/* Mobile shows 6, desktop shows all 12 — the catalog was
+            scrolling past the rest of the home page on small screens. */}
         <div className="mt-10 grid grid-cols-1 gap-px bg-[var(--border)] sm:grid-cols-2 lg:grid-cols-4">
-          {items.map((it) => (
-            <ProductCard key={it.id} item={it} />
+          {items.map((it, i) => (
+            <div key={it.id} className={i >= 6 ? "hidden sm:block" : ""}>
+              <ProductCard item={it} />
+            </div>
           ))}
         </div>
 

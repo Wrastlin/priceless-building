@@ -47,13 +47,6 @@ export const CURATED_REVIEWS: CuratedReview[] = [
     date: "4 months ago",
   },
   {
-    name: "Brady D.",
-    source: "Google",
-    stars: 5,
-    body: "The best. The building was a bit creepy but the stuff inside it more than made up for it and the customer service was great!",
-    date: "9 months ago",
-  },
-  {
     name: "Robin B.",
     source: "Google",
     stars: 5,

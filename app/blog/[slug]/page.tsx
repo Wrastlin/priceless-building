@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -5,6 +6,8 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ProductCard } from "@/components/product-card";
 import { findItem } from "@/lib/catalog";
+
+const SITE_URL = "https://pricelessbuilding.com";
 
 interface Post {
   slug: string;
@@ -109,6 +112,50 @@ export function generateStaticParams() {
   return Object.keys(POSTS).map((slug) => ({ slug }));
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = POSTS[slug];
+  if (!post) return { title: "Post not found" };
+  const canonical = `${SITE_URL}/blog/${post.slug}`;
+  const coverAbs = post.cover.startsWith("http") ? post.cover : `${SITE_URL}${post.cover}`;
+  const description = `${post.title} · A ${post.readTime} read from Price-Less Building Center in Wausau, WI. ${post.category}.`;
+  return {
+    title: `${post.title} · Price-Less Building Center`,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description,
+      url: canonical,
+      images: [{ url: coverAbs, alt: post.title }],
+      publishedTime: post.date,
+      authors: [post.author],
+    },
+    twitter: { card: "summary_large_image", title: post.title, description, images: [coverAbs] },
+  };
+}
+
+function articleJsonLd(post: Post): string {
+  const coverAbs = post.cover.startsWith("http") ? post.cover : `${SITE_URL}${post.cover}`;
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    image: [coverAbs],
+    datePublished: post.date,
+    dateModified: post.date,
+    author: { "@type": "Organization", name: post.author },
+    publisher: {
+      "@type": "Organization",
+      name: "Price-Less Building Center",
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/real-photos/logo-priceless-clean.webp` },
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}/blog/${post.slug}` },
+    articleSection: post.category,
+  });
+}
+
 const CAT_COLORS = {
   Tips: "bg-amber-100 text-amber-900",
   "Reclaimed Finds": "bg-emerald-100 text-emerald-900",
@@ -124,14 +171,17 @@ export default async function BlogPostPage({
   const post = POSTS[slug];
   if (!post) notFound();
 
-  const shopItems = post.shopSkus
-    .map((sku) => findItem(sku))
-    .filter((it): it is NonNullable<ReturnType<typeof findItem>> => Boolean(it));
+  const shopItems = (await Promise.all(post.shopSkus.map((sku) => findItem(sku))))
+    .filter((it): it is NonNullable<Awaited<ReturnType<typeof findItem>>> => Boolean(it));
 
   const otherPosts = Object.values(POSTS).filter((p) => p.slug !== slug).slice(0, 3);
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: articleJsonLd(post) }}
+      />
       <SiteHeader brand="priceless" />
 
       {/* HERO */}

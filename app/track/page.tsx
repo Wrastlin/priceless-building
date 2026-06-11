@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { findItem } from "@/lib/catalog";
+import { SEED_ITEMS } from "@/lib/items/seed";
 import { formatCurrency } from "@/lib/utils";
 
 const HERO = "/real-photos/building-exterior.webp";
@@ -16,8 +16,10 @@ export default function TrackPage() {
   const [tracked, setTracked] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const item1 = findItem("PL-000201");
-  const item2 = findItem("PL-000501");
+  // Demo order contents for the mock tracker. Uses static seed data so
+  // this client component needs no server round-trip.
+  const item1 = SEED_ITEMS.find((i) => i.sku === "PL-000201");
+  const item2 = SEED_ITEMS.find((i) => i.sku === "PL-000501");
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

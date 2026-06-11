@@ -30,10 +30,10 @@ export function BrandLogo({
     const h = size === "sm" ? "h-10" : size === "lg" ? "h-24" : "h-16";
     return (
       <Image
-        src="/real-photos/logo-priceless-circular@2x.webp"
+        src="/real-photos/logo-priceless-clean.webp"
         alt="Price-Less Building Center"
-        width={446}
-        height={558}
+        width={960}
+        height={960}
         className={`${h} w-auto select-none object-contain ${className}`}
       />
     );

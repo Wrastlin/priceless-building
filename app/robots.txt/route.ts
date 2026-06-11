@@ -6,6 +6,12 @@ export async function GET() {
     "Allow: /",
     "Disallow: /admin",
     "Disallow: /api",
+    "Disallow: /login",
+    "Disallow: /cart",
+    "Disallow: /checkout",
+    "Disallow: /search",
+    "Disallow: /track",
+    "Disallow: /compare",
     "",
     "Sitemap: https://pricelessbuilding.com/sitemap.xml",
   ].join("\n");

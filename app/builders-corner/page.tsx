@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { BrandLogo } from "@/components/brand-logo";
 import { InquiryForm } from "@/components/inquiry-form";
 import { SectionHead } from "@/components/section-head";
+import { HeroPhotoFader, type HeroPhotoSource } from "@/components/hero-photo-fader";
 import { ADDRESS, BUILDERS } from "@/lib/brands";
 
 /**
@@ -29,43 +30,64 @@ export const metadata: Metadata = {
       "Premium custom cabinetry designed and built in Wausau. Designed with you in the showroom, built and finished in our shop, installed by Four Squared.",
     url: "https://pricelessbuilding.com/builders-corner",
     type: "website",
+    images: [
+      {
+        url: "https://pricelessbuilding.com/real-photos/business/white-kitchen-marble-island.jpg",
+        alt: "A custom Builders Corner kitchen with white cabinetry and a marble-top island.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["https://pricelessbuilding.com/real-photos/business/white-kitchen-marble-island.jpg"],
   },
 };
 
-const HERO = "/real-photos/install-kitchen-walnut.webp";
-const TILE_KITCHENS = "/real-photos/install-kitchen-walnut-island-bar.webp";
-const TILE_BATHS = "/real-photos/install-bathroom-shaker.webp";
-const TILE_BUILTINS = "/real-photos/install-kitchen-floating-shelf-bowls.webp";
+const HERO = "/real-photos/business/white-kitchen-marble-island.jpg";
+
+// Hero crossfade deck. Pulled from clean Facebook-archive install
+// photos rather than the older low-res webp thumbnails.
+const HERO_DECK: HeroPhotoSource[] = [
+  { src: "/real-photos/business/white-kitchen-marble-island.jpg", alt: "A custom Builders Corner kitchen with white cabinetry and a marble-top island." },
+  { src: "/real-photos/business/kitchen-island-wood-cabinets-range.jpg", alt: "Custom wood-cabinet kitchen with a large island and gas range." },
+  { src: "/real-photos/business/dark-cabinet-kitchen-install.jpg", alt: "Dark-cabinet kitchen with pendant lighting and quartz counters." },
+  { src: "/real-photos/business/rustic-wood-kitchen-island.jpg", alt: "Rustic kitchen with heavy wood cabinetry and an island." },
+  { src: "/real-photos/business/white-kitchen-wood-island.jpg", alt: "White kitchen with a warm wood island and panelled appliances." },
+];
+
 const SERVICES = [
   {
     t: "Custom kitchens",
     b: "Cabinets, islands, integrated panels, drawn to your room and built locally.",
-    img: TILE_KITCHENS,
-    alt: "A custom Builders Corner kitchen with white-oak shaker doors and a quartz island.",
+    img: "/real-photos/business/white-kitchen-rustic-island.jpg",
+    alt: "A bright white custom kitchen anchored by a rustic island, built by Builders Corner in Wausau.",
   },
   {
     t: "Custom baths",
-    b: "Vanities, linen towers, quartz tops, full tile work — designed in the showroom.",
-    img: TILE_BATHS,
-    alt: "A custom bath with shaker vanity, butcher-block top, and matte black fixtures.",
+    b: "Vanities, linen towers, quartz tops, full tile work. Designed in the showroom.",
+    img: "/real-photos/business/dark-double-vanity-bathroom-install.jpg",
+    alt: "A custom dark double-vanity bath install with white counters and black hardware.",
   },
   {
     t: "Built-ins for the rest of the house",
     b: "Pantries, mudrooms, home offices, libraries, laundry runs. Same finish booth.",
-    img: TILE_BUILTINS,
-    alt: "A custom built-in pantry shelving wall with tall doors and integrated panels.",
+    img: "/real-photos/business/wood-cabinets-dark-counters.jpg",
+    alt: "Custom wood cabinetry paired with dark counters, finished in the shop.",
   },
 ];
 
 // Real install + showroom photos imported from the storefront's
 // Facebook archive (see lib/business-photos.ts).
 const SHOWROOM = [
-  { src: "/real-photos/business/white-kitchen-marble-island.jpg", caption: "White kitchen with marble island." },
-  { src: "/real-photos/business/white-kitchen-wood-island.jpg", caption: "White cabinetry with a warm wood island." },
-  { src: "/real-photos/business/rustic-wood-kitchen-island.jpg", caption: "Rustic kitchen with a heavy wood island." },
-  { src: "/real-photos/business/dark-cabinet-kitchen-install.jpg", caption: "Dark-cabinet kitchen with quartz counters." },
-  { src: "/real-photos/business/white-shaker-kitchen-cabinets.jpg", caption: "Classic white-shaker kitchen build." },
-  { src: "/real-photos/business/dark-double-vanity-bathroom-install.jpg", caption: "Dark double-vanity bath with white counter." },
+  { src: "/real-photos/business/white-kitchen-marble-island.jpg", caption: "White kitchen with a marble-top island.", tag: "Kitchen" },
+  { src: "/real-photos/business/white-kitchen-wood-island.jpg", caption: "White cabinetry with a warm wood island.", tag: "Kitchen" },
+  { src: "/real-photos/business/rustic-wood-kitchen-island.jpg", caption: "Rustic kitchen with a heavy wood island.", tag: "Kitchen" },
+  { src: "/real-photos/business/dark-cabinet-kitchen-install.jpg", caption: "Dark-cabinet kitchen with quartz counters.", tag: "Kitchen" },
+  { src: "/real-photos/business/white-shaker-kitchen-cabinets.jpg", caption: "Classic white-shaker kitchen build.", tag: "Kitchen" },
+  { src: "/real-photos/business/dark-double-vanity-bathroom-install.jpg", caption: "Dark double-vanity bath with white counter.", tag: "Bath" },
+  { src: "/real-photos/business/kitchen-island-wood-cabinets-range.jpg", caption: "Wood-cabinet kitchen with a center island and gas range.", tag: "Kitchen" },
+  { src: "/real-photos/business/double-sink-bathroom-vanity-black.webp", caption: "Double-sink bath vanity, black cabinetry, framed mirrors.", tag: "Bath" },
+  { src: "/real-photos/business/wood-cabinets-granite-kitchen.jpg", caption: "Wood cabinetry paired with granite countertops.", tag: "Kitchen" },
 ];
 
 const STEPS = [
@@ -163,7 +185,7 @@ export default function BuildersCornerPage() {
                 Premium custom cabinetry, designed and built in Wausau.
               </h1>
               <p className="mt-7 max-w-xl text-lg leading-[1.7] text-white/90 md:text-xl">
-                If you are thinking about a kitchen, a bath, or a built-in that is genuinely yours, this is where to start. We sit down with you in the showroom, draw your room out together, build the cabinets in our own shop, and the Four Squared crew installs them. There is no pressure to start big — small projects are welcome too.
+                If you are thinking about a kitchen, a bath, or a built-in that is genuinely yours, this is where to start. We sit down with you in the showroom, draw your room out together, build the cabinets in our own shop, and the Four Squared crew installs them. There is no pressure to start big. Small projects are welcome too.
               </p>
               <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
                 <Link
@@ -181,16 +203,8 @@ export default function BuildersCornerPage() {
               </div>
             </div>
             <div className="md:col-span-5">
-              <div className="relative aspect-[4/5] w-full overflow-hidden bg-[var(--muted)]">
-                <Image
-                  src={HERO}
-                  alt="A custom Builders Corner kitchen: walnut shaker cabinetry, white marble counter, natural light."
-                  fill
-                  priority
-                  sizes="(min-width:768px) 42vw, 100vw"
-                  className="object-cover"
-                  quality={85}
-                />
+              <div className="relative aspect-[4/5] w-full overflow-hidden bg-[var(--muted)] ring-1 ring-white/10">
+                <HeroPhotoFader photos={HERO_DECK} intervalMs={5500} />
               </div>
             </div>
           </div>
@@ -207,8 +221,8 @@ export default function BuildersCornerPage() {
       <section className="bg-[var(--muted)]">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
-            headline={<>What we make. <span className="text-[var(--brand-priceless)]">Three rooms.</span></>}
-            sub="One bath, a whole first floor, a mudroom, a pantry. Designed and built here, installed by Four Squared."
+            headline={<>What we make.</>}
+            sub="Custom cabinetry for kitchens, baths, and the rest of the house. Designed and built here, installed by the Four Squared crew."
           />
 
           <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -284,17 +298,20 @@ export default function BuildersCornerPage() {
 
           <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-6 sm:gap-4">
             {SHOWROOM.map((p, i) => {
+              // Asymmetric magazine layout. First row 3+3, middle rows
+              // 2+2+2, last row 3+3. Reads as a gallery rather than a
+              // uniform grid.
               const span =
                 i === 0 || i === 1
                   ? "sm:col-span-3"
-                  : i === 5
+                  : i === 7 || i === 8
                     ? "sm:col-span-3"
                     : "sm:col-span-2";
               return (
                 <figure
                   key={p.src}
                   data-reveal
-                  data-reveal-delay={(i * 0.04).toFixed(2)}
+                  data-reveal-delay={((i % 4) * 0.05).toFixed(2)}
                   className={`${span} group`}
                 >
                   <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
@@ -303,9 +320,13 @@ export default function BuildersCornerPage() {
                       alt={p.caption}
                       fill
                       sizes="(min-width:1024px) 33vw, 50vw"
-                      className="object-cover transition duration-[900ms] group-hover:scale-[1.03]"
-                      quality={80}
+                      className="object-cover transition duration-[900ms] group-hover:scale-[1.04]"
+                      quality={78}
+                      loading="lazy"
                     />
+                    <span className="font-mono absolute left-3 top-3 bg-white/95 px-2 py-1 text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] shadow-sm">
+                      {p.tag}
+                    </span>
                   </div>
                   <figcaption className="mt-3 text-base text-[var(--foreground)] md:text-lg">
                     {p.caption}

@@ -2,13 +2,13 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ProductCard } from "@/components/product-card";
-import { CATALOG, CATEGORIES } from "@/lib/catalog";
+import { listCatalog, CATEGORIES } from "@/lib/catalog";
 
 export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
   const sp = await searchParams;
   const q = (sp.q ?? "").trim();
   const results = q
-    ? CATALOG.filter((c) =>
+    ? (await listCatalog()).filter((c) =>
         c.title.toLowerCase().includes(q.toLowerCase()) ||
         c.subtitle.toLowerCase().includes(q.toLowerCase()) ||
         c.sku.toLowerCase().includes(q.toLowerCase()) ||

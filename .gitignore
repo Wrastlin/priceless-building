@@ -36,3 +36,6 @@ data/items.json
 # logs
 *.log
 npm-debug.log*
+
+# playwright test artifacts
+.playwright-mcp/

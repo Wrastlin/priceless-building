@@ -70,7 +70,7 @@ export default function CustomersPage() {
                 <td className="text-muted-foreground">{c.joined}</td>
                 <td className="text-right font-mono font-semibold tabular-nums">{formatCurrency(c.ltv)}</td>
                 <td className="text-xs text-muted-foreground">{c.lastVisit}</td>
-                <td className="text-xs text-muted-foreground">{c.notes ?? "—"}</td>
+                <td className="text-xs text-muted-foreground">{c.notes ?? "–"}</td>
               </tr>
             ))}
           </tbody>
