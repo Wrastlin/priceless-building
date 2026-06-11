@@ -12,7 +12,6 @@ import { CustomerReviewsBand } from "@/components/customer-reviews-band";
 import { WarehouseGallery } from "@/components/warehouse-gallery";
 import { BeforeAfterBand } from "@/components/before-after-band";
 import { FacebookBand } from "@/components/facebook-band";
-import { WhatToExpectBand } from "@/components/what-to-expect-band";
 import { WalkthroughBand } from "@/components/walkthrough-band";
 import { BrandStatement } from "@/components/brand-statement";
 import { GOOGLE_RATING } from "@/lib/google-reviews";
@@ -105,7 +104,7 @@ const HOME_JSON_LD = {
   priceRange: "$ – $$$",
   foundingDate: "1978",
   image: "https://pricelessbuilding.com/og-image.jpg",
-  logo: "https://pricelessbuilding.com/real-photos/logo-priceless-circular@2x.webp",
+  logo: "https://pricelessbuilding.com/real-photos/logo-priceless-clean.webp",
   address: {
     "@type": "PostalAddress",
     streetAddress: ADDRESS.street,
@@ -183,14 +182,15 @@ const HOME_JSON_LD = {
   ],
 };
 
-export default function HomePage() {
+export default async function HomePage() {
   // Mixed product grid. Pulls 1-2 items from each category so the
   // catalog band shows real variety instead of just the first eight
   // items by id.
   const categoryKeys = Object.keys(CATEGORIES) as (keyof typeof CATEGORIES)[];
-  const items = categoryKeys
-    .flatMap((cat) => byCategory("priceless", cat).slice(0, 2))
-    .slice(0, 12);
+  const perCategory = await Promise.all(
+    categoryKeys.map((cat) => byCategory("priceless", cat)),
+  );
+  const items = perCategory.flatMap((list) => list.slice(0, 2)).slice(0, 12);
   return (
     <>
       <script
@@ -226,8 +226,6 @@ export default function HomePage() {
       <WarehouseGallery />
 
       <FacebookBand />
-
-      <WhatToExpectBand />
 
       <WalkthroughBand />
 

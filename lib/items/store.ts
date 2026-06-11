@@ -1,107 +1,59 @@
 /**
- * Item store — universal read layer.
+ * Item store — Supabase-backed.
  *
- * On the SERVER:
- *  - Reads `data/items.json` synchronously via fs.readFileSync at
- *    first call, then caches in memory.
- *  - If the file doesn't exist, seeds it from SEED_ITEMS.
- *  - Validates the JSON shape on load; throws on corruption.
+ * Replaces the old `data/items.json` file backend, which could not be
+ * written on Vercel's read-only serverless filesystem (a save threw EROFS
+ * and surfaced as the generic "error occurred in the Server Components
+ * render" digest). The catalog now lives in the `public.items` table.
  *
- * On the CLIENT (browser bundles):
- *  - fs / path / next-cache modules are dynamically required behind a
- *    `typeof window === "undefined"` guard so the client bundle never
- *    pulls them in. The client falls back to the in-memory SEED_ITEMS.
- *    That's safe for the only client consumer (track/page lookups by
- *    SKU on seed items).
+ * Two access paths:
+ *   - PUBLIC reads (published items, storefront): the anon, session-less
+ *     client in `lib/supabase/public.ts`. Cacheable + tag-revalidated, so
+ *     storefront pages stay static and refresh when the catalog changes.
+ *   - ADMIN reads (drafts/staged) and ALL writes: the per-request cookie
+ *     client in `lib/supabase/server.ts`, which carries the signed-in
+ *     staffer's session (RLS `authenticated` role). The application-level
+ *     allowlist (`requireAdminSession`) gates who can reach the writes.
  *
- * Writes always run on the server through helpers in this file. They
- * use node:fs/promises and call `revalidatePath` to refresh the
- * storefront + staging pages.
+ * The full CatalogItem lives in the row's `data` jsonb column (canonical);
+ * sku/status/brand/category are mirrored as columns only so queries can
+ * filter without scanning jsonb. Every write updates both.
  *
- * TODO (prod): swap the disk backend for Supabase. Sync helpers keep
- * working if the cache is hydrated at server start.
+ * When Supabase env vars are absent (e.g. CI, or a designer with no
+ * secrets) reads fall back to the in-memory SEED_ITEMS and writes throw a
+ * clear "not configured" error rather than corrupting anything.
  */
 import type { CatalogItem, Brand, Category, ItemStatus } from "@/lib/items/types";
 import { SEED_ITEMS } from "@/lib/items/seed";
+import { publicClient } from "@/lib/supabase/public";
 
 export type { CatalogItem, Brand, Category, ItemStatus } from "@/lib/items/types";
 
-const IS_SERVER = typeof window === "undefined";
+const CONFIGURED =
+  !!process.env.NEXT_PUBLIC_SUPABASE_URL &&
+  !!process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
-let CACHE: CatalogItem[] | null = null;
+/** Per-request cookie client (authenticated staff session) for admin reads + writes. */
+async function sessionClient() {
+  const { createClient } = await import("@/lib/supabase/server");
+  return createClient();
+}
 
-function validateItem(it: unknown, idx: number): asserts it is CatalogItem {
-  if (!it || typeof it !== "object") {
-    throw new Error(`items.json[${idx}]: not an object`);
-  }
-  const o = it as Record<string, unknown>;
-  for (const key of ["id", "sku", "brand", "category", "status", "title", "subtitle", "image"]) {
-    if (typeof o[key] !== "string") {
-      throw new Error(`items.json[${idx}]: missing or non-string "${key}"`);
-    }
-  }
-  if (typeof o.price !== "number") throw new Error(`items.json[${idx}]: "price" not number`);
-  if (typeof o.inStock !== "number") throw new Error(`items.json[${idx}]: "inStock" not number`);
-  const validStatus = ["draft", "staged", "published", "archived"];
-  if (!validStatus.includes(o.status as string)) {
-    throw new Error(`items.json[${idx}]: bad status "${String(o.status)}"`);
+function rowsToItems(rows: Array<{ data: unknown }> | null): CatalogItem[] {
+  return (rows ?? []).map((r) => r.data as CatalogItem);
+}
+
+function mustBeConfigured(op: string): void {
+  if (!CONFIGURED) {
+    throw new Error(
+      `${op}: item store is not configured. Set NEXT_PUBLIC_SUPABASE_URL and ` +
+        `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY (and sign in) to write catalog items.`,
+    );
   }
 }
 
-function dataPaths() {
-  // Avoid hoisting these requires to module top-level so Turbopack
-  // doesn't pull node:path/node:fs into client bundles.
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const path = require("node:path") as typeof import("node:path");
-  const dir = path.join(process.cwd(), "data");
-  const file = path.join(dir, "items.json");
-  return { dir, file };
-}
-
-function loadFromDisk(): CatalogItem[] {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const fs = require("node:fs") as typeof import("node:fs");
-  const { dir, file } = dataPaths();
-  if (!fs.existsSync(file)) {
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    const tmp = file + ".tmp";
-    fs.writeFileSync(tmp, JSON.stringify(SEED_ITEMS, null, 2), "utf8");
-    fs.renameSync(tmp, file);
-    return [...SEED_ITEMS];
-  }
-  const raw = fs.readFileSync(file, "utf8");
-  const parsed = JSON.parse(raw) as unknown;
-  if (!Array.isArray(parsed)) {
-    throw new Error("items.json: top-level must be an array");
-  }
-  parsed.forEach(validateItem);
-  return parsed as CatalogItem[];
-}
-
-/** Reads JSON once per process and caches in memory. */
-export function loadAll(): CatalogItem[] {
-  if (CACHE === null) {
-    CACHE = IS_SERVER ? loadFromDisk() : [...SEED_ITEMS];
-  }
-  return CACHE;
-}
-
-async function persist(next: CatalogItem[]): Promise<void> {
-  if (!IS_SERVER) throw new Error("Writes are server-only");
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const fs = require("node:fs") as typeof import("node:fs");
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const fsp = require("node:fs/promises") as typeof import("node:fs/promises");
-  const { dir, file } = dataPaths();
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-  const tmp = file + ".tmp";
-  await fsp.writeFile(tmp, JSON.stringify(next, null, 2), "utf8");
-  await fsp.rename(tmp, file);
-  CACHE = next;
-}
-
+/** Invalidate the storefront + admin caches after a write. */
 function bustPaths() {
-  if (!IS_SERVER) return;
   try {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { revalidatePath } = require("next/cache") as typeof import("next/cache");
@@ -110,87 +62,159 @@ function bustPaths() {
     revalidatePath("/admin/staging");
     revalidatePath("/admin/inventory");
   } catch {
-    // outside a request context (e.g. ad-hoc node script). Disk +
-    // cache are the source of truth; next render rebuilds.
+    // Outside a request context (ad-hoc script). The DB is the source of
+    // truth; the next render reads fresh.
   }
 }
 
-// ----- SYNC READS -----
+// ----- PUBLIC READS (anon, published only) -----
 
-export function listPublished(): CatalogItem[] {
-  return loadAll().filter((it) => it.status === "published");
+type PublishedFilter = { brand?: Brand; category?: Category };
+
+async function queryPublished(filter: PublishedFilter = {}): Promise<CatalogItem[]> {
+  if (!CONFIGURED) {
+    return SEED_ITEMS.filter(
+      (it) =>
+        it.status === "published" &&
+        (filter.brand === undefined || it.brand === filter.brand) &&
+        (filter.category === undefined || it.category === filter.category),
+    );
+  }
+  let q = publicClient().from("items").select("data").eq("status", "published");
+  if (filter.brand !== undefined) q = q.eq("brand", filter.brand);
+  if (filter.category !== undefined) q = q.eq("category", filter.category);
+  const { data, error } = await q.order("created_at", { ascending: false });
+  if (error) throw new Error(`items query failed: ${error.message}`);
+  return rowsToItems(data);
 }
 
-export function listDrafts(): CatalogItem[] {
-  return loadAll().filter((it) => it.status === "draft");
+export async function listPublished(): Promise<CatalogItem[]> {
+  return queryPublished();
 }
 
-export function listStaged(): CatalogItem[] {
-  return loadAll().filter((it) => it.status === "staged");
+export async function byBrand(brand: Brand): Promise<CatalogItem[]> {
+  return queryPublished({ brand });
 }
 
-export function findBySku(sku: string): CatalogItem | undefined {
-  return loadAll().find((it) => it.sku === sku);
+export async function byCategory(brand: Brand, category: Category): Promise<CatalogItem[]> {
+  return queryPublished({ brand, category });
 }
 
-export function byBrand(brand: Brand): CatalogItem[] {
-  return listPublished().filter((it) => it.brand === brand);
+/** Public lookup — published items only (storefront product page). */
+export async function findPublished(sku: string): Promise<CatalogItem | undefined> {
+  if (!CONFIGURED) return SEED_ITEMS.find((it) => it.sku === sku && it.status === "published");
+  const { data, error } = await publicClient()
+    .from("items")
+    .select("data")
+    .eq("status", "published")
+    .eq("sku", sku)
+    .maybeSingle();
+  if (error) throw new Error(`findPublished: ${error.message}`);
+  return data ? (data.data as CatalogItem) : undefined;
 }
 
-export function byCategory(brand: Brand, category: Category): CatalogItem[] {
-  return listPublished().filter((it) => it.brand === brand && it.category === category);
+// ----- ADMIN READS (authenticated staff, any status) -----
+
+async function listByStatus(status: ItemStatus): Promise<CatalogItem[]> {
+  if (!CONFIGURED) return SEED_ITEMS.filter((it) => it.status === status);
+  const supabase = await sessionClient();
+  const { data, error } = await supabase
+    .from("items")
+    .select("data")
+    .eq("status", status)
+    .order("created_at", { ascending: false });
+  if (error) throw new Error(`listByStatus(${status}): ${error.message}`);
+  return rowsToItems(data);
 }
 
-// ----- ASYNC WRITES (server only) -----
+export async function listDrafts(): Promise<CatalogItem[]> {
+  return listByStatus("draft");
+}
+
+export async function listStaged(): Promise<CatalogItem[]> {
+  return listByStatus("staged");
+}
+
+/** Admin lookup — any status. Uses the authenticated session client. */
+export async function findBySku(sku: string): Promise<CatalogItem | undefined> {
+  if (!CONFIGURED) return SEED_ITEMS.find((it) => it.sku === sku);
+  const supabase = await sessionClient();
+  const { data, error } = await supabase
+    .from("items")
+    .select("data")
+    .eq("sku", sku)
+    .maybeSingle();
+  if (error) throw new Error(`findBySku: ${error.message}`);
+  return data ? (data.data as CatalogItem) : undefined;
+}
+
+// ----- WRITES (authenticated staff only) -----
 
 export type CreateDraftInput = Omit<CatalogItem, "status" | "createdAt"> & {
   status?: ItemStatus;
 };
 
 export async function createDraft(input: CreateDraftInput): Promise<CatalogItem> {
-  const all = loadAll();
-  if (all.some((it) => it.sku === input.sku)) {
-    throw new Error(`createDraft: SKU "${input.sku}" already exists`);
-  }
+  mustBeConfigured("createDraft");
   const item: CatalogItem = {
     ...input,
     status: input.status ?? "draft",
     createdAt: new Date().toISOString(),
   };
-  await persist([...all, item]);
+  const supabase = await sessionClient();
+  const { error } = await supabase.from("items").insert({
+    sku: item.sku,
+    status: item.status,
+    brand: item.brand,
+    category: item.category,
+    data: item,
+  });
+  if (error) {
+    if (error.code === "23505") throw new Error(`createDraft: SKU "${item.sku}" already exists`);
+    throw new Error(`createDraft: ${error.message}`);
+  }
   bustPaths();
   return item;
 }
 
 export async function setStatus(sku: string, status: ItemStatus): Promise<CatalogItem> {
-  const all = loadAll();
-  const idx = all.findIndex((it) => it.sku === sku);
-  if (idx === -1) throw new Error(`setStatus: no item with sku "${sku}"`);
-  const next = [...all];
-  next[idx] = { ...next[idx], status };
-  await persist(next);
+  mustBeConfigured("setStatus");
+  const existing = await findBySku(sku);
+  if (!existing) throw new Error(`setStatus: no item with sku "${sku}"`);
+  const next: CatalogItem = { ...existing, status };
+  const supabase = await sessionClient();
+  const { error } = await supabase.from("items").update({ status, data: next }).eq("sku", sku);
+  if (error) throw new Error(`setStatus: ${error.message}`);
   bustPaths();
-  return next[idx];
+  return next;
 }
 
 export async function updateItem(sku: string, partial: Partial<CatalogItem>): Promise<CatalogItem> {
-  const all = loadAll();
-  const idx = all.findIndex((it) => it.sku === sku);
-  if (idx === -1) throw new Error(`updateItem: no item with sku "${sku}"`);
-  const next = [...all];
-  next[idx] = { ...next[idx], ...partial, sku: next[idx].sku };
-  await persist(next);
+  mustBeConfigured("updateItem");
+  const existing = await findBySku(sku);
+  if (!existing) throw new Error(`updateItem: no item with sku "${sku}"`);
+  // sku is immutable; merge everything else into the canonical jsonb.
+  const next: CatalogItem = { ...existing, ...partial, sku: existing.sku };
+  const supabase = await sessionClient();
+  const { error } = await supabase
+    .from("items")
+    .update({
+      status: next.status,
+      brand: next.brand,
+      category: next.category,
+      data: next,
+    })
+    .eq("sku", sku);
+  if (error) throw new Error(`updateItem: ${error.message}`);
   bustPaths();
-  return next[idx];
+  return next;
 }
 
 export async function deleteItem(sku: string): Promise<void> {
-  const all = loadAll();
-  const next = all.filter((it) => it.sku !== sku);
-  if (next.length === all.length) {
-    throw new Error(`deleteItem: no item with sku "${sku}"`);
-  }
-  await persist(next);
+  mustBeConfigured("deleteItem");
+  const supabase = await sessionClient();
+  const { error } = await supabase.from("items").delete().eq("sku", sku);
+  if (error) throw new Error(`deleteItem: ${error.message}`);
   bustPaths();
 }
 

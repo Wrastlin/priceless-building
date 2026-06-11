@@ -130,14 +130,31 @@ const SECTIONS: Section[] = [
 ];
 
 export const metadata = {
-  title: "FAQ · Price-Less Building Center",
+  title: "FAQ · Shopping, pickup, returns, contractor accounts · Price-Less Building Center Wausau, WI",
   description:
-    "Answers to the questions we hear most often at the counter: shopping, pickup, returns, warranty and contractor accounts.",
+    "Answers to the questions we hear most often at the counter: shopping the warehouse, pickup, returns, warranty, contractor accounts, custom cabinetry, install crew. Price-Less Building Center, Wausau, Wisconsin.",
+  alternates: { canonical: "https://pricelessbuilding.com/faq" },
+};
+
+const FAQ_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: SECTIONS.flatMap((s) =>
+    s.items.map((qa) => ({
+      "@type": "Question",
+      name: qa.q,
+      acceptedAnswer: { "@type": "Answer", text: qa.a },
+    })),
+  ),
 };
 
 export default function FAQPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
+      />
       <SiteHeader brand="priceless" />
 
       {/* HERO */}
@@ -151,7 +168,7 @@ export default function FAQPage() {
             The counter answers
           </div>
           <h1 className="font-display mt-5 max-w-3xl text-5xl leading-[1.05] md:text-7xl">
-            FREQUENTLY ASKED.
+            Frequently asked questions.
           </h1>
           <p className="mt-5 max-w-2xl text-base text-white/85 md:text-lg">
             Twenty-something questions we hear every week at the counter. If yours isn't here, call

@@ -31,10 +31,10 @@ export function SiteHeader({ brand }: { brand: "priceless" | "builders" | "four-
           aria-label="Price-Less Building Center, Wausau, Wisconsin · Home"
         >
           <Image
-            src="/real-photos/logo-priceless-circular@2x.webp"
-            alt=""
-            width={446}
-            height={558}
+            src="/real-photos/logo-priceless-clean.webp"
+            alt="Price-Less Building Center logo"
+            width={960}
+            height={960}
             priority
             className="h-12 w-auto object-contain md:h-14"
           />

@@ -52,7 +52,7 @@ const COPY: Record<
   "four-squared": {
     heading: "Tell us about your project.",
     intro:
-      "Walkthroughs, estimates, design help — we read every one ourselves.",
+      "Walkthroughs, estimates, design help. We read every one ourselves.",
     submitLabel: "Send to Four Squared",
   },
 };

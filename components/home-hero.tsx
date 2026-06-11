@@ -1,20 +1,29 @@
 import Image from "next/image";
 import Link from "next/link";
+import { HeroPhotoFader, type HeroPhotoSource } from "@/components/hero-photo-fader";
 import { PRICELESS } from "@/lib/brands";
 
 const MURAL_HERO = "/real-photos/mural-wide.webp";
 
-/**
- * Home hero: text column + looping storefront video, followed by the
- * full-width mural figure with attribution caption. The first thing
- * a visitor sees.
- */
+const HERO_PHOTOS: HeroPhotoSource[] = [
+  { src: "/real-photos/business/white-kitchen-marble-island.jpg", alt: "A finished custom kitchen with white shaker cabinetry and a marble-top island, installed by the local crew in Wausau." },
+  { src: "/real-photos/business/warehouse-cabinet-display.jpg", alt: "Rows of cabinets and vanities on the warehouse floor at Price-Less Building Center in Wausau, Wisconsin." },
+  { src: "/real-photos/business/kitchen-island-wood-cabinets-range.jpg", alt: "A finished kitchen with warm wood cabinets, a stainless range, and a bar-seat island." },
+  { src: "/real-photos/business/warehouse-assorted-windows.jpg", alt: "Surplus windows arranged on the warehouse floor, brand-new in the box at a fraction of retail." },
+  { src: "/real-photos/business/dark-cabinet-kitchen-install.jpg", alt: "A finished kitchen with dark wood cabinets and pendant lighting." },
+];
+
+const MOBILE_HERO = HERO_PHOTOS[0];
+
 export function HomeHero() {
   return (
-    <section className="border-b bg-white">
-      <div className="mx-auto max-w-7xl px-6 pt-14 pb-12 md:pt-20 md:pb-20">
-        <div className="grid items-center gap-10 md:grid-cols-12 md:gap-12">
-          <div className="md:col-span-7">
+    <section className="relative border-b bg-white">
+      <div className="mx-auto max-w-7xl px-6 pt-12 pb-12 md:pt-20 md:pb-24">
+        <div className="grid items-stretch gap-0 md:grid-cols-12">
+          {/* Text column. Half the grid; the photo extends slightly
+              under its right edge via negative margin so the seam reads
+              as a fade, not a hard line. */}
+          <div className="relative z-10 md:col-span-6 md:py-10 md:pr-12 lg:pr-16">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-base text-[var(--muted-foreground)] md:text-lg">
               <span className="inline-flex items-center gap-2">
                 <span className="size-2 rounded-full bg-emerald-500" />
@@ -27,43 +36,58 @@ export function HomeHero() {
               Wausau&apos;s one-stop shop for materials, <span className="text-[var(--brand-priceless)]">cabinetry, and installs.</span>
             </h1>
             <p className="mt-6 max-w-xl text-base text-[var(--foreground)] md:text-lg">
-              Three local brands at 825 Washington Street since 1978. We are happy to help with anything from a single doorknob to a full kitchen — and everything in between.
+              Walk the warehouse, design with our team, install with our crew. Since 1978.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-5">
-              <Link href="/shop" className="btn btn-priceless">
-                Shop everything
+              <Link href="/contact" className="btn btn-priceless">
+                See our store
               </Link>
               <Link
-                href="/reviews"
+                href="/shop"
                 className="text-base text-[var(--brand-priceless)] underline decoration-[var(--brand-priceless)]/30 underline-offset-4 hover:decoration-[var(--brand-priceless)] md:text-lg"
               >
-                Read our reviews →
+                Browse the warehouse →
               </Link>
             </div>
           </div>
-          <div className="md:col-span-5">
-            <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#0b1220] shadow-sm">
-              <video
-                className="absolute inset-0 h-full w-full object-cover"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                poster="/real-photos/storefront-bg-poster.jpg"
+
+          {/* Photo column. Half the grid, extends left a bit so it
+              bleeds under the text column's right padding, and runs
+              past the right edge of the page for cinematic feel.
+              A short white fade on the leftmost slice softens the
+              seam without hiding image content. */}
+          <div className="relative hidden md:col-span-6 md:block">
+            <div className="absolute inset-y-0 -right-6 -left-12 lg:-right-12 lg:-left-16">
+              <HeroPhotoFader photos={HERO_PHOTOS} />
+              <div
                 aria-hidden="true"
-              >
-                <source src="/real-photos/storefront-bg.webm" type="video/webm" />
-                <source src="/real-photos/storefront-bg.mp4" type="video/mp4" />
-              </video>
-              <div className="pointer-events-none absolute bottom-3 right-3 inline-flex items-center gap-1.5 bg-black/70 px-2 py-1 text-xs font-medium uppercase tracking-[0.14em] text-white">
-                <span className="size-1.5 rounded-full bg-emerald-400" />
-                Live walkthrough
-              </div>
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(to right, #ffffff 0%, rgba(255,255,255,0.85) 2%, rgba(255,255,255,0) 12%)",
+                }}
+              />
             </div>
           </div>
         </div>
+
+        {/* Mobile-only hero photo. */}
+        <div className="-mx-6 mt-10 md:hidden">
+          <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
+            <Image
+              src={MOBILE_HERO.src}
+              alt={MOBILE_HERO.alt}
+              fill
+              priority
+              sizes="100vw"
+              quality={80}
+              className="object-cover"
+            />
+          </div>
+        </div>
       </div>
+
+      {/* Mural figure. Anchored, with full press attribution. */}
       <figure className="border-t border-[var(--border)]">
         <div className="relative w-full overflow-hidden bg-[var(--muted)]">
           <Image
@@ -95,8 +119,6 @@ export function HomeHero() {
 }
 
 function OpenToday() {
-  // Today's hours, computed on the server at render time. Falls back
-  // to a friendly "closed today" message if the day is closed.
   const today = new Date().toLocaleDateString("en-US", { weekday: "short" });
   const todayHours =
     PRICELESS.hours.find((h) => h.day === today)?.hours ?? "Closed";

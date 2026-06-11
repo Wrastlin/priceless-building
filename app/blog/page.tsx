@@ -1,9 +1,26 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 
 const HERO = "/real-photos/storefront-signage.webp";
+const SITE_URL = "https://pricelessbuilding.com";
+
+export const metadata: Metadata = {
+  title: "Building Guides + Behind the Counter · Price-Less Building Center Wausau, WI",
+  description:
+    "Practical guides on buying surplus building materials, reclaimed finds in central Wisconsin, and stories from the counter at Price-Less Building Center in Wausau, WI.",
+  alternates: { canonical: `${SITE_URL}/blog` },
+  openGraph: {
+    type: "website",
+    title: "Building Guides + Behind the Counter · Price-Less Building Center",
+    description:
+      "Surplus building materials, reclaimed finds, and stories from Price-Less Building Center in Wausau, WI.",
+    url: `${SITE_URL}/blog`,
+    images: [{ url: "/og-mural.jpg", width: 1200, height: 512 }],
+  },
+};
 
 type Category = "Tips" | "Reclaimed Finds" | "Behind the Counter";
 

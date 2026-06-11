@@ -37,6 +37,17 @@ export interface CatalogItem {
   dimensions?: string;
   weight?: string;
   comparable?: { retailer: string; price: number; url?: string };
+  // Full set of live retail comparables captured at the time of pricing.
+  // Each entry includes a clickable URL to the actual retailer product
+  // page so staff (and customers, where surfaced) can verify.
+  comparables?: Array<{
+    source: string;
+    title: string;
+    price: number;
+    url: string;
+    image?: string;
+    capturedAt?: string;
+  }>;
   fulfillment?: { pickup: boolean; localDelivery: boolean; ships: boolean };
   createdAt?: string;
   createdBy?: string;

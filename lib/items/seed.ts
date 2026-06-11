@@ -38,7 +38,7 @@ export const SEED_ITEMS: CatalogItem[] = [
     image: "/test-images/11-reclaimed-pine-door.jpg",
     gallery: [CI("PL-000104", 1), CI("PL-000104", 2)],
     badges: ["Reclaimed", "One-of-one"],
-    manufacturer: "Salvage — Wausau, WI",
+    manufacturer: "Salvage, Wausau, WI",
     dimensions: "30\" × 80\" × 1-3/4\"",
     weight: "62 lb",
     location: "Reclaim Loft", inStock: 1,

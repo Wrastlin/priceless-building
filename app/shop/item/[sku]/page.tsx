@@ -1,29 +1,119 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { CATALOG, findItem, byCategory } from "@/lib/catalog";
+import { listCatalog, findItem, byCategory } from "@/lib/catalog";
 import { formatCurrency } from "@/lib/utils";
 import { ADDRESS } from "@/lib/brands";
 import { AddToCartButton } from "@/components/add-to-cart-button";
 import { ProductGallery } from "@/components/product-gallery";
 
+const SITE_URL = "https://pricelessbuilding.com";
+
 export async function generateStaticParams() {
-  return CATALOG.map((c) => ({ sku: c.sku }));
+  return (await listCatalog()).map((c) => ({ sku: c.sku }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ sku: string }> }): Promise<Metadata> {
+  const { sku } = await params;
+  const item = await findItem(sku);
+  if (!item) return { title: "Item not found" };
+  const savings = item.msrp && item.msrp > item.price
+    ? Math.round((1 - item.price / item.msrp) * 100)
+    : 0;
+  const priceText = formatCurrency(item.price);
+  const titleSuffix = savings > 0 ? ` · ${priceText} (${savings}% off retail) · Wausau, WI` : ` · ${priceText} · Wausau, WI`;
+  const titleBase = item.title.length > 60 ? `${item.title.slice(0, 57)}…` : item.title;
+  const fullTitle = `${titleBase}${titleSuffix}`;
+  const heroAbs = item.image.startsWith("http") ? item.image : `${SITE_URL}${item.image}`;
+  const description =
+    `${item.title}. ${item.subtitle ?? ""} ` +
+    `${priceText}${item.msrp ? ` (retail ${formatCurrency(item.msrp)})` : ""}. ` +
+    `In stock at Price-Less Building Center, ${ADDRESS.street}, ${ADDRESS.city}, ${ADDRESS.state}. ` +
+    `New in box from cancelled contractor orders. SKU ${item.sku}.`;
+  const canonical = `${SITE_URL}/shop/item/${item.sku}`;
+  return {
+    title: fullTitle,
+    description: description.trim(),
+    alternates: { canonical },
+    openGraph: {
+      type: "website",
+      url: canonical,
+      title: fullTitle,
+      description: description.trim(),
+      images: [{ url: heroAbs, alt: item.title }],
+      siteName: "Price-Less Building Center",
+    },
+    twitter: { card: "summary_large_image", title: fullTitle, description, images: [heroAbs] },
+    robots: { index: true, follow: true },
+  };
+}
+
+function productJsonLd(item: Awaited<ReturnType<typeof findItem>>): string | null {
+  if (!item) return null;
+  const heroAbs = item.image.startsWith("http") ? item.image : `${SITE_URL}${item.image}`;
+  const galleryAbs = (item.gallery ?? []).map((g) =>
+    g.startsWith("http") ? g : `${SITE_URL}${g}`,
+  );
+  const data = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    name: item.title,
+    description: item.subtitle ?? item.title,
+    image: [heroAbs, ...galleryAbs],
+    sku: item.sku,
+    brand: item.manufacturer
+      ? { "@type": "Brand", name: item.manufacturer }
+      : { "@type": "Brand", name: item.brand === "builders" ? "Builders Corner" : "Price-Less Building Center" },
+    offers: {
+      "@type": "Offer",
+      url: `${SITE_URL}/shop/item/${item.sku}`,
+      priceCurrency: "USD",
+      price: item.price,
+      priceValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30).toISOString().slice(0, 10),
+      availability: item.inStock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      itemCondition: "https://schema.org/NewCondition",
+      seller: {
+        "@type": "LocalBusiness",
+        name: "Price-Less Building Center",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: ADDRESS.street,
+          addressLocality: ADDRESS.city,
+          addressRegion: ADDRESS.state,
+          postalCode: ADDRESS.zip,
+          addressCountry: "US",
+        },
+      },
+      ...(item.msrp && item.msrp > item.price
+        ? { priceSpecification: { "@type": "PriceSpecification", price: item.msrp, priceCurrency: "USD", valueAddedTaxIncluded: false } }
+        : {}),
+    },
+  };
+  return JSON.stringify(data);
 }
 
 export default async function ItemPage({ params }: { params: Promise<{ sku: string }> }) {
   const { sku } = await params;
-  const item = findItem(sku);
+  const item = await findItem(sku);
   if (!item) notFound();
-  const similar = byCategory(item.brand, item.category).filter((c) => c.sku !== item.sku).slice(0, 4);
+  const similar = (await byCategory(item.brand, item.category)).filter((c) => c.sku !== item.sku).slice(0, 4);
   const savings = item.msrp && item.msrp > item.price ? Math.round((1 - item.price / item.msrp) * 100) : 0;
   const hero = item.staged || item.image;
   const ff = item.fulfillment ?? { pickup: true, localDelivery: true, ships: false };
 
+  const ld = productJsonLd(item);
+
   return (
     <>
+      {ld ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: ld }}
+        />
+      ) : null}
       <SiteHeader brand={item.brand} />
 
       {/* CRUMB */}

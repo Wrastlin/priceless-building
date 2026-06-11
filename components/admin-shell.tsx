@@ -21,20 +21,13 @@ type NavItem = {
 
 const NAV: NavItem[] = [
   { href: "/admin", label: "Dashboard", key: "dashboard", section: "Overview" },
-  { href: "/admin/schedule", label: "Schedule", key: "schedule", section: "Overview" },
-  { href: "/admin/pos", label: "Register", key: "pos", section: "Floor" },
-  { href: "/admin/inventory", label: "Inventory", key: "inventory", section: "Floor" },
-  { href: "/admin/inventory/new", label: "Add item", key: "add", section: "Floor" },
-  { href: "/admin/staging", label: "Staging", key: "staging", section: "Floor" },
-  { href: "/admin/receiving", label: "Receiving", key: "receiving", section: "Floor" },
-  { href: "/admin/tags", label: "Print tags", key: "tags", section: "Floor" },
-  { href: "/admin/returns", label: "Returns", key: "returns", section: "Floor" },
-  { href: "/admin/customers", label: "Customers", key: "customers", section: "Records" },
-  { href: "/admin/suppliers", label: "Suppliers", key: "suppliers", section: "Records" },
-  { href: "/admin/audit-log", label: "Audit log", key: "audit", section: "Records" },
-  { href: "/admin/pricing-rules", label: "Pricing rules", key: "pricing", section: "Config" },
-  { href: "/admin/sales-channels", label: "Sales channels", key: "channels", section: "Config" },
-  { href: "/admin/reports", label: "Reports", key: "reports", section: "Config" },
+  { href: "/admin/inventory/new", label: "Add item", key: "add", section: "Items" },
+  { href: "/admin/staging", label: "Staging", key: "staging", section: "Items" },
+  { href: "/admin/inventory", label: "Inventory", key: "inventory", section: "Items" },
+  { href: "/admin/tags", label: "Print tags", key: "tags", section: "Items" },
+  { href: "/admin/marketing", label: "Generate post", key: "marketing", section: "Marketing" },
+  { href: "/admin/receiving", label: "Receiving", key: "receiving", section: "Flow" },
+  { href: "/admin/returns", label: "Returns", key: "returns", section: "Flow" },
   { href: "/admin/settings", label: "Settings", key: "settings", section: "Config" },
 ];
 
@@ -56,15 +49,11 @@ export async function AdminShell({
   /** Optional top-bar action slot (e.g. primary CTA). */
   actions?: React.ReactNode;
 }) {
-  const authConfigured = !!process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const claims = authConfigured ? await requireAuth() : null;
+  const claims = await requireAuth();
   const userEmail = (claims?.email as string | undefined) ?? null;
-  const userMeta = (claims?.user_metadata ?? {}) as { full_name?: string; name?: string; avatar_url?: string };
-  const displayName =
-    userMeta.full_name ||
-    userMeta.name ||
-    (userEmail ? userEmail.split("@")[0].replace(/[._-]+/g, " ") : null) ||
-    "Dev mode";
+  const displayName = userEmail
+    ? userEmail.split("@")[0].replace(/[._-]+/g, " ")
+    : "Native";
 
   const activeItem = NAV.find((n) => n.key === active);
   const trail: Crumb[] = crumbs ?? (activeItem ? [{ label: activeItem.label, href: activeItem.href }] : []);

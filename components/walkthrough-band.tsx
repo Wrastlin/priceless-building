@@ -1,62 +1,117 @@
 import Image from "next/image";
+import Link from "next/link";
 import { SectionHead } from "@/components/section-head";
 
 const STEPS = [
-  { n: "01", t: "Take a photo.", b: "Wall, room, doorway, or the front of the house." },
-  { n: "02", t: "Pick what you want.", b: "Door, window, vanity, cabinet, siding, shelf, trim." },
-  { n: "03", t: "Choose colors with us.", b: "Real swatches, side by side, before anything renders." },
-  { n: "04", t: "See it in the photo.", b: "A full render placed into the picture you took." },
-  { n: "05", t: "Get the price.", b: "Items we actually carry, with the cost next to each one." },
+  {
+    n: "01",
+    t: "Take a photo.",
+    b: "Wall, room, doorway, or the front of the house. Anything we can build around.",
+    img: "/real-photos/business/blank-wall-planning.webp",
+    imgAlt: "An empty wall in a customer home, ready for planning.",
+  },
+  {
+    n: "02",
+    t: "Pick what you want.",
+    b: "Door, window, vanity, cabinet, siding, shelf, trim. Pulled from what is actually on the floor.",
+    img: "/real-photos/business/bathroom-vanities-warehouse-display.jpg",
+    imgAlt: "Bathroom vanities on the warehouse floor at Price-Less.",
+  },
+  {
+    n: "03",
+    t: "Choose colors with us.",
+    b: "Real swatches, side by side, before anything renders.",
+    img: "/real-photos/business/paint-stain-caulk-inventory-shelves.webp",
+    imgAlt: "Shelves of paint and stain at the Price-Less paint station.",
+  },
+  {
+    n: "04",
+    t: "See it in the photo.",
+    b: "A full render placed back into the picture you took.",
+    img: "/real-photos/business/kitchen-remodel-before-after.jpg",
+    imgAlt: "A before-and-after split image of a remodeled kitchen.",
+  },
+  {
+    n: "05",
+    t: "Get the price.",
+    b: "Items we actually carry, with the cost next to each one.",
+    img: "/real-photos/business/customer-thank-you-note.jpg",
+    imgAlt: "A customer thank-you note left on a finished install.",
+  },
 ];
 
 /**
- * Five-step walkthrough explainer for the upcoming visualization
- * process. Light band so step text is comfortable to read. The closing
- * brand-statement band sits right after for the dark-vs-light contrast.
+ * Five-step walkthrough as a row of real-photo cards. Replaces the
+ * separate what-to-expect band that sat above it. Each step shows a
+ * real photo that maps to that step, so the page feels visual instead
+ * of text-heavy. Mural sits at the bottom as the section's anchor
+ * photo since the old "where to find us" card lived here.
  */
 export function WalkthroughBand() {
   return (
     <section id="design-walkthrough" className="bg-[var(--muted)] scroll-mt-24">
       <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
         <SectionHead
-          headline="See it in your home before you buy it."
+          headline="See it in your home before you buy."
           sub="A walkthrough we are putting together. Photo of your space, the pieces you want, the colors, a render in the same photo, real pricing."
         />
 
-        <div className="mt-12 grid gap-10 md:grid-cols-12 md:gap-14">
-          <ol className="md:col-span-7">
-            {STEPS.map((s, i) => (
-              <li
-                key={s.n}
-                data-reveal
-                data-reveal-delay={(i * 0.06).toFixed(2)}
-                className="grid grid-cols-[56px_1fr] items-start gap-x-5 border-b border-[var(--border)] py-5 first:pt-0 last:border-b-0 last:pb-0 md:grid-cols-[80px_1fr] md:gap-x-8 md:py-6"
-              >
-                <div className="font-display text-3xl leading-none text-[var(--brand-priceless)] md:text-4xl">
+        <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+          {STEPS.map((s, i) => (
+            <li
+              key={s.n}
+              data-reveal
+              data-reveal-delay={(i * 0.06).toFixed(2)}
+              className="flex flex-col overflow-hidden border border-[var(--border)] bg-white"
+            >
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
+                <Image
+                  src={s.img}
+                  alt={s.imgAlt}
+                  fill
+                  sizes="(min-width:1024px) 20vw, (min-width:640px) 50vw, 100vw"
+                  className="object-cover"
+                  quality={78}
+                />
+                <span className="font-display absolute left-3 top-3 inline-flex h-9 w-9 items-center justify-center bg-white text-base text-[var(--brand-priceless)] shadow-sm">
                   {s.n}
-                </div>
-                <div>
-                  <h3 className="font-display text-xl leading-snug md:text-2xl">{s.t}</h3>
-                  <p className="mt-1.5 text-base leading-relaxed text-[var(--foreground)]">{s.b}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
+                </span>
+              </div>
+              <div className="flex flex-1 flex-col p-5">
+                <h3 className="font-display text-xl leading-snug">{s.t}</h3>
+                <p className="mt-2 text-base leading-relaxed text-[var(--foreground)]">
+                  {s.b}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
 
-          <figure className="md:col-span-5" data-reveal data-reveal-delay="0.12">
-            <div className="relative aspect-[4/5] w-full overflow-hidden bg-white">
-              <Image
-                src="/real-photos/install-kitchen-walnut-island-windows.webp"
-                alt="A finished walnut kitchen install."
-                fill
-                sizes="(min-width:768px) 42vw, 100vw"
-                className="object-cover"
-              />
+        {/* Where-to-find anchor. Full mural image since the old
+            text-only "Where to find us" card was the weak link. */}
+        <div className="mt-14 overflow-hidden border border-[var(--border)] bg-white">
+          <div className="relative w-full overflow-hidden bg-[var(--muted)]">
+            <Image
+              src="/real-photos/business/exterior-mural-build-your-future.webp"
+              alt="Build Your Future mural wrapping the Price-Less Building Center at 825 Washington Street, Wausau."
+              width={2400}
+              height={1200}
+              loading="lazy"
+              sizes="100vw"
+              className="block h-auto w-full object-cover"
+            />
+          </div>
+          <div className="flex flex-wrap items-center justify-between gap-4 px-6 py-5">
+            <div>
+              <div className="font-display text-xl">825 Washington Street, Wausau.</div>
+              <div className="mt-1 text-sm text-[var(--muted-foreground)]">
+                Same building since 1978. Open Monday through Saturday.
+              </div>
             </div>
-            <figcaption className="mt-4 text-sm leading-relaxed text-[var(--muted-foreground)]">
-              A finished install. The walkthrough lets you preview something like this in your own room first.
-            </figcaption>
-          </figure>
+            <Link href="/contact" className="btn btn-priceless">
+              See our store →
+            </Link>
+          </div>
         </div>
       </div>
     </section>

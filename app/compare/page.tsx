@@ -14,8 +14,8 @@ const RETAILERS = [
   { name: "Amazon", mult: 1.05 },
 ];
 
-export default function ComparePage() {
-  const items = byBrand("priceless")
+export default async function ComparePage() {
+  const items = (await byBrand("priceless"))
     .filter((i) => i.msrp && i.msrp > i.price)
     .slice(0, 8);
 

@@ -1,9 +1,10 @@
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { CartView } from "./cart-view";
-import { CATALOG } from "@/lib/catalog";
+import { listCatalog } from "@/lib/catalog";
 
-export default function CartPage() {
+export default async function CartPage() {
+  const catalog = await listCatalog();
   return (
     <>
       <SiteHeader brand="priceless" />
@@ -19,7 +20,7 @@ export default function CartPage() {
             Pickup is free at the back load-bay. Local delivery within Marathon County starts at $79.
           </p>
         </div>
-        <CartView catalog={CATALOG} />
+        <CartView catalog={catalog} />
       </section>
       <SiteFooter brand="priceless" />
     </>

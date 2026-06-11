@@ -3,31 +3,56 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { CATEGORIES } from "@/lib/catalog";
+import { CATEGORIES } from "@/lib/catalog-meta";
 
 /**
- * Universal main-menu drawer. Replaces the old mobile-only nav drawer.
- *
- * Triggered by the hamburger button rendered inline by the site-header
- * at every breakpoint. Inside, the drawer shows:
- *
- *   1. A 2-column image grid of shop departments (people register
- *      pictures faster than they register a list of twelve text links).
- *   2. The rest of the site nav as a compact list (about, reviews,
- *      contact, tour, map, etc).
- *   3. A brand-switcher row with the Price-Less, Builders Corner, and
- *      Four Squared pills so you can hop between the three identities.
- *   4. A phone-call CTA at the bottom.
+ * Universal main-menu drawer. Lead the drawer with the high-value
+ * paths first — shop everything, premium custom cabinetry, install
+ * crew, and start-a-project — instead of dropping the visitor into a
+ * grid of eight individual shop departments. Department browsing is
+ * still available, compact, near the bottom.
  *
  * Close affordances per WAI-ARIA: tap a link, tap the backdrop, press
  * Escape, tap the close button. Body scroll is locked while open so iOS
  * Safari does not rubber-band the underlying page.
  */
 
-const SECONDARY_NAV: { href: string; label: string }[] = [
+type PathTone = "priceless" | "builders" | "four-squared" | "start";
+
+const PRIMARY_PATHS: { href: string; label: string; sub: string; tone: PathTone }[] = [
+  {
+    href: "/shop",
+    label: "Shop the warehouse",
+    sub: "Surplus doors, windows, cabinets, vanities, lighting, hardware.",
+    tone: "priceless",
+  },
+  {
+    href: "/builders-corner",
+    label: "Premium custom cabinetry",
+    sub: "Designed in our showroom, built in our Wausau shop.",
+    tone: "builders",
+  },
+  {
+    href: "/four-squared",
+    label: "Custom installs + remodels",
+    sub: "Kitchens, baths, full renovations by the in-house crew.",
+    tone: "four-squared",
+  },
+  {
+    href: "/contact",
+    label: "Start a project",
+    sub: "Visit, call, or send us photos of your space.",
+    tone: "start",
+  },
+];
+
+const SITE_NAV: { href: string; label: string }[] = [
   { href: "/reviews", label: "Reviews" },
   { href: "/about", label: "About" },
-  { href: "/contact", label: "Visit · contact" },
+  { href: "/contact", label: "Visit + contact" },
+  { href: "/blog", label: "Blog" },
+  { href: "/faq", label: "FAQ" },
+  { href: "/contractors", label: "Contractor accounts" },
 ];
 
 export function MainMenu({
@@ -115,54 +140,49 @@ export function MainMenu({
         </div>
 
         <div className="flex-1 overflow-y-auto">
+          {/* Primary paths. The four entry points people actually want:
+              shop, cabinetry, installs, start-a-project. */}
           <section className="px-5 pt-5">
+            <ul className="flex flex-col gap-2.5">
+              {PRIMARY_PATHS.map((p) => (
+                <li key={p.href}>
+                  <PrimaryRow {...p} onClick={() => setOpen(false)} active={p.tone !== "priceless" && p.tone !== "start" && current === p.tone} />
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* Department list. Compact, secondary — for the visitor who
+              already knows exactly what they want. */}
+          <section className="mt-8 border-t border-[var(--border)] px-5 pt-5">
             <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
-              Shop by department
+              Or jump straight to a department
             </div>
-            <ul className="mt-3 grid grid-cols-2 gap-3">
+            <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1">
               {departments.map(([key, dept]) => (
                 <li key={key}>
                   <Link
                     href={`/shop/${key}`}
                     onClick={() => setOpen(false)}
-                    className="group block overflow-hidden border border-[var(--border)] bg-white transition hover:border-[var(--brand-priceless)]"
+                    className="flex items-center gap-3 py-2 text-base text-[var(--foreground)] transition hover:text-[var(--brand-priceless)]"
                   >
-                    <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
-                      <Image
-                        src={dept.image}
-                        alt={dept.label}
-                        fill
-                        sizes="(min-width: 768px) 280px, 50vw"
-                        className="object-cover transition duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                    <div className="flex items-center justify-between px-3 py-2.5">
-                      <span className="font-display text-base leading-none">
-                        {dept.label}
-                      </span>
-                      <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] opacity-0 transition group-hover:opacity-100">
-                        →
-                      </span>
-                    </div>
+                    <span className="relative size-9 shrink-0 overflow-hidden bg-[var(--muted)]">
+                      <Image src={dept.image} alt="" fill sizes="36px" className="object-cover" />
+                    </span>
+                    <span className="leading-tight">{dept.label}</span>
                   </Link>
                 </li>
               ))}
             </ul>
-            <Link
-              href="/shop"
-              onClick={() => setOpen(false)}
-              className="font-mono mt-4 inline-flex items-center text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
-            >
-              Shop everything →
-            </Link>
           </section>
 
-          <section className="mt-8 border-t border-[var(--border)] px-5 pt-5">
+          {/* Standard site nav. */}
+          <section className="mt-8 border-t border-[var(--border)] px-5 pt-5 pb-6">
             <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
               The rest of the site
             </div>
-            <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1">
-              {SECONDARY_NAV.map((n) => (
+            <ul className="mt-3 grid grid-cols-3 gap-x-4 gap-y-1">
+              {SITE_NAV.map((n) => (
                 <li key={n.href}>
                   <Link
                     href={n.href}
@@ -174,38 +194,6 @@ export function MainMenu({
                 </li>
               ))}
             </ul>
-          </section>
-
-          <section className="mt-8 border-t border-[var(--border)] px-5 pt-5 pb-6">
-            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
-              Our other brands
-            </div>
-            <div className="mt-3 flex flex-col gap-2">
-              <BrandPill
-                href="/"
-                onClick={() => setOpen(false)}
-                color="priceless"
-                active={current === "priceless"}
-                title="Price-Less Building"
-                subtitle="Discount + surplus building materials"
-              />
-              <BrandPill
-                href="/builders-corner"
-                onClick={() => setOpen(false)}
-                color="builders"
-                active={current === "builders"}
-                title="Builders Corner"
-                subtitle="Premium custom cabinetry + materials"
-              />
-              <BrandPill
-                href="/four-squared"
-                onClick={() => setOpen(false)}
-                color="four-squared"
-                active={current === "four-squared"}
-                title="Four Squared"
-                subtitle="Custom installation + home renovations"
-              />
-            </div>
           </section>
         </div>
 
@@ -223,47 +211,93 @@ export function MainMenu({
   );
 }
 
-function BrandPill({
+function PrimaryRow({
   href,
-  onClick,
-  color,
+  label,
+  sub,
+  tone,
   active,
-  title,
-  subtitle,
+  onClick,
 }: {
   href: string;
-  onClick: () => void;
-  color: "priceless" | "builders" | "four-squared";
+  label: string;
+  sub: string;
+  tone: PathTone;
   active: boolean;
-  title: string;
-  subtitle: string;
+  onClick: () => void;
 }) {
-  const swatchClass =
-    color === "priceless"
-      ? "bg-[var(--brand-priceless)]"
-      : color === "builders"
-        ? "bg-[var(--brand-builders)]"
-        : "bg-emerald-700";
   return (
     <Link
       href={href}
       onClick={onClick}
       aria-current={active ? "page" : undefined}
       className={
-        "group flex items-center gap-3 border border-[var(--border)] p-3 transition " +
+        "group flex items-center gap-4 border border-[var(--border)] p-4 transition " +
         (active
-          ? "border-[var(--foreground)]/30 bg-[var(--muted)]"
+          ? "border-[var(--foreground)]/40 bg-[var(--muted)]"
           : "hover:border-[var(--foreground)]/30 hover:bg-[var(--muted)]")
       }
     >
-      <span aria-hidden className={`size-2.5 rounded-full ${swatchClass}`} />
-      <span className="flex flex-1 flex-col leading-tight">
-        <span className="font-display text-base">{title}</span>
-        <span className="text-xs text-[var(--muted-foreground)]">{subtitle}</span>
+      <PrimaryIcon tone={tone} />
+      <span className="flex flex-1 flex-col gap-1">
+        <span className="font-display text-lg leading-tight">{label}</span>
+        <span className="text-sm leading-snug text-[var(--muted-foreground)]">{sub}</span>
       </span>
       <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)] group-hover:text-[var(--brand-priceless)]">
-        {active ? "Current" : "Visit →"}
+        →
       </span>
     </Link>
+  );
+}
+
+function PrimaryIcon({ tone }: { tone: PathTone }) {
+  // 56px square tile, white background, brand logo or icon centered.
+  // Reads as a real visual anchor instead of the old colored dot.
+  if (tone === "priceless") {
+    return (
+      <span className="grid size-14 shrink-0 place-items-center border border-[var(--border)] bg-white">
+        <Image
+          src="/real-photos/logo-priceless-clean.webp"
+          alt=""
+          width={960}
+          height={960}
+          className="h-11 w-auto object-contain"
+        />
+      </span>
+    );
+  }
+  if (tone === "builders") {
+    return (
+      <span className="grid size-14 shrink-0 place-items-center border border-[var(--border)] bg-white">
+        <Image
+          src="/real-photos/logo-builders-corner@2x.webp"
+          alt=""
+          width={446}
+          height={320}
+          className="h-8 w-auto object-contain"
+        />
+      </span>
+    );
+  }
+  if (tone === "four-squared") {
+    // FS brand mark: four squares, sized to fill the icon tile.
+    return (
+      <span className="grid size-14 shrink-0 place-items-center border border-[var(--border)] bg-white">
+        <svg width="32" height="32" viewBox="0 0 20 20" aria-hidden="true" className="text-emerald-700">
+          <rect x="0" y="0" width="9" height="9" fill="currentColor" />
+          <rect x="11" y="0" width="9" height="9" fill="currentColor" />
+          <rect x="0" y="11" width="9" height="9" fill="currentColor" />
+          <rect x="11" y="11" width="9" height="9" fill="currentColor" />
+        </svg>
+      </span>
+    );
+  }
+  // start: a build/wrench glyph so it reads as action, not brand.
+  return (
+    <span className="grid size-14 shrink-0 place-items-center border border-[var(--border)] bg-[var(--brand-priceless)] text-white">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+      </svg>
+    </span>
   );
 }

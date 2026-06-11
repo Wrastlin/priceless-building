@@ -1,16 +1,46 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ProductCard } from "@/components/product-card";
+import { DepartmentInventory } from "@/components/department-inventory";
 import { CATEGORIES, byCategory, type Category } from "@/lib/catalog";
+
+const SITE_URL = "https://pricelessbuilding.com";
+
+export async function generateStaticParams() {
+  return Object.keys(CATEGORIES).map((category) => ({ category }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {
+  const { category } = await params;
+  if (!(category in CATEGORIES)) return { title: "Category not found" };
+  const cat = CATEGORIES[category as Category];
+  const items = await byCategory("priceless", category as Category);
+  const count = items.length;
+  const title = `${cat.label} · ${count} in stock at Price-Less Building Center Wausau, WI`;
+  const description = `${cat.label}: ${cat.blurb} ${count} in stock today at Price-Less Building Center in Wausau, Wisconsin. New-in-box from cancelled contractor orders. Ships nationally; pickup or local delivery in central WI.`;
+  return {
+    title,
+    description,
+    alternates: { canonical: `${SITE_URL}/shop/${category}` },
+    openGraph: {
+      type: "website",
+      title,
+      description,
+      url: `${SITE_URL}/shop/${category}`,
+      images: [{ url: cat.image.startsWith("http") ? cat.image : `${SITE_URL}${cat.image}`, alt: cat.label }],
+    },
+  };
+}
 
 export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
   const { category } = await params;
   if (!(category in CATEGORIES)) notFound();
   const cat = CATEGORIES[category as Category];
-  const items = byCategory("priceless", category as Category);
+  const items = await byCategory("priceless", category as Category);
   const allKeys = Object.keys(CATEGORIES) as Category[];
   const idx = allKeys.indexOf(category as Category);
 
@@ -46,6 +76,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           </div>
         </div>
       </section>
+
+      {/* VERIFIED FLOOR INVENTORY (from the in-store walkthrough catalog) */}
+      <DepartmentInventory category={category} />
 
       {/* INVENTORY */}
       <section className="bg-[var(--muted)]">

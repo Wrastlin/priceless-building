@@ -1,0 +1,42 @@
+{
+  "name": "Price-Less Admin",
+  "short_name": "PL Admin",
+  "description": "Document items, approve drafts, generate marketing. Locked to authenticated staff.",
+  "start_url": "/admin",
+  "scope": "/admin",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f7f6",
+  "theme_color": "#b91c1c",
+  "icons": [
+    {
+      "src": "/icons/admin-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/admin-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Add item",
+      "short_name": "Add",
+      "url": "/admin/inventory/new"
+    },
+    {
+      "name": "Staging",
+      "short_name": "Staging",
+      "url": "/admin/staging"
+    },
+    {
+      "name": "Generate post",
+      "short_name": "Marketing",
+      "url": "/admin/marketing"
+    }
+  ]
+}

@@ -163,7 +163,7 @@ export default function CareersPage() {
                   ))}
                 </ul>
                 <a
-                  href={`mailto:${APPLY_EMAIL}?subject=${encodeURIComponent(`Application — ${p.title}`)}`}
+                  href={`mailto:${APPLY_EMAIL}?subject=${encodeURIComponent(`Application: ${p.title}`)}`}
                   className="btn btn-priceless mt-6 inline-flex"
                 >
                   Apply for {p.title}

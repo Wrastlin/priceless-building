@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { redirect } from "next/navigation";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ADDRESS, PRICELESS } from "@/lib/brands";
@@ -8,7 +9,12 @@ const STOREFRONT = "/real-photos/storefront-signage.webp";
 
 async function submit(formData: FormData) {
   "use server";
-  await submitContactLead(formData);
+  const result = await submitContactLead(formData);
+  if (result.ok) {
+    redirect("/contact?sent=1");
+  } else {
+    redirect(`/contact?error=${encodeURIComponent(result.error)}`);
+  }
 }
 
 export const metadata = {
@@ -17,10 +23,29 @@ export const metadata = {
     "Hours, directions, phone and a contact form for Price-Less Building Center in Wausau, WI.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ sent?: string; error?: string }>;
+}) {
+  const sp = await searchParams;
   return (
     <>
       <SiteHeader brand="priceless" />
+      {sp.sent ? (
+        <div className="bg-emerald-50 border-b border-emerald-200">
+          <div className="mx-auto max-w-7xl px-6 py-3 text-sm text-emerald-900">
+            <strong>Thanks — message sent.</strong> We&apos;ll get back to you within one business day. For anything urgent please call <a href={`tel:${ADDRESS.phone.replace(/[^0-9+]/g, "")}`} className="underline">{ADDRESS.phone}</a>.
+          </div>
+        </div>
+      ) : null}
+      {sp.error ? (
+        <div className="bg-rose-50 border-b border-rose-200">
+          <div className="mx-auto max-w-7xl px-6 py-3 text-sm text-rose-900">
+            <strong>Couldn&apos;t send:</strong> {sp.error}
+          </div>
+        </div>
+      ) : null}
 
       {/* HERO. Editorial asymmetric */}
       <section className="relative overflow-hidden bg-[var(--muted)]">
@@ -118,9 +143,9 @@ export default function ContactPage() {
               72-hour holds, net-30 terms available for licensed contractors.
             </p>
             <ul className="mt-4 space-y-2 text-sm">
-              <li>Will-call & holds: <a className="underline" href="tel:+17158483855">{ADDRESS.phone}</a></li>
-              <li>Contractor accounts: <a className="underline" href="mailto:accounts@pricelessbuilding.example">accounts@pricelessbuilding.example</a></li>
-              <li>Wholesale & bulk: <a className="underline" href="mailto:josh@pricelessbuilding.example">josh@pricelessbuilding.example</a></li>
+              <li>Will-call &amp; holds: <a className="underline" href="tel:+17158483855">{ADDRESS.phone}</a></li>
+              <li>Contractor accounts: <a className="underline" href="mailto:pricelessbuildingcenter@gmail.com?subject=Contractor%20account%20inquiry">pricelessbuildingcenter@gmail.com</a></li>
+              <li>Wholesale &amp; bulk: <a className="underline" href="mailto:pricelessbuildingcenter@gmail.com?subject=Wholesale%20or%20bulk%20inquiry">pricelessbuildingcenter@gmail.com</a></li>
             </ul>
           </div>
         </div>
@@ -185,7 +210,7 @@ export default function ContactPage() {
                   name="email"
                   required
                   type="email"
-                  placeholder="you@example.com"
+                  placeholder="name@yourbusiness.com"
                   className="w-full rounded-md border-2 border-[var(--foreground)]/25 bg-white px-3.5 py-3 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0"
                 />
               </Field>

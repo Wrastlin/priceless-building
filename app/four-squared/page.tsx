@@ -1,10 +1,76 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { BrandLogo } from "@/components/brand-logo";
 import { InquiryForm } from "@/components/inquiry-form";
 import { SectionHead } from "@/components/section-head";
+import { HeroPhotoFader, type HeroPhotoSource } from "@/components/hero-photo-fader";
 import { ADDRESS } from "@/lib/brands";
+
+const SITE_URL = "https://pricelessbuilding.com";
+
+export const metadata: Metadata = {
+  title: "Four Squared Construction · Kitchen, bath, and home remodels in Wausau, WI",
+  description:
+    "Four Squared Construction is the install crew under the Price-Less roof. Kitchen remodels, bath remodels, doors, finish carpentry, full home renovations across central Wisconsin. One crew lead from demo through final walkthrough.",
+  alternates: { canonical: `${SITE_URL}/four-squared` },
+  openGraph: {
+    type: "website",
+    title: "Four Squared Construction · Wausau install crew",
+    description: "Kitchen and bath remodels in central Wisconsin. Install crew under the Price-Less roof.",
+    url: `${SITE_URL}/four-squared`,
+    images: [
+      {
+        url: `${SITE_URL}/real-photos/business/white-kitchen-marble-island.jpg`,
+        alt: "A finished kitchen install by the Four Squared crew in Wausau, WI.",
+      },
+    ],
+  },
+};
+
+const FS_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "GeneralContractor", "HomeAndConstructionBusiness"],
+  "@id": `${SITE_URL}/four-squared#org`,
+  name: "Four Squared Construction",
+  description:
+    "Professional installation crew for custom kitchen remodels, bath remodels, and full home renovations in central Wisconsin. Operates under the Price-Less Building Center roof.",
+  url: `${SITE_URL}/four-squared`,
+  telephone: "+1-715-848-3855",
+  image: `${SITE_URL}/real-photos/business/white-kitchen-marble-island.jpg`,
+  parentOrganization: {
+    "@type": "LocalBusiness",
+    "@id": `${SITE_URL}#org`,
+    name: "Price-Less Building Center",
+  },
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: ADDRESS.street,
+    addressLocality: ADDRESS.city,
+    addressRegion: ADDRESS.state,
+    postalCode: ADDRESS.zip,
+    addressCountry: "US",
+  },
+  areaServed: [
+    "Wausau, WI",
+    "Schofield, WI",
+    "Weston, WI",
+    "Rib Mountain, WI",
+    "Rothschild, WI",
+    "Mosinee, WI",
+    "Marathon County, WI",
+    "Central Wisconsin",
+  ],
+  makesOffer: [
+    { "@type": "Offer", name: "Full kitchen remodel design and installation" },
+    { "@type": "Offer", name: "Bath remodel design and installation" },
+    { "@type": "Offer", name: "Cabinet installation" },
+    { "@type": "Offer", name: "Finish carpentry, tile, and trim" },
+    { "@type": "Offer", name: "Doors and windows install" },
+    { "@type": "Offer", name: "Home renovation general contracting" },
+  ],
+};
 
 /**
  * Four Squared article page. Sits inside the Price-Less family as a
@@ -20,17 +86,27 @@ const PHONE_TEL = `tel:${PHONE.replace(/[^0-9+]/g, "")}`;
 const EMAIL = "pricelessbuildingcenter@gmail.com";
 const EMAIL_MAILTO = `mailto:${EMAIL}?subject=Four%20Squared%20estimate%20request`;
 
-const HERO_IMAGE = "/real-photos/install-kitchen-walnut-island-windows.webp";
+// Hero photo crossfade deck — finished installs across kitchen + bath.
+const HERO_DECK: HeroPhotoSource[] = [
+  { src: "/real-photos/business/white-kitchen-marble-island.jpg", alt: "A Four Squared kitchen install: white cabinetry with a marble-top island, finished in Wausau." },
+  { src: "/real-photos/business/kitchen-island-wood-cabinets-range.jpg", alt: "Finished wood-cabinet kitchen with a center island and gas range." },
+  { src: "/real-photos/business/wood-cabinets-granite-kitchen.jpg", alt: "Wood-cabinet kitchen install paired with granite counters." },
+  { src: "/real-photos/business/dark-cabinet-kitchen-install.jpg", alt: "Dark-cabinet kitchen install with pendant lighting." },
+  { src: "/real-photos/business/dark-double-vanity-bathroom-install.jpg", alt: "Dark double-vanity bath install with white counter and framed mirrors." },
+];
 
-// Real install + showroom photos imported from the storefront's
-// Facebook archive (see lib/business-photos.ts).
+// Recent installs grid. Nine photos, mixed kitchen / bath so visitors
+// see the actual range of work rather than just kitchens.
 const WORK_TILES = [
   { img: "/real-photos/business/kitchen-island-wood-cabinets-range.jpg", caption: "Custom kitchen island with wood cabinetry and gas range.", tag: "Kitchen" },
   { img: "/real-photos/business/wood-cabinets-granite-kitchen.jpg", caption: "Wood cabinets paired with granite counters.", tag: "Kitchen" },
-  { img: "/real-photos/business/dark-double-vanity-install.jpg", caption: "Dark double-vanity bath install.", tag: "Bath" },
+  { img: "/real-photos/business/dark-double-vanity-bathroom-install.jpg", caption: "Dark double-vanity bath install, white counter, framed mirrors.", tag: "Bath" },
   { img: "/real-photos/business/blue-patterned-bath-sink.jpg", caption: "Blue-patterned bath vanity with stone counter.", tag: "Bath" },
   { img: "/real-photos/business/white-kitchen-rustic-island.jpg", caption: "Bright white kitchen anchored by a rustic island.", tag: "Kitchen" },
-  { img: "/real-photos/business/wood-cabinet-kitchen-display.jpg", caption: "Wood cabinetry display from the showroom floor.", tag: "Kitchen" },
+  { img: "/real-photos/business/dark-cabinet-kitchen-install.jpg", caption: "Dark-cabinet kitchen install with pendant lighting.", tag: "Kitchen" },
+  { img: "/real-photos/business/double-sink-bathroom-vanity-black.webp", caption: "Double-sink bath vanity in black with framed mirrors.", tag: "Bath" },
+  { img: "/real-photos/business/wood-cabinets-dark-counters.jpg", caption: "Wood cabinetry with dark counters and an island.", tag: "Kitchen" },
+  { img: "/real-photos/business/white-kitchen-wood-island.jpg", caption: "White cabinetry with a warm wood island.", tag: "Kitchen" },
 ];
 
 const PROCESS = [
@@ -43,6 +119,10 @@ const PROCESS = [
 export default function FourSquaredPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(FS_JSON_LD) }}
+      />
       <SiteHeader brand="four-squared" />
 
       {/* HERO. Slim dark band. What FS does + photo + two CTAs. */}
@@ -73,15 +153,7 @@ export default function FourSquaredPage() {
           </div>
           <aside className="md:col-span-5" data-reveal data-reveal-delay="0.08">
             <div className="relative aspect-[4/5] overflow-hidden border border-white/15 bg-white/[0.04]">
-              <Image
-                src={HERO_IMAGE}
-                alt="A representative finished install: white-oak shaker kitchen with island, quartz, pendants."
-                fill
-                priority
-                className="object-cover"
-                sizes="(min-width: 768px) 40vw, 100vw"
-                quality={85}
-              />
+              <HeroPhotoFader photos={HERO_DECK} intervalMs={5500} />
             </div>
           </aside>
         </div>
@@ -109,9 +181,10 @@ export default function FourSquaredPage() {
                     src={t.img}
                     alt={t.caption}
                     fill
-                    className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                    className="object-cover transition duration-500 group-hover:scale-[1.04]"
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     quality={75}
+                    loading="lazy"
                   />
                   <span className="font-mono absolute left-3 top-3 bg-emerald-600 px-2 py-1 text-xs uppercase tracking-[0.14em] text-white">
                     {t.tag}

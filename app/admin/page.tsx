@@ -1,100 +1,211 @@
 import Link from "next/link";
 import { AdminShell } from "@/components/admin-shell";
-import { CATALOG } from "@/lib/catalog";
-import { formatCurrency } from "@/lib/utils";
+import { listDrafts, listPublished } from "@/lib/items/store";
 
-export default function AdminDashboard() {
-  const totalItems = CATALOG.length;
-  const inStock = CATALOG.reduce((sum, c) => sum + c.inStock, 0);
-  const tagValue = CATALOG.reduce((sum, c) => sum + c.price * Math.max(c.inStock, 1), 0);
-  const retailValue = CATALOG.reduce((sum, c) => sum + (c.msrp ?? c.price * 2) * Math.max(c.inStock, 1), 0);
-  const margin = Math.round((1 - tagValue / retailValue) * 100);
+export const dynamic = "force-dynamic";
+
+/**
+ * Admin dashboard. Re-framed as a "what's next" board for the
+ * document-an-item loop:
+ *
+ *   1. Add a new item (snap photo + describe)
+ *   2. Review the staging queue (approve / reject drafts)
+ *   3. Generate marketing for live items
+ *   4. Print floor tags
+ *
+ * Replaces the old mocked revenue / channel-health stats which were
+ * misleading because none of those systems are wired up yet.
+ */
+export default async function AdminDashboard() {
+  const [drafts, published] = await Promise.all([listDrafts(), listPublished()]);
+
+  const oldestDraft = drafts
+    .slice()
+    .sort((a, b) => (a.createdAt ?? "").localeCompare(b.createdAt ?? ""))[0];
+
+  const recentPublished = published
+    .slice()
+    .sort((a, b) => (b.createdAt ?? "").localeCompare(a.createdAt ?? ""))
+    .slice(0, 4);
 
   return (
     <AdminShell
       active="dashboard"
       title="Dashboard"
-      actions={<Link href="/admin/inventory/new" className="admin-btn admin-btn-primary">+ Add item</Link>}
+      actions={
+        <Link href="/admin/inventory/new" className="admin-btn admin-btn-primary">
+          + Add item
+        </Link>
+      }
     >
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-        <Stat label="SKUs on file" value={totalItems.toString()} delta="+12 this week" />
-        <Stat label="Units on floor" value={inStock.toString()} delta="−4 since open" />
-        <Stat label="Tagged value" value={formatCurrency(tagValue)} delta={`Avg ${formatCurrency(tagValue / Math.max(inStock, 1))} / unit`} />
-        <Stat label="Margin vs. retail" value={`${margin}%`} delta="Healthier than last week" />
+      <div className="grid gap-4 md:grid-cols-3">
+        <StepCard
+          step="01"
+          title="Add a new item"
+          body="Snap a photo, describe it, pull live retail comparables, set a tag price."
+          cta="Add item"
+          href="/admin/inventory/new"
+          count={null}
+        />
+        <StepCard
+          step="02"
+          title={drafts.length > 0 ? `Review ${drafts.length} draft${drafts.length === 1 ? "" : "s"}` : "Staging is clear"}
+          body={
+            drafts.length > 0
+              ? `${drafts.length} item${drafts.length === 1 ? "" : "s"} waiting on approval before going live.`
+              : "No drafts queued. New items will land here for review before they go live."
+          }
+          cta={drafts.length > 0 ? "Open staging" : "View staging"}
+          href="/admin/staging"
+          count={drafts.length}
+          highlight={drafts.length > 0}
+        />
+        <StepCard
+          step="03"
+          title="Generate marketing"
+          body="Turn a live item into a Facebook Marketplace post, Instagram caption, or floor flyer."
+          cta="Generate post"
+          href="/admin/marketing"
+          count={published.length}
+        />
       </div>
 
-      <div className="mt-6 grid gap-4 lg:grid-cols-3">
-        <div className="admin-card overflow-hidden lg:col-span-2">
+      <div className="mt-8 grid gap-5 lg:grid-cols-2">
+        <div className="admin-card overflow-hidden">
           <div className="flex items-center justify-between border-b border-border px-5 py-3">
-            <h2 className="text-base font-semibold text-foreground">Recent activity</h2>
-            <Link href="/admin/inventory" className="text-sm text-[var(--brand-priceless)] hover:underline">View all</Link>
-          </div>
-          <ul className="divide-y divide-border text-sm">
-            {[
-              { t: "Tag printed", who: "Brian", obj: "PL-000401 · 48\" Vanity", time: "12 min ago" },
-              { t: "Item added", who: "Floor staff", obj: "PL-000601 · 3-Light Vanity Bar", time: "1h ago" },
-              { t: "Comparable refresh", who: "System", obj: "PL-000101 · drop $8 (HD $179 → $171)", time: "1h ago" },
-              { t: "Sale", who: "POS", obj: "PL-000301 · −2 units · $189 ea", time: "2h ago" },
-              { t: "Channel push", who: "System", obj: "PL-000104 listed to Facebook Marketplace", time: "3h ago" },
-              { t: "Item added", who: "Josh", obj: "BC-000801 · Custom White Oak Run", time: "yesterday" },
-            ].map((r, i) => (
-              <li key={i} className="flex items-center justify-between gap-3 px-5 py-2.5">
-                <div className="min-w-0">
-                  <div className="font-medium text-foreground">{r.t}</div>
-                  <div className="text-xs text-muted-foreground">{r.obj}</div>
-                </div>
-                <div className="shrink-0 text-right text-xs text-muted-foreground">
-                  <div>{r.who}</div>
-                  <div>{r.time}</div>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="space-y-4">
-          <div className="admin-card overflow-hidden">
-            <div className="border-b border-border px-5 py-3">
-              <h2 className="text-base font-semibold text-foreground">Re-tag queue</h2>
-              <p className="mt-0.5 admin-help">SKUs where the comparable search ran more than 7 days ago.</p>
+            <div>
+              <h2 className="text-base font-semibold text-foreground">In staging</h2>
+              <p className="mt-0.5 admin-help">Drafts waiting on approval.</p>
             </div>
+            <Link href="/admin/staging" className="text-sm text-[var(--brand-priceless)] hover:underline">
+              See all
+            </Link>
+          </div>
+          {drafts.length === 0 ? (
+            <div className="px-5 py-8 text-sm text-muted-foreground">
+              No drafts right now. <Link href="/admin/inventory/new" className="text-[var(--brand-priceless)] hover:underline">Add one</Link>.
+            </div>
+          ) : (
             <ul className="divide-y divide-border text-sm">
-              {CATALOG.slice(0, 4).map((c) => (
-                <li key={c.id} className="flex items-center justify-between gap-2 px-5 py-2.5">
-                  <span className="truncate">
-                    <span className="font-mono text-xs text-muted-foreground">{c.sku}</span> · {c.title}
-                  </span>
-                  <Link href={`/admin/inventory/${c.sku}`} className="admin-btn admin-btn-outline px-2.5 py-1 text-xs">Re-tag</Link>
+              {drafts.slice(0, 6).map((d) => (
+                <li key={d.id} className="flex items-center justify-between gap-3 px-5 py-3">
+                  <div className="min-w-0">
+                    <div className="font-medium text-foreground">{d.title}</div>
+                    <div className="text-xs text-muted-foreground">
+                      <span className="font-mono">{d.sku}</span> · {d.category}
+                    </div>
+                  </div>
+                  <Link href="/admin/staging" className="admin-btn admin-btn-outline px-2.5 py-1 text-xs">
+                    Review
+                  </Link>
                 </li>
               ))}
             </ul>
-          </div>
-          <div className="admin-card overflow-hidden">
-            <div className="border-b border-border px-5 py-3">
-              <h2 className="text-base font-semibold text-foreground">Channel health</h2>
+          )}
+          {oldestDraft ? (
+            <div className="border-t border-border bg-[#fafaf9] px-5 py-2 text-xs text-muted-foreground">
+              Oldest draft: {oldestDraft.sku} · {oldestDraft.title}
             </div>
-            <ul className="divide-y divide-border text-sm">
-              <li className="flex items-center justify-between px-5 py-2"><span>Facebook Marketplace</span><span className="text-emerald-700">Connected</span></li>
-              <li className="flex items-center justify-between px-5 py-2"><span>eBay</span><span className="text-emerald-700">Connected</span></li>
-              <li className="flex items-center justify-between px-5 py-2"><span>Shopify</span><span className="text-emerald-700">Connected</span></li>
-              <li className="flex items-center justify-between px-5 py-2"><span>Google Local</span><span className="text-amber-700">Reauth needed</span></li>
-            </ul>
-            <div className="border-t border-border px-5 py-3">
-              <Link href="/admin/sales-channels" className="text-sm text-[var(--brand-priceless)] hover:underline">Manage channels</Link>
-            </div>
-          </div>
+          ) : null}
         </div>
+
+        <div className="admin-card overflow-hidden">
+          <div className="flex items-center justify-between border-b border-border px-5 py-3">
+            <div>
+              <h2 className="text-base font-semibold text-foreground">Recently published</h2>
+              <p className="mt-0.5 admin-help">Live on the storefront. Marketing-ready.</p>
+            </div>
+            <Link href="/admin/inventory" className="text-sm text-[var(--brand-priceless)] hover:underline">
+              See all
+            </Link>
+          </div>
+          {recentPublished.length === 0 ? (
+            <div className="px-5 py-8 text-sm text-muted-foreground">
+              No live items yet. Approve a draft in <Link href="/admin/staging" className="text-[var(--brand-priceless)] hover:underline">staging</Link>.
+            </div>
+          ) : (
+            <ul className="divide-y divide-border text-sm">
+              {recentPublished.map((p) => (
+                <li key={p.id} className="flex items-center justify-between gap-3 px-5 py-3">
+                  <div className="min-w-0">
+                    <div className="font-medium text-foreground">{p.title}</div>
+                    <div className="text-xs text-muted-foreground">
+                      <span className="font-mono">{p.sku}</span> · {p.category}
+                    </div>
+                  </div>
+                  <Link
+                    href={`/admin/marketing?sku=${p.sku}`}
+                    className="admin-btn admin-btn-outline px-2.5 py-1 text-xs"
+                  >
+                    Make a post
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+
+      <div className="mt-8 grid gap-4 sm:grid-cols-3">
+        <Stat label="Live SKUs" value={published.length.toString()} />
+        <Stat label="In staging" value={drafts.length.toString()} />
+        <Stat label="Departments" value={new Set(published.map((p) => p.category)).size.toString()} />
       </div>
     </AdminShell>
   );
 }
 
-function Stat({ label, value, delta }: { label: string; value: string; delta?: string }) {
+function StepCard({
+  step,
+  title,
+  body,
+  cta,
+  href,
+  count,
+  highlight = false,
+}: {
+  step: string;
+  title: string;
+  body: string;
+  cta: string;
+  href: string;
+  count: number | null;
+  highlight?: boolean;
+}) {
+  return (
+    <Link
+      href={href}
+      className={
+        "admin-card group flex flex-col gap-3 p-5 transition hover:border-[var(--brand-priceless)] hover:shadow-sm " +
+        (highlight ? "border-[var(--brand-priceless)] bg-[#fff5f4]" : "")
+      }
+    >
+      <div className="flex items-baseline justify-between">
+        <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
+          Step {step}
+        </span>
+        {count !== null ? (
+          <span className="font-mono text-xs text-muted-foreground tabular-nums">
+            {count}
+          </span>
+        ) : null}
+      </div>
+      <h2 className="text-lg font-semibold leading-tight text-foreground">{title}</h2>
+      <p className="text-sm leading-relaxed text-muted-foreground">{body}</p>
+      <span className="mt-auto text-sm font-medium text-[var(--brand-priceless)] group-hover:underline">
+        {cta} →
+      </span>
+    </Link>
+  );
+}
+
+function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div className="admin-card p-4">
       <div className="text-xs text-muted-foreground">{label}</div>
-      <div className="mt-1.5 text-2xl font-semibold tabular-nums text-foreground">{value}</div>
-      {delta ? <div className="mt-1 text-xs text-muted-foreground">{delta}</div> : null}
+      <div className="mt-1.5 text-2xl font-semibold tabular-nums text-foreground">
+        {value}
+      </div>
     </div>
   );
 }
