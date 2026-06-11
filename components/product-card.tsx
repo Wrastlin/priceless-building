@@ -74,7 +74,9 @@ export function ProductCard({ item, href }: { item: CatalogItem; href?: string }
         <div className="mt-1 text-xs text-[var(--muted-foreground)]">{item.subtitle}</div>
         <div className="mt-4 flex items-end justify-between">
           <div>
-            <div className="font-display text-2xl">{formatCurrency(item.price)}</div>
+            <div className="font-display text-2xl">
+              {item.price > 0 ? formatCurrency(item.price) : <span className="text-lg">Call for price</span>}
+            </div>
             {item.msrp && item.msrp > item.price ? (
               <div className="font-mono mt-0.5 text-xs text-[var(--muted-foreground)] line-through">
                 Retail {formatCurrency(item.msrp)}

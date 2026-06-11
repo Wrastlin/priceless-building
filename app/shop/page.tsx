@@ -1,12 +1,31 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ProductCard } from "@/components/product-card";
+import { VendorWall } from "@/components/vendor-wall";
+import { StoreShowcase } from "@/components/store-showcase";
 import { CATEGORIES, byBrand } from "@/lib/catalog";
 
-export default function ShopIndex() {
-  const all = byBrand("priceless");
+const SITE_URL = "https://pricelessbuilding.com";
+
+export const metadata: Metadata = {
+  title: "Shop discount + surplus building materials in Wausau, WI · Price-Less Building Center",
+  description:
+    "Browse doors, windows, cabinets, vanities, countertops, hardware, lighting, and trim at Price-Less Building Center in Wausau, Wisconsin. New-in-box from cancelled contractor orders at a fraction of big-box retail.",
+  alternates: { canonical: `${SITE_URL}/shop` },
+  openGraph: {
+    type: "website",
+    title: "Shop the warehouse · Price-Less Building Center",
+    description: "Doors, windows, cabinets, vanities, hardware. Discount + surplus, Wausau, WI.",
+    url: `${SITE_URL}/shop`,
+    images: [{ url: "/og-mural.jpg", width: 1200, height: 512 }],
+  },
+};
+
+export default async function ShopIndex() {
+  const all = await byBrand("priceless");
   const entries = Object.entries(CATEGORIES) as [keyof typeof CATEGORIES, (typeof CATEGORIES)[keyof typeof CATEGORIES]][];
 
   return (
@@ -54,6 +73,9 @@ export default function ShopIndex() {
         </div>
       </section>
 
+      {/* WHAT'S ON THE FLOOR — breadth + scale from the store walkthrough */}
+      <StoreShowcase />
+
       {/* INVENTORY GRID */}
       <section className="mx-auto max-w-7xl px-6 pt-14 pb-20">
         <header className="max-w-3xl">
@@ -72,6 +94,8 @@ export default function ShopIndex() {
           {all.map((it) => <ProductCard key={it.id} item={it} />)}
         </div>
       </section>
+
+      <VendorWall />
 
       <SiteFooter brand="priceless" />
     </>

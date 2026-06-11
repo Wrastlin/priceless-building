@@ -276,3 +276,18 @@ img, video, iframe {
 }
 .admin-table tbody tr:last-child td { border-bottom: 0; }
 .admin-table tbody tr:hover { background: #fafaf9; }
+
+/* Vendor logo marquee — seamless infinite scroll (vendor-wall.tsx). */
+.vendor-marquee__track {
+  animation: vendor-scroll 55s linear infinite;
+}
+.vendor-marquee:hover .vendor-marquee__track {
+  animation-play-state: paused;
+}
+@keyframes vendor-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vendor-marquee__track { animation: none; flex-wrap: wrap; justify-content: center; }
+}

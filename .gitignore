@@ -20,6 +20,9 @@ next-env.d.ts
 # research scratch (not for git, internal notes only)
 .research
 
+# raw walkthrough footage + extracted frames (too big for git)
+footage/
+
 # file-backed item store (dev source of truth; prod moves to Supabase)
 data/
 data/items.json
