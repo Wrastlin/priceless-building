@@ -77,3 +77,74 @@ export function typePhoto(category: string, typeName: string): string {
     "/real-photos/logo-priceless-clean.webp"
   );
 }
+
+/**
+ * Extra on-topic photos per department, used to fill product types that
+ * have no type-specific photo (or whose photo was already taken by an
+ * earlier type). Every entry here is distinct from the type-specific map
+ * and from the department hero.
+ */
+const DEPT_EXTRA: Partial<Record<Category, string[]>> = {
+  doors: [
+    "/real-photos/business/brown-exterior-door-decorative-glass.jpg",
+    "/real-photos/business/dark-wood-exterior-door-glass.jpg",
+    "/real-photos/business/warehouse-unfinished-wood-doors.jpg",
+    "/real-photos/business/door-inventory-collage.webp",
+  ],
+  windows: [],
+  cabinets: [
+    "/real-photos/business/white-base-cabinets-warehouse.jpg",
+    "/real-photos/business/grey-cabinets-warehouse.jpg",
+    "/real-photos/business/light-wood-cabinet-display.jpg",
+    "/real-photos/business/dark-base-cabinets-warehouse-row.jpg",
+  ],
+  vanities: [
+    "/real-photos/business/oak-double-vanity-warehouse.jpg",
+    "/real-photos/business/dark-wood-vanities-warehouse.jpg",
+    "/real-photos/business/marble-vanity-black-legs.jpg",
+    "/real-photos/business/trough-sink-vanity-display.jpg",
+  ],
+  countertops: ["/real-photos/business/warehouse-countertop-slabs.jpg"],
+  hardware: ["/real-photos/business/dark-wood-cabinets-glass-knobs.jpg"],
+  lighting: [
+    "/real-photos/business/crystal-ceiling-fan-warehouse.jpg",
+    "/real-photos/business/decorative-light-fixture-warehouse.jpg",
+  ],
+  trim: [],
+};
+
+/**
+ * Assign each product type a photo that is UNIQUE within the returned set
+ * (no photo is ever repeated in the same section). Tries the type-specific
+ * photo first, then the department's extra pool. Returns null for a type
+ * when no unused on-topic photo is left — the caller renders that type
+ * without an image rather than repeating one.
+ *
+ * `seed` marks photos already shown elsewhere in the same section (e.g. a
+ * department hero) so thumbnails never echo them.
+ */
+export function assignUniquePhotos(
+  category: string,
+  typeNames: string[],
+  seed: string[] = [],
+): (string | null)[] {
+  const cat = category as Category;
+  const used = new Set(seed);
+  const extra = [...(DEPT_EXTRA[cat] ?? [])];
+  const specific = TYPE_PHOTOS[cat] ?? {};
+  return typeNames.map((name) => {
+    const pref = specific[name];
+    if (pref && !used.has(pref)) {
+      used.add(pref);
+      return pref;
+    }
+    while (extra.length) {
+      const cand = extra.shift()!;
+      if (!used.has(cand)) {
+        used.add(cand);
+        return cand;
+      }
+    }
+    return null;
+  });
+}

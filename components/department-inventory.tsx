@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { WALKTHROUGH_INVENTORY, type InventoryType } from "@/lib/walkthrough-inventory";
-import { typePhoto } from "@/lib/department-photos";
+import { assignUniquePhotos } from "@/lib/department-photos";
 
 const SELECTION_LABEL: Record<InventoryType["selection"], string> = {
   extensive: "Extensive selection",
@@ -25,6 +25,14 @@ export function DepartmentInventory({ category }: { category: string }) {
   const dept = WALKTHROUGH_INVENTORY[category];
   if (!dept || dept.types.length === 0) return null;
 
+  // One unique photo per type — never repeated within this section. Types
+  // with no unused on-topic photo are listed as text instead of duplicating.
+  const photos = assignUniquePhotos(category, dept.types.map((t) => t.name));
+  const withPhoto = dept.types
+    .map((t, i) => ({ t, src: photos[i] }))
+    .filter((x): x is { t: InventoryType; src: string } => x.src !== null);
+  const textOnly = dept.types.filter((_, i) => photos[i] === null);
+
   return (
     <section className="border-b bg-white">
       <div className="mx-auto max-w-7xl px-6 py-14">
@@ -41,11 +49,11 @@ export function DepartmentInventory({ category }: { category: string }) {
         </p>
 
         <div className="mt-10 grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">
-          {dept.types.map((t) => (
+          {withPhoto.map(({ t, src }) => (
             <div key={t.name} className="group flex flex-col">
               <div className="relative aspect-[4/3] overflow-hidden bg-[var(--muted)]">
                 <Image
-                  src={typePhoto(category, t.name)}
+                  src={src}
                   alt={t.name}
                   fill
                   sizes="(min-width:1024px) 22vw, (min-width:640px) 30vw, 45vw"
@@ -71,6 +79,16 @@ export function DepartmentInventory({ category }: { category: string }) {
             </div>
           ))}
         </div>
+
+        {textOnly.length > 0 && (
+          <p className="font-serif mt-8 text-base italic leading-relaxed text-[var(--muted-foreground)]">
+            Also on the floor:{" "}
+            <span className="text-[var(--foreground)]">
+              {textOnly.map((t) => t.name).join(", ")}
+            </span>
+            .
+          </p>
+        )}
 
         {dept.brands.length > 0 && (
           <p className="font-mono mt-10 text-xs leading-relaxed tracking-[0.06em] text-[var(--muted-foreground)]">

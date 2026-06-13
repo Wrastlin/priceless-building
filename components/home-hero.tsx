@@ -13,7 +13,12 @@ const HERO_PHOTOS: HeroPhotoSource[] = [
   { src: "/real-photos/business/dark-cabinet-kitchen-install.jpg", alt: "A finished kitchen with dark wood cabinets and pendant lighting." },
 ];
 
-const MOBILE_HERO = HERO_PHOTOS[0];
+// Mobile shows a single static photo. Keep it distinct from every photo in
+// the desktop fader so the hero section never repeats an image.
+const MOBILE_HERO: HeroPhotoSource = {
+  src: "/real-photos/business/white-kitchen-rustic-island.jpg",
+  alt: "A finished custom kitchen with white cabinetry and a rustic wood island, built and installed in Wausau.",
+};
 
 export function HomeHero() {
   return (

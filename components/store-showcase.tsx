@@ -1,10 +1,33 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CATEGORIES, type Category } from "@/lib/catalog-meta";
-import { WALKTHROUGH_INVENTORY } from "@/lib/walkthrough-inventory";
-import { typePhoto } from "@/lib/department-photos";
+import { WALKTHROUGH_INVENTORY, type InventoryType } from "@/lib/walkthrough-inventory";
+import { assignUniquePhotos } from "@/lib/department-photos";
 
 const DEPTS = Object.keys(CATEGORIES) as Category[];
+
+type Thumb = { t: InventoryType; src: string };
+
+/**
+ * Pre-assign up to 4 preview thumbnails per department such that no photo
+ * repeats anywhere in the showcase: the running `used` set is seeded with
+ * every department hero and grows as thumbnails are picked.
+ */
+function buildThumbs(): Map<Category, Thumb[]> {
+  const used: string[] = DEPTS.map((k) => CATEGORIES[k].image);
+  const map = new Map<Category, Thumb[]>();
+  for (const key of DEPTS) {
+    const types = WALKTHROUGH_INVENTORY[key]?.types ?? [];
+    const assigned = assignUniquePhotos(key, types.map((t) => t.name), used);
+    const picked = types
+      .map((t, i) => ({ t, src: assigned[i] }))
+      .filter((x): x is Thumb => x.src !== null)
+      .slice(0, 4);
+    picked.forEach((p) => used.push(p.src));
+    map.set(key, picked);
+  }
+  return map;
+}
 
 function deptStats(category: Category) {
   const dept = WALKTHROUGH_INVENTORY[category];
@@ -24,6 +47,7 @@ function deptStats(category: Category) {
  * walking the aisles rather than a list of words.
  */
 export function StoreShowcase() {
+  const thumbsByKey = buildThumbs();
   return (
     <section className="border-y bg-white">
       <div className="mx-auto max-w-7xl px-6 py-16 md:py-24">
@@ -42,9 +66,8 @@ export function StoreShowcase() {
         <div className="mt-12 grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2">
           {DEPTS.map((key) => {
             const cat = CATEGORIES[key];
-            const dept = WALKTHROUGH_INVENTORY[key];
             const { typeCount, priceFrom, brandCount } = deptStats(key);
-            const types = dept?.types.slice(0, 4) ?? [];
+            const thumbs = thumbsByKey.get(key) ?? [];
             return (
               <div key={key}>
                 <Link
@@ -70,13 +93,13 @@ export function StoreShowcase() {
                   </div>
                 </Link>
 
-                {types.length > 0 && (
+                {thumbs.length > 0 && (
                   <div className="mt-3 grid grid-cols-4 gap-2">
-                    {types.map((t) => (
+                    {thumbs.map(({ t, src }) => (
                       <Link key={t.name} href={`/shop/${key}`} className="group block">
                         <div className="relative aspect-square overflow-hidden bg-[var(--muted)]">
                           <Image
-                            src={typePhoto(key, t.name)}
+                            src={src}
                             alt={t.name}
                             fill
                             sizes="(min-width:768px) 11vw, 22vw"
