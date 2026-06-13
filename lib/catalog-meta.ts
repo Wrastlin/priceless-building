@@ -51,7 +51,7 @@ export const CATEGORIES: Record<Category, { label: string; image: string; blurb:
   },
   trim: {
     label: "Trim & Millwork",
-    image: "/real-photos/business/paint-supplies-shelves.jpg",
+    image: "/test-images/08-painted-trim-stack.jpg",
     blurb: "Casing, base, crown. Primed and ready.",
   },
 };

@@ -1,4 +1,6 @@
+import Image from "next/image";
 import { WALKTHROUGH_INVENTORY, type InventoryType } from "@/lib/walkthrough-inventory";
+import { assignUniquePhotos } from "@/lib/department-photos";
 
 const SELECTION_LABEL: Record<InventoryType["selection"], string> = {
   extensive: "Extensive selection",
@@ -16,13 +18,20 @@ function priceRange(t: InventoryType): string {
 /**
  * "On the floor right now" — the verified product mix for a department,
  * pulled from the in-store walkthrough catalog (real product types, real
- * tag prices, real brands carried). Honest by design: price ranges come
- * straight off the tags, and we describe selection breadth rather than
- * claiming exact unit counts.
+ * tag prices, real brands carried). Image-first: every product type leads
+ * with a real photo so the page reads like a store aisle, not a price list.
  */
 export function DepartmentInventory({ category }: { category: string }) {
   const dept = WALKTHROUGH_INVENTORY[category];
   if (!dept || dept.types.length === 0) return null;
+
+  // One unique photo per type — never repeated within this section. Types
+  // with no unused on-topic photo are listed as text instead of duplicating.
+  const photos = assignUniquePhotos(category, dept.types.map((t) => t.name));
+  const withPhoto = dept.types
+    .map((t, i) => ({ t, src: photos[i] }))
+    .filter((x): x is { t: InventoryType; src: string } => x.src !== null);
+  const textOnly = dept.types.filter((_, i) => photos[i] === null);
 
   return (
     <section className="border-b bg-white">
@@ -39,36 +48,50 @@ export function DepartmentInventory({ category }: { category: string }) {
           check stock and exact sizes for you.
         </p>
 
-        <div className="mt-10 grid grid-cols-1 gap-px border bg-[var(--border)] md:grid-cols-2">
-          {dept.types.map((t) => (
-            <div key={t.name} className="flex flex-col gap-3 bg-white p-6">
-              <div className="flex items-baseline justify-between gap-4">
-                <h3 className="font-display text-2xl leading-tight">{t.name}</h3>
-                <span className="font-mono whitespace-nowrap text-sm text-[var(--brand-priceless)]">
+        <div className="mt-10 grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">
+          {withPhoto.map(({ t, src }) => (
+            <div key={t.name} className="group flex flex-col">
+              <div className="relative aspect-[4/3] overflow-hidden bg-[var(--muted)]">
+                <Image
+                  src={src}
+                  alt={t.name}
+                  fill
+                  sizes="(min-width:1024px) 22vw, (min-width:640px) 30vw, 45vw"
+                  quality={70}
+                  className="object-cover transition duration-700 group-hover:scale-[1.04]"
+                />
+                <span className="font-mono absolute left-2 top-2 bg-white/95 px-2 py-1 text-[10px] uppercase tracking-[0.1em] text-[var(--muted-foreground)]">
+                  {SELECTION_LABEL[t.selection]}
+                </span>
+              </div>
+              <div className="mt-3 flex items-baseline justify-between gap-3">
+                <h3 className="font-display text-lg leading-tight md:text-xl">{t.name}</h3>
+                <span className="font-mono shrink-0 whitespace-nowrap text-sm text-[var(--brand-priceless)]">
                   {priceRange(t)}
                 </span>
               </div>
-              <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
-                {SELECTION_LABEL[t.selection]}
-              </div>
               {t.brands.length > 0 && (
-                <div className="flex flex-wrap gap-1.5">
-                  {t.brands.map((b) => (
-                    <span
-                      key={b}
-                      className="font-mono border border-[var(--border)] px-2 py-1 text-[11px] uppercase tracking-[0.08em] text-[var(--muted-foreground)]"
-                    >
-                      {b}
-                    </span>
-                  ))}
+                <div className="font-mono mt-1.5 text-[11px] leading-relaxed text-[var(--muted-foreground)]">
+                  {t.brands.slice(0, 4).join(" · ")}
+                  {t.brands.length > 4 ? ` +${t.brands.length - 4}` : ""}
                 </div>
               )}
             </div>
           ))}
         </div>
 
+        {textOnly.length > 0 && (
+          <p className="font-serif mt-8 text-base italic leading-relaxed text-[var(--muted-foreground)]">
+            Also on the floor:{" "}
+            <span className="text-[var(--foreground)]">
+              {textOnly.map((t) => t.name).join(", ")}
+            </span>
+            .
+          </p>
+        )}
+
         {dept.brands.length > 0 && (
-          <p className="font-mono mt-6 text-xs leading-relaxed tracking-[0.06em] text-[var(--muted-foreground)]">
+          <p className="font-mono mt-10 text-xs leading-relaxed tracking-[0.06em] text-[var(--muted-foreground)]">
             Brands seen in this department:{" "}
             <span className="text-[var(--foreground)]">{dept.brands.join(" · ")}</span>
           </p>

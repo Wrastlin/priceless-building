@@ -27,7 +27,7 @@ const CARDS: FamilyCardSpec[] = [
       alt: "A custom Builders Corner kitchen with white cabinetry and a marble-top island.",
     },
     thumbs: [
-      { src: "/real-photos/business/kitchen-island-wood-cabinets-range.jpg", alt: "Custom wood-cabinet kitchen with island." },
+      { src: "/real-photos/business/white-kitchen-wood-island.jpg", alt: "Custom white kitchen with a wood island." },
       { src: "/real-photos/business/dark-double-vanity-bathroom-install.jpg", alt: "Custom dark double-vanity bath install." },
       { src: "/real-photos/business/white-kitchen-rustic-island.jpg", alt: "White custom kitchen with a rustic wood island." },
     ],
