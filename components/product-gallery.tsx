@@ -21,11 +21,20 @@ export function ProductGallery({
   /** Optional badge to render on the hero when the first image is a staged render. */
   stagedNote?: string;
 }) {
-  const safe = images.filter(Boolean);
+  // Drop any image whose file is unreachable (e.g. a gallery entry whose
+  // source was never produced) so the strip shows real photos instead of a
+  // broken-image icon. The catalog lives in Supabase, so a stale reference
+  // there can only be healed at render time, not by editing a local file.
+  const [failed, setFailed] = useState<Set<string>>(new Set());
+  const markFailed = useCallback((src: string | undefined) => {
+    if (!src) return;
+    setFailed((prev) => (prev.has(src) ? prev : new Set(prev).add(src)));
+  }, []);
+  const safe = images.filter((s): s is string => Boolean(s) && !failed.has(s));
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const dialogRef = useRef<HTMLDivElement | null>(null);
-  const isOpen = activeIndex !== null;
   const count = safe.length;
+  const isOpen = activeIndex !== null && activeIndex < count;
 
   const open = useCallback((i: number) => setActiveIndex(i), []);
   const close = useCallback(() => setActiveIndex(null), []);
@@ -71,6 +80,7 @@ export function ProductGallery({
           sizes="(min-width:768px) 60vw, 100vw"
           quality={85}
           className="object-cover transition group-hover:scale-[1.01]"
+          onError={() => markFailed(safe[0])}
         />
         {stagedNote ? (
           <span className="absolute right-3 bottom-3 bg-white/90 px-2 py-1 text-xs text-[var(--muted-foreground)]">
@@ -105,6 +115,7 @@ export function ProductGallery({
                 sizes="(min-width:768px) 15vw, 25vw"
                 className="object-cover"
                 quality={60}
+                onError={() => markFailed(src)}
               />
             </button>
           ))}
@@ -168,6 +179,7 @@ export function ProductGallery({
               quality={92}
               className="max-h-[90vh] w-auto select-none object-contain"
               draggable={false}
+              onError={() => markFailed(safe[activeIndex])}
             />
             {count > 1 ? (
               <div className="mt-2 text-center text-xs text-white/80">
