@@ -103,7 +103,7 @@ const HOME_JSON_LD = {
   telephone: "+1-715-848-3855",
   priceRange: "$ – $$$",
   foundingDate: "1978",
-  image: "https://pricelessbuilding.com/og-image.jpg",
+  image: "https://pricelessbuilding.com/og-mural.jpg",
   logo: "https://pricelessbuilding.com/real-photos/logo-priceless-clean.webp",
   address: {
     "@type": "PostalAddress",
