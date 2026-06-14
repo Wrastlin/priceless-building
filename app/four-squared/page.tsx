@@ -115,14 +115,14 @@ export default function FourSquaredPage() {
 
       {/* RECENT WORK. Six install tiles on a light band. */}
       <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+        <div className="mx-auto max-w-7xl px-6 py-10 md:py-16">
           <SectionHead
             accent="emerald"
             headline="Recent installs."
             sub="A few photos from finished Builders Corner and Four Squared projects across central Wisconsin."
           />
 
-          <div className="mt-12 grid grid-cols-1 gap-px bg-[var(--border)] sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid grid-cols-2 gap-px bg-[var(--border)] lg:grid-cols-3">
             {WORK_TILES.map((t, i) => (
               <article
                 key={t.img}
@@ -144,8 +144,8 @@ export default function FourSquaredPage() {
                     {t.tag}
                   </span>
                 </div>
-                <div className="p-5">
-                  <p className="text-base leading-relaxed text-[var(--foreground)]">
+                <div className="p-4 md:p-5">
+                  <p className="text-sm leading-relaxed text-[var(--foreground)] md:text-base">
                     {t.caption}
                   </p>
                 </div>
@@ -157,7 +157,7 @@ export default function FourSquaredPage() {
 
       {/* PROCESS. Four steps on a dark band. */}
       <section className="bg-[#0a0e14] text-white">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+        <div className="mx-auto max-w-7xl px-6 py-10 md:py-16">
           <SectionHead
             invert
             accent="emerald"
@@ -165,7 +165,7 @@ export default function FourSquaredPage() {
             sub="Plain English, no fabricated timelines."
           />
 
-          <ol className="mt-10 grid gap-px bg-white/10 md:grid-cols-4">
+          <ol className="mt-8 grid grid-cols-2 gap-px bg-white/10 md:grid-cols-4">
             {PROCESS.map((p, i) => (
               <li
                 key={p.n}
@@ -188,7 +188,7 @@ export default function FourSquaredPage() {
 
       {/* INQUIRY FORM. Lead capture + contact details combined. */}
       <section className="bg-white">
-        <div className="mx-auto max-w-4xl px-6 py-16 md:py-20" data-reveal>
+        <div className="mx-auto max-w-4xl px-6 py-10 md:py-16" data-reveal>
           <InquiryForm brand="four-squared" />
         </div>
       </section>
