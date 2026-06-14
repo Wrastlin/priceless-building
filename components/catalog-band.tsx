@@ -11,7 +11,7 @@ import { CATEGORIES, type CatalogItem } from "@/lib/catalog";
 export function CatalogBand({ items }: { items: CatalogItem[] }) {
   return (
     <section className="bg-[var(--muted)]">
-      <div className="mx-auto max-w-7xl px-6 py-14 md:py-20">
+      <div className="mx-auto max-w-7xl px-6 py-10 md:py-16">
         <div
           className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between md:gap-8"
           data-reveal
@@ -69,7 +69,7 @@ export function CatalogBand({ items }: { items: CatalogItem[] }) {
             scrolling past the rest of the home page on small screens. */}
         <div className="mt-10 grid grid-cols-1 gap-px bg-[var(--border)] sm:grid-cols-2 lg:grid-cols-4">
           {items.map((it, i) => (
-            <div key={it.id} className={i >= 6 ? "hidden sm:block" : ""}>
+            <div key={it.id} className={i >= 4 ? "hidden sm:block" : ""}>
               <ProductCard item={it} />
             </div>
           ))}

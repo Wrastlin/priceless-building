@@ -7,7 +7,7 @@ export function BrandStatement() {
   return (
     <section className="bg-[#0b1220] text-white">
       <div
-        className="mx-auto max-w-3xl px-6 py-20 text-center md:py-28"
+        className="mx-auto max-w-3xl px-6 py-12 text-center md:py-20"
         data-reveal
       >
         <p className="font-display text-3xl leading-tight md:text-5xl">

@@ -54,7 +54,7 @@ const CARDS: FamilyCardSpec[] = [
 export function FamilyBand() {
   return (
     <section className="bg-[#0b1220] text-white">
-      <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+      <div className="mx-auto max-w-7xl px-6 py-10 md:py-16">
         <SectionHead
           invert
           headline="The rest of the family."

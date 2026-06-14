@@ -22,7 +22,7 @@ export type TimelineEvent = {
  */
 export function TimelineRail({ events }: { events: TimelineEvent[] }) {
   return (
-    <ol className="relative mt-12 overflow-hidden">
+    <ol className="relative mt-8 overflow-hidden">
       {/* The vertical rail line itself, sitting behind every dot. */}
       <div
         aria-hidden
@@ -35,7 +35,7 @@ export function TimelineRail({ events }: { events: TimelineEvent[] }) {
             key={`${e.year}-${e.title}`}
             data-reveal
             data-reveal-delay={(i * 0.04).toFixed(2)}
-            className="relative pb-12 pl-12 last:pb-0 md:pl-14"
+            className="relative pb-10 pl-12 last:pb-0 md:pl-14"
           >
             <span
               aria-hidden
@@ -59,7 +59,7 @@ export function TimelineRail({ events }: { events: TimelineEvent[] }) {
               </div>
               <article className="grid grid-cols-1 gap-5 md:grid-cols-[260px_1fr] md:gap-6">
                 {e.image ? (
-                  <div className="relative aspect-[4/3] w-full overflow-hidden border border-[var(--border)] bg-white">
+                  <div className="relative aspect-[16/9] w-full overflow-hidden border border-[var(--border)] bg-white md:aspect-[4/3]">
                     <Image
                       src={e.image}
                       alt={e.imageAlt ?? e.title}
