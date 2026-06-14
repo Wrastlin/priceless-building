@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { BrandLogo } from "@/components/brand-logo";
+import { FourSquaredHero } from "@/components/four-squared/fs-hero";
 import { InquiryForm } from "@/components/inquiry-form";
 import { SectionHead } from "@/components/section-head";
-import { HeroPhotoFader, type HeroPhotoSource } from "@/components/hero-photo-fader";
 import { ADDRESS } from "@/lib/brands";
 
 const SITE_URL = "https://pricelessbuilding.com";
@@ -81,19 +80,6 @@ const FS_JSON_LD = {
  * just enough to explain what FS does and let people get a quote.
  */
 
-const PHONE = ADDRESS.phone;
-const PHONE_TEL = `tel:${PHONE.replace(/[^0-9+]/g, "")}`;
-const EMAIL = "pricelessbuildingcenter@gmail.com";
-const EMAIL_MAILTO = `mailto:${EMAIL}?subject=Four%20Squared%20estimate%20request`;
-
-// Hero photo crossfade deck — finished installs across kitchen + bath.
-const HERO_DECK: HeroPhotoSource[] = [
-  { src: "/real-photos/business/white-kitchen-marble-island.jpg", alt: "A Four Squared kitchen install: white cabinetry with a marble-top island, finished in Wausau." },
-  { src: "/real-photos/business/kitchen-island-wood-cabinets-range.jpg", alt: "Finished wood-cabinet kitchen with a center island and gas range." },
-  { src: "/real-photos/business/wood-cabinets-granite-kitchen.jpg", alt: "Wood-cabinet kitchen install paired with granite counters." },
-  { src: "/real-photos/business/dark-cabinet-kitchen-install.jpg", alt: "Dark-cabinet kitchen install with pendant lighting." },
-  { src: "/real-photos/business/dark-double-vanity-bathroom-install.jpg", alt: "Dark double-vanity bath install with white counter and framed mirrors." },
-];
 
 // Recent installs grid. Nine photos, mixed kitchen / bath so visitors
 // see the actual range of work rather than just kitchens.
@@ -125,39 +111,7 @@ export default function FourSquaredPage() {
       />
       <SiteHeader brand="four-squared" />
 
-      {/* HERO. Slim dark band. What FS does + photo + two CTAs. */}
-      <section className="bg-[#0a0e14] text-white">
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-12 md:py-20" data-reveal>
-          <div className="md:col-span-7">
-            <BrandLogo brand="four-squared" size="lg" className="[&>span:last-child]:!text-white" />
-            <div className="font-mono mt-7 text-xs uppercase tracking-[0.14em] text-emerald-300">
-              The install side of 825 Washington Street
-            </div>
-            <h1 className="font-display mt-3 text-[clamp(2.5rem,1.4rem+4vw,4rem)] leading-[1.02] tracking-tight">
-              The install crew that finishes the job.
-            </h1>
-            <p className="mt-6 max-w-xl text-lg leading-[1.7] text-white/90 md:text-xl">
-              Four Squared handles the work. Kitchens, baths, doors, finish carpentry. We install cabinets from Builders Corner, materials from the Price-Less floor, or anything you bring on your own. One crew lead from demo through the final walkthrough.
-            </p>
-            <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
-              <a href={EMAIL_MAILTO} className="btn btn-priceless bg-emerald-600 hover:bg-emerald-700">
-                Get a free estimate
-              </a>
-              <a
-                href={PHONE_TEL}
-                className="text-base font-semibold text-white/90 underline decoration-emerald-400 decoration-2 underline-offset-[6px] transition hover:text-white md:text-lg"
-              >
-                Or call {PHONE}
-              </a>
-            </div>
-          </div>
-          <aside className="md:col-span-5" data-reveal data-reveal-delay="0.08">
-            <div className="relative aspect-[4/5] overflow-hidden border border-white/15 bg-white/[0.04]">
-              <HeroPhotoFader photos={HERO_DECK} intervalMs={5500} />
-            </div>
-          </aside>
-        </div>
-      </section>
+      <FourSquaredHero />
 
       {/* RECENT WORK. Six install tiles on a light band. */}
       <section className="bg-white">

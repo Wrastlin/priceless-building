@@ -12,7 +12,7 @@ import * as THREE from "three";
  * Canvas only — no text. Loaded via next/dynamic ssr:false and mounted only
  * on desktop/fine-pointer screens (see HomeHero), so mobile stays light.
  */
-const PHOTOS = [
+const DEFAULT_PHOTOS = [
   "white-kitchen-marble-island", "kitchen-island-wood-cabinets-range", "dark-cabinet-kitchen-install",
   "warehouse-cabinet-display", "warehouse-assorted-windows", "discount-countertop-slabs",
   "bathroom-vanities-warehouse-display", "grey-cabinets-warehouse", "warehouse-lighting-inventory",
@@ -21,11 +21,18 @@ const PHOTOS = [
 ].map((n) => `/real-photos/business/${n}.jpg`);
 
 const COLS = 5;
-const ROWS = 3; // COLS*ROWS === PHOTOS.length → one unique photo per tile
+const ROWS = 3; // COLS*ROWS must equal photos.length → one unique photo per tile
 const REST = new THREE.Color(0.42, 0.47, 0.6);
 const HOT = new THREE.Color(1, 1, 1);
 
-export default function MosaicCanvas() {
+/**
+ * `photos` must hold exactly COLS*ROWS (15) unique full paths; `background`
+ * is the scene clear color (hex). Defaults reproduce the homepage hero.
+ */
+export default function MosaicCanvas({
+  photos = DEFAULT_PHOTOS,
+  background = 0x0b1220,
+}: { photos?: string[]; background?: number } = {}) {
   const wrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -39,7 +46,7 @@ export default function MosaicCanvas() {
     renderer.domElement.style.cssText = "width:100%;height:100%;display:block";
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x0b1220);
+    scene.background = new THREE.Color(background);
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, -10, 10);
 
     const loader = new THREE.TextureLoader();
@@ -51,7 +58,7 @@ export default function MosaicCanvas() {
     let i = 0;
     for (let r = 0; r < ROWS; r++) {
       for (let c = 0; c < COLS; c++) {
-        const tex = loader.load(PHOTOS[i]);
+        const tex = loader.load(photos[i]);
         tex.colorSpace = THREE.SRGBColorSpace;
         tex.center.set(0.5, 0.5);
         const mat = new THREE.MeshBasicMaterial({ map: tex, color: REST.clone() });
