@@ -26,7 +26,7 @@ const RECENT = [
 export function FacebookBand() {
   return (
     <section className="bg-[var(--muted)]">
-      <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+      <div className="mx-auto max-w-7xl px-6 py-10 md:py-16">
         <SectionHead
           headline="Around the store lately."
           sub="Between visits, our Facebook and Instagram are the most current view of what is going on at the store. New stock photos, holiday hours, customer thank-you cards, mural updates. We post a few times a week."

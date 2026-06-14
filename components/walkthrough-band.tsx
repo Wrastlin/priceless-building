@@ -50,13 +50,13 @@ const STEPS = [
 export function WalkthroughBand() {
   return (
     <section id="design-walkthrough" className="bg-[var(--muted)] scroll-mt-24">
-      <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+      <div className="mx-auto max-w-7xl px-6 py-10 md:py-16">
         <SectionHead
           headline="See it in your home before you buy."
           sub="A walkthrough we are putting together. Photo of your space, the pieces you want, the colors, a render in the same photo, real pricing."
         />
 
-        <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+        <ul className="mt-8 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-5">
           {STEPS.map((s, i) => (
             <li
               key={s.n}
@@ -89,7 +89,7 @@ export function WalkthroughBand() {
 
         {/* Where-to-find anchor. Full mural image since the old
             text-only "Where to find us" card was the weak link. */}
-        <div className="mt-14 overflow-hidden border border-[var(--border)] bg-white">
+        <div className="mt-10 overflow-hidden border border-[var(--border)] bg-white">
           <div className="relative w-full overflow-hidden bg-[var(--muted)]">
             <Image
               src="/real-photos/business/exterior-mural-build-your-future.webp"

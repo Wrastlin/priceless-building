@@ -142,7 +142,7 @@ export function WarehouseGallery() {
 
   return (
     <section className="bg-white">
-      <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+      <div className="mx-auto max-w-7xl px-6 py-10 md:py-16">
         <SectionHead
           headline="Around the warehouse."
           sub="A slice of what is on the floor, in the showroom, and on the walls. Click any tile to open the full gallery."

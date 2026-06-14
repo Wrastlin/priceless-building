@@ -212,7 +212,7 @@ export default async function HomePage() {
       {/* TIMELINE. Replaces the old separate "around 825 Washington"
           photo grid + press cards with one chronology. */}
       <section className="bg-[var(--muted)]">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+        <div className="mx-auto max-w-7xl px-6 py-10 md:py-16">
           <SectionHead
             headline="What has happened along the way."
             sub="The two storefronts have a few decades of history between them, and local press has covered most of it. The milestones below link back to the original articles."
@@ -234,7 +234,7 @@ export default async function HomePage() {
       {/* NEWSLETTER. Doubles as the signup hook for the upcoming
           walkthrough launch in addition to the weekly inventory drop. */}
       <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-16">
+        <div className="mx-auto max-w-7xl px-6 py-10 md:py-14">
           <NewsletterBar />
         </div>
       </section>
