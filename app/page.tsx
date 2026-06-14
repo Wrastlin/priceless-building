@@ -8,7 +8,7 @@ import { HomeHero } from "@/components/home-hero";
 import { StatsStrip } from "@/components/stats-strip";
 import { CatalogBand } from "@/components/catalog-band";
 import { FamilyBand } from "@/components/family-band";
-import { CustomerReviewsBand } from "@/components/customer-reviews-band";
+import { ReviewsSection } from "@/components/reviews-section";
 import { WarehouseGallery } from "@/components/warehouse-gallery";
 import { BeforeAfterBand } from "@/components/before-after-band";
 import { FacebookBand } from "@/components/facebook-band";
@@ -207,7 +207,7 @@ export default async function HomePage() {
 
       <FamilyBand />
 
-      <CustomerReviewsBand />
+      <ReviewsSection />
 
       {/* TIMELINE. Replaces the old separate "around 825 Washington"
           photo grid + press cards with one chronology. */}
