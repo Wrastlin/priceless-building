@@ -28,7 +28,6 @@ const NAV: NavItem[] = [
   { href: "/admin/marketing", label: "Generate post", key: "marketing", section: "Marketing" },
   { href: "/admin/receiving", label: "Receiving", key: "receiving", section: "Flow" },
   { href: "/admin/returns", label: "Returns", key: "returns", section: "Flow" },
-  { href: "/admin/connections", label: "Connections", key: "connections", section: "Config" },
   { href: "/admin/settings", label: "Settings", key: "settings", section: "Config" },
 ];
 
