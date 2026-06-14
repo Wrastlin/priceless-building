@@ -46,7 +46,10 @@ export function WarehouseGallery() {
         }
       }
     }
-    return out;
+    // Drop any photo that shows up in more than one bucket so a single src
+    // can never be seeded onto two tiles.
+    const seen = new Set<string>();
+    return out.filter((p) => (seen.has(p.src) ? false : (seen.add(p.src), true)));
   }, []);
 
   const VISIBLE = 12;
@@ -70,6 +73,7 @@ export function WarehouseGallery() {
     Array.from({ length: VISIBLE }, (_, i) => VISIBLE + i).map((n) => n % photos.length),
   );
 
+  const flippedRef = useRef<boolean[]>(Array.from({ length: VISIBLE }, () => false));
   const cursorRef = useRef(VISIBLE * 2);
   const tileCursor = useRef(0);
 
@@ -83,44 +87,50 @@ export function WarehouseGallery() {
     const FLIP_MS = 1600;
     const BETWEEN_MS = 2400;
 
+    // Pick the next deck photo that is NOT currently on any face (other than
+    // the one we're about to overwrite), so two tiles can never display the
+    // same image at once. Walks the deck in order and only falls back to the
+    // raw next index if the deck is too small to stay unique.
+    function pickIndex(excludeTile: number, excludeSide: "front" | "back") {
+      const shown = new Set<string>();
+      for (let k = 0; k < VISIBLE; k++) {
+        const fi = frontIdx.current[k];
+        const bi = backIdx.current[k];
+        if (typeof fi === "number" && !(k === excludeTile && excludeSide === "front")) shown.add(photos[fi]!.src);
+        if (typeof bi === "number" && !(k === excludeTile && excludeSide === "back")) shown.add(photos[bi]!.src);
+      }
+      for (let step = 0; step < photos.length; step++) {
+        const idx = cursorRef.current % photos.length;
+        cursorRef.current += 1;
+        if (!shown.has(photos[idx]!.src)) return idx;
+      }
+      const idx = cursorRef.current % photos.length;
+      cursorRef.current += 1;
+      return idx;
+    }
+
     function tick() {
       if (cancelled) return;
       const tile = tileCursor.current % VISIBLE;
       tileCursor.current += 1;
 
-      setFlipped((f) => {
-        const next = [...f];
-        next[tile] = !next[tile];
-        return next;
-      });
+      const toggled = [...flippedRef.current];
+      toggled[tile] = !toggled[tile];
+      flippedRef.current = toggled;
+      setFlipped(toggled);
 
       window.setTimeout(() => {
         if (cancelled) return;
-        const nextPhotoIdx = cursorRef.current % photos.length;
-        cursorRef.current += 1;
-        // After the flip lands the side that's now facing AWAY is safe
-        // to refresh with the next deck photo. flipped[tile] just
-        // changed value above, so AWAY = !current visible side.
-        setFlipped((f) => {
-          const tileNowFlipped = f[tile];
-          if (tileNowFlipped) {
-            // Front is hidden now; swap front photo.
-            setFront((p) => {
-              const copy = [...p];
-              copy[tile] = photos[nextPhotoIdx]!;
-              return copy;
-            });
-            frontIdx.current[tile] = nextPhotoIdx;
-          } else {
-            setBack((p) => {
-              const copy = [...p];
-              copy[tile] = photos[nextPhotoIdx]!;
-              return copy;
-            });
-            backIdx.current[tile] = nextPhotoIdx;
-          }
-          return f;
-        });
+        // The flip has landed; the side now facing AWAY is safe to refresh.
+        const side: "front" | "back" = flippedRef.current[tile] ? "front" : "back";
+        const idx = pickIndex(tile, side);
+        if (side === "front") {
+          setFront((p) => { const copy = [...p]; copy[tile] = photos[idx]!; return copy; });
+          frontIdx.current[tile] = idx;
+        } else {
+          setBack((p) => { const copy = [...p]; copy[tile] = photos[idx]!; return copy; });
+          backIdx.current[tile] = idx;
+        }
         window.setTimeout(tick, BETWEEN_MS);
       }, FLIP_MS);
     }

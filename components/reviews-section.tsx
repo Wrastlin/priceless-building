@@ -43,10 +43,7 @@ export function ReviewsSection() {
       <div className="mx-auto max-w-7xl px-6 py-14 md:py-16">
         <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-6">
           <div>
-            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
-              Real store. Real reviews.
-            </div>
-            <h2 className="font-display mt-3 text-4xl leading-[1.04] md:text-5xl">
+            <h2 className="font-display text-4xl leading-[1.04] md:text-5xl">
               What our customers say<span className="text-[var(--brand-priceless)]">.</span>
             </h2>
             <div className="mt-4 flex flex-wrap items-baseline gap-3">

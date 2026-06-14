@@ -12,8 +12,9 @@ import { PRICELESS } from "@/lib/brands";
 const MosaicCanvas = dynamic(() => import("@/components/home/mosaic-canvas"), { ssr: false });
 
 const MURAL_HERO = "/real-photos/mural-wide.webp";
-// LCP poster: a real photo, server-rendered + preloaded. Kept DISTINCT from
-// every tile in the mosaic so the hero never shows the same photo twice.
+// Mobile-only hero photo (the LCP on phones, which never get the mosaic).
+// Desktop skips this entirely and fades the mosaic in over the navy
+// backdrop, so it never flashes a single photo before snapping to the grid.
 const POSTER = "/real-photos/business/wood-cabinets-granite-kitchen.jpg";
 
 export function HomeHero() {
@@ -31,7 +32,9 @@ export function HomeHero() {
     <section className="relative border-b">
       {/* HERO VIEWPORT */}
       <div className="relative min-h-[88svh] w-full overflow-hidden bg-[#0b1220]">
-        {/* Poster — the LCP. Always rendered; the canvas fades in over it. */}
+        {/* Poster — mobile only. On desktop the navy backdrop shows during
+            load and the mosaic fades straight in over it, so desktop never
+            flashes this single photo before snapping to the grid. */}
         <Image
           src={POSTER}
           alt="A finished kitchen with wood cabinets and granite countertops, built and installed by the Wausau crew."
@@ -39,7 +42,7 @@ export function HomeHero() {
           priority
           sizes="100vw"
           quality={80}
-          className="object-cover"
+          className="object-cover md:hidden"
         />
 
         {/* Animated photo mosaic (desktop only) */}

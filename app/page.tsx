@@ -30,8 +30,8 @@ const TIMELINE: TimelineEvent[] = [
     year: "1983",
     title: "Builders Corner Cabinetry & Design founded.",
     body: "A custom cabinet shop opens in Wausau, specializing in kitchens, baths, and built-ins designed and finished locally.",
-    image: "/catalog-images/PL-000404-hero.jpg",
-    imageAlt: "A representative Builders Corner kitchen install.",
+    image: "/real-photos/team-josh-jamus-portrait.webp",
+    imageAlt: "Owner Josh Nickel of Builders Corner Cabinetry & Design.",
   },
   {
     year: "2019",

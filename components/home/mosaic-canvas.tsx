@@ -49,7 +49,14 @@ export default function MosaicCanvas({
     scene.background = new THREE.Color(background);
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, -10, 10);
 
-    const loader = new THREE.TextureLoader();
+    // Reveal the canvas only once every tile texture has decoded, so the
+    // mosaic never fades in half-blank (which reads as the hero "snapping"
+    // from the poster to a different collection). `onAllLoaded` is wired to
+    // reveal() once layout exists, further down.
+    const manager = new THREE.LoadingManager();
+    let onAllLoaded = () => {};
+    manager.onLoad = () => onAllLoaded();
+    const loader = new THREE.TextureLoader(manager);
     type Tile = { mesh: THREE.Mesh; mat: THREE.MeshBasicMaterial; tex: THREE.Texture; cx: number; cy: number; col: number; row: number };
     const tiles: Tile[] = [];
     const group = new THREE.Group();
@@ -128,10 +135,22 @@ export default function MosaicCanvas({
     };
     loop();
 
-    // fade the canvas in once it has painted a frame
+    // Stay hidden until the textures are in, then fade up and re-run layout
+    // so each tile is cropped from its real aspect ratio (not the 1.5
+    // fallback used before the images arrive). A safety timeout reveals it
+    // anyway if a texture is slow or 404s, so the hero can never get stuck
+    // invisible behind the poster.
     renderer.domElement.style.opacity = "0";
     renderer.domElement.style.transition = "opacity 700ms ease";
-    const fade = window.setTimeout(() => { renderer.domElement.style.opacity = "1"; }, 60);
+    let revealed = false;
+    const reveal = () => {
+      if (revealed) return;
+      revealed = true;
+      layout();
+      renderer.domElement.style.opacity = "1";
+    };
+    onAllLoaded = reveal;
+    const fade = window.setTimeout(reveal, 1500);
 
     return () => {
       cancelAnimationFrame(raf);

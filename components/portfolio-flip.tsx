@@ -34,23 +34,55 @@ export function PortfolioFlip({
   betweenMs?: number;
 }) {
   const tilesNeeded = Math.max(tilesDesktop, tilesMobile);
-  const initial = useMemo(() => deck.slice(0, tilesNeeded), [deck, tilesNeeded]);
 
-  const [front, setFront] = useState<PortfolioPhoto[]>(initial);
-  const [back, setBack] = useState<PortfolioPhoto[]>(() =>
-    deck.slice(tilesNeeded, tilesNeeded * 2).concat(deck.slice(0, Math.max(0, tilesNeeded * 2 - deck.length))).slice(0, tilesNeeded),
-  );
+  // De-dupe the deck by src so the same photo can't be seeded onto two
+  // tiles, and so the rotation has a clean set of unique images to order.
+  const pool = useMemo(() => {
+    const seen = new Set<string>();
+    return deck.filter((p) => (seen.has(p.src) ? false : (seen.add(p.src), true)));
+  }, [deck]);
+
+  const initialFront = useMemo(() => pool.slice(0, tilesNeeded), [pool, tilesNeeded]);
+  const initialBack = useMemo(() => pool.slice(tilesNeeded, tilesNeeded * 2), [pool, tilesNeeded]);
+
+  const [front, setFront] = useState<PortfolioPhoto[]>(initialFront);
+  const [back, setBack] = useState<PortfolioPhoto[]>(initialBack);
   const [flipped, setFlipped] = useState<boolean[]>(() => Array.from({ length: tilesNeeded }, () => false));
 
+  // Refs mirror the live faces so the rotation can read "what is on every
+  // face right now" synchronously when choosing the next photo.
+  const frontRef = useRef(initialFront);
+  const backRef = useRef(initialBack);
+  const flippedRef = useRef<boolean[]>(Array.from({ length: tilesNeeded }, () => false));
   const cursorRef = useRef(tilesNeeded * 2);
   const tileRef = useRef(0);
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) return;
-    if (deck.length <= tilesNeeded) return;
+    if (pool.length <= tilesNeeded) return;
 
     let cancelled = false;
+
+    // Next photo not currently on any face (other than the one being
+    // overwritten), so two tiles never show the same image at once.
+    function pickNext(excludeTile: number, excludeSide: "front" | "back") {
+      const shown = new Set<string>();
+      for (let k = 0; k < tilesNeeded; k++) {
+        const fp = frontRef.current[k];
+        const bp = backRef.current[k];
+        if (fp && !(k === excludeTile && excludeSide === "front")) shown.add(fp.src);
+        if (bp && !(k === excludeTile && excludeSide === "back")) shown.add(bp.src);
+      }
+      for (let step = 0; step < pool.length; step++) {
+        const cand = pool[cursorRef.current % pool.length];
+        cursorRef.current += 1;
+        if (cand && !shown.has(cand.src)) return cand;
+      }
+      const cand = pool[cursorRef.current % pool.length]!;
+      cursorRef.current += 1;
+      return cand;
+    }
 
     function scheduleNext() {
       if (cancelled) return;
@@ -60,38 +92,29 @@ export function PortfolioFlip({
         const i = tileRef.current % tilesNeeded;
         tileRef.current += 1;
 
-        setFlipped((f) => {
-          const next = [...f];
-          next[i] = !next[i];
-          return next;
-        });
+        const toggled = [...flippedRef.current];
+        toggled[i] = !toggled[i];
+        flippedRef.current = toggled;
+        setFlipped(toggled);
 
-        // After the flip animation lands, swap the side that's now
-        // hidden to the next photo from the deck so the deck keeps
-        // moving even after we revisit a tile.
+        // Once the flip lands, refresh the side that is now hidden with a
+        // photo not shown anywhere else, so the deck keeps moving without
+        // ever doubling an image.
         window.setTimeout(() => {
           if (cancelled) return;
-          const nextPhoto = deck[cursorRef.current % deck.length];
-          cursorRef.current += 1;
-          // The just-flipped tile is now showing the OTHER side.
-          // Refresh the side that is no longer visible.
-          setFlipped((f) => {
-            const tileNowFlipped = f[i];
-            if (tileNowFlipped) {
-              setFront((prev) => {
-                const copy = [...prev];
-                copy[i] = nextPhoto;
-                return copy;
-              });
-            } else {
-              setBack((prev) => {
-                const copy = [...prev];
-                copy[i] = nextPhoto;
-                return copy;
-              });
-            }
-            return f;
-          });
+          const side: "front" | "back" = flippedRef.current[i] ? "front" : "back";
+          const next = pickNext(i, side);
+          if (side === "front") {
+            const copy = [...frontRef.current];
+            copy[i] = next;
+            frontRef.current = copy;
+            setFront(copy);
+          } else {
+            const copy = [...backRef.current];
+            copy[i] = next;
+            backRef.current = copy;
+            setBack(copy);
+          }
           scheduleNext();
         }, flipMs);
       }, betweenMs);
@@ -101,7 +124,7 @@ export function PortfolioFlip({
     return () => {
       cancelled = true;
     };
-  }, [deck, tilesNeeded, flipMs, betweenMs]);
+  }, [pool, tilesNeeded, flipMs, betweenMs]);
 
   return (
     <ul className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
