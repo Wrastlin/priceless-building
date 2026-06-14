@@ -107,7 +107,7 @@ const FALLBACK_REVIEWS: Review[] = [
   },
 ];
 
-export const GOOGLE_RATING = { average: 4.8, count: 9 } as const;
+export const GOOGLE_RATING = { average: 4.8, count: 10 } as const;
 
 type CacheEntry = { fetched: number; reviews: Review[] };
 const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
