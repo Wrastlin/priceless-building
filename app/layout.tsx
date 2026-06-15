@@ -115,6 +115,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${display.variable} ${serif.variable} ${sans.variable} ${mono.variable} ${couture.variable}`}>
       <head>
+        {/* Always reload to the top of the page. Disable the browser's
+            scroll restoration synchronously, before first paint, so a
+            refresh never drops the visitor back where they were. Runs
+            ahead of hydration so there is no jump. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "if('scrollRestoration' in history){history.scrollRestoration='manual';}",
+          }}
+        />
         {/* LCP hint. The home hero's looping video is poster-backed
             by this image. Telling the browser to preload it cuts
             the LCP discovery delay Lighthouse flags. */}

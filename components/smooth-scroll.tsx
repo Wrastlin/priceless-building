@@ -27,6 +27,12 @@ export function SmoothScroll() {
 
   // Lenis lives for the whole session, not per route.
   useEffect(() => {
+    // Belt-and-suspenders to the inline scrollRestoration='manual' in
+    // <head>: force the top on a fresh mount (i.e. a reload) so the
+    // page never opens part-way down where the visitor last was.
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    window.scrollTo(0, 0);
+
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) return;
     const lenis = new Lenis({ duration: 1.05, smoothWheel: true });

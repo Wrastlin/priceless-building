@@ -44,15 +44,6 @@ export const BUSINESS_PHOTOS: BusinessPhoto[] = [
     "notes": "Flyer for community mural painting event."
   },
   {
-    "src": "/real-photos/business/dark-double-vanity-bathroom-install.jpg",
-    "alt": "Double vanity with dark cabinets, white top, black fixtures, and two mirrors in a bathroom.",
-    "subject": "install-bath",
-    "brand": "builders-corner",
-    "quality": "good",
-    "best_for": "gallery",
-    "notes": "Good shot of a completed bathroom vanity install. Lighting is a bit harsh from the fixture, but overall quality is good."
-  },
-  {
     "src": "/real-photos/business/double-sink-bathroom-vanity-black.webp",
     "alt": "Bathroom vanity with double sinks, black cabinets, and black framed mirrors.",
     "subject": "install-bath",
@@ -159,15 +150,6 @@ export const BUSINESS_PHOTOS: BusinessPhoto[] = [
     "quality": "good",
     "best_for": "gallery",
     "notes": "Good for showing range of capabilities, but split images are less ideal for hero spots."
-  },
-  {
-    "src": "/real-photos/business/combined-company-logo.jpg",
-    "alt": "Combined company logo graphic",
-    "subject": "other",
-    "brand": "mixed",
-    "quality": "good",
-    "best_for": "brand-card",
-    "notes": "Logo graphic for brand card."
   },
   {
     "src": "/real-photos/business/newspaper-feature-branded-hat.webp",
@@ -350,15 +332,6 @@ export const BUSINESS_PHOTOS: BusinessPhoto[] = [
     "notes": "Clear logo image, suitable for brand identification."
   },
   {
-    "src": "/real-photos/business/combined-brand-logo.jpg",
-    "alt": "Combined company logo graphic",
-    "subject": "sign",
-    "brand": "mixed",
-    "quality": "good",
-    "best_for": "brand-card",
-    "notes": "Logo graphic for two brands"
-  },
-  {
     "src": "/real-photos/business/priceless-builders-corner-logo.webp",
     "alt": "Logo featuring a tree made of tools and house silhouettes",
     "subject": "sign",
@@ -438,15 +411,6 @@ export const BUSINESS_PHOTOS: BusinessPhoto[] = [
     "quality": "good",
     "best_for": "gallery",
     "notes": "Shows inventory well."
-  },
-  {
-    "src": "/real-photos/business/oak-double-vanity-warehouse-2.webp",
-    "alt": "Long oak bathroom vanity with double sink top on warehouse floor",
-    "subject": "warehouse-interior",
-    "brand": "priceless",
-    "quality": "good",
-    "best_for": "gallery",
-    "notes": "Shows surplus inventory available in warehouse"
   },
   {
     "src": "/real-photos/business/paint-stain-caulk-inventory-shelves.webp",

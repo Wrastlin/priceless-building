@@ -139,7 +139,7 @@ export function MainMenu({
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain">
           {/* Primary paths. The four entry points people actually want:
               shop, cabinetry, installs, start-a-project. */}
           <section className="px-5 pt-5">
