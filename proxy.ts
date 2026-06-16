@@ -27,6 +27,15 @@ export async function proxy(request: NextRequest) {
   const allow = parseAllowed(process.env.ALLOWED_EMAILS);
   const inProd = process.env.NODE_ENV === "production";
 
+  // Pre-launch killswitch (mirrors adminGloballyEnabled in
+  // lib/auth/session.ts). In prod the admin is hard-locked unless
+  // PUBLIC_ADMIN_ENABLED=1 so a deploy can't accidentally expose it.
+  // Set PUBLIC_ADMIN_ENABLED=1 in the production env at launch.
+  const adminEnabled = !inProd || process.env.PUBLIC_ADMIN_ENABLED === "1";
+  if (isAdmin && !adminEnabled) {
+    return new NextResponse(null, { status: 404 });
+  }
+
   // In prod with nothing configured: hard 404 the admin (better than
   // half-open). In dev with nothing configured: leave admin open so a
   // designer can iterate locally.

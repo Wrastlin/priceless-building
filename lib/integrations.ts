@@ -160,7 +160,7 @@ export const INTEGRATION_GROUPS: IntegrationGroup[] = [
         key: "resend",
         name: "Resend (inquiry email)",
         status: "recommended",
-        blurb: "The estimate forms on Four Squared / Builders Corner email leads through Resend. Without it they log silently in production.",
+        blurb: "The estimate forms on 4 Squared / Builders Corner email leads through Resend. Without it they log silently in production.",
         dashboardUrl: "https://resend.com/api-keys",
         dashboardLabel: "Resend API keys",
         sandboxNote: "Use onboarding@resend.dev as the From address for testing before you verify a domain.",

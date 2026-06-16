@@ -11,8 +11,8 @@ const PHONE_DISPLAY = "(715) 848-3855";
  *
  * The Price-Less logo + wordmark always sits on the left and always
  * links back to the home page, no matter which sub-brand article
- * (Builders Corner, Four Squared) the user is currently reading.
- * Builders Corner and Four Squared are sub-facets of the same
+ * (Builders Corner, 4 Squared) the user is currently reading.
+ * Builders Corner and 4 Squared are sub-facets of the same
  * operation; they do not replace the brand chrome.
  *
  * The right side carries search, phone, cart, and the menu hamburger

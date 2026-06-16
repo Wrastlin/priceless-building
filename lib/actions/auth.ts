@@ -13,3 +13,10 @@ export async function signOutAction() {
   await supabase.auth.signOut();
   redirect("/login" as never);
 }
+
+/** Customer sign-out: clears the session and returns to the storefront. */
+export async function signOutCustomerAction() {
+  const supabase = await createClient();
+  await supabase.auth.signOut();
+  redirect("/" as never);
+}

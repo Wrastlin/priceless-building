@@ -1,5 +1,5 @@
 // POST /api/analyze-and-price
-//   body: { images: dataURL[]; context?: string }
+//   body: { images: dataURL[]; context?: string; broaden?: boolean }
 //   200:  {
 //     suggestion: { title, subtitle, category, manufacturer, dimensions, estimatedRetail } | null,
 //     comparables: { source, title, price, url, image }[],
@@ -10,17 +10,28 @@
 //
 // The combined "do everything" endpoint behind the Add Item form's
 // "Analyze and price" button. Pipes the photos (plus optional staffer
-// context) through Gemini vision for product classification, then
-// pivots into SerpAPI to find real live comparables for the
-// AI-suggested title, and finally derives the tag price at 60% of
-// the comparable retail average.
+// context) through Gemini vision for product classification, then pivots
+// into SerpAPI to find real live comparables for the AI-suggested title,
+// and finally derives the tag price from the comparable retail average.
 //
-// Each piece is independent: if SerpAPI returns nothing, you still
-// get the vision suggestion. If vision fails, the comparables run
-// against the optional context text.
+// Each piece is independent: if SerpAPI returns nothing, you still get the
+// vision suggestion. If vision fails, the comparables run against the
+// optional context text.
+//
+// Auth + rate limiting via guardAiRoute(); the Gemini call goes through
+// the shared lib/ai/gemini.ts client (key header, timeout, retry).
 
 import { NextResponse } from "next/server";
-import { hasAdminSession } from "@/lib/auth/session";
+import { guardAiRoute } from "@/lib/ai/guard";
+import {
+  callGemini,
+  extractText,
+  geminiKey,
+  imageTooLarge,
+  MAX_IMAGES,
+  parseDataUrl,
+  type ParsedImage,
+} from "@/lib/ai/gemini";
 import {
   averagePrice,
   findComparables,
@@ -32,7 +43,6 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
 const MODEL = "gemini-3.1-pro-preview";
-const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 
 const VALID_CATEGORIES = [
   "doors",
@@ -82,66 +92,53 @@ function clean(v?: string): string | undefined {
 }
 
 async function classifyImages(
-  apiKey: string,
-  images: { mimeType: string; data: string }[],
+  images: ParsedImage[],
   context: string,
 ): Promise<{ suggestion: Suggestion | null; reason?: string }> {
-  const parts: { text?: string; inline_data?: { mime_type: string; data: string } }[] = [
-    {
-      text: `${PROMPT}\n\nNumber of source photos in this analysis: ${images.length}. Treat them as different angles or close-ups of the SAME single item.${context ? `\n\nADDITIONAL CONTEXT FROM STAFFER (use this — it overrides what you'd otherwise infer):\n${context}` : ""}`,
-    },
-    ...images.map((img) => ({
-      inline_data: { mime_type: img.mimeType, data: img.data },
-    })),
-  ];
-
-  const res = await fetch(`${ENDPOINT}?key=${apiKey}`, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({
-      contents: [{ parts }],
-      generationConfig: {
-        temperature: 0.2,
-        response_mime_type: "application/json",
+  const result = await callGemini({
+    model: MODEL,
+    parts: [
+      {
+        text: `${PROMPT}\n\nNumber of source photos in this analysis: ${images.length}. Treat them as different angles or close-ups of the SAME single item.${context ? `\n\nADDITIONAL CONTEXT FROM STAFFER (use this — it overrides what you'd otherwise infer):\n${context}` : ""}`,
       },
-    }),
+      ...images.map((img) => ({
+        inline_data: { mime_type: img.mimeType, data: img.data },
+      })),
+    ],
+    generationConfig: { temperature: 0.2, response_mime_type: "application/json" },
   });
-  if (!res.ok) {
-    const txt = await res.text().catch(() => "");
-    return { suggestion: null, reason: `Gemini ${res.status}: ${txt.slice(0, 200)}` };
-  }
-  const json = (await res.json()) as {
-    candidates?: { content?: { parts?: { text?: string }[] } }[];
-  };
-  const text = json.candidates?.[0]?.content?.parts?.[0]?.text;
+
+  if (!result.ok) return { suggestion: null, reason: result.error };
+  const text = extractText(result.json);
   if (!text) return { suggestion: null, reason: "No text in Gemini response" };
+
   let parsed: Suggestion;
   try {
     parsed = JSON.parse(text) as Suggestion;
   } catch {
     return { suggestion: null, reason: "Gemini returned non-JSON" };
   }
-  const suggestion: Suggestion = {
-    title: clean(parsed.title),
-    subtitle: clean(parsed.subtitle),
-    category:
-      parsed.category && (VALID_CATEGORIES as readonly string[]).includes(parsed.category)
-        ? parsed.category
-        : undefined,
-    manufacturer: clean(parsed.manufacturer),
-    dimensions: clean(parsed.dimensions),
-    estimatedRetail:
-      typeof parsed.estimatedRetail === "number" && parsed.estimatedRetail > 0
-        ? Math.round(parsed.estimatedRetail)
-        : undefined,
+  return {
+    suggestion: {
+      title: clean(parsed.title),
+      subtitle: clean(parsed.subtitle),
+      category:
+        parsed.category && (VALID_CATEGORIES as readonly string[]).includes(parsed.category)
+          ? parsed.category
+          : undefined,
+      manufacturer: clean(parsed.manufacturer),
+      dimensions: clean(parsed.dimensions),
+      estimatedRetail:
+        typeof parsed.estimatedRetail === "number" && parsed.estimatedRetail > 0
+          ? Math.round(parsed.estimatedRetail)
+          : undefined,
+    },
   };
-  return { suggestion };
 }
 
 export async function POST(req: Request) {
-  if (!(await hasAdminSession())) {
-    return new NextResponse(null, { status: 404 });
-  }
+  const guard = await guardAiRoute();
+  if (!guard.ok) return guard.response;
 
   let body: { images?: string[]; image?: string; context?: string; broaden?: boolean };
   try {
@@ -165,27 +162,29 @@ export async function POST(req: Request) {
     );
   }
 
-  // 1) Vision classification (parallel-safe: catches its own errors).
+  // 1) Vision classification (independent: catches its own errors).
   let suggestion: Suggestion | null = null;
   let visionReason: string | undefined;
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (apiKey && imgs.length > 0) {
-    const parsedImages: { mimeType: string; data: string }[] = [];
-    for (const img of imgs.slice(0, 6)) {
-      const m = /^data:(image\/[a-zA-Z+]+);base64,(.+)$/.exec(img);
-      if (!m) continue;
-      parsedImages.push({ mimeType: m[1], data: m[2] });
+  if (geminiKey() && imgs.length > 0) {
+    const parsedImages: ParsedImage[] = [];
+    for (const img of imgs.slice(0, MAX_IMAGES)) {
+      const p = parseDataUrl(img);
+      if (!p) continue;
+      if (imageTooLarge(p)) {
+        return NextResponse.json({ reason: "An image exceeds the 8MB size limit" }, { status: 413 });
+      }
+      parsedImages.push(p);
     }
     if (parsedImages.length > 0) {
       try {
-        const { suggestion: s, reason } = await classifyImages(apiKey, parsedImages, context);
+        const { suggestion: s, reason } = await classifyImages(parsedImages, context);
         suggestion = s;
         visionReason = reason;
       } catch (err) {
         visionReason = err instanceof Error ? err.message : "vision call failed";
       }
     }
-  } else if (!apiKey) {
+  } else if (!geminiKey()) {
     visionReason = "GEMINI_API_KEY not configured";
   }
 

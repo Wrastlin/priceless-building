@@ -13,6 +13,8 @@ export type Comparable = {
   price: number;
   url: string;
   image: string;
+  /** ISO timestamp the comparable was captured, so the price evidence is dated. */
+  capturedAt?: string;
 };
 
 const FALLBACK: Comparable[] = [
@@ -43,6 +45,11 @@ export async function findComparables(
   opts: FindOptions = {},
 ): Promise<Comparable[]> {
   const key = process.env.SERPAPI_KEY?.trim();
+  // No key configured = local/dev. Return the deterministic fixtures so the
+  // UI works without billing. This is the ONLY path that returns fixtures —
+  // when a key IS configured, a real upstream error throws (rather than
+  // silently masquerading fixture door prices as live results for, say, a
+  // vanity), so the caller can surface it.
   if (!key) return FALLBACK;
 
   const broaden = opts.broaden === true;
@@ -57,28 +64,39 @@ export async function findComparables(
   url.searchParams.set("num", broaden ? "60" : "40");
   url.searchParams.set("api_key", key);
 
+  let res: Response;
   try {
-    const res = await fetch(url.toString(), { next: { revalidate: 60 * 60 * 24 } });
-    if (!res.ok) return FALLBACK;
-    const json = (await res.json()) as { shopping_results?: { source?: string; title: string; price?: string; extracted_price?: number; product_link?: string; link?: string; thumbnail?: string }[] };
-    const raw = json.shopping_results ?? [];
-    const scoped = broaden
-      ? raw.filter((r) => r.source) // any source with a name
-      : raw.filter((r) => r.source && RETAILERS.some((retailer) => r.source!.toLowerCase().includes(retailer.toLowerCase().split(" ").pop()!)));
-    const results = scoped
-      .slice(0, broaden ? 15 : 6)
-      .map((r) => ({
-        source: r.source ?? "Online",
-        title: r.title,
-        price: r.extracted_price ?? Number((r.price ?? "0").replace(/[^0-9.]/g, "")),
-        url: r.product_link ?? r.link ?? "#",
-        image: r.thumbnail ?? "",
-      }))
-      .filter((r) => r.price > 0);
-    return results.length > 0 ? results : FALLBACK;
-  } catch {
-    return FALLBACK;
+    res = await fetch(url.toString(), {
+      next: { revalidate: 60 * 60 * 24 },
+      signal: AbortSignal.timeout(8_000),
+    });
+  } catch (err) {
+    throw new Error(
+      `Comparable search timed out or failed to reach SerpApi: ${err instanceof Error ? err.message : "unknown"}`,
+    );
   }
+  if (!res.ok) {
+    throw new Error(`Comparable search failed: SerpApi returned HTTP ${res.status}`);
+  }
+
+  const json = (await res.json()) as { shopping_results?: { source?: string; title: string; price?: string; extracted_price?: number; product_link?: string; link?: string; thumbnail?: string }[] };
+  const raw = json.shopping_results ?? [];
+  const scoped = broaden
+    ? raw.filter((r) => r.source) // any source with a name
+    : raw.filter((r) => r.source && RETAILERS.some((retailer) => r.source!.toLowerCase().includes(retailer.toLowerCase().split(" ").pop()!)));
+  // Real results, or an honest empty array (no comparables found) — never
+  // the fixtures, which would misrepresent the market price.
+  return scoped
+    .slice(0, broaden ? 15 : 6)
+    .map((r) => ({
+      source: r.source ?? "Online",
+      title: r.title,
+      price: r.extracted_price ?? Number((r.price ?? "0").replace(/[^0-9.]/g, "")),
+      url: r.product_link ?? r.link ?? "#",
+      image: r.thumbnail ?? "",
+      capturedAt: new Date().toISOString(),
+    }))
+    .filter((r) => r.price > 0);
 }
 
 /**

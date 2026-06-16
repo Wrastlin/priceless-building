@@ -35,13 +35,13 @@ const CARDS: FamilyCardSpec[] = [
   {
     href: "/four-squared",
     logoBrand: "four-squared",
-    headline: "Four Squared.",
+    headline: "4 Squared.",
     body: "The install crew. Demo, plumbing, electrical, tile, finish carpentry, start to final walkthrough. Installs cabinets from Builders Corner or anything you bring.",
     tags: ["Kitchen remodels", "Bath remodels", "Cabinet install", "Built-ins", "Tile + trim", "Doors + windows"],
     cta: "Meet the install crew",
     hero: {
       src: "/real-photos/business/kitchen-island-wood-cabinets-range.jpg",
-      alt: "A finished kitchen install by the Four Squared crew: wood cabinets, large center island, gas range.",
+      alt: "A finished kitchen install by the 4 Squared crew: wood cabinets, large center island, gas range.",
     },
     thumbs: [
       { src: "/real-photos/business/dark-cabinet-kitchen-install.jpg", alt: "Dark-cabinet kitchen install by the crew." },
@@ -88,7 +88,13 @@ function FamilyCard({ card }: { card: FamilyCardSpec }) {
           quality={80}
         />
         <div className="absolute left-4 top-4 inline-flex items-center bg-white px-3 py-2 shadow-sm">
-          <BrandLogo brand={card.logoBrand} size="sm" />
+          {card.logoBrand === "four-squared" ? (
+            <Image src="/real-photos/logo-4squared.jpg" alt="4 Squared — New Construction, Restoration, Remodeling" width={180} height={180} className="h-9 w-auto object-contain" />
+          ) : card.logoBrand === "builders" ? (
+            <Image src="/real-photos/logo-builders-corner-real.jpg" alt="Builders Corner Cabinetry & Design" width={180} height={180} className="h-9 w-auto object-contain" />
+          ) : (
+            <BrandLogo brand={card.logoBrand} size="sm" />
+          )}
         </div>
       </div>
 

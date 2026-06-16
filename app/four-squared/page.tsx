@@ -10,19 +10,19 @@ import { ADDRESS } from "@/lib/brands";
 const SITE_URL = "https://pricelessbuilding.com";
 
 export const metadata: Metadata = {
-  title: "Four Squared Construction · Kitchen, bath, and home remodels in Wausau, WI",
+  title: "4 Squared · Kitchen, bath, and home remodels in Wausau, WI",
   description:
-    "Four Squared Construction is the install crew under the Price-Less roof. Kitchen remodels, bath remodels, doors, finish carpentry, full home renovations across central Wisconsin. One crew lead from demo through final walkthrough.",
+    "4 Squared is the install crew under the Price-Less roof. Kitchen remodels, bath remodels, doors, finish carpentry, full home renovations across central Wisconsin. One crew lead from demo through final walkthrough.",
   alternates: { canonical: `${SITE_URL}/four-squared` },
   openGraph: {
     type: "website",
-    title: "Four Squared Construction · Wausau install crew",
+    title: "4 Squared · Wausau install crew",
     description: "Kitchen and bath remodels in central Wisconsin. Install crew under the Price-Less roof.",
     url: `${SITE_URL}/four-squared`,
     images: [
       {
         url: `${SITE_URL}/real-photos/business/white-kitchen-marble-island.jpg`,
-        alt: "A finished kitchen install by the Four Squared crew in Wausau, WI.",
+        alt: "A finished kitchen install by the 4 Squared crew in Wausau, WI.",
       },
     ],
   },
@@ -32,7 +32,7 @@ const FS_JSON_LD = {
   "@context": "https://schema.org",
   "@type": ["LocalBusiness", "GeneralContractor", "HomeAndConstructionBusiness"],
   "@id": `${SITE_URL}/four-squared#org`,
-  name: "Four Squared Construction",
+  name: "4 Squared",
   description:
     "Professional installation crew for custom kitchen remodels, bath remodels, and full home renovations in central Wisconsin. Operates under the Price-Less Building Center roof.",
   url: `${SITE_URL}/four-squared`,
@@ -72,7 +72,7 @@ const FS_JSON_LD = {
 };
 
 /**
- * Four Squared article page. Sits inside the Price-Less family as a
+ * 4 Squared article page. Sits inside the Price-Less family as a
  * brief explainer for the install crew, not a separate mini-site.
  * Long sections like the customer-story centerpiece, the full review
  * grid, service-area list, FAQ, and a duplicated final CTA were
@@ -81,25 +81,17 @@ const FS_JSON_LD = {
  */
 
 
-// Recent installs grid. Nine photos, mixed kitchen / bath so visitors
-// see the actual range of work rather than just kitchens.
-const WORK_TILES = [
-  { img: "/real-photos/business/kitchen-island-wood-cabinets-range.jpg", caption: "Custom kitchen island with wood cabinetry and gas range.", tag: "Kitchen" },
-  { img: "/real-photos/business/wood-cabinets-granite-kitchen.jpg", caption: "Wood cabinets paired with granite counters.", tag: "Kitchen" },
-  { img: "/real-photos/business/dark-double-vanity-bathroom-install.jpg", caption: "Dark double-vanity bath install, white counter, framed mirrors.", tag: "Bath" },
-  { img: "/real-photos/business/blue-patterned-bath-sink.jpg", caption: "Blue-patterned bath vanity with stone counter.", tag: "Bath" },
-  { img: "/real-photos/business/white-kitchen-rustic-island.jpg", caption: "Bright white kitchen anchored by a rustic island.", tag: "Kitchen" },
-  { img: "/real-photos/business/dark-cabinet-kitchen-install.jpg", caption: "Dark-cabinet kitchen install with pendant lighting.", tag: "Kitchen" },
-  { img: "/real-photos/business/double-sink-bathroom-vanity-black.webp", caption: "Double-sink bath vanity in black with framed mirrors.", tag: "Bath" },
-  { img: "/real-photos/business/wood-cabinets-dark-counters.jpg", caption: "Wood cabinetry with dark counters and an island.", tag: "Kitchen" },
-  { img: "/real-photos/business/white-kitchen-wood-island.jpg", caption: "White cabinetry with a warm wood island.", tag: "Kitchen" },
-];
+// 4 Squared's real Facebook page. The Page Plugin embeds the live feed
+// (mostly project photos); the button links straight to the photos tab.
+const FB_PAGE = "https://www.facebook.com/4squaredconstruction";
+const FB_PHOTOS = "https://www.facebook.com/4squaredconstruction/photos_by";
+const FB_PLUGIN = `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(FB_PAGE)}&tabs=timeline&width=500&height=720&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true`;
 
 const PROCESS = [
-  { n: "01", name: "Consult", body: "Free walk-through at your house, or sit down at the showroom." },
-  { n: "02", name: "Estimate", body: "Line-item written estimate, broken out so nothing is buried." },
-  { n: "03", name: "Build", body: "Same crew lead from demo through final. Floors and counters protected, cleaned up daily." },
-  { n: "04", name: "Walkthrough", body: "We walk the punch list together. Anything not right gets fixed before final payment." },
+  { n: "01", name: "Consult", body: "Free walk-through at your house, or sit down at the showroom.", img: "/real-photos/business/staff-member-showroom-display.webp" },
+  { n: "02", name: "Estimate", body: "Line-item written estimate, broken out so nothing is buried.", img: "/real-photos/business/kitchen-remodel-before-after.jpg" },
+  { n: "03", name: "Build", body: "Same crew lead from demo through final. Floors and counters protected, cleaned up daily.", img: "/real-photos/business/kitchen-island-wood-cabinets-range.jpg" },
+  { n: "04", name: "Walkthrough", body: "We walk the punch list together. Anything not right gets fixed before final payment.", img: "/real-photos/business/white-kitchen-marble-island.jpg" },
 ];
 
 export default function FourSquaredPage() {
@@ -113,44 +105,68 @@ export default function FourSquaredPage() {
 
       <FourSquaredHero />
 
-      {/* RECENT WORK. Six install tiles on a light band. */}
+      {/* MEET JOSH + TOP 5. The face behind all three businesses. */}
       <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-10 md:py-16">
+        <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
+          <div className="grid gap-10 md:grid-cols-[minmax(0,400px)_1fr] md:items-center">
+            <div data-reveal className="relative overflow-hidden rounded-2xl border border-[var(--border)] shadow-sm">
+              <Image
+                src="/real-photos/josh-nickel.png"
+                alt="Josh Nickel, co-owner and the face behind Price-Less, Builders Corner, and 4 Squared."
+                width={760}
+                height={960}
+                className="h-auto w-full object-cover"
+                priority
+              />
+            </div>
+            <div data-reveal>
+              <div className="font-mono text-base font-bold uppercase tracking-[0.22em] text-emerald-700 md:text-lg">
+                Voted Top 5 in Marathon County
+              </div>
+              <h2 className="font-display mt-5 text-4xl leading-tight text-[var(--foreground)] md:text-5xl">
+                Meet Josh Nickel.
+              </h2>
+              <p className="mt-4 text-lg leading-relaxed text-[var(--foreground)]">
+                Josh is the face behind all three businesses under one roof, Price-Less, Builders Corner, and 4 Squared, with over 27 years in construction. He started his own company in Winona, Minnesota while training as an aviation mechanic, and has spent his career turning spaces into finished kitchens and baths that people love.
+              </p>
+              <p className="mt-4 text-lg leading-relaxed text-[var(--foreground)]">
+                On the install side he runs the crew with Ty, from demo, plumbing, electrical, tile, and finish carpentry through the final walkthrough. His goal at Price-Less is simple: beautiful, affordable, quality kitchens and bathrooms for Marathon County and beyond. The work has been recognized as a Top 5 remodeler in the county.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FACEBOOK. The crew's real project photos, embedded + linked. */}
+      <section className="border-y border-[var(--border)] bg-[var(--muted)]">
+        <div className="mx-auto max-w-5xl px-6 py-12 md:py-16">
           <SectionHead
             accent="emerald"
-            headline="Recent installs."
-            sub="A few photos from finished Builders Corner and Four Squared projects across central Wisconsin."
+            headline="See the work on Facebook."
+            sub="Real finished 4 Squared projects, straight from the crew's own page."
           />
-
-          <div className="mt-8 grid grid-cols-2 gap-px bg-[var(--border)] lg:grid-cols-3">
-            {WORK_TILES.map((t, i) => (
-              <article
-                key={t.img}
-                data-reveal
-                data-reveal-delay={((i % 3) * 0.05).toFixed(2)}
-                className="group relative bg-white"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image
-                    src={t.img}
-                    alt={t.caption}
-                    fill
-                    className="object-cover transition duration-500 group-hover:scale-[1.04]"
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    quality={75}
-                    loading="lazy"
-                  />
-                  <span className="font-mono absolute left-3 top-3 bg-emerald-600 px-2 py-1 text-xs uppercase tracking-[0.14em] text-white">
-                    {t.tag}
-                  </span>
-                </div>
-                <div className="p-4 md:p-5">
-                  <p className="text-sm leading-relaxed text-[var(--foreground)] md:text-base">
-                    {t.caption}
-                  </p>
-                </div>
-              </article>
-            ))}
+          <div className="mt-8 flex justify-center">
+            <iframe
+              title="4 Squared on Facebook"
+              src={FB_PLUGIN}
+              width={500}
+              height={720}
+              style={{ border: "none", overflow: "hidden", maxWidth: "100%" }}
+              scrolling="no"
+              frameBorder="0"
+              allowFullScreen
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+            />
+          </div>
+          <div className="mt-7 text-center">
+            <a
+              href={FB_PHOTOS}
+              target="_blank"
+              rel="noreferrer"
+              className="font-mono inline-flex items-center bg-emerald-600 px-7 py-4 text-sm uppercase tracking-[0.14em] text-white transition hover:bg-emerald-700"
+            >
+              See all photos on Facebook →
+            </a>
           </div>
         </div>
       </section>
@@ -173,6 +189,16 @@ export default function FourSquaredPage() {
                 data-reveal-delay={(i * 0.05).toFixed(2)}
                 className="bg-[#0a0e14] p-6"
               >
+                <div className="relative mb-5 aspect-[4/3] overflow-hidden">
+                  <Image
+                    src={p.img}
+                    alt={p.name}
+                    fill
+                    className="object-cover"
+                    sizes="(min-width:768px) 25vw, 100vw"
+                    quality={72}
+                  />
+                </div>
                 <div className="font-display text-4xl leading-none text-emerald-400">
                   {p.n}
                 </div>

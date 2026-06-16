@@ -7,8 +7,8 @@ import Image from "next/image";
  *                   pulled from their Google Business listing.
  *  - "builders"   → the REAL Builders Corner cursive "B" wordmark, pulled
  *                   from their Google Business listing.
- *  - "four-squared" → 4-square SVG icon + bold sans wordmark. Four Squared
- *                   Construction does not publish a standalone logo.
+ *  - "four-squared" → 4-square SVG icon + bold sans wordmark. 4 Squared
+ *                   does not publish a standalone logo.
  *
  * Each variant supports a size prop ("sm" | "md" | "lg") so the mark sits
  * correctly inline next to a name OR as a standalone block.
@@ -64,7 +64,7 @@ export function BrandLogo({
           <rect x="11" y="11" width="9" height="9" fill="currentColor" />
         </svg>
         <span className="font-display text-2xl font-semibold uppercase tracking-[0.06em] text-foreground">
-          Four Squared
+          4 Squared
         </span>
       </span>
     );
@@ -80,7 +80,7 @@ export function BrandLogo({
         <rect x="11" y="11" width="9" height="9" fill="currentColor" />
       </svg>
       <span className={`font-semibold tracking-tight text-foreground ${wordSize}`}>
-        Four Squared
+        4 Squared
       </span>
     </span>
   );

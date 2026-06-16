@@ -71,7 +71,7 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
               ) : (
                 <>
                   <li><FooterLink href="/builders-corner">Builders Corner</FooterLink></li>
-                  <li><FooterLink href="/four-squared">Four Squared install</FooterLink></li>
+                  <li><FooterLink href="/four-squared">4 Squared install</FooterLink></li>
                   <li><FooterLink href="/contact">Visit the showroom</FooterLink></li>
                 </>
               )}
@@ -87,7 +87,7 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
               <ul className="space-y-2 text-sm">
                 <li><FooterLink href="/">Price-Less Building</FooterLink></li>
                 <li><FooterLink href="/builders-corner">Builders Corner</FooterLink></li>
-                <li><FooterLink href="/four-squared">Four Squared</FooterLink></li>
+                <li><FooterLink href="/four-squared">4 Squared</FooterLink></li>
               </ul>
             </div>
             <div className="font-mono mt-6 text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
@@ -135,13 +135,16 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
       <div className="border-t bg-[var(--brand-priceless-dark)] text-white">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-2 px-6 py-3">
           <span className="font-mono text-xs uppercase tracking-[0.14em] text-white/85">
-            © {new Date().getFullYear()} Price-Less Building · Builders Corner · Four Squared
+            © {new Date().getFullYear()} Price-Less Building · Builders Corner · 4 Squared
           </span>
           <span className="flex flex-wrap items-center gap-3 font-mono text-xs uppercase tracking-[0.14em] text-white/85">
             <span>{ADDRESS.city}, {ADDRESS.state} · Same building since 1978</span>
-            <a href="/admin" className="text-white/80 underline decoration-white/30 underline-offset-2 hover:text-white">
-              Staff sign in
-            </a>
+            <Link href="/account" className="text-white/80 underline decoration-white/30 underline-offset-2 hover:text-white">
+              My account
+            </Link>
+            <Link href="/login" className="text-white/80 underline decoration-white/30 underline-offset-2 hover:text-white">
+              Employee sign in
+            </Link>
           </span>
         </div>
       </div>

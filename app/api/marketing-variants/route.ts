@@ -1,31 +1,46 @@
 // POST /api/marketing-variants
-//   body: { image: dataURL, sku: string, scenes: string[] }
+//   body: { image: dataURL | "/same-origin/path", sku?: string, scenes: string[], item?: InlineItem }
 //   200:  { variants: { scene: string; image: string | null; reason?: string }[] }
 //
 // Generates photo-realistic marketing variants of an existing item in
 // the requested scenes (kitchen, bathroom, front-entry, etc.) using
-// Gemini Nano Banana (gemini-3.1-flash-image-preview). The source
-// image must be a real photo of the actual item — the prompt locks
-// the model to preserving the product exactly and only changing the
-// environment.
+// Gemini Nano Banana (gemini-3.1-flash-image-preview). The source image
+// must be a real photo of the actual item; the prompt locks the model to
+// preserving the product exactly and only changing the environment.
 //
-// Multiple scenes run in parallel. Each variant succeeds or fails
-// independently so a single scene that hits a content filter doesn't
-// kill the batch.
+// Each variant succeeds or fails independently so one scene hitting a
+// content filter doesn't kill the batch. Fan-out is capped (MAX_SCENES)
+// and the whole route is rate-limited (guardAiRoute) because every scene
+// is a separate paid image generation.
 
 import { NextResponse } from "next/server";
-import { hasAdminSession } from "@/lib/auth/session";
+import { guardAiRoute } from "@/lib/ai/guard";
+import {
+  callGemini,
+  extractInlineImage,
+  geminiKey,
+  imageTooLarge,
+  MAX_IMAGE_BYTES,
+  parseDataUrl,
+} from "@/lib/ai/gemini";
 import { findBySku } from "@/lib/items/store";
 import type { CatalogItem, Category } from "@/lib/items/types";
 import { buildScenePrompt, type SceneKey, SCENES } from "@/lib/marketing/scene-prompts";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+export const maxDuration = 60;
+
+const MODEL = "gemini-3.1-flash-image-preview";
+const VALID_KEYS = new Set(SCENES.map((s) => s.key as string));
+const MAX_SCENES = 8;
 
 const VALID_CATEGORIES: Category[] = [
   "doors", "windows", "cabinets", "vanities", "countertops", "hardware", "lighting", "trim",
 ];
 
 // Inline item fields posted by the Add Item page, which has no saved
-// SKU yet. buildScenePrompt only reads these descriptive fields, so a
-// minimal stand-in is enough to drive the image prompt.
+// SKU yet. buildScenePrompt only reads these descriptive fields.
 interface InlineItem {
   title?: string;
   category?: string;
@@ -36,10 +51,10 @@ interface InlineItem {
 
 function itemFromInline(inline: InlineItem): CatalogItem | null {
   const title = typeof inline.title === "string" ? inline.title.trim() : "";
+  if (!title) return null;
   const category = (VALID_CATEGORIES as string[]).includes(inline.category ?? "")
     ? (inline.category as Category)
     : "hardware";
-  if (!title) return null;
   return {
     id: "pending",
     sku: "pending",
@@ -56,67 +71,71 @@ function itemFromInline(inline: InlineItem): CatalogItem | null {
   };
 }
 
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
-
-const MODEL = "gemini-3.1-flash-image-preview";
-const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
-const VALID_KEYS = new Set(SCENES.map((s) => s.key as string));
-
-interface VariantResult {
-  scene: string;
-  image: string | null;
-  reason?: string;
-}
-
-async function generateOne(
-  apiKey: string,
-  prompt: string,
-  mimeType: string,
-  data: string,
-): Promise<{ image: string | null; reason?: string }> {
-  const res = await fetch(`${ENDPOINT}?key=${apiKey}`, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({
-      contents: [
-        {
-          parts: [
-            { text: prompt },
-            { inline_data: { mime_type: mimeType, data } },
-          ],
-        },
-      ],
-    }),
-  });
-  if (!res.ok) {
-    const txt = await res.text().catch(() => "");
-    return { image: null, reason: `Gemini ${res.status}: ${txt.slice(0, 200)}` };
-  }
-  const json = (await res.json()) as {
-    candidates?: { content?: { parts?: unknown[] } }[];
-  };
-  const parts = json.candidates?.[0]?.content?.parts ?? [];
-  for (const part of parts) {
-    const inline = (part as { inline_data?: { mime_type?: string; data?: string }; inlineData?: { mimeType?: string; data?: string } });
-    const blob = (inline.inline_data ?? inline.inlineData) as
-      | { mime_type?: string; mimeType?: string; data?: string }
-      | undefined;
-    const partData = blob?.data;
-    const partMime = blob?.mime_type ?? blob?.mimeType;
-    if (partData && partMime) {
-      return { image: `data:${partMime};base64,${partData}` };
+/**
+ * Resolve the source image to { mimeType, data } base64. Accepts a data
+ * URL, or a SAME-ORIGIN path/URL only. Arbitrary remote URLs are rejected
+ * to close the SSRF where the server would fetch any attacker-supplied
+ * host (e.g. cloud metadata / internal services).
+ */
+async function resolveSourceImage(
+  req: Request,
+  image: string,
+): Promise<{ mimeType: string; data: string } | { error: NextResponse }> {
+  const dataUrl = parseDataUrl(image);
+  if (dataUrl) {
+    if (imageTooLarge(dataUrl)) {
+      return { error: NextResponse.json({ variants: [], reason: "Image exceeds the 8MB size limit" }, { status: 413 }) };
     }
+    return dataUrl;
   }
-  return { image: null, reason: "No image in Gemini response" };
+
+  const origin = new URL(req.url).origin;
+  let absolute: string;
+  if (image.startsWith("/") && !image.startsWith("//")) {
+    absolute = `${origin}${image}`;
+  } else if (image.startsWith("http")) {
+    let target: URL;
+    try {
+      target = new URL(image);
+    } catch {
+      return { error: NextResponse.json({ variants: [], reason: "Invalid source image URL" }, { status: 400 }) };
+    }
+    if (target.origin !== origin) {
+      return { error: NextResponse.json({ variants: [], reason: "Source image must be on this site's own origin" }, { status: 400 }) };
+    }
+    absolute = target.toString();
+  } else {
+    return { error: NextResponse.json({ variants: [], reason: "Source image is not a data URL or same-origin path" }, { status: 400 }) };
+  }
+
+  try {
+    const r = await fetch(absolute, { signal: AbortSignal.timeout(10_000) });
+    if (!r.ok) throw new Error(`source fetch HTTP ${r.status}`);
+    const buf = Buffer.from(await r.arrayBuffer());
+    if (buf.byteLength > MAX_IMAGE_BYTES) {
+      return { error: NextResponse.json({ variants: [], reason: "Source image exceeds the 8MB size limit" }, { status: 413 }) };
+    }
+    return {
+      mimeType: r.headers.get("content-type") || "image/jpeg",
+      data: buf.toString("base64"),
+    };
+  } catch (err) {
+    return {
+      error: NextResponse.json(
+        { variants: [], reason: `Source image fetch failed: ${err instanceof Error ? err.message : "unknown"}` },
+        { status: 502 },
+      ),
+    };
+  }
 }
 
 export async function POST(req: Request) {
-  if (!(await hasAdminSession())) {
-    return new NextResponse(null, { status: 404 });
-  }
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
+  // Image generation is the most expensive route (N images per call), so
+  // it gets its own tighter rate-limit bucket.
+  const guard = await guardAiRoute({ bucket: "variants", limit: 10 });
+  if (!guard.ok) return guard.response;
+
+  if (!geminiKey()) {
     return NextResponse.json({ variants: [], reason: "GEMINI_API_KEY not configured" });
   }
 
@@ -126,7 +145,7 @@ export async function POST(req: Request) {
   } catch {
     return NextResponse.json({ variants: [], reason: "Invalid JSON body" }, { status: 400 });
   }
-  if (!body.image) {
+  if (!body.image || typeof body.image !== "string") {
     return NextResponse.json({ variants: [], reason: "Missing image" }, { status: 400 });
   }
   if (!Array.isArray(body.scenes) || body.scenes.length === 0) {
@@ -134,8 +153,7 @@ export async function POST(req: Request) {
   }
 
   // Two ways in: a saved SKU (Marketing compose page) or inline item
-  // fields (Add Item page, before the item is saved). Prefer the saved
-  // item when both are present.
+  // fields (Add Item page, before the item is saved).
   const item = (body.sku ? await findBySku(body.sku) : undefined) ?? (body.item ? itemFromInline(body.item) : null);
   if (!item) {
     return NextResponse.json(
@@ -144,50 +162,28 @@ export async function POST(req: Request) {
     );
   }
 
-  const match = /^data:(image\/[a-zA-Z+]+);base64,(.+)$/.exec(body.image);
-  let mimeType: string;
-  let data: string;
-  if (match) {
-    mimeType = match[1];
-    data = match[2];
-  } else if (body.image.startsWith("http") || body.image.startsWith("/")) {
-    // URL reference — fetch + inline.
-    try {
-      const origin = new URL(req.url).origin;
-      const absolute = body.image.startsWith("http") ? body.image : `${origin}${body.image}`;
-      const r = await fetch(absolute);
-      if (!r.ok) throw new Error(`source fetch HTTP ${r.status}`);
-      mimeType = r.headers.get("content-type") || "image/jpeg";
-      const buf = Buffer.from(await r.arrayBuffer());
-      data = buf.toString("base64");
-    } catch (err) {
-      return NextResponse.json(
-        { variants: [], reason: `Source image fetch failed: ${err instanceof Error ? err.message : "unknown"}` },
-        { status: 502 },
-      );
-    }
-  } else {
-    return NextResponse.json({ variants: [], reason: "Source image is not a data URL or fetchable URL" }, { status: 400 });
-  }
+  const src = await resolveSourceImage(req, body.image);
+  if ("error" in src) return src.error;
 
-  const scenes = body.scenes.filter((s): s is string => typeof s === "string" && VALID_KEYS.has(s));
+  const scenes = body.scenes
+    .filter((s): s is string => typeof s === "string" && VALID_KEYS.has(s))
+    .slice(0, MAX_SCENES);
   if (scenes.length === 0) {
     return NextResponse.json({ variants: [], reason: "No valid scenes" }, { status: 400 });
   }
 
   const results = await Promise.all(
-    scenes.map(async (sceneKey): Promise<VariantResult> => {
-      try {
-        const prompt = buildScenePrompt(item, sceneKey as SceneKey);
-        const { image, reason } = await generateOne(apiKey, prompt, mimeType, data);
-        return { scene: sceneKey, image, reason };
-      } catch (err) {
-        return {
-          scene: sceneKey,
-          image: null,
-          reason: err instanceof Error ? err.message : "unknown",
-        };
-      }
+    scenes.map(async (sceneKey) => {
+      const result = await callGemini({
+        model: MODEL,
+        parts: [
+          { text: buildScenePrompt(item, sceneKey as SceneKey) },
+          { inline_data: { mime_type: src.mimeType, data: src.data } },
+        ],
+      });
+      if (!result.ok) return { scene: sceneKey, image: null, reason: result.error };
+      const image = extractInlineImage(result.json);
+      return { scene: sceneKey, image, reason: image ? undefined : "No image in Gemini response" };
     }),
   );
 

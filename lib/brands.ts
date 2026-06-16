@@ -58,11 +58,11 @@ export const BUILDERS = {
 } as const;
 
 export const FOUR_SQUARED = {
-  name: "Four Squared Construction",
-  shortName: "Four Squared",
+  name: "4 Squared",
+  shortName: "4 Squared",
   tagline: "Custom installation and home renovations in central Wisconsin.",
   description:
-    "Four Squared Construction is the install crew for the 825 Washington Street operation. Kitchens, baths, basements, and whole-house remodels in and around Wausau. Two-year labor warranty. Call (715) 848-3855.",
+    "4 Squared is the install crew for the 825 Washington Street operation. Kitchens, baths, basements, and whole-house remodels in and around Wausau. Two-year labor warranty. Call (715) 848-3855.",
   hours: PRICELESS.hours,
   socials: {},
 } as const;

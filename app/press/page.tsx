@@ -29,7 +29,7 @@ const CLIPS: Clip[] = [
     date: "Dec 11, 2025",
     headline: "Wausau business transforms shop into Santa's workshop",
     blurb:
-      "WSAW covered the second annual Santa's Workshop at the Builders Corner showroom. Jamus Baumgardt on the kids: \"The kids loved it. To see the look on their faces and have the parents ask, 'Hey, are you going to do this again?'\"",
+      "WSAW covered the second annual Santa's Workshop at the Builders Corner showroom. The Price-Less team on the kids: \"The kids loved it. To see the look on their faces and have the parents ask, 'Hey, are you going to do this again?'\"",
     href: "https://www.wsaw.com/2025/12/11/wausau-business-transforms-shop-into-santas-workshop/",
     type: "Television",
   },
@@ -41,7 +41,7 @@ const CLIPS: Clip[] = [
     date: "Apr 12, 2025",
     headline: "Easter bunny visits local Wausau business",
     blurb:
-      "WSAW covered the first Easter Bunny visit at Price-Less. Josh Nickel on the day: \"It's pure joy. It's not a staged smile. It's 'Wow, I get to see Santa Claus,' or 'I get to see the Easter Bunny.'\"",
+      "WSAW covered the first Easter Bunny visit at Price-Less. The team on the day: \"It's pure joy. It's not a staged smile. It's 'Wow, I get to see Santa Claus,' or 'I get to see the Easter Bunny.'\"",
     href: "https://www.wsaw.com/2025/04/13/easter-bunny-visits-local-wausau-business/",
     type: "Television",
   },
@@ -53,7 +53,7 @@ const CLIPS: Clip[] = [
     date: "Dec 8, 2024",
     headline: "Local business brings Santa and the North Pole to Wausau",
     blurb:
-      "WSAW covered the first Santa's Workshop at the Builders Corner showroom, after a customer dressed as Santa came in for a front door. Jamus Baumgardt on 125 hours of decorating: \"Growing up, we had the Wausau Center Mall… We feel like we kind of hit it here.\"",
+      "WSAW covered the first Santa's Workshop at the Builders Corner showroom, after a customer dressed as Santa came in for a front door. The team on 125 hours of decorating: \"Growing up, we had the Wausau Center Mall… We feel like we kind of hit it here.\"",
     href: "https://www.wsaw.com/2024/12/09/local-business-brings-santa-north-pole-wausau/",
     type: "Television",
   },
@@ -65,7 +65,7 @@ const CLIPS: Clip[] = [
     date: "Jun 17, 2023",
     headline: "New mural coming to downtown Wausau",
     blurb:
-      "WSAW covered the Build Your Future mural going up on the warehouse wall, painted by 50+ community volunteers under artist Stephanie Kohli. Josh Nickel: \"Trades is a dying breed. So we want to do something that represents what us hard-working guys do.\"",
+      "WSAW covered the Build Your Future mural going up on the warehouse wall, painted by 50+ community volunteers under artist Stephanie Kohli. On the trades: \"Trades is a dying breed. So we want to do something that represents what us hard-working guys do.\"",
     href: "https://www.wsaw.com/2023/06/18/new-mural-coming-downtown-wausau/",
     type: "Television",
   },
@@ -77,7 +77,7 @@ const CLIPS: Clip[] = [
     date: "May 3, 2021",
     headline: "They're building something",
     blurb:
-      "The Business News (North Central WI) profiled the 2019 acquisition of Price-Less by Jamus Baumgardt, Josh Nickel and Justin Jolin, and reported roughly 40% sales growth through 2020.",
+      "The Business News (North Central WI) profiled the 2019 acquisition of Price-Less by Josh Nickel, and reported roughly 40% sales growth through 2020.",
     href: "https://www.readthebusinessnews.com/features/growth_strategies/they-re-building-something/article_70b4788e-a8e3-11eb-ba26-e3a990b7c281.html",
     type: "Print",
   },

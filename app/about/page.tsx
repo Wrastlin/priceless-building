@@ -85,7 +85,7 @@ export default function AboutPage() {
             <div className="text-xs font-semibold uppercase tracking-wider text-[var(--brand-priceless)]">Chapter Two · 2019</div>
             <h2 className="font-display mt-3 text-3xl md:text-4xl">New ownership, same building, same idea.</h2>
             <p className="mt-5 text-[var(--muted-foreground)]">
-              In May 2019, the business was acquired by three partners: Jamus Baumgardt, Josh Nickel, and Justin Jolin. They kept the storefront, the buying relationships, and the focus on surplus inventory.
+              In May 2019, Josh Nickel took over the business. He kept the storefront, the buying relationships, and the focus on surplus inventory.
             </p>
             <p className="mt-4 text-[var(--muted-foreground)]">
               Sales grew roughly 40% through the pandemic year that followed, as central Wisconsin homeowners and contractors leaned harder on local supply. (Source: The Business News, May 2021.)
@@ -112,7 +112,7 @@ export default function AboutPage() {
               <BrandLogo brand="four-squared" size="sm" />
             </div>
             <p className="mt-5 text-[var(--muted-foreground)]">
-              At 825 Washington Street you&apos;ll find three related brands: Price-Less Building Center for discount and surplus retail; Builders Corner Cabinetry &amp; Design for premium custom kitchens and baths; and Four Squared Construction, the install crew that handles full remodels.
+              At 825 Washington Street you&apos;ll find three related brands: Price-Less Building Center for discount and surplus retail; Builders Corner Cabinetry &amp; Design for premium custom kitchens and baths; and 4 Squared, the install crew that handles full remodels.
             </p>
             <p className="mt-4 text-[var(--muted-foreground)]">
               Most projects use more than one. Walk in for a vanity, leave with a designer&apos;s number. Walk in for a quote, leave with a stack of doors.
@@ -139,7 +139,7 @@ export default function AboutPage() {
               &ldquo;Trades is a dying breed. So we want to do something that represents what us hard-working guys do.&rdquo;
             </p>
             <footer className="mt-3 text-xs uppercase tracking-wider text-white/85">
-              Josh Nickel · WSAW NewsChannel 7, June 2023
+              WSAW NewsChannel 7, June 2023
             </footer>
           </blockquote>
           <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
@@ -156,7 +156,7 @@ export default function AboutPage() {
             <Differentiator
               kicker="April 2025"
               title="Easter Bunny visit."
-              body="The first Easter Bunny visit, also covered by WSAW. As Josh told the station: &ldquo;It&apos;s pure joy. It&apos;s not a staged smile.&rdquo;"
+              body="The first Easter Bunny visit, also covered by WSAW. As the team told the station: &ldquo;It&apos;s pure joy. It&apos;s not a staged smile.&rdquo;"
             />
             <Differentiator
               kicker="December 2025"
@@ -172,9 +172,9 @@ export default function AboutPage() {
         <div className="grid items-center gap-12 md:grid-cols-12">
           <div className="md:col-span-7">
             <div className="text-xs font-semibold uppercase tracking-wider text-[var(--brand-priceless)]">Today</div>
-            <h2 className="font-display mt-3 text-3xl md:text-4xl">Run by the partners.</h2>
+            <h2 className="font-display mt-3 text-3xl md:text-4xl">Who runs it.</h2>
             <p className="mt-4 text-[var(--muted-foreground)]">
-              Price-Less Building Center, Builders Corner Cabinetry &amp; Design, and Four Squared Construction share the building at 825 Washington and are run by the partner group. Most customers meet whoever&apos;s on the floor that day, not the same person every time.
+              Price-Less Building Center, Builders Corner Cabinetry &amp; Design, and 4 Squared all share the building at 825 Washington. Josh Nickel is behind all three. On the install side, 4 Squared is Josh and Ty. Most customers meet whoever&apos;s on the floor that day, not the same person every time.
             </p>
             <blockquote className="mt-8 border-l-2 border-[var(--brand-priceless)] pl-5">
               <p className="font-serif text-lg italic leading-snug text-[var(--foreground)] md:text-xl">
@@ -191,8 +191,8 @@ export default function AboutPage() {
           <div className="md:col-span-5">
             <div className="relative aspect-[4/5] w-full overflow-hidden border border-[var(--border)] bg-[var(--muted)]">
               <Image
-                src="/real-photos/letter-new-year-2023.webp"
-                alt="The owners' year-end thank-you letter posted on Facebook, December 2022"
+                src="/real-photos/josh-nickel.png"
+                alt="Josh Nickel, who runs Price-Less, Builders Corner, and 4 Squared."
                 fill
                 sizes="(min-width:768px) 40vw, 100vw"
                 className="object-cover"

@@ -33,6 +33,14 @@ const CONFIGURED =
   !!process.env.NEXT_PUBLIC_SUPABASE_URL &&
   !!process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
+/**
+ * Sandbox demo mode. When NEXT_PUBLIC_SANDBOX=1 every read/write is served
+ * from the in-memory sandbox catalog (sandbox/catalog.json) instead of
+ * Supabase, so the filled demo store renders and the admin is interactive
+ * WITHOUT touching the real database or any payment path. Off by default.
+ */
+const SANDBOX = process.env.NEXT_PUBLIC_SANDBOX === "1";
+
 /** Per-request cookie client (authenticated staff session) for admin reads + writes. */
 async function sessionClient() {
   const { createClient } = await import("@/lib/supabase/server");
@@ -59,6 +67,13 @@ function bustPaths() {
     const { revalidatePath } = require("next/cache") as typeof import("next/cache");
     revalidatePath("/");
     revalidatePath("/shop", "layout");
+    // Explicitly revalidate the DYNAMIC product + category routes by their
+    // route pattern. Without these, a "/shop", "layout" revalidation does
+    // not reliably reach the nested /shop/[category] and /shop/item/[sku]
+    // pages, so a newly published item or a price/copy edit would serve
+    // stale (or 404) on the detail page until the next deploy.
+    revalidatePath("/shop/[category]", "page");
+    revalidatePath("/shop/item/[sku]", "page");
     revalidatePath("/admin/staging");
     revalidatePath("/admin/inventory");
   } catch {
@@ -72,6 +87,15 @@ function bustPaths() {
 type PublishedFilter = { brand?: Brand; category?: Category };
 
 async function queryPublished(filter: PublishedFilter = {}): Promise<CatalogItem[]> {
+  if (SANDBOX) {
+    const { getSandboxItems } = await import("@/lib/items/sandbox-data");
+    return getSandboxItems().filter(
+      (it) =>
+        it.status === "published" &&
+        (filter.brand === undefined || it.brand === filter.brand) &&
+        (filter.category === undefined || it.category === filter.category),
+    );
+  }
   if (!CONFIGURED) {
     return SEED_ITEMS.filter(
       (it) =>
@@ -102,6 +126,11 @@ export async function byCategory(brand: Brand, category: Category): Promise<Cata
 
 /** Public lookup — published items only (storefront product page). */
 export async function findPublished(sku: string): Promise<CatalogItem | undefined> {
+  if (SANDBOX) {
+    const { sandboxFind } = await import("@/lib/items/sandbox-data");
+    const it = sandboxFind(sku);
+    return it && it.status === "published" ? it : undefined;
+  }
   if (!CONFIGURED) return SEED_ITEMS.find((it) => it.sku === sku && it.status === "published");
   const { data, error } = await publicClient()
     .from("items")
@@ -116,6 +145,10 @@ export async function findPublished(sku: string): Promise<CatalogItem | undefine
 // ----- ADMIN READS (authenticated staff, any status) -----
 
 async function listByStatus(status: ItemStatus): Promise<CatalogItem[]> {
+  if (SANDBOX) {
+    const { getSandboxItems } = await import("@/lib/items/sandbox-data");
+    return getSandboxItems().filter((it) => it.status === status);
+  }
   if (!CONFIGURED) return SEED_ITEMS.filter((it) => it.status === status);
   const supabase = await sessionClient();
   const { data, error } = await supabase
@@ -137,6 +170,10 @@ export async function listStaged(): Promise<CatalogItem[]> {
 
 /** Admin lookup — any status. Uses the authenticated session client. */
 export async function findBySku(sku: string): Promise<CatalogItem | undefined> {
+  if (SANDBOX) {
+    const { sandboxFind } = await import("@/lib/items/sandbox-data");
+    return sandboxFind(sku);
+  }
   if (!CONFIGURED) return SEED_ITEMS.find((it) => it.sku === sku);
   const supabase = await sessionClient();
   const { data, error } = await supabase
@@ -155,12 +192,18 @@ export type CreateDraftInput = Omit<CatalogItem, "status" | "createdAt"> & {
 };
 
 export async function createDraft(input: CreateDraftInput): Promise<CatalogItem> {
-  mustBeConfigured("createDraft");
   const item: CatalogItem = {
     ...input,
     status: input.status ?? "draft",
     createdAt: new Date().toISOString(),
   };
+  if (SANDBOX) {
+    const { sandboxUpsert } = await import("@/lib/items/sandbox-data");
+    sandboxUpsert(item);
+    bustPaths();
+    return item;
+  }
+  mustBeConfigured("createDraft");
   const supabase = await sessionClient();
   const { error } = await supabase.from("items").insert({
     sku: item.sku,
@@ -178,6 +221,15 @@ export async function createDraft(input: CreateDraftInput): Promise<CatalogItem>
 }
 
 export async function setStatus(sku: string, status: ItemStatus): Promise<CatalogItem> {
+  if (SANDBOX) {
+    const { sandboxFind, sandboxUpsert } = await import("@/lib/items/sandbox-data");
+    const existing = sandboxFind(sku);
+    if (!existing) throw new Error(`setStatus: no item with sku "${sku}"`);
+    const next: CatalogItem = { ...existing, status };
+    sandboxUpsert(next);
+    bustPaths();
+    return next;
+  }
   mustBeConfigured("setStatus");
   const existing = await findBySku(sku);
   if (!existing) throw new Error(`setStatus: no item with sku "${sku}"`);
@@ -190,6 +242,15 @@ export async function setStatus(sku: string, status: ItemStatus): Promise<Catalo
 }
 
 export async function updateItem(sku: string, partial: Partial<CatalogItem>): Promise<CatalogItem> {
+  if (SANDBOX) {
+    const { sandboxFind, sandboxUpsert } = await import("@/lib/items/sandbox-data");
+    const existing = sandboxFind(sku);
+    if (!existing) throw new Error(`updateItem: no item with sku "${sku}"`);
+    const next: CatalogItem = { ...existing, ...partial, sku: existing.sku };
+    sandboxUpsert(next);
+    bustPaths();
+    return next;
+  }
   mustBeConfigured("updateItem");
   const existing = await findBySku(sku);
   if (!existing) throw new Error(`updateItem: no item with sku "${sku}"`);
@@ -211,6 +272,12 @@ export async function updateItem(sku: string, partial: Partial<CatalogItem>): Pr
 }
 
 export async function deleteItem(sku: string): Promise<void> {
+  if (SANDBOX) {
+    const { sandboxDelete } = await import("@/lib/items/sandbox-data");
+    sandboxDelete(sku);
+    bustPaths();
+    return;
+  }
   mustBeConfigured("deleteItem");
   const supabase = await sessionClient();
   const { error } = await supabase.from("items").delete().eq("sku", sku);

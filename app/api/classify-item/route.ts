@@ -12,23 +12,27 @@
  * one prompt, so a wide shot of the item + a close-up of the tag
  * combine into a single richer classification.
  *
- * Context: optional free-text the staffer adds before snapping (e.g.
- * "30-inch hollow-core interior door, slight scuff on bottom"). Gets
- * appended to the prompt for the model to use.
- *
- * Uses Gemini 3.1 Pro Preview per CLAUDE.md global rule. Degrades
- * gracefully if GEMINI_API_KEY is absent so the form still works
- * (the staffer just fills the fields manually).
+ * Auth + rate limiting via guardAiRoute(); the Gemini call (key header,
+ * timeout, retry, error mapping) goes through lib/ai/gemini.ts.
+ * Uses Gemini 3.1 Pro Preview per the CLAUDE.md global rule.
  */
 
 import { NextResponse } from "next/server";
-import { hasAdminSession } from "@/lib/auth/session";
+import { guardAiRoute } from "@/lib/ai/guard";
+import {
+  callGemini,
+  extractText,
+  geminiKey,
+  imageTooLarge,
+  MAX_IMAGES,
+  parseDataUrl,
+  type ParsedImage,
+} from "@/lib/ai/gemini";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
 const MODEL = "gemini-3.1-pro-preview";
-const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 
 const VALID_CATEGORIES = [
   "doors",
@@ -67,11 +71,10 @@ Rules:
 - estimatedRetail must be a single number, no ranges, no currency symbols, no commas.`;
 
 export async function POST(req: Request) {
-  if (!(await hasAdminSession())) {
-    return new NextResponse(null, { status: 404 });
-  }
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
+  const guard = await guardAiRoute();
+  if (!guard.ok) return guard.response;
+
+  if (!geminiKey()) {
     return NextResponse.json({ suggestion: null, reason: "GEMINI_API_KEY not configured" });
   }
 
@@ -90,80 +93,67 @@ export async function POST(req: Request) {
   if (imgs.length === 0) {
     return NextResponse.json({ suggestion: null, reason: "Missing image(s)" }, { status: 400 });
   }
-  const parsedImages: { mimeType: string; data: string }[] = [];
-  for (const img of imgs.slice(0, 6)) {
-    const m = /^data:(image\/[a-zA-Z+]+);base64,(.+)$/.exec(img);
-    if (!m) continue;
-    parsedImages.push({ mimeType: m[1], data: m[2] });
+  const parsedImages: ParsedImage[] = [];
+  for (const img of imgs.slice(0, MAX_IMAGES)) {
+    const p = parseDataUrl(img);
+    if (!p) continue;
+    if (imageTooLarge(p)) {
+      return NextResponse.json(
+        { suggestion: null, reason: "An image exceeds the 8MB size limit" },
+        { status: 413 },
+      );
+    }
+    parsedImages.push(p);
   }
   if (parsedImages.length === 0) {
     return NextResponse.json({ suggestion: null, reason: "No valid base64 data URLs" }, { status: 400 });
   }
   const context = typeof body.context === "string" ? body.context.trim().slice(0, 500) : "";
 
-  const parts: { text?: string; inline_data?: { mime_type: string; data: string } }[] = [
-    {
-      text: `${PROMPT}\n\nNumber of source photos in this analysis: ${parsedImages.length}. Treat them as different angles or close-ups (e.g. wide shot + tag close-up) of the SAME single item.${context ? `\n\nADDITIONAL CONTEXT FROM STAFFER (use this — it overrides what you'd otherwise infer):\n${context}` : ""}`,
-    },
-    ...parsedImages.map((img) => ({
-      inline_data: { mime_type: img.mimeType, data: img.data },
-    })),
-  ];
+  const result = await callGemini({
+    model: MODEL,
+    parts: [
+      {
+        text: `${PROMPT}\n\nNumber of source photos in this analysis: ${parsedImages.length}. Treat them as different angles or close-ups (e.g. wide shot + tag close-up) of the SAME single item.${context ? `\n\nADDITIONAL CONTEXT FROM STAFFER (use this — it overrides what you'd otherwise infer):\n${context}` : ""}`,
+      },
+      ...parsedImages.map((img) => ({
+        inline_data: { mime_type: img.mimeType, data: img.data },
+      })),
+    ],
+    generationConfig: { temperature: 0.2, response_mime_type: "application/json" },
+  });
 
-  try {
-    const res = await fetch(`${ENDPOINT}?key=${apiKey}`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts }],
-        generationConfig: {
-          temperature: 0.2,
-          response_mime_type: "application/json",
-        },
-      }),
-    });
-    if (!res.ok) {
-      const txt = await res.text().catch(() => "");
-      return NextResponse.json(
-        { suggestion: null, reason: `Gemini ${res.status}: ${txt.slice(0, 200)}` },
-        { status: 502 },
-      );
-    }
-    const json = (await res.json()) as {
-      candidates?: { content?: { parts?: { text?: string }[] } }[];
-    };
-    const text = json.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!text) {
-      return NextResponse.json({ suggestion: null, reason: "No text in Gemini response" });
-    }
-    let parsed: Suggestion;
-    try {
-      parsed = JSON.parse(text) as Suggestion;
-    } catch {
-      return NextResponse.json({ suggestion: null, reason: "Gemini returned non-JSON" });
-    }
-    // Sanitize.
-    const suggestion: Suggestion = {
-      title: clean(parsed.title),
-      subtitle: clean(parsed.subtitle),
-      category:
-        parsed.category && (VALID_CATEGORIES as readonly string[]).includes(parsed.category)
-          ? parsed.category
-          : undefined,
-      manufacturer: clean(parsed.manufacturer),
-      dimensions: clean(parsed.dimensions),
-      estimatedRetail:
-        typeof parsed.estimatedRetail === "number" && parsed.estimatedRetail > 0
-          ? Math.round(parsed.estimatedRetail)
-          : undefined,
-    };
-    return NextResponse.json({ suggestion });
-  } catch (err) {
-    return NextResponse.json(
-      { suggestion: null, reason: err instanceof Error ? err.message : "unknown" },
-      { status: 502 },
-    );
+  if (!result.ok) {
+    return NextResponse.json({ suggestion: null, reason: result.error }, { status: 502 });
   }
+  const text = extractText(result.json);
+  if (!text) {
+    return NextResponse.json({ suggestion: null, reason: "No text in Gemini response" });
+  }
+  let parsed: Suggestion;
+  try {
+    parsed = JSON.parse(text) as Suggestion;
+  } catch {
+    return NextResponse.json({ suggestion: null, reason: "Gemini returned non-JSON" });
+  }
+  return NextResponse.json({ suggestion: sanitize(parsed) });
+}
+
+function sanitize(parsed: Suggestion): Suggestion {
+  return {
+    title: clean(parsed.title),
+    subtitle: clean(parsed.subtitle),
+    category:
+      parsed.category && (VALID_CATEGORIES as readonly string[]).includes(parsed.category)
+        ? parsed.category
+        : undefined,
+    manufacturer: clean(parsed.manufacturer),
+    dimensions: clean(parsed.dimensions),
+    estimatedRetail:
+      typeof parsed.estimatedRetail === "number" && parsed.estimatedRetail > 0
+        ? Math.round(parsed.estimatedRetail)
+        : undefined,
+  };
 }
 
 function clean(v?: string): string | undefined {

@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title:
       "Builders Corner · Custom kitchens, baths, and remodels in Wausau, WI",
     description:
-      "Premium custom cabinetry designed and built in Wausau. Designed with you in the showroom, built and finished in our shop, installed by Four Squared.",
+      "Premium custom cabinetry designed and built in Wausau. Designed with you in the showroom, built and finished in our shop, installed by 4 Squared.",
     url: "https://pricelessbuilding.com/builders-corner",
     type: "website",
     images: [
@@ -43,11 +43,12 @@ export const metadata: Metadata = {
   },
 };
 
-const HERO = "/real-photos/business/white-kitchen-marble-island.jpg";
+const HERO = "/real-photos/builders-corner-hero.jpg";
 
 // Hero crossfade deck. Pulled from clean Facebook-archive install
 // photos rather than the older low-res webp thumbnails.
 const HERO_DECK: HeroPhotoSource[] = [
+  { src: "/real-photos/builders-corner-hero.jpg", alt: "A custom Builders Corner kitchen with dark shaker cabinetry and a marble waterfall island." },
   { src: "/real-photos/business/white-kitchen-marble-island.jpg", alt: "A custom Builders Corner kitchen with white cabinetry and a marble-top island." },
   { src: "/real-photos/business/kitchen-island-wood-cabinets-range.jpg", alt: "Custom wood-cabinet kitchen with a large island and gas range." },
   { src: "/real-photos/business/dark-cabinet-kitchen-install.jpg", alt: "Dark-cabinet kitchen with pendant lighting and quartz counters." },
@@ -91,10 +92,10 @@ const SHOWROOM = [
 ];
 
 const STEPS = [
-  { n: "01", t: "Free consultation", b: "Showroom visit or we come to your home. Bring photos or just an idea." },
-  { n: "02", t: "Design with you", b: "We measure, draw your room, and walk you through real samples." },
-  { n: "03", t: "Build in the shop", b: "Doors, drawers, and finishes built locally in Wausau." },
-  { n: "04", t: "Installed by Four Squared", b: "The install crew sets the cabinets and walks the punch list with you." },
+  { n: "01", t: "Free consultation", b: "Showroom visit or we come to your home. Bring photos or just an idea.", img: "/real-photos/business/staff-member-showroom-display.webp" },
+  { n: "02", t: "Design with you", b: "We measure, draw your room, and walk you through real samples.", img: "/real-photos/business/light-wood-cabinet-display.jpg" },
+  { n: "03", t: "Build in the shop", b: "Doors, drawers, and finishes built locally in Wausau.", img: "/real-photos/business/unfinished-wood-cabinet-workshop.jpg" },
+  { n: "04", t: "Installed by 4 Squared", b: "The install crew sets the cabinets and walks the punch list with you.", img: "/real-photos/business/dark-cabinet-kitchen-install.jpg" },
 ];
 
 const BC_JSON_LD = {
@@ -103,7 +104,7 @@ const BC_JSON_LD = {
   "@id": "https://pricelessbuilding.com/builders-corner#org",
   name: "Builders Corner Cabinetry & Design",
   description:
-    "Premium custom cabinetry, kitchen and bath design, and built-ins in Wausau, Wisconsin. Designed and built locally since 1983, installed by Four Squared.",
+    "Premium custom cabinetry, kitchen and bath design, and built-ins in Wausau, Wisconsin. Designed and built locally since 1983, installed by 4 Squared.",
   url: "https://pricelessbuilding.com/builders-corner",
   telephone: "+1-715-848-3855",
   priceRange: "$$$",
@@ -185,7 +186,7 @@ export default function BuildersCornerPage() {
                 Premium custom cabinetry, designed and built in Wausau.
               </h1>
               <p className="mt-7 max-w-xl text-lg leading-[1.7] text-white/90 md:text-xl">
-                If you are thinking about a kitchen, a bath, or a built-in that is genuinely yours, this is where to start. We sit down with you in the showroom, draw your room out together, build the cabinets in our own shop, and the Four Squared crew installs them. There is no pressure to start big. Small projects are welcome too.
+                If you are thinking about a kitchen, a bath, or a built-in that is genuinely yours, this is where to start. We sit down with you in the showroom, draw your room out together, build the cabinets in our own shop, and the 4 Squared crew installs them. There is no pressure to start big. Small projects are welcome too.
               </p>
               <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
                 <Link
@@ -222,7 +223,7 @@ export default function BuildersCornerPage() {
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
             headline={<>What we make.</>}
-            sub="Custom cabinetry for kitchens, baths, and the rest of the house. Designed and built here, installed by the Four Squared crew."
+            sub="Custom cabinetry for kitchens, baths, and the rest of the house. Designed and built here, installed by the 4 Squared crew."
           />
 
           <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -273,6 +274,16 @@ export default function BuildersCornerPage() {
                 data-reveal-delay={(i * 0.05).toFixed(2)}
                 className="bg-[#0b1220] p-6"
               >
+                <div className="relative mb-5 aspect-[4/3] overflow-hidden">
+                  <Image
+                    src={s.img}
+                    alt={s.t}
+                    fill
+                    className="object-cover"
+                    sizes="(min-width:768px) 25vw, 100vw"
+                    quality={72}
+                  />
+                </div>
                 <div className="font-display text-3xl leading-none text-[#ff8b85]">
                   {s.n}
                 </div>

@@ -2,7 +2,7 @@
 
 /**
  * <InquiryForm /> — public lead-capture form for Builders Corner and
- * Four Squared.
+ * 4 Squared.
  *
  * The form posts to `submitInquiryAction` in lib/actions/inquiry.ts
  * which appends a JSON record to data/inquiries.json. On success the
@@ -11,7 +11,7 @@
  *
  * Styling is driven by a `brand` prop so we get one component, two
  * looks: navy + gold serif for Builders Corner, near-black + emerald
- * for Four Squared.
+ * for 4 Squared.
  */
 
 import { useRef, useState, useTransition } from "react";
@@ -53,7 +53,7 @@ const COPY: Record<
     heading: "Tell us about your project.",
     intro:
       "Walkthroughs, estimates, design help. We read every one ourselves.",
-    submitLabel: "Send to Four Squared",
+    submitLabel: "Send to 4 Squared",
   },
 };
 

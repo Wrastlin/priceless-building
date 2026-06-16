@@ -45,7 +45,7 @@ const SECTIONS: Section[] = [
     tone: "cool",
     links: [
       { href: "/builders-corner", label: "Read the article" },
-      { href: "/four-squared", label: "Four Squared install crew" },
+      { href: "/four-squared", label: "4 Squared install crew" },
       { href: "/contact", label: "Visit the showroom" },
     ],
   },

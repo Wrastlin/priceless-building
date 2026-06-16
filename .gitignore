@@ -23,6 +23,11 @@ next-env.d.ts
 # raw walkthrough footage + extracted frames (too big for git)
 footage/
 
+# sandbox demo build (python venv, generated catalog, frames, clips, video) — not for prod
+sandbox/
+public/sandbox/
+_archive/lab-experiments-2026-06-14/
+
 # file-backed item store (dev source of truth; prod moves to Supabase)
 data/
 data/items.json

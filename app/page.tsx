@@ -30,16 +30,16 @@ const TIMELINE: TimelineEvent[] = [
     year: "1983",
     title: "Builders Corner Cabinetry & Design founded.",
     body: "A custom cabinet shop opens in Wausau, specializing in kitchens, baths, and built-ins designed and finished locally.",
-    image: "/real-photos/team-josh-jamus-portrait.webp",
-    imageAlt: "Owner Josh Nickel of Builders Corner Cabinetry & Design.",
+    image: "/real-photos/business/wood-cabinet-kitchen-display.jpg",
+    imageAlt: "Custom cabinetry by Builders Corner Cabinetry & Design.",
   },
   {
     year: "2019",
     month: "May",
-    title: "A partner group acquires both businesses.",
-    body: "A three-person partnership buys Price-Less Building Center and Builders Corner Cabinetry & Design. The two storefronts keep their separate identities.",
-    image: "/real-photos/building-exterior.webp",
-    imageAlt: "The exterior of the building that houses Price-Less and Builders Corner.",
+    title: "Josh Nickel takes over both businesses.",
+    body: "Josh Nickel takes the reins at Price-Less Building Center and Builders Corner Cabinetry & Design. The two storefronts keep their separate identities.",
+    image: "/real-photos/josh-nickel.png",
+    imageAlt: "Josh Nickel, who took over Price-Less and Builders Corner in 2019.",
     source: {
       label: "Read the 2021 Business News profile",
       url: "https://www.readthebusinessnews.com/features/growth_strategies/they-re-building-something/article_70b4788e-a8e3-11eb-ba26-e3a990b7c281.html",
@@ -85,7 +85,7 @@ const TIMELINE: TimelineEvent[] = [
 
 // JSON-LD structured data for the home page. Tells search engines and
 // LLMs that this is one local business with two related departments
-// (Builders Corner + Four Squared), the address, phone, hours, areas
+// (Builders Corner + 4 Squared), the address, phone, hours, areas
 // served, aggregated rating, and the high-level offer catalog. The
 // goal is for any AI-powered or organic search for "kitchen remodel
 // Wausau", "discount building materials Wisconsin", or "custom
@@ -164,7 +164,7 @@ const HOME_JSON_LD = {
     {
       "@type": "LocalBusiness",
       "@id": "https://pricelessbuilding.com/four-squared#org",
-      name: "Four Squared Construction",
+      name: "4 Squared",
       url: "https://pricelessbuilding.com/four-squared",
       description:
         "Professional installation crew for custom kitchen remodels, bath remodels, and full home renovations in central Wisconsin.",

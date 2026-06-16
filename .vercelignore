@@ -1,0 +1,9 @@
+# Heavy / non-app working dirs — never deploy these.
+sandbox
+footage
+public/sandbox
+.research
+_archive
+.playwright-mcp
+.audit
+tools

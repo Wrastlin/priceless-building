@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     "remodeling contractor Marathon County",
     "interior design Wausau",
     "Builders Corner",
-    "Four Squared Construction",
+    "4 Squared",
     "Price-Less Building Center",
   ],
   applicationName: "Price-Less Building",

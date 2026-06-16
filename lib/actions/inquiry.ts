@@ -137,7 +137,7 @@ export async function submitInquiryAction(formData: FormData): Promise<InquiryRe
 
   if (resendKey) {
     try {
-      const subject = `New ${entry.brand === "builders" ? "Builders Corner" : "Four Squared"} inquiry: ${entry.need}`;
+      const subject = `New ${entry.brand === "builders" ? "Builders Corner" : "4 Squared"} inquiry: ${entry.need}`;
       const text = [
         `New inquiry · ${entry.id}`,
         `Brand: ${entry.brand}`,
