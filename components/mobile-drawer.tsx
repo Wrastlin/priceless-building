@@ -114,7 +114,7 @@ export function MobileDrawer({
           </button>
         </div>
 
-        <nav className="flex-1 overflow-y-auto px-2 py-2">
+        <nav className="flex-1 min-h-0 overflow-y-auto px-2 py-2">
           <ul className="flex flex-col">
             {nav.map((n) => (
               <li key={n.href}>
