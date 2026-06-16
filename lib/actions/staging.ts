@@ -213,6 +213,16 @@ export type EditableItemFields = Partial<{
   inStock: number;
 }>;
 
+/**
+ * Toggle whether an item is featured. Featured published items make up the
+ * pool the home page rotates through. Used by the admin Featured manager.
+ */
+export async function setFeaturedAction(sku: string, featured: boolean): Promise<void> {
+  await requireAdminSession();
+  const { updateItem } = await import("@/lib/items/store");
+  await updateItem(sku, { featured });
+}
+
 export async function updateItemDetailsAction(
   sku: string,
   fields: EditableItemFields,

@@ -31,6 +31,8 @@ export interface CatalogItem {
   staged?: string;
   gallery?: string[];
   badges?: string[];
+  /** Hand-picked (or, later, algorithm-picked) flag; the home page rotates the featured pool. */
+  featured?: boolean;
   location?: string;
   inStock: number;
   manufacturer?: string;

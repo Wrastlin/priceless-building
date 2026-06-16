@@ -11,7 +11,11 @@ const config: NextConfig = {
     // Re-enable optimization (drop this line) only after upgrading the Vercel
     // plan or wiring an external image loader.
     unoptimized: true,
-    remotePatterns: [],
+    remotePatterns: [
+      { protocol: "https", hostname: "jlacypqvbajwzvgiseia.supabase.co" },
+      { protocol: "https", hostname: "**.supabase.co" },
+      { protocol: "https", hostname: "**.gstatic.com" },
+    ],
     qualities: [50, 55, 60, 65, 70, 75, 80, 85, 90, 92, 95, 100],
   },
 };

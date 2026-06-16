@@ -16,7 +16,7 @@ import { WalkthroughBand } from "@/components/walkthrough-band";
 import { BrandStatement } from "@/components/brand-statement";
 import { GOOGLE_RATING } from "@/lib/google-reviews";
 import { ADDRESS, PRICELESS } from "@/lib/brands";
-import { CATEGORIES, byCategory } from "@/lib/catalog";
+import { CATEGORIES, byCategory, listFeatured } from "@/lib/catalog";
 
 const TIMELINE: TimelineEvent[] = [
   {
@@ -187,10 +187,20 @@ export default async function HomePage() {
   // catalog band shows real variety instead of just the first eight
   // items by id.
   const categoryKeys = Object.keys(CATEGORIES) as (keyof typeof CATEGORIES)[];
-  const perCategory = await Promise.all(
-    categoryKeys.map((cat) => byCategory("priceless", cat)),
-  );
-  const items = perCategory.flatMap((list) => list.slice(0, 2)).slice(0, 12);
+  // Home grid: rotate a fresh subset from the featured pool when it's large
+  // enough; otherwise fall back to a mixed pull across categories.
+  const featuredPool = await listFeatured();
+  let items;
+  if (featuredPool.length >= 8) {
+    const day = Math.floor(Date.now() / 86_400_000);
+    const start = (day * 12) % featuredPool.length;
+    items = [...featuredPool.slice(start), ...featuredPool.slice(0, start)].slice(0, 12);
+  } else {
+    const perCategory = await Promise.all(
+      categoryKeys.map((cat) => byCategory("priceless", cat)),
+    );
+    items = perCategory.flatMap((list) => list.slice(0, 2)).slice(0, 12);
+  }
   return (
     <>
       <script

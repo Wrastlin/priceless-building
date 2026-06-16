@@ -14,6 +14,7 @@
  */
 import {
   listPublished,
+  listFeatured as _listFeatured,
   findPublished,
   byBrand as _byBrand,
   byCategory as _byCategory,
@@ -32,6 +33,11 @@ export type { CatalogItem, Category, Brand, ItemStatus } from "@/lib/catalog-met
  */
 export async function listCatalog() {
   return listPublished();
+}
+
+/** Published items flagged featured (home-page featured pool). */
+export async function listFeatured() {
+  return _listFeatured();
 }
 
 export function byBrand(brand: Parameters<typeof _byBrand>[0]) {

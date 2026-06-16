@@ -116,6 +116,11 @@ export async function listPublished(): Promise<CatalogItem[]> {
   return queryPublished();
 }
 
+/** Published items flagged featured (the home-page featured pool). */
+export async function listFeatured(): Promise<CatalogItem[]> {
+  return (await queryPublished()).filter((it) => it.featured === true);
+}
+
 export async function byBrand(brand: Brand): Promise<CatalogItem[]> {
   return queryPublished({ brand });
 }

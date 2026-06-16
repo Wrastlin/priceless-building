@@ -13,7 +13,15 @@ import { ProductGallery } from "@/components/product-gallery";
 const SITE_URL = "https://pricelessbuilding.com";
 
 export async function generateStaticParams() {
-  return (await listCatalog()).map((c) => ({ sku: c.sku }));
+  // With a large catalog, prerendering every item would make the build
+  // enormous. Prerender only the featured pool + the most recent items;
+  // everything else renders on-demand (dynamicParams) and is then ISR-cached.
+  const all = await listCatalog();
+  const seen = new Set<string>();
+  return [...all.filter((c) => c.featured), ...all.slice(0, 60)]
+    .filter((c) => (seen.has(c.sku) ? false : (seen.add(c.sku), true)))
+    .slice(0, 100)
+    .map((c) => ({ sku: c.sku }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ sku: string }> }): Promise<Metadata> {
