@@ -140,11 +140,10 @@ export default async function ContactPage({
             <h2 className="font-display mt-2 text-2xl md:text-3xl">Coming in for a load?</h2>
             <p className="mt-4 text-[var(--muted-foreground)]">
               Call ahead and we'll have your will-call staged at the back bay. Forklift on site,
-              72-hour holds, net-30 terms available for licensed contractors.
+              72-hour holds on paid items.
             </p>
             <ul className="mt-4 space-y-2 text-sm">
               <li>Will-call &amp; holds: <a className="underline" href="tel:+17158483855">{ADDRESS.phone}</a></li>
-              <li>Contractor accounts: <a className="underline" href="mailto:pricelessbuildingcenter@gmail.com?subject=Contractor%20account%20inquiry">pricelessbuildingcenter@gmail.com</a></li>
               <li>Wholesale &amp; bulk: <a className="underline" href="mailto:pricelessbuildingcenter@gmail.com?subject=Wholesale%20or%20bulk%20inquiry">pricelessbuildingcenter@gmail.com</a></li>
             </ul>
           </div>
@@ -161,7 +160,7 @@ export default async function ContactPage({
                 title="Map to Price-Less Building Center"
                 src="https://www.google.com/maps?q=825+Washington+St+Wausau+WI&output=embed"
                 className="h-full w-full border-0"
-                loading="lazy"
+                loading="eager"
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>

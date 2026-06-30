@@ -16,3 +16,10 @@ export function formatCurrency(amount: number): string {
 export function formatSKU(prefix: string, n: number): string {
   return `${prefix}-${String(n).padStart(6, "0")}`;
 }
+
+/** Parse a `?page=` search param into a 1-based page number (defaults to 1). */
+export function parsePage(raw?: string | string[]): number {
+  const value = Array.isArray(raw) ? raw[0] : raw;
+  const n = Number.parseInt(value ?? "1", 10);
+  return Number.isFinite(n) && n > 0 ? n : 1;
+}

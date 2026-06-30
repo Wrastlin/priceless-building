@@ -2,12 +2,14 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ProductCard } from "@/components/product-card";
-import { listCatalog, CATEGORIES } from "@/lib/catalog";
+import { Pagination } from "@/components/pagination";
+import { listCatalog, CATEGORIES, DEFAULT_PAGE_SIZE } from "@/lib/catalog";
+import { parsePage } from "@/lib/utils";
 
-export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
+export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string; page?: string }> }) {
   const sp = await searchParams;
   const q = (sp.q ?? "").trim();
-  const results = q
+  const matches = q
     ? (await listCatalog()).filter((c) =>
         c.title.toLowerCase().includes(q.toLowerCase()) ||
         c.subtitle.toLowerCase().includes(q.toLowerCase()) ||
@@ -15,6 +17,11 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         c.category.toLowerCase().includes(q.toLowerCase()),
       )
     : [];
+  // Paginate the matches so a broad search ("doors") renders one page of
+  // cards, not hundreds at once.
+  const totalPages = Math.max(1, Math.ceil(matches.length / DEFAULT_PAGE_SIZE));
+  const current = Math.min(parsePage(sp.page), totalPages);
+  const results = matches.slice((current - 1) * DEFAULT_PAGE_SIZE, current * DEFAULT_PAGE_SIZE);
 
   return (
     <>
@@ -69,17 +76,21 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         ) : (
           <div className="mt-10">
             <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
-              {results.length} result{results.length === 1 ? "" : "s"} · "{q}"
+              {matches.length} result{matches.length === 1 ? "" : "s"} · "{q}"
             </div>
-            {results.length === 0 ? (
+            {matches.length === 0 ? (
               <div className="mt-8 border-y py-16 text-center">
                 <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">No match</div>
                 <p className="font-serif mt-3 text-2xl italic">Try a department name (doors, windows, cabinets) or a SKU.</p>
               </div>
             ) : (
-              <div className="mt-8 grid grid-cols-1 gap-px bg-[var(--border)] sm:grid-cols-2 lg:grid-cols-4">
-                {results.map((it) => <ProductCard key={it.id} item={it} />)}
-              </div>
+              <>
+                <div className="mt-8 grid grid-cols-1 gap-px bg-[var(--border)] sm:grid-cols-2 lg:grid-cols-4">
+                  {results.map((it, i) => <ProductCard key={it.id} item={it} priority={i < 4} />)}
+                </div>
+
+                <Pagination basePath="/search" page={current} totalPages={totalPages} query={{ q }} />
+              </>
             )}
           </div>
         )}

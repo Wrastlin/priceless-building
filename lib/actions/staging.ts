@@ -148,14 +148,8 @@ export async function createDraftFromFormAction(formData: FormData): Promise<voi
 
   const brand = deriveBrand(category);
   const prefix = brand === "builders" ? "BC" : "PL";
-  // Time-based suffix for uniqueness without a counter.
-  const suffix = Math.floor(Date.now() / 1000) % 1_000_000;
-  const sku = formatSKU(prefix, suffix);
-  const id = sku.toLowerCase();
 
-  const draft: Omit<CatalogItem, "status" | "createdAt"> = {
-    id,
-    sku,
+  const baseDraft: Omit<CatalogItem, "status" | "createdAt" | "id" | "sku"> = {
     brand,
     category,
     title,
@@ -175,7 +169,30 @@ export async function createDraftFromFormAction(formData: FormData): Promise<voi
     createdBy: "floor staff",
   };
 
-  await createDraft(draft);
+  // Allocate a unique SKU with retry. The items table has a UNIQUE constraint
+  // on sku (createDraft surfaces a clear "already exists" error on duplicate),
+  // so we retry with a fresh suffix instead of losing the save. The old
+  // per-second suffix collided whenever two items were saved in the same
+  // second — normal during batch scanning, or with two staffers at once. A
+  // millisecond clock plus per-attempt jitter makes a repeat collision
+  // vanishingly unlikely within the retry budget.
+  let created = false;
+  for (let attempt = 0; attempt < 8 && !created; attempt++) {
+    const suffix = (Date.now() + Math.floor(Math.random() * 1_000_000)) % 1_000_000;
+    const sku = formatSKU(prefix, suffix);
+    try {
+      await createDraft({ ...baseDraft, id: sku.toLowerCase(), sku });
+      created = true;
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (msg.includes("already exists")) continue; // SKU collision — try a new suffix
+      throw err; // any other failure bubbles up
+    }
+  }
+  if (!created) {
+    throw new Error("Couldn't generate a unique SKU after several tries — please save again.");
+  }
+
   redirect("/admin/staging");
 }
 
@@ -221,6 +238,18 @@ export async function setFeaturedAction(sku: string, featured: boolean): Promise
   await requireAdminSession();
   const { updateItem } = await import("@/lib/items/store");
   await updateItem(sku, { featured });
+}
+
+/**
+ * Set an item's on-hand quantity. Powers the inline +/- stock steppers on
+ * the Inventory list so staff can adjust counts from the floor without
+ * opening the edit screen. Clamps to a non-negative integer.
+ */
+export async function updateStockAction(sku: string, inStock: number): Promise<void> {
+  await requireAdminSession();
+  const qty = Math.max(0, Math.floor(Number(inStock) || 0));
+  const { updateItem } = await import("@/lib/items/store");
+  await updateItem(sku, { inStock: qty });
 }
 
 export async function updateItemDetailsAction(

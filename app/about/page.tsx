@@ -195,7 +195,7 @@ export default function AboutPage() {
                 alt="Josh Nickel, who runs Price-Less, Builders Corner, and 4 Squared."
                 fill
                 sizes="(min-width:768px) 40vw, 100vw"
-                className="object-cover"
+                className="object-cover object-top"
               />
             </div>
           </div>

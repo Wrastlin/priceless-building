@@ -115,7 +115,7 @@ export default function FourSquaredPage() {
                 alt="Josh Nickel, co-owner and the face behind Price-Less, Builders Corner, and 4 Squared."
                 width={760}
                 height={960}
-                className="h-auto w-full object-cover"
+                className="h-auto w-full object-cover object-top"
                 priority
               />
             </div>
@@ -145,13 +145,19 @@ export default function FourSquaredPage() {
             headline="See the work on Facebook."
             sub="Real finished 4 Squared projects, straight from the crew's own page."
           />
-          <div className="mt-8 flex justify-center">
+          {/* Constrain to the plugin's render width and let it fill the
+              container (adapt_container_width=true) so the right edge never
+              clips on narrow screens. loading="lazy" keeps the heavy embed
+              from blocking first paint. */}
+          <div className="mx-auto mt-8 w-full max-w-[500px]">
             <iframe
               title="4 Squared on Facebook"
               src={FB_PLUGIN}
+              loading="eager"
               width={500}
               height={720}
-              style={{ border: "none", overflow: "hidden", maxWidth: "100%" }}
+              className="w-full"
+              style={{ border: "none", overflow: "hidden" }}
               scrolling="no"
               frameBorder="0"
               allowFullScreen
@@ -194,7 +200,7 @@ export default function FourSquaredPage() {
                     src={p.img}
                     alt={p.name}
                     fill
-                    className="object-cover"
+                    className="object-cover object-top"
                     sizes="(min-width:768px) 25vw, 100vw"
                     quality={72}
                   />

@@ -52,7 +52,6 @@ const SITE_NAV: { href: string; label: string }[] = [
   { href: "/contact", label: "Visit + contact" },
   { href: "/blog", label: "Blog" },
   { href: "/faq", label: "FAQ" },
-  { href: "/contractors", label: "Contractor accounts" },
 ];
 
 export function MainMenu({
@@ -140,9 +139,32 @@ export function MainMenu({
         </div>
 
         <div data-lenis-prevent className="flex-1 min-h-0 overflow-y-auto overscroll-contain">
+          {/* Customer account. First thing in the drawer so signing in or
+              creating an account is always available, matching the account
+              button up in the header. */}
+          <section className="px-5 pt-5">
+            <Link
+              href="/account"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-3 rounded-md border border-[var(--border)] px-4 py-3 transition hover:border-[var(--foreground)]/30 hover:bg-[var(--muted)]"
+            >
+              <span className="grid size-9 shrink-0 place-items-center rounded-full bg-[var(--muted)] text-[var(--foreground)]">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </span>
+              <span className="flex flex-1 flex-col leading-tight">
+                <span className="font-semibold">My account</span>
+                <span className="text-sm text-[var(--muted-foreground)]">Sign in or create an account</span>
+              </span>
+              <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">→</span>
+            </Link>
+          </section>
+
           {/* Primary paths. The four entry points people actually want:
               shop, cabinetry, installs, start-a-project. */}
-          <section className="px-5 pt-5">
+          <section className="px-5 pt-4">
             <ul className="flex flex-col gap-2.5">
               {PRIMARY_PATHS.map((p) => (
                 <li key={p.href}>
