@@ -66,7 +66,7 @@ export function StoreShowcase() {
         <div className="mt-12 grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2">
           {DEPTS.map((key) => {
             const cat = CATEGORIES[key];
-            const { typeCount, priceFrom, brandCount } = deptStats(key);
+            const { priceFrom } = deptStats(key);
             const thumbs = thumbsByKey.get(key) ?? [];
             return (
               <div key={key}>
@@ -85,11 +85,11 @@ export function StoreShowcase() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
                   <div className="absolute inset-x-5 bottom-4 flex items-end justify-between gap-4 text-white">
                     <h3 className="font-display text-3xl leading-none md:text-4xl">{cat.label}</h3>
-                    <span className="font-mono shrink-0 pb-1 text-[11px] uppercase tracking-[0.1em] text-white/85">
-                      {typeCount} types
-                      {priceFrom != null ? ` · from $${priceFrom}` : ""}
-                      {brandCount ? ` · ${brandCount} brands` : ""}
-                    </span>
+                    {priceFrom != null && (
+                      <span className="font-mono shrink-0 pb-1 text-[11px] uppercase tracking-[0.1em] text-white/85">
+                        from ${priceFrom}
+                      </span>
+                    )}
                   </div>
                 </Link>
 

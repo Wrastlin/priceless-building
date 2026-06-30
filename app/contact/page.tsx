@@ -50,8 +50,11 @@ export default async function ContactPage({
       {/* HERO. Editorial asymmetric */}
       <section className="relative overflow-hidden bg-[var(--muted)]">
         <div className="absolute inset-0">
-          <Image src={STOREFRONT} alt="Price-Less Building Center storefront" fill priority className="object-cover opacity-75" quality={80} />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_transparent_0%,_rgba(0,0,0,0.65)_55%,_rgba(0,0,0,0.9)_100%)]" />
+          <Image src={STOREFRONT} alt="Price-Less Building Center storefront" fill priority className="object-cover" quality={80} />
+          {/* Scrim weighted to both text columns (headline left, hours right)
+              so the light text stays legible over the busy photo. */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-black/75" />
+          <div className="absolute inset-0 bg-black/20" />
         </div>
         <div className="relative mx-auto grid max-w-7xl gap-10 px-6 pt-28 pb-20 text-white md:grid-cols-12 md:pt-40 md:pb-28">
           <div className="md:col-span-8">
