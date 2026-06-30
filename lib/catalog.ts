@@ -51,3 +51,7 @@ export function byCategory(brand: Parameters<typeof _byCategory>[0], category: P
 export function findItem(sku: string) {
   return findPublished(sku);
 }
+
+// Paginated, cached storefront reads (the big-box-style grid loaders).
+export { listPublishedPage, countPublished, DEFAULT_PAGE_SIZE } from "@/lib/items/store";
+export type { Page } from "@/lib/items/store";

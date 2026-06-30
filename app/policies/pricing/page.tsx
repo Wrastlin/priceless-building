@@ -28,9 +28,9 @@ export default function PricingPolicy() {
           <section>
             <h2 className="font-display text-2xl">Our price</h2>
             <p className="mt-3">
-              What we charge today, on the floor and online. Cash, card, or
-              contractor account. No coupons, no membership fees, no haggling
-              unless you're buying a pallet.
+              What we charge today, on the floor and online. Cash or card.
+              No coupons, no membership fees, no haggling unless you're buying
+              a pallet.
             </p>
           </section>
 

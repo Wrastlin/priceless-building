@@ -10,7 +10,6 @@ const SECTIONS = [
   { id: "custom", title: "Custom Builders Corner work" },
   { id: "start", title: "How to start a return" },
   { id: "refund", title: "Refund timeline" },
-  { id: "contractor", title: "Contractor accounts" },
 ];
 
 export default function ReturnsPolicy() {
@@ -99,13 +98,8 @@ export default function ReturnsPolicy() {
               <ul className="mt-3 list-inside list-disc space-y-1 text-sm">
                 <li><strong>Card payments</strong> · refunded same day; the card processor typically posts within 3-5 business days.</li>
                 <li><strong>Cash payments</strong> · refunded in cash at the counter.</li>
-                <li><strong>Synchrony financing</strong> · we file the refund the same day; Synchrony posts the credit within 7 business days.</li>
                 <li><strong>Store credit</strong> · available on the spot if you'd prefer.</li>
               </ul>
-            </Block>
-
-            <Block id="contractor" title="Contractor accounts">
-              <p>Net-30 contractor accounts can return unused items <strong>up to 60 days</strong> from invoice date. Restocks credit the next monthly statement. Contact your account rep at (715) 848-3855.</p>
             </Block>
 
             <div className="rounded-xl bg-[var(--muted)] p-5 text-sm text-[var(--muted-foreground)]">

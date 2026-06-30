@@ -5,8 +5,10 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ProductCard } from "@/components/product-card";
+import { Pagination } from "@/components/pagination";
 import { DepartmentInventory } from "@/components/department-inventory";
-import { CATEGORIES, byCategory, type Category } from "@/lib/catalog";
+import { CATEGORIES, listPublishedPage, countPublished, type Category } from "@/lib/catalog";
+import { parsePage } from "@/lib/utils";
 
 const SITE_URL = "https://pricelessbuilding.com";
 
@@ -18,8 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
   const { category } = await params;
   if (!(category in CATEGORIES)) return { title: "Category not found" };
   const cat = CATEGORIES[category as Category];
-  const items = await byCategory("priceless", category as Category);
-  const count = items.length;
+  const count = await countPublished({ brand: "priceless", category: category as Category });
   const title = `${cat.label} · ${count} in stock at Price-Less Building Center Wausau, WI`;
   const description = `${cat.label}: ${cat.blurb} ${count} in stock today at Price-Less Building Center in Wausau, Wisconsin. New-in-box from cancelled contractor orders. Ships nationally; pickup or local delivery in central WI.`;
   return {
@@ -36,11 +37,23 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
   };
 }
 
-export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
+export default async function CategoryPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ category: string }>;
+  searchParams: Promise<{ page?: string }>;
+}) {
   const { category } = await params;
   if (!(category in CATEGORIES)) notFound();
   const cat = CATEGORIES[category as Category];
-  const items = await byCategory("priceless", category as Category);
+  const { page: pageParam } = await searchParams;
+  const { items, total, page: current, totalPages } = await listPublishedPage({
+    brand: "priceless",
+    category: category as Category,
+    page: parsePage(pageParam),
+  });
+  if (current > 1 && items.length === 0) notFound();
   const allKeys = Object.keys(CATEGORIES) as Category[];
   const idx = allKeys.indexOf(category as Category);
 
@@ -58,7 +71,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
         </div>
         <div className="flex flex-col justify-center gap-6 px-6 py-12 md:col-span-5 md:px-10">
           <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
-            Floor · {items.length} items in stock
+            Floor · {total} items in stock
           </div>
           <h1 className="font-display text-6xl leading-[1.05] md:text-8xl">
             {cat.label}.
@@ -87,7 +100,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             <div>
               <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">On the floor today</div>
               <h2 className="font-display mt-3 text-4xl leading-[1.05]">
-                {items.length} <span className="text-[var(--brand-priceless)]">{items.length === 1 ? "item" : "items"}.</span>
+                {total} <span className="text-[var(--brand-priceless)]">{total === 1 ? "item" : "items"}.</span>
               </h2>
             </div>
             <div className="font-mono hidden text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)] md:block">
@@ -95,15 +108,19 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             </div>
           </div>
 
-          {items.length === 0 ? (
+          {total === 0 ? (
             <div className="mt-10 border bg-white p-16 text-center">
               <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">Nothing here yet</div>
               <p className="font-serif mt-3 text-2xl italic">Check back Wednesday. Fresh tags every week.</p>
             </div>
           ) : (
-            <div className="mt-8 grid grid-cols-1 gap-px bg-[var(--border)] sm:grid-cols-2 lg:grid-cols-3">
-              {items.map((it) => <ProductCard key={it.id} item={it} />)}
-            </div>
+            <>
+              <div className="mt-8 grid grid-cols-1 gap-px bg-[var(--border)] sm:grid-cols-2 lg:grid-cols-3">
+                {items.map((it, i) => <ProductCard key={it.id} item={it} priority={i < 3} />)}
+              </div>
+
+              <Pagination basePath={`/shop/${category}`} page={current} totalPages={totalPages} />
+            </>
           )}
         </div>
       </section>

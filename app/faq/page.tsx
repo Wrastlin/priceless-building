@@ -42,7 +42,7 @@ const SECTIONS: Section[] = [
       },
       {
         q: "Can I see what's coming in next Wednesday?",
-        a: "Our contractor account holders get the drop list every Tuesday afternoon by text. Walk-in customers see what's on the floor when they walk in. We don't publish a public drop calendar because half the inventory sells before it gets a shelf tag.",
+        a: "We don't publish a public drop calendar — half the inventory sells before it ever gets a shelf tag. What's on the floor when you walk in is what we've got. Call the counter and we can tell you what landed this week.",
       },
       {
         q: "Do you price match?",
@@ -61,7 +61,7 @@ const SECTIONS: Section[] = [
       },
       {
         q: "Do you ship outside Wisconsin?",
-        a: "We don't ship directly. Most of our inventory is too heavy or oversized for parcel carriers to handle without doubling the price. Customers from Minnesota, Michigan UP, northern Illinois and Iowa regularly drive in. If you're more than 90 miles out, call ahead so we can confirm stock and reserve it.",
+        a: "Yes, we ship nationwide. A lot of our inventory is heavy or oversized, so shipping goes by freight and the cost depends on size and distance. Call or message us with the item and your ZIP and we'll work out shipping. Local customers can pick up at the store or get delivery within central Wisconsin.",
       },
       {
         q: "Do you deliver?",
@@ -100,39 +100,12 @@ const SECTIONS: Section[] = [
       },
     ],
   },
-  {
-    id: "contractor",
-    kicker: "Section 04",
-    title: "Contractor accounts",
-    items: [
-      {
-        q: "How do I open a contractor account?",
-        a: "Submit the form on the contractors page. We verify your trade license and one reference, then open the account, usually same day. No fees, no annual dues.",
-      },
-      {
-        q: "What does net-30 actually mean?",
-        a: "Everything you charge in a calendar month rolls onto a single invoice. We email it on the 1st, payment is due by the 30th. Pay by check, ACH or card. No surcharges on ACH.",
-      },
-      {
-        q: "Can my crew charge to my account?",
-        a: "Yes. You can authorize up to five named individuals on your account. We check ID at the counter against the authorized list, then it bills to you.",
-      },
-      {
-        q: "Do you offer volume discounts?",
-        a: "Our floor pricing is already 40–60% below the big-box, so we don't layer additional volume discounts on top. What contractors get is priority access: Tuesday drop lists, will-call lockers, after-hours load-out, and 60-mile delivery.",
-      },
-      {
-        q: "Can I get a copy of an old invoice?",
-        a: "All invoices are stored in your account portal indefinitely. Need one from before 2022? Call the counter, we'll dig it out of the file cabinet.",
-      },
-    ],
-  },
 ];
 
 export const metadata = {
-  title: "FAQ · Shopping, pickup, returns, contractor accounts · Price-Less Building Center Wausau, WI",
+  title: "FAQ · Shopping, pickup, returns · Price-Less Building Center Wausau, WI",
   description:
-    "Answers to the questions we hear most often at the counter: shopping the warehouse, pickup, returns, warranty, contractor accounts, custom cabinetry, install crew. Price-Less Building Center, Wausau, Wisconsin.",
+    "Answers to the questions we hear most often at the counter: shopping the warehouse, pickup, returns, warranty, custom cabinetry, install crew. Price-Less Building Center, Wausau, Wisconsin.",
   alternates: { canonical: "https://pricelessbuilding.com/faq" },
 };
 

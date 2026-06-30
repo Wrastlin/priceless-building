@@ -9,8 +9,8 @@ const BASE = "https://pricelessbuilding.com";
 
 const STATIC: string[] = [
   "/", "/shop",
-  "/about", "/contact", "/financing",
-  "/contractors", "/reviews", "/blog", "/gift-cards",
+  "/about", "/contact",
+  "/reviews", "/blog", "/gift-cards",
   "/builders-corner", "/four-squared",
   "/faq", "/press", "/careers",
   "/policies/pricing", "/policies/returns",

@@ -23,6 +23,7 @@
  * secrets) reads fall back to the in-memory SEED_ITEMS and writes throw a
  * clear "not configured" error rather than corrupting anything.
  */
+import { unstable_cache } from "next/cache";
 import type { CatalogItem, Brand, Category, ItemStatus } from "@/lib/items/types";
 import { SEED_ITEMS } from "@/lib/items/seed";
 import { publicClient } from "@/lib/supabase/public";
@@ -65,6 +66,10 @@ function bustPaths() {
   try {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { revalidatePath } = require("next/cache") as typeof import("next/cache");
+    // These path revalidations also purge the data cache behind the paginated
+    // storefront grids (the `unstable_cache` reads below run during these
+    // routes' render), so a publish/price edit shows up without waiting out
+    // the 1-hour TTL.
     revalidatePath("/");
     revalidatePath("/shop", "layout");
     // Explicitly revalidate the DYNAMIC product + category routes by their
@@ -119,6 +124,123 @@ export async function listPublished(): Promise<CatalogItem[]> {
 /** Published items flagged featured (the home-page featured pool). */
 export async function listFeatured(): Promise<CatalogItem[]> {
   return (await queryPublished()).filter((it) => it.featured === true);
+}
+
+// ----- PAGINATED PUBLIC READS (big-box style: one page of rows at a time) -----
+//
+// The storefront grids (/shop, /shop/[category], /search) used to render the
+// ENTIRE published catalog at once — thousands of cards + full-size images,
+// which locked up the browser. These reads fetch a single page of rows
+// (default 24, matching Home Depot's per-page count) and the results are
+// cached + tag-revalidated so a category view is cheap and stays static
+// between inventory writes.
+
+export const DEFAULT_PAGE_SIZE = 24;
+
+export type Page<T> = {
+  items: T[];
+  /** Total matching published items across all pages. */
+  total: number;
+  /** 1-based, clamped to >= 1. */
+  page: number;
+  pageSize: number;
+  totalPages: number;
+};
+
+function matchesFilter(filter: PublishedFilter) {
+  return (it: CatalogItem) =>
+    it.status === "published" &&
+    (filter.brand === undefined || it.brand === filter.brand) &&
+    (filter.category === undefined || it.category === filter.category);
+}
+
+function paginateArray(all: CatalogItem[], page: number, pageSize: number): Page<CatalogItem> {
+  const total = all.length;
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
+  const safePage = Math.min(Math.max(1, page), totalPages);
+  const from = (safePage - 1) * pageSize;
+  return { items: all.slice(from, from + pageSize), total, page: safePage, pageSize, totalPages };
+}
+
+async function queryPublishedPage(
+  filter: PublishedFilter,
+  page: number,
+  pageSize: number,
+): Promise<Page<CatalogItem>> {
+  if (SANDBOX) {
+    const { getSandboxItems } = await import("@/lib/items/sandbox-data");
+    return paginateArray(getSandboxItems().filter(matchesFilter(filter)), page, pageSize);
+  }
+  if (!CONFIGURED) {
+    return paginateArray(SEED_ITEMS.filter(matchesFilter(filter)), page, pageSize);
+  }
+  const safePage = Math.max(1, page);
+  const from = (safePage - 1) * pageSize;
+  const to = from + pageSize - 1;
+  let q = publicClient().from("items").select("data", { count: "exact" }).eq("status", "published");
+  if (filter.brand !== undefined) q = q.eq("brand", filter.brand);
+  if (filter.category !== undefined) q = q.eq("category", filter.category);
+  const { data, count, error } = await q.order("created_at", { ascending: false }).range(from, to);
+  if (error) throw new Error(`items page query failed: ${error.message}`);
+  const total = count ?? 0;
+  return {
+    items: rowsToItems(data),
+    total,
+    page: safePage,
+    pageSize,
+    totalPages: Math.max(1, Math.ceil(total / pageSize)),
+  };
+}
+
+async function queryCount(filter: PublishedFilter): Promise<number> {
+  if (SANDBOX) {
+    const { getSandboxItems } = await import("@/lib/items/sandbox-data");
+    return getSandboxItems().filter(matchesFilter(filter)).length;
+  }
+  if (!CONFIGURED) return SEED_ITEMS.filter(matchesFilter(filter)).length;
+  let q = publicClient()
+    .from("items")
+    .select("sku", { count: "exact", head: true })
+    .eq("status", "published");
+  if (filter.brand !== undefined) q = q.eq("brand", filter.brand);
+  if (filter.category !== undefined) q = q.eq("category", filter.category);
+  const { count, error } = await q;
+  if (error) throw new Error(`items count failed: ${error.message}`);
+  return count ?? 0;
+}
+
+// Cached, tag-revalidated wrappers. A page fetches ONE page of rows and the
+// result is cached under the "items" tag until an admin write busts it
+// (see bustPaths). null is used for "no filter" so the cache key serializes.
+const cachedPage = unstable_cache(
+  (brand: Brand | null, category: Category | null, page: number, pageSize: number) =>
+    queryPublishedPage({ brand: brand ?? undefined, category: category ?? undefined }, page, pageSize),
+  ["published-page"],
+  { tags: ["items"], revalidate: 3600 },
+);
+
+const cachedCount = unstable_cache(
+  (brand: Brand | null, category: Category | null) =>
+    queryCount({ brand: brand ?? undefined, category: category ?? undefined }),
+  ["published-count"],
+  { tags: ["items"], revalidate: 3600 },
+);
+
+/** One page of published items, cheapest read for the storefront grids. */
+export async function listPublishedPage(opts: {
+  brand?: Brand;
+  category?: Category;
+  page?: number;
+  pageSize?: number;
+}): Promise<Page<CatalogItem>> {
+  const { brand = null, category = null, page = 1, pageSize = DEFAULT_PAGE_SIZE } = opts;
+  return cachedPage(brand, category, page, pageSize);
+}
+
+/** Total count of published items matching the filter (for headers/metadata). */
+export async function countPublished(opts: { brand?: Brand; category?: Category } = {}): Promise<number> {
+  const { brand = null, category = null } = opts;
+  return cachedCount(brand, category);
 }
 
 export async function byBrand(brand: Brand): Promise<CatalogItem[]> {

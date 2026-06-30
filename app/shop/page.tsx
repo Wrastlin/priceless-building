@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ProductCard } from "@/components/product-card";
+import { Pagination } from "@/components/pagination";
 import { VendorWall } from "@/components/vendor-wall";
 import { StoreShowcase } from "@/components/store-showcase";
-import { CATEGORIES, byBrand } from "@/lib/catalog";
+import { CATEGORIES, listPublishedPage } from "@/lib/catalog";
+import { parsePage } from "@/lib/utils";
 
 const SITE_URL = "https://pricelessbuilding.com";
 
@@ -24,8 +27,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function ShopIndex() {
-  const all = await byBrand("priceless");
+export default async function ShopIndex({ searchParams }: { searchParams: Promise<{ page?: string }> }) {
+  const { page: pageParam } = await searchParams;
+  const { items, total, page: current, totalPages } = await listPublishedPage({
+    brand: "priceless",
+    page: parsePage(pageParam),
+  });
+  if (current > 1 && items.length === 0) notFound();
   const entries = Object.entries(CATEGORIES) as [keyof typeof CATEGORIES, (typeof CATEGORIES)[keyof typeof CATEGORIES]][];
 
   return (
@@ -36,7 +44,7 @@ export default async function ShopIndex() {
       <section className="mx-auto max-w-7xl px-6 pt-14 pb-12">
         <header className="max-w-3xl">
           <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
-            Shop · {all.length} items on the floor right now
+            Shop · {total} items on the floor right now
           </div>
           <h1 className="font-display mt-3 text-[clamp(2.5rem,1.6rem+4vw,5rem)] leading-[1.02]">
             The whole <span className="text-[var(--brand-priceless)]">warehouse,</span> by department.
@@ -83,7 +91,7 @@ export default async function ShopIndex() {
             Everything in stock
           </div>
           <h2 className="font-display mt-3 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05]">
-            {all.length} items, <span className="text-[var(--brand-priceless)]">last refreshed today.</span>
+            {total} items, <span className="text-[var(--brand-priceless)]">last refreshed today.</span>
           </h2>
           <div className="font-mono mt-5 text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
             Sort · Featured / Newest / Price ↑ / Price ↓
@@ -91,8 +99,10 @@ export default async function ShopIndex() {
         </header>
 
         <div className="mt-10 grid grid-cols-1 gap-px bg-[var(--border)] sm:grid-cols-2 lg:grid-cols-4">
-          {all.map((it) => <ProductCard key={it.id} item={it} />)}
+          {items.map((it, i) => <ProductCard key={it.id} item={it} priority={i < 4} />)}
         </div>
+
+        <Pagination basePath="/shop" page={current} totalPages={totalPages} />
       </section>
 
       <VendorWall />
