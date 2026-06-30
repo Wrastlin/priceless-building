@@ -153,7 +153,7 @@ export default function FourSquaredPage() {
             <iframe
               title="4 Squared on Facebook"
               src={FB_PLUGIN}
-              loading="lazy"
+              loading="eager"
               width={500}
               height={720}
               className="w-full"

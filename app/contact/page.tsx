@@ -160,7 +160,7 @@ export default async function ContactPage({
                 title="Map to Price-Less Building Center"
                 src="https://www.google.com/maps?q=825+Washington+St+Wausau+WI&output=embed"
                 className="h-full w-full border-0"
-                loading="lazy"
+                loading="eager"
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
