@@ -1,5 +1,11 @@
 import type { NextConfig } from "next";
 
+// Image optimization is ON by default. The optimizer draws on the Vercel image
+// quota; if that's exhausted, /_next/image returns 402 and grids break. Set
+// IMAGE_OPTIMIZATION=off in the environment (then redeploy) to instantly fall
+// back to serving originals — no code change needed.
+const optimizeImages = process.env.IMAGE_OPTIMIZATION !== "off";
+
 const config: NextConfig = {
   // Force a single canonical host. Both apex and www currently serve 200,
   // and that split is a known source of OAuth state/cookie mismatches
@@ -16,18 +22,12 @@ const config: NextConfig = {
     ];
   },
   images: {
-    // Image optimizer is ON. It generates small responsive WebP thumbnails
-    // from the originals, so a grid downloads ~300px images instead of
-    // full-resolution photos — the single biggest weight win on the listing
-    // pages. The `sizes` prop on each <Image> drives the srcset.
-    //
-    // IMPORTANT (plan dependency): the optimizer draws on the Vercel image
-    // quota. It was previously disabled (`unoptimized: true`) because the
-    // quota was exhausted and /_next/image returned 402
-    // (OPTIMIZED_IMAGE_REQUEST_PAYMENT_REQUIRED). Pagination now caps each grid
-    // to 24 images so far fewer transforms run, but on the current plan this
-    // still depends on the quota being lifted (plan upgrade). If 402s return,
-    // re-add `unoptimized: true` to fall back to serving originals.
+    // When optimization is off (IMAGE_OPTIMIZATION=off) we serve originals so
+    // an exhausted Vercel quota can't 402 the whole grid. When on (default),
+    // the optimizer makes small responsive WebP thumbnails (~300px) driven by
+    // each <Image>'s `sizes` prop — the biggest weight win on the listings.
+    // Pagination caps each grid to 24 images, so far fewer transforms run.
+    unoptimized: !optimizeImages,
     minimumCacheTTL: 2678400, // 31 days — keep optimized variants cached, minimize re-transforms
     remotePatterns: [
       { protocol: "https", hostname: "jlacypqvbajwzvgiseia.supabase.co" },

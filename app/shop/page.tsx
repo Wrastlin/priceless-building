@@ -94,7 +94,7 @@ export default async function ShopIndex({ searchParams }: { searchParams: Promis
             {total} items, <span className="text-[var(--brand-priceless)]">last refreshed today.</span>
           </h2>
           <div className="font-mono mt-5 text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
-            Sort · Featured / Newest / Price ↑ / Price ↓
+            Newest arrivals first
           </div>
         </header>
 

@@ -104,7 +104,7 @@ export default async function CategoryPage({
               </h2>
             </div>
             <div className="font-mono hidden text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)] md:block">
-              Sort · Featured / Newest / Price ↑ / Price ↓
+              Newest arrivals first
             </div>
           </div>
 

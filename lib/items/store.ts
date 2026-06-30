@@ -117,13 +117,24 @@ async function queryPublished(filter: PublishedFilter = {}): Promise<CatalogItem
   return rowsToItems(data);
 }
 
+// Cached, tag-revalidated full-list read. Routes every non-paginated
+// storefront read (home featured pool, "similar items", brand/category lists)
+// through one cache so a render doesn't re-pull the whole catalog on every
+// request. null = "no filter" so the cache key serializes.
+const cachedList = unstable_cache(
+  (brand: Brand | null, category: Category | null) =>
+    queryPublished({ brand: brand ?? undefined, category: category ?? undefined }),
+  ["published-list"],
+  { tags: ["items"], revalidate: 3600 },
+);
+
 export async function listPublished(): Promise<CatalogItem[]> {
-  return queryPublished();
+  return cachedList(null, null);
 }
 
 /** Published items flagged featured (the home-page featured pool). */
 export async function listFeatured(): Promise<CatalogItem[]> {
-  return (await queryPublished()).filter((it) => it.featured === true);
+  return (await cachedList(null, null)).filter((it) => it.featured === true);
 }
 
 // ----- PAGINATED PUBLIC READS (big-box style: one page of rows at a time) -----
@@ -244,11 +255,11 @@ export async function countPublished(opts: { brand?: Brand; category?: Category 
 }
 
 export async function byBrand(brand: Brand): Promise<CatalogItem[]> {
-  return queryPublished({ brand });
+  return cachedList(brand, null);
 }
 
 export async function byCategory(brand: Brand, category: Category): Promise<CatalogItem[]> {
-  return queryPublished({ brand, category });
+  return cachedList(brand, category);
 }
 
 /** Public lookup — published items only (storefront product page). */
