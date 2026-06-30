@@ -242,7 +242,7 @@ export default async function ItemPage({ params }: { params: Promise<{ sku: stri
           <div className="mt-8 bg-[var(--muted)] p-6">
             <div className="text-sm font-semibold text-[var(--foreground)]">Why is it cheaper?</div>
             <p className="mt-2 text-base leading-[1.7] text-[var(--muted-foreground)]">
-              This came in as a cancelled order from a Wisconsin contractor. New, in the original packaging, same model number you'd find at Home Depot or Menards. Our estimated retail{item.comparable?.url ? <> (based on a similar item <a href={item.comparable.url} target="_blank" rel="noreferrer" className="underline">at a major retailer</a> this week)</> : ""} runs around {item.msrp ? formatCurrency(item.msrp) : "2× our tag"}. <Link href="/policies/pricing" className="underline decoration-[var(--muted-foreground)]/40 underline-offset-2">Methodology</Link>.
+              Brand-new in its original packaging. Our estimated retail{item.comparable?.url ? <> (based on a similar item <a href={item.comparable.url} target="_blank" rel="noreferrer" className="underline">at a major retailer</a> this week)</> : ""} runs around {item.msrp ? formatCurrency(item.msrp) : "2× our tag"}. <Link href="/policies/pricing" className="underline decoration-[var(--muted-foreground)]/40 underline-offset-2">Methodology</Link>.
             </p>
           </div>
         </div>

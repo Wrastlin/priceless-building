@@ -70,12 +70,6 @@ export function DepartmentInventory({ category }: { category: string }) {
                   {priceRange(t)}
                 </span>
               </div>
-              {t.brands.length > 0 && (
-                <div className="font-mono mt-1.5 text-[11px] leading-relaxed text-[var(--muted-foreground)]">
-                  {t.brands.slice(0, 4).join(" · ")}
-                  {t.brands.length > 4 ? ` +${t.brands.length - 4}` : ""}
-                </div>
-              )}
             </div>
           ))}
         </div>
@@ -90,12 +84,6 @@ export function DepartmentInventory({ category }: { category: string }) {
           </p>
         )}
 
-        {dept.brands.length > 0 && (
-          <p className="font-mono mt-10 text-xs leading-relaxed tracking-[0.06em] text-[var(--muted-foreground)]">
-            Brands seen in this department:{" "}
-            <span className="text-[var(--foreground)]">{dept.brands.join(" · ")}</span>
-          </p>
-        )}
       </div>
     </section>
   );

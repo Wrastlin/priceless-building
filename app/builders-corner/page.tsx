@@ -186,7 +186,7 @@ export default function BuildersCornerPage() {
                 Premium custom cabinetry, designed and built in Wausau.
               </h1>
               <p className="mt-7 max-w-xl text-lg leading-[1.7] text-white/90 md:text-xl">
-                If you are thinking about a kitchen, a bath, or a built-in that is genuinely yours, this is where to start. We sit down with you in the showroom, draw your room out together, build the cabinets in our own shop, and the 4 Squared crew installs them. There is no pressure to start big. Small projects are welcome too.
+                Thinking about a kitchen, a bath, or a built-in? We design it with you in the showroom, build it in our own shop, and the 4 Squared crew installs it. Big project or small, this is where to start.
               </p>
               <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
                 <Link
@@ -279,7 +279,7 @@ export default function BuildersCornerPage() {
                     src={s.img}
                     alt={s.t}
                     fill
-                    className="object-cover"
+                    className="object-cover object-top"
                     sizes="(min-width:768px) 25vw, 100vw"
                     quality={72}
                   />
