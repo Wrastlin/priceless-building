@@ -1,6 +1,6 @@
 import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
-import { isEmailAllowed, envAllowlistEmpty } from "@/lib/auth/allowlist";
+import { isEmailAllowed, envAllowlistEmpty, devAdminBypass } from "@/lib/auth/allowlist";
 
 /**
  * Returns the current Supabase user's claims, or null if signed out
@@ -12,6 +12,7 @@ import { isEmailAllowed, envAllowlistEmpty } from "@/lib/auth/allowlist";
  * store once.
  */
 export const getClaims = cache(async (): Promise<AuthClaims> => {
+  if (devAdminBypass()) return { sub: "dev", email: "dev@local", role: "admin" };
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
   if (!supabaseUrl || !supabaseKey) {

@@ -16,7 +16,7 @@
 
 import { type NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
-import { isEmailAllowed, envAllowlistEmpty } from "@/lib/auth/allowlist";
+import { isEmailAllowed, envAllowlistEmpty, devAdminBypass } from "@/lib/auth/allowlist";
 
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
@@ -81,7 +81,9 @@ export async function proxy(request: NextRequest) {
     // Allowed if in the env allowlist OR the staff_emails table; with no
     // allowlist configured at all, dev is open and prod is closed.
     const ok =
-      (await isEmailAllowed(email, supabase)) || (envAllowlistEmpty() && !inProd);
+      devAdminBypass() ||
+      (await isEmailAllowed(email, supabase)) ||
+      (envAllowlistEmpty() && !inProd);
 
     if (!ok) {
       // Browser following a link → friendly login redirect.

@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { isEmailAllowed, envAllowlistEmpty } from "@/lib/auth/allowlist";
+import { isEmailAllowed, envAllowlistEmpty, devAdminBypass } from "@/lib/auth/allowlist";
 
 /**
  * Single admin-access gate. Used by every protected route handler and
@@ -52,6 +52,7 @@ export type AdminIdentity = { email: string; sub: string };
  */
 export async function adminIdentity(): Promise<AdminIdentity | null> {
   if (!adminGloballyEnabled()) return null;
+  if (devAdminBypass()) return { email: "dev@local", sub: "dev" };
 
   const supabaseConfigured =
     !!process.env.NEXT_PUBLIC_SUPABASE_URL && !!process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;

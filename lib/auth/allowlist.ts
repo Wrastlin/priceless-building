@@ -22,6 +22,17 @@ type QueryClient = Pick<SupabaseClient, "from">;
 const DB_TTL_MS = 30_000;
 const dbCache = new Map<string, { allowed: boolean; exp: number }>();
 
+/**
+ * Dev-only admin bypass. When DEV_ADMIN_BYPASS=1 AND we are NOT in production,
+ * grant admin without a Google sign-in — so the admin can be opened and tested
+ * locally. Double-safe: it is hard-gated on NODE_ENV so it can never unlock a
+ * production deploy, and the flag is only ever set in local .env.local (never
+ * in the hosting env). Off by default.
+ */
+export function devAdminBypass(): boolean {
+  return process.env.NODE_ENV !== "production" && process.env.DEV_ADMIN_BYPASS === "1";
+}
+
 export function envAllowedEmails(): Set<string> {
   const raw = process.env.ALLOWED_EMAILS?.trim() ?? "";
   if (!raw) return new Set();
