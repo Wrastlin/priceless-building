@@ -55,7 +55,7 @@ export function StoreShowcase() {
           {DEPTS.length} departments · everything under one roof
         </div>
         <h2 className="font-display mt-3 max-w-4xl text-4xl leading-[1.04] md:text-6xl">
-          What&rsquo;s on the floor right now<span className="text-[var(--brand-priceless)]">.</span>
+          What&rsquo;s on the floor<span className="text-[var(--brand-priceless)]">.</span>
         </h2>
         <p className="font-serif mt-4 max-w-2xl text-base italic leading-relaxed text-[var(--muted-foreground)] md:text-lg">
           A whole-store walkthrough, department by department. Surplus moves
@@ -63,7 +63,39 @@ export function StoreShowcase() {
           in, not a fixed list. Come dig.
         </p>
 
-        <div className="mt-12 grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2">
+        {/* MOBILE: one compact horizontal strip instead of eight stacked
+            panels — this section used to run ~7,000px tall on a phone. Swipe
+            sideways to browse departments; tap through to the full grid. */}
+        <ul className="-mx-6 mt-8 flex snap-x snap-mandatory gap-3 overflow-x-auto px-6 pb-3 md:hidden">
+          {DEPTS.map((key) => {
+            const cat = CATEGORIES[key];
+            const { priceFrom } = deptStats(key);
+            return (
+              <li key={key} className="snap-start shrink-0" style={{ width: "min(60vw, 240px)" }}>
+                <Link href={`/shop/${key}`} className="group relative block aspect-[3/4] overflow-hidden bg-[var(--muted)]">
+                  <Image
+                    src={cat.image}
+                    alt={cat.label}
+                    fill
+                    sizes="60vw"
+                    quality={65}
+                    className="object-cover transition duration-700 group-hover:scale-[1.03]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+                  <div className="absolute inset-x-4 bottom-4 text-white">
+                    <div className="font-display text-2xl leading-none">{cat.label}</div>
+                    {priceFrom != null && (
+                      <div className="font-mono mt-1 text-[11px] uppercase tracking-[0.1em] text-white/85">from ${priceFrom}</div>
+                    )}
+                  </div>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+
+        {/* DESKTOP: the full walkthrough with product-type thumbnails. */}
+        <div className="mt-12 hidden grid-cols-1 gap-x-8 gap-y-12 md:grid md:grid-cols-2">
           {DEPTS.map((key) => {
             const cat = CATEGORIES[key];
             const { priceFrom } = deptStats(key);

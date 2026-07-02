@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
   const cat = CATEGORIES[category as Category];
   const count = await countPublished({ brand: "priceless", category: category as Category });
   const title = `${cat.label} · ${count} in stock at Price-Less Building Center Wausau, WI`;
-  const description = `${cat.label}: ${cat.blurb} ${count} in stock today at Price-Less Building Center in Wausau, Wisconsin. New-in-box from cancelled contractor orders. Ships nationally; pickup or local delivery in central WI.`;
+  const description = `${cat.label}: ${cat.blurb} ${count} in stock at Price-Less Building Center in Wausau, Wisconsin. New-in-box from cancelled contractor orders. Ships nationally; pickup or local delivery in central WI.`;
   return {
     title,
     description,
@@ -98,7 +98,7 @@ export default async function CategoryPage({
         <div className="mx-auto max-w-7xl px-6 py-14">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">On the floor today</div>
+              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">On the floor</div>
               <h2 className="font-display mt-3 text-4xl leading-[1.05]">
                 {total} <span className="text-[var(--brand-priceless)]">{total === 1 ? "item" : "items"}.</span>
               </h2>
@@ -115,8 +115,8 @@ export default async function CategoryPage({
             </div>
           ) : (
             <>
-              <div className="mt-8 grid grid-cols-1 gap-px bg-[var(--border)] sm:grid-cols-2 lg:grid-cols-3">
-                {items.map((it, i) => <ProductCard key={it.id} item={it} priority={i < 3} />)}
+              <div className="mt-8 grid grid-cols-2 gap-px bg-[var(--border)] lg:grid-cols-3">
+                {items.map((it, i) => <ProductCard key={it.id} item={it} priority={i < 4} />)}
               </div>
 
               <Pagination basePath={`/shop/${category}`} page={current} totalPages={totalPages} />

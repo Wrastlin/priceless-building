@@ -37,7 +37,7 @@ export function DepartmentInventory({ category }: { category: string }) {
     <section className="border-b bg-white">
       <div className="mx-auto max-w-7xl px-6 py-14">
         <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
-          On the floor right now
+          In this department
         </div>
         <h2 className="font-display mt-3 text-4xl leading-[1.05] md:text-5xl">
           What we&rsquo;re carrying<span className="text-[var(--brand-priceless)]">.</span>

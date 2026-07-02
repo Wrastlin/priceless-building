@@ -2,6 +2,7 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { FacebookBand } from "@/components/facebook-band";
 import { ADDRESS, PRICELESS } from "@/lib/brands";
 import { submitContactLead } from "@/lib/actions/leads";
 
@@ -51,26 +52,23 @@ export default async function ContactPage({
       <section className="relative overflow-hidden bg-[var(--muted)]">
         <div className="absolute inset-0">
           <Image src={STOREFRONT} alt="Price-Less Building Center storefront" fill priority className="object-cover" quality={80} />
-          {/* Scrim weighted to both text columns (headline left, hours right)
-              so the light text stays legible over the busy photo. */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-black/75" />
-          <div className="absolute inset-0 bg-black/20" />
+          {/* Heavy, even scrim. The storefront photo is busy (people, signage)
+              and on mobile the two columns stack over the middle of it, so the
+              whole hero has to stay dark enough for white text to read. */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/65 to-black/85" />
+          <div className="absolute inset-0 bg-black/30" />
         </div>
         <div className="relative mx-auto grid max-w-7xl gap-10 px-6 pt-28 pb-20 text-white md:grid-cols-12 md:pt-40 md:pb-28">
           <div className="md:col-span-8">
-            <div className="font-mono flex items-center gap-3 text-xs uppercase tracking-[0.14em] text-white/85">
-              <span className="size-1.5 animate-pulse rounded-full bg-emerald-400" />
-              <span>Walk-ins welcome</span>
-              <span className="opacity-50">/</span>
-              <span>Open Monday through Saturday</span>
-              <span className="opacity-50">/</span>
-              <span>Coffee on the counter</span>
+            <div className="font-mono inline-flex items-center gap-2.5 rounded-full bg-black/45 px-4 py-2 text-sm font-semibold uppercase tracking-[0.14em] text-white ring-1 ring-white/15 backdrop-blur-sm">
+              <span className="size-2 animate-pulse rounded-full bg-emerald-400" />
+              <span>Open Mon&ndash;Sat &middot; Walk-ins welcome</span>
             </div>
             <h1 className="font-display mt-8 max-w-[18ch] text-[3.5rem] leading-[0.88] text-white sm:text-[5rem] md:text-[7.5rem]">
               Come see the <span className="text-[var(--brand-priceless)]">warehouse.</span>
             </h1>
-            <p className="font-serif mt-8 max-w-xl text-lg italic leading-snug text-white/85 md:text-xl">
-              {ADDRESS.street}, {ADDRESS.city}, {ADDRESS.state} {ADDRESS.zip}. Easy parking out front, contractor load bay around back, the red brick building with the white "PRICE-LESS" sign on the roof.
+            <p className="font-serif mt-8 max-w-xl text-lg italic leading-snug text-white/90 md:text-xl">
+              Easy parking out front, contractor load bay around back. Look for the red brick building with the white &ldquo;PRICE-LESS&rdquo; sign on the roof.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-5">
               <a href={`tel:${ADDRESS.phone.replace(/[^0-9+]/g, "")}`} className="btn btn-priceless">Call {ADDRESS.phone}</a>
@@ -117,8 +115,7 @@ export default async function ContactPage({
               <a href="tel:+17158483855" className="font-semibold text-[var(--foreground)] underline">{ADDRESS.phone}</a>
             </p>
             <p className="mt-4 text-sm text-[var(--muted-foreground)]">
-              Off the north end of Washington Street, just past the rail crossing. The red brick
-              building with the white "PRICE-LESS" sign on the roof. You can't miss it.
+              Off the north end of Washington Street, just past the rail crossing. You can&apos;t miss it.
             </p>
           </div>
 
@@ -152,6 +149,10 @@ export default async function ContactPage({
           </div>
         </div>
       </section>
+
+      {/* AROUND THE STORE — holiday closures + Facebook. Hours are already
+          in the table above, so hide the weekly-hours mini-list here. */}
+      <FacebookBand showHours={false} />
 
       {/* MAP + FORM */}
       <section className="bg-[var(--muted)]/40 py-16">

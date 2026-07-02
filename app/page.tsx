@@ -235,7 +235,9 @@ export default async function HomePage() {
 
       <WarehouseGallery />
 
-      <FacebookBand />
+      {/* Closures + Facebook here; the full weekly hours + map live in
+          TrustBlock below, so don't repeat the hours list. */}
+      <FacebookBand showHours={false} />
 
       <WalkthroughBand />
 

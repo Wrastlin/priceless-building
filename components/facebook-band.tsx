@@ -1,18 +1,24 @@
 import Image from "next/image";
+import Link from "next/link";
 import { SectionHead } from "@/components/section-head";
 import { PRICELESS } from "@/lib/brands";
+import { upcomingNotices, noticeDateLabel } from "@/lib/announcements";
 
 /**
- * "Around the store lately" — a light, link-out social panel.
+ * "Around the store" — the reliable, never-blank replacement for the live
+ * Facebook feed.
  *
- * Note: this used to embed Facebook's Page Plugin (an <iframe> to
- * facebook.com/plugins/page.php). That plugin loads Facebook's own JS SDK,
- * which throws a stream of non-fatal "ErrorUtils caught an error" messages
- * from static.xx.fbcdn.net into the console on every visit. Those are
- * Facebook's errors, inside their cross-origin frame — nothing on our side
- * can silence them. We replaced the live embed with our own real photos so
- * the console stays clean and the section still reads as a living storefront.
- * Restore the plugin only if a live feed is worth the third-party noise.
+ * The live Facebook Page Plugin was pulled because it (a) renders as a blank
+ * white box whenever a browser blocks third-party cookies (common on phones,
+ * so shoppers could miss a holiday closure) and (b) loads Facebook's JS SDK,
+ * which spams the console. In its place:
+ *   - an "Hours & holiday closures" panel driven by our own data
+ *     (lib/announcements.ts) so store closures always show, and
+ *   - a grid of real store photos that links out to the Facebook page.
+ *
+ * `showHours={false}` drops the weekly-hours mini-list (use it on /contact,
+ * which already prints the full hours table) while keeping the closures
+ * callout, photos, and follow links.
  */
 const RECENT = [
   { src: "/real-photos/santa-at-storefront.webp", alt: "Santa visiting the Builders Corner showroom during the holiday workshop." },
@@ -23,21 +29,96 @@ const RECENT = [
   { src: "/real-photos/anniversary-6-year.webp", alt: "Six-year anniversary celebration at Price-Less Building Center." },
 ];
 
-export function FacebookBand() {
+function FacebookGlyph({ className = "" }: { className?: string }) {
   return (
-    <section className="bg-[var(--muted)]">
-      <div className="mx-auto max-w-7xl px-6 py-10 md:py-16">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
+      <path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z" />
+    </svg>
+  );
+}
+
+export function FacebookBand({ showHours = true }: { showHours?: boolean }) {
+  const notices = upcomingNotices();
+
+  return (
+    <section id="around" className="border-y bg-[var(--muted)]/40">
+      <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
         <SectionHead
-          headline="Around the store lately."
-          sub="Between visits, our Facebook and Instagram are the most current view of what is going on at the store. New stock photos, holiday hours, customer thank-you cards, mural updates. We post a few times a week."
+          kicker="Hours · closures · what's new"
+          headline="Around the store."
+          sub="Holiday hours and closures go up here first, so you always know before you drive over. We post the day-to-day photos to Facebook and Instagram too."
         />
-        <div className="mt-12 grid items-start gap-10 md:grid-cols-12">
+
+        <div className="mt-10 grid items-start gap-8 md:grid-cols-12 md:gap-10">
+          {/* HOURS + HOLIDAY CLOSURES — our own data, never blank. */}
+          <div className="md:col-span-5">
+            <div className="rounded-lg border border-[var(--border)] bg-white p-6 md:p-7">
+              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
+                {notices.length ? "Upcoming closures & holiday hours" : "Hours"}
+              </div>
+
+              {notices.length ? (
+                <ul className="mt-4 divide-y divide-[var(--border)]">
+                  {notices.map((n) => (
+                    <li key={n.date} className="flex items-baseline justify-between gap-4 py-3">
+                      <div>
+                        <div className="font-semibold text-[var(--foreground)]">{n.title}</div>
+                        <div className="text-sm text-[var(--muted-foreground)]">{noticeDateLabel(n)}</div>
+                      </div>
+                      <span
+                        className={
+                          /closed/i.test(n.status)
+                            ? "font-mono shrink-0 text-xs font-bold uppercase tracking-[0.1em] text-[var(--brand-priceless)]"
+                            : "font-mono shrink-0 text-right text-xs uppercase tracking-[0.1em] text-[var(--foreground)]"
+                        }
+                      >
+                        {n.status}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-4 text-base leading-relaxed text-[var(--foreground)]">
+                  Open regular hours — no holiday closures scheduled. When a holiday changes our
+                  hours, it shows up here and on our Facebook page.
+                </p>
+              )}
+
+              {showHours ? (
+                <ul className="mt-5 space-y-1.5 border-t border-[var(--border)] pt-5 text-sm">
+                  {PRICELESS.hours.map((h) => (
+                    <li key={h.day} className="flex items-center justify-between">
+                      <span className="text-[var(--muted-foreground)]">{h.day}</span>
+                      <span className={h.hours === "Closed" ? "text-[var(--muted-foreground)]" : "font-medium text-[var(--foreground)]"}>
+                        {h.hours}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+
+              <Link
+                href="/contact#hours"
+                className="font-mono mt-6 inline-flex text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
+              >
+                Full hours &amp; directions →
+              </Link>
+            </div>
+          </div>
+
+          {/* LATEST FROM FACEBOOK — real photos, links out to the page. */}
           <div className="md:col-span-7">
+            <div className="mb-3 flex items-center gap-2 text-[var(--foreground)]">
+              <FacebookGlyph className="size-5 text-[#1877F2]" />
+              <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
+                Latest from our Facebook
+              </span>
+            </div>
             <a
               href={PRICELESS.socials.facebook}
               target="_blank"
               rel="noreferrer"
-              className="group grid grid-cols-2 gap-2 sm:grid-cols-3"
+              className="group grid grid-cols-3 gap-2"
               aria-label="See more on the Price-Less Building Center Facebook page"
             >
               {RECENT.map((p) => (
@@ -46,39 +127,35 @@ export function FacebookBand() {
                     src={p.src}
                     alt={p.alt}
                     fill
-                    sizes="(min-width:768px) 18vw, 45vw"
+                    sizes="(min-width:768px) 20vw, 30vw"
                     quality={70}
                     className="object-cover transition duration-700 group-hover:scale-[1.03]"
                   />
                 </span>
               ))}
             </a>
-          </div>
-          <div className="md:col-span-5">
-            <p className="text-base leading-relaxed text-[var(--foreground)] md:text-lg">
-              If you would rather follow along between visits, the easiest way is one of the platforms below. Yelp is mostly older reviews; Instagram and Facebook get the day-to-day photos.
-            </p>
-            <div className="mt-8 flex flex-col gap-4">
-              <SocialPill href={PRICELESS.socials.facebook} label="Follow on Facebook" />
-              <SocialPill href={PRICELESS.socials.instagram} label="Follow on Instagram" />
-              <SocialPill href={PRICELESS.socials.yelp} label="Read us on Yelp" />
+            <div className="mt-4 flex flex-wrap gap-3">
+              <a
+                href={PRICELESS.socials.facebook}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-md bg-[#1877F2] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#0f66d0]"
+              >
+                <FacebookGlyph className="size-4" />
+                Follow on Facebook
+              </a>
+              <a
+                href={PRICELESS.socials.instagram}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center rounded-md border border-[var(--border)] bg-white px-4 py-2.5 text-sm font-semibold text-[var(--foreground)] transition hover:border-[var(--brand-priceless)]"
+              >
+                Instagram →
+              </a>
             </div>
           </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function SocialPill({ href, label }: { href: string; label: string }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      className="font-mono inline-flex w-fit items-center border border-[var(--border)] bg-white px-4 py-2 text-xs uppercase tracking-[0.14em] text-[var(--foreground)] hover:bg-[var(--muted)]"
-    >
-      {label} →
-    </a>
   );
 }

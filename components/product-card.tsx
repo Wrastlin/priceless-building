@@ -70,21 +70,24 @@ export function ProductCard({
           </span>
         ) : null}
       </div>
-      <div className="relative p-5">
-        <div className="font-display text-lg leading-tight tracking-[0.01em]">{item.title}</div>
-        <div className="mt-1 text-xs text-[var(--muted-foreground)]">{item.subtitle}</div>
-        <div className="mt-4 flex items-end justify-between">
+      {/* Tighter padding + smaller type on mobile so two cards sit side by
+          side (big-box catalog density). The SKU/location meta is hidden on
+          phones to keep each card short; it returns on sm+ screens. */}
+      <div className="relative p-3 sm:p-5">
+        <div className="font-display text-sm leading-snug tracking-[0.01em] line-clamp-2 sm:text-lg">{item.title}</div>
+        <div className="mt-1 hidden text-xs text-[var(--muted-foreground)] sm:block">{item.subtitle}</div>
+        <div className="mt-2 flex items-end justify-between gap-2 sm:mt-4">
           <div>
-            <div className="font-display text-2xl">
-              {item.price > 0 ? formatCurrency(item.price) : <span className="text-lg">Call for price</span>}
+            <div className="font-display text-xl sm:text-2xl">
+              {item.price > 0 ? formatCurrency(item.price) : <span className="text-base sm:text-lg">Call for price</span>}
             </div>
             {item.msrp && item.msrp > item.price ? (
-              <div className="font-mono mt-0.5 text-xs text-[var(--muted-foreground)] line-through">
+              <div className="font-mono mt-0.5 text-[11px] text-[var(--muted-foreground)] line-through sm:text-xs">
                 Retail {formatCurrency(item.msrp)}
               </div>
             ) : null}
           </div>
-          <div className="font-mono text-right text-xs uppercase tracking-wider text-[var(--muted-foreground)]">
+          <div className="font-mono hidden text-right text-xs uppercase tracking-wider text-[var(--muted-foreground)] sm:block">
             <div>{item.location}</div>
             <div className="mt-0.5">SKU {item.sku}</div>
           </div>

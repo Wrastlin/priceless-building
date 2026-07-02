@@ -65,7 +65,11 @@ export function TimelineRail({ events }: { events: TimelineEvent[] }) {
                       alt={e.imageAlt ?? e.title}
                       fill
                       sizes="(min-width:768px) 260px, 100vw"
-                      className="object-cover"
+                      // Top-anchor: portraits (e.g. Josh) sit in a wide 16/9
+                      // box on mobile, so a centered cover crop slices the head
+                      // off. object-top keeps faces in frame. Matches /about
+                      // and /four-squared.
+                      className="object-cover object-top"
                     />
                   </div>
                 ) : null}

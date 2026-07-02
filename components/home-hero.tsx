@@ -92,13 +92,13 @@ export function HomeHero() {
               href="/shop"
               className="font-mono inline-flex items-center bg-[var(--brand-priceless)] px-7 py-4 text-sm uppercase tracking-[0.14em] text-white transition hover:bg-[var(--brand-priceless-dark)]"
             >
-              Browse the warehouse →
+              Shop the inventory →
             </Link>
             <Link
               href="/contact"
               className="font-mono text-sm uppercase tracking-[0.14em] text-white underline decoration-white/40 underline-offset-[6px] hover:decoration-white"
             >
-              Visit the store
+              Hours &amp; directions →
             </Link>
           </div>
         </div>
