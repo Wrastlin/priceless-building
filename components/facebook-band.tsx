@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SectionHead } from "@/components/section-head";
+import { ClosureNotices } from "@/components/closure-notices";
 import { PRICELESS } from "@/lib/brands";
-import { upcomingNotices, noticeDateLabel } from "@/lib/announcements";
+import { upcomingNotices } from "@/lib/announcements";
 
 /**
  * "Around the store" — the reliable, never-blank replacement for the live
@@ -38,7 +39,9 @@ function FacebookGlyph({ className = "" }: { className?: string }) {
 }
 
 export function FacebookBand({ showHours = true }: { showHours?: boolean }) {
-  const notices = upcomingNotices();
+  // Build-time filtered list for the static HTML; the client island re-filters
+  // against the visitor's clock so a finished closure drops on its own.
+  const initialNotices = upcomingNotices();
 
   return (
     <section id="around" className="border-y bg-[var(--muted)]/40">
@@ -53,48 +56,7 @@ export function FacebookBand({ showHours = true }: { showHours?: boolean }) {
           {/* HOURS + HOLIDAY CLOSURES — our own data, never blank. */}
           <div className="md:col-span-5">
             <div className="rounded-lg border border-[var(--border)] bg-white p-6 md:p-7">
-              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
-                {notices.length ? "Upcoming closures & holiday hours" : "Hours"}
-              </div>
-
-              {notices.length ? (
-                <ul className="mt-4 divide-y divide-[var(--border)]">
-                  {notices.map((n) => (
-                    <li key={n.date} className="flex items-center gap-4 py-3">
-                      {n.image ? (
-                        <span className="relative block size-14 shrink-0 overflow-hidden rounded-md bg-[var(--muted)]">
-                          <Image
-                            src={n.image}
-                            alt={n.imageAlt ?? `${n.title} — ${n.status}`}
-                            fill
-                            sizes="56px"
-                            quality={70}
-                            className="object-cover"
-                          />
-                        </span>
-                      ) : null}
-                      <div className="min-w-0 flex-1">
-                        <div className="font-semibold text-[var(--foreground)]">{n.title}</div>
-                        <div className="text-sm text-[var(--muted-foreground)]">{noticeDateLabel(n)}</div>
-                      </div>
-                      <span
-                        className={
-                          /closed/i.test(n.status)
-                            ? "font-mono shrink-0 text-xs font-bold uppercase tracking-[0.1em] text-[var(--brand-priceless)]"
-                            : "font-mono shrink-0 text-right text-xs uppercase tracking-[0.1em] text-[var(--foreground)]"
-                        }
-                      >
-                        {n.status}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="mt-4 text-base leading-relaxed text-[var(--foreground)]">
-                  Open regular hours — no holiday closures scheduled. When a holiday changes our
-                  hours, it shows up here and on our Facebook page.
-                </p>
-              )}
+              <ClosureNotices initial={initialNotices} />
 
               {showHours ? (
                 <ul className="mt-5 space-y-1.5 border-t border-[var(--border)] pt-5 text-sm">
