@@ -16,6 +16,7 @@
 
 import { type NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
+import { isEmailAllowed, envAllowlistEmpty } from "@/lib/auth/allowlist";
 
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
@@ -27,7 +28,6 @@ export async function proxy(request: NextRequest) {
   const isAdmin = pathname === "/admin" || pathname.startsWith("/admin/");
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
-  const allow = parseAllowed(process.env.ALLOWED_EMAILS);
   const inProd = process.env.NODE_ENV === "production";
 
   // Pre-launch killswitch (mirrors adminGloballyEnabled in
@@ -78,7 +78,10 @@ export async function proxy(request: NextRequest) {
 
   if (isAdmin) {
     const email = (claims?.email as string | undefined)?.toLowerCase();
-    const ok = !!email && (allow.size === 0 ? !inProd : allow.has(email));
+    // Allowed if in the env allowlist OR the staff_emails table; with no
+    // allowlist configured at all, dev is open and prod is closed.
+    const ok =
+      (await isEmailAllowed(email, supabase)) || (envAllowlistEmpty() && !inProd);
 
     if (!ok) {
       // Browser following a link → friendly login redirect.
@@ -98,11 +101,6 @@ export async function proxy(request: NextRequest) {
   }
 
   return response;
-}
-
-function parseAllowed(env: string | undefined): Set<string> {
-  if (!env) return new Set();
-  return new Set(env.split(",").map((e) => e.trim().toLowerCase()).filter(Boolean));
 }
 
 export const config = {
