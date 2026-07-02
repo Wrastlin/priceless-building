@@ -20,7 +20,7 @@ import {
   type Category,
   type CatalogItem,
 } from "@/lib/items/store";
-import { requireAdminSession } from "@/lib/auth/session";
+import { requireAdminSession, adminIdentity } from "@/lib/auth/session";
 import { formatSKU } from "@/lib/utils";
 
 const CATEGORY_TO_BRAND: Record<string, Brand> = {
@@ -280,6 +280,45 @@ export async function updateItemDetailsAction(
     clean[k] = v === null ? undefined : v;
   }
   await updateItem(sku, clean);
+}
+
+/**
+ * Mark an item sold. Flips status to 'sold' (so it drops off the storefront —
+ * public reads only show 'published') and records the sale (when, price, who)
+ * in item_private. `soldPrice` defaults to the tag price if not passed.
+ */
+export async function markSoldAction(sku: string, soldPrice?: number | null): Promise<void> {
+  await requireAdminSession();
+  const me = await adminIdentity();
+  const { setStatus, findBySku } = await import("@/lib/items/store");
+  const item = await findBySku(sku);
+  const price = soldPrice ?? item?.price ?? null;
+  await setStatus(sku, "sold");
+  try {
+    const { upsertItemPrivate } = await import("@/lib/items/private-store");
+    await upsertItemPrivate(sku, {
+      soldAt: new Date().toISOString(),
+      soldPrice: price,
+      soldBy: me?.email ?? null,
+    });
+  } catch (err) {
+    // The status flip is the important part; the sold record is best-effort
+    // (e.g. before the migration runs).
+    console.error("markSold: sold record save failed", err);
+  }
+}
+
+/** Reverse a mark-sold: back to published and clear the sold record. */
+export async function unmarkSoldAction(sku: string): Promise<void> {
+  await requireAdminSession();
+  const { setStatus } = await import("@/lib/items/store");
+  await setStatus(sku, "published");
+  try {
+    const { upsertItemPrivate } = await import("@/lib/items/private-store");
+    await upsertItemPrivate(sku, { soldAt: null, soldPrice: null, soldBy: null });
+  } catch (err) {
+    console.error("unmarkSold: clear failed", err);
+  }
 }
 
 /**

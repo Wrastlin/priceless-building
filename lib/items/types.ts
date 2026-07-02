@@ -15,7 +15,7 @@ export type Category =
 
 export type Brand = "priceless" | "builders";
 
-export type ItemStatus = "draft" | "staged" | "published" | "archived";
+export type ItemStatus = "draft" | "staged" | "published" | "archived" | "sold";
 
 export interface CatalogItem {
   id: string;

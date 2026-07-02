@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { AdminShell } from "@/components/admin-shell";
 import { listDrafts, listPublished } from "@/lib/items/store";
+import { getVelocitySummary } from "@/lib/items/velocity";
 import { DashboardQueues } from "./dashboard-queues";
+import { VelocityPanel } from "./velocity-panel";
 
 export const dynamic = "force-dynamic";
 
@@ -18,7 +20,11 @@ export const dynamic = "force-dynamic";
  * misleading because none of those systems are wired up yet.
  */
 export default async function AdminDashboard() {
-  const [drafts, published] = await Promise.all([listDrafts(), listPublished()]);
+  const [drafts, published, velocity] = await Promise.all([
+    listDrafts(),
+    listPublished(),
+    getVelocitySummary(),
+  ]);
 
   const oldestDraft = drafts
     .slice()
@@ -73,6 +79,10 @@ export default async function AdminDashboard() {
 
       <div className="mt-8">
         <DashboardQueues drafts={drafts} recent={recentPublished} oldestDraft={oldestDraft} />
+      </div>
+
+      <div className="mt-8">
+        <VelocityPanel v={velocity} />
       </div>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-3">
