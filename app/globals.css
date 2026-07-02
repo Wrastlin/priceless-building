@@ -276,6 +276,12 @@ img, video, iframe {
 }
 .admin-table tbody tr:last-child td { border-bottom: 0; }
 .admin-table tbody tr:hover { background: #fafaf9; }
+/* Tighter horizontal padding on phones so the trimmed column set
+   (Item / Tag / Qty / Edit) fits without horizontal scrolling. */
+@media (max-width: 640px) {
+  .admin-table thead th,
+  .admin-table tbody td { padding-left: 0.5rem; padding-right: 0.5rem; }
+}
 
 /* Vendor logo marquee — seamless infinite scroll (vendor-wall.tsx). */
 .vendor-marquee__track {

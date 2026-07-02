@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { AccountButton } from "./account-button";
 import { CartButton } from "./cart-button";
 import { HeaderSearch } from "./header-search";
 import { MainMenu } from "./main-menu";
@@ -48,20 +49,23 @@ export function SiteHeader({ brand }: { brand: "priceless" | "builders" | "four-
           </span>
         </Link>
 
-        {/* Right cluster. Search, phone, cart, menu — same controls
-            on every page so the experience never shifts. */}
+        {/* Right cluster. Search, phone, account, cart, menu — same
+            controls on every page so the experience never shifts.
+            Account sits next to the cart so customers can sign in or
+            create an account from anywhere, never buried in the footer. */}
         <div className="flex shrink-0 items-center gap-2">
           <HeaderSearch />
           <a
             href={`tel:${PHONE_DISPLAY.replace(/[^0-9+]/g, "")}`}
             aria-label={`Call ${PHONE_DISPLAY}`}
-            className="hidden h-11 items-center gap-2.5 rounded-md border border-[var(--border)] bg-white px-3.5 text-base font-semibold text-[var(--brand-priceless)] transition hover:border-[var(--brand-priceless)] hover:bg-[var(--brand-priceless)] hover:text-white lg:inline-flex"
+            className="hidden h-11 items-center gap-2.5 rounded-md border border-[var(--border)] bg-white px-3.5 text-base font-semibold text-[var(--brand-priceless)] transition hover:border-[var(--brand-priceless)] hover:bg-[var(--brand-priceless)] hover:text-white xl:inline-flex"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z" />
             </svg>
             <span>{PHONE_DISPLAY}</span>
           </a>
+          <AccountButton />
           <CartButton />
           <MainMenu current={brand} phone={PHONE_DISPLAY} />
         </div>

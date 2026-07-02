@@ -9,12 +9,17 @@ import {
 } from "@/lib/actions/staging";
 
 /**
- * Client-side approve / reject buttons for a single draft card.
+ * Approve / reject buttons for a single draft card.
  *
- * Both actions are reversible: after firing, a sonner toast appears
- * with an "Undo" button AND Cmd+Z / Ctrl+Z reverses the most recent
- * mutation for ten seconds. After that window the undo handle expires
- * and the action stands.
+ * Approve is combined with the tag print: it opens the floor-tag print
+ * screen for this SKU as part of the same click, so a manager approves and
+ * prints in one action. (The tab is opened synchronously in the click so a
+ * popup blocker won't kill it, then pointed at the item only once the
+ * approval succeeds.)
+ *
+ * Both actions are reversible: after firing, a sonner toast appears with an
+ * "Undo" button AND Cmd+Z / Ctrl+Z reverses the most recent mutation for
+ * ten seconds. After that window the undo handle expires and it stands.
  */
 
 type PendingUndo = { sku: string; verb: string };
@@ -53,28 +58,42 @@ export function StagingActions({ sku, title }: { sku: string; title: string }) {
     });
   }
 
-  function fire(verb: "Approved" | "Rejected", run: () => Promise<void>) {
+  function armUndo(verb: "Approved" | "Rejected") {
+    const undo: PendingUndo = { sku, verb };
+    pendingUndoRef.current = undo;
+    if (expiryRef.current) window.clearTimeout(expiryRef.current);
+    expiryRef.current = window.setTimeout(() => {
+      if (pendingUndoRef.current === undo) pendingUndoRef.current = null;
+    }, 10_000);
+    toast(`${verb} · ${title}`, {
+      description: "Cmd+Z to undo",
+      action: { label: "Undo", onClick: () => runUndo(undo) },
+      duration: 10_000,
+    });
+  }
+
+  function approveAndTag() {
+    // Open the print tab now, inside the user gesture, so it isn't blocked.
+    const win = window.open("", "_blank");
     startTransition(async () => {
       try {
-        await run();
-        const undo: PendingUndo = { sku, verb };
-        pendingUndoRef.current = undo;
-        if (expiryRef.current) window.clearTimeout(expiryRef.current);
-        // Auto-expire the undo window after 10s.
-        expiryRef.current = window.setTimeout(() => {
-          if (pendingUndoRef.current === undo) pendingUndoRef.current = null;
-        }, 10_000);
-        toast(`${verb} · ${title}`, {
-          description: "Cmd+Z to undo",
-          action: { label: "Undo", onClick: () => runUndo(undo) },
-          duration: 10_000,
-        });
+        await approveDraftAction(sku);
+        if (win) win.location.href = `/admin/tags?sku=${encodeURIComponent(sku)}`;
+        armUndo("Approved");
       } catch (err) {
-        toast.error(
-          `${verb === "Approved" ? "Approve" : "Reject"} failed: ${
-            err instanceof Error ? err.message : "unknown"
-          }`,
-        );
+        if (win) win.close();
+        toast.error(`Approve failed: ${err instanceof Error ? err.message : "unknown"}`);
+      }
+    });
+  }
+
+  function reject() {
+    startTransition(async () => {
+      try {
+        await rejectDraftAction(sku);
+        armUndo("Rejected");
+      } catch (err) {
+        toast.error(`Reject failed: ${err instanceof Error ? err.message : "unknown"}`);
       }
     });
   }
@@ -84,15 +103,15 @@ export function StagingActions({ sku, title }: { sku: string; title: string }) {
       <button
         type="button"
         disabled={pending}
-        onClick={() => fire("Approved", () => approveDraftAction(sku))}
+        onClick={approveAndTag}
         className="admin-btn admin-btn-primary w-full"
       >
-        {pending ? "…" : "Approve"}
+        {pending ? "…" : "Approve + tag"}
       </button>
       <button
         type="button"
         disabled={pending}
-        onClick={() => fire("Rejected", () => rejectDraftAction(sku))}
+        onClick={reject}
         className="admin-btn admin-btn-outline w-full"
       >
         {pending ? "…" : "Reject"}

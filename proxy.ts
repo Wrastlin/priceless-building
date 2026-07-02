@@ -21,7 +21,10 @@ export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
 
   const pathname = request.nextUrl.pathname;
-  const isAdmin = pathname.startsWith("/admin");
+  // Match the admin ROUTES (/admin, /admin/...) but NOT sibling public
+  // assets like /admin-manifest.json — `startsWith("/admin")` would gate
+  // the PWA manifest too, making the admin un-installable.
+  const isAdmin = pathname === "/admin" || pathname.startsWith("/admin/");
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
   const allow = parseAllowed(process.env.ALLOWED_EMAILS);

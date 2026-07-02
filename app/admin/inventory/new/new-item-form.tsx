@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useRef, useState, useTransition } from "react";
 import { toast } from "sonner";
@@ -8,29 +7,11 @@ import { formatCurrency } from "@/lib/utils";
 import { createDraftFromFormAction } from "@/lib/actions/staging";
 import { fileToCompressedDataUrl, readJsonSafe } from "@/lib/client/media";
 import { AddItemMarketing } from "./add-item-marketing";
-
-type PhotoSource = "real" | "ai-cleaned" | "ai-variant";
-interface TrackedPhoto {
-  url: string;
-  source: PhotoSource;
-}
-
-type Comparable = {
-  source: string;
-  title: string;
-  price: number;
-  url: string;
-  image: string;
-};
-
-type Suggestion = {
-  title?: string;
-  subtitle?: string;
-  category?: string;
-  manufacturer?: string;
-  dimensions?: string;
-  estimatedRetail?: number;
-};
+import type { Comparable, Suggestion, TrackedPhoto } from "./types";
+import { Disclosure, Field, Group, Panel } from "./form-ui";
+import { PhotoGrid } from "./photo-grid";
+import { ComparablesList } from "./comparables-list";
+import { TagPreview } from "./tag-preview";
 
 const CATEGORIES = [
   "doors",
@@ -293,425 +274,345 @@ export function NewItemForm() {
     [photos, context],
   );
 
+  const realCount = photos.filter((p) => p.source === "real").length;
+
   return (
-    <div className="grid gap-6 lg:grid-cols-2">
-      {/* LEFT: capture + context + analyze */}
-      <div className="space-y-5">
-        <Section title={`Photographs (${photos.length})`}>
-          <div className="mb-3 rounded border border-[var(--brand-priceless)]/30 bg-[#fff5f4] px-3 py-2 text-xs leading-relaxed text-foreground">
-            <strong>Required:</strong> at least one real photo of the actual item.
-            Multiple angles + a close-up of the tag help AI identify the item more
-            accurately. AI cleanups and marketing variants are <em>additions</em>,
-            never replacements.
-          </div>
-
-          <div className="flex flex-wrap gap-2">
-            <button
-              type="button"
-              onClick={() => cameraRef.current?.click()}
-              className="admin-btn admin-btn-outline"
-            >
-              📷 Take photo
-            </button>
-            <button
-              type="button"
-              onClick={() => libraryRef.current?.click()}
-              className="admin-btn admin-btn-outline"
-            >
-              + Add from library
-            </button>
-            {photos.length === 0 ? (
-              <span className="self-center text-xs text-muted-foreground">No photos yet</span>
-            ) : null}
-          </div>
-
-          <input
-            ref={cameraRef}
-            type="file"
-            accept="image/*"
-            capture="environment"
-            onChange={onFiles}
-            className="hidden"
-          />
-          <input
-            ref={libraryRef}
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={onFiles}
-            className="hidden"
-          />
-
-          {photos.length > 0 ? (
-            <ul className="mt-4 grid grid-cols-3 gap-2 sm:grid-cols-4">
-              {photos.map((p, i) => (
-                <li key={i} className="group relative">
-                  <div className="relative aspect-square overflow-hidden rounded border border-border bg-[#fafaf9]">
-                    <Image src={p.url} alt={`photo ${i + 1}`} fill className="object-cover" unoptimized />
-                  </div>
-                  {i === 0 ? (
-                    <span className="font-mono absolute left-1 top-1 bg-[var(--brand-priceless)] px-1.5 py-0.5 text-[10px] uppercase tracking-[0.1em] text-white">
-                      Cover
-                    </span>
-                  ) : null}
-                  {p.source !== "real" ? (
-                    <span className="font-mono absolute right-1 top-1 bg-amber-600/95 px-1.5 py-0.5 text-[9px] uppercase tracking-[0.1em] text-white">
-                      AI
-                    </span>
-                  ) : null}
-                  <div className="absolute inset-x-0 bottom-0 flex flex-wrap justify-between gap-1 bg-black/60 px-1 py-1 opacity-100 transition md:opacity-0 md:group-hover:opacity-100">
-                    {i !== 0 ? (
-                      <button
-                        type="button"
-                        onClick={() => setAsCover(i)}
-                        className="text-[10px] font-medium text-white hover:underline"
-                      >
-                        Make cover
-                      </button>
-                    ) : <span />}
-                    <button
-                      type="button"
-                      onClick={() => cleanPhoto(i)}
-                      disabled={cleaningIdx === i}
-                      className="text-[10px] font-medium text-white hover:underline disabled:opacity-50"
-                    >
-                      {cleaningIdx === i ? "Cleaning…" : "Clean bg"}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => removePhoto(i)}
-                      aria-label="Remove photo"
-                      className="text-[10px] font-medium text-white hover:underline"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          ) : null}
-        </Section>
-
-        <Section title="Tell the AI what it is (optional)">
-          <p className="admin-help mb-3">
-            Add any context that would help: model number from the tag, size, condition,
-            anything visible damage. The AI uses this on top of the photos to identify
-            the item more accurately. Leave blank to let the photos speak for themselves.
-          </p>
-          <textarea
-            value={context}
-            onChange={(e) => setContext(e.target.value)}
-            placeholder='e.g. "32-inch interior door, hollow core, slight scuff bottom right. Tag says Masonite Cheyenne."'
-            rows={3}
-            className="admin-input w-full resize-y"
-          />
-        </Section>
-
-        <Section title="Analyze and price">
-          <p className="admin-help mb-3">
-            One click: AI reads the photos + context, identifies the item, runs live
-            retail comparables on Home Depot / Lowe&apos;s / Menards / Amazon, and
-            suggests a tag price based on our tiered pricing rules.
-          </p>
-          <label className="mb-3 flex cursor-pointer items-start gap-2.5 rounded border border-border bg-[#fafaf9] px-3 py-2.5">
-            <input
-              type="checkbox"
-              checked={broaden}
-              onChange={(e) => setBroaden(e.target.checked)}
-              className="mt-0.5 accent-[var(--brand-priceless)]"
-            />
-            <span className="text-xs leading-relaxed text-foreground">
-              <strong>Broaden the search</strong> — look beyond the big-four retailers to
-              specialty stores, manufacturers, and online sellers. Use for unique or
-              special-value items (antique hardware, designer fixtures, discontinued lines)
-              the big boxes don&apos;t carry.
-            </span>
-          </label>
-          <button
-            type="button"
-            onClick={analyzeAndPrice}
-            disabled={analyzing || !canAnalyze}
-            className="admin-btn admin-btn-primary w-full"
-          >
-            {analyzing
-              ? "Analyzing…"
-              : analyzed
-                ? "Re-analyze with current photos + context"
-                : "Analyze and price"}
-          </button>
-        </Section>
-      </div>
-
-      {/* RIGHT: review + commit */}
-      <div className="space-y-5">
-        <Section title="Review the details">
-          <p className="admin-help mb-3">
-            AI suggestions appear here after you hit Analyze. Edit anything that&apos;s off.
-          </p>
-          <div className="space-y-4">
-            <Field label="Title">
-              <div className="flex gap-2">
-                <input
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  placeholder='e.g. "Pre-hung 6-panel interior door 32×80"'
-                  className="admin-input flex-1"
-                />
+    <div className="mx-auto max-w-6xl pb-24">
+      {/* Two-column workspace. LEFT = capture the item and let AI price it.
+          RIGHT = the listing you're building. On phones the columns stack in
+          this same order, so floor entry stays a clean top-to-bottom path. */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-start">
+        {/* ───────── LEFT: capture + AI ───────── */}
+        <div className="space-y-6">
+          <Panel>
+            <Group title="Photos" hint={`${photos.length} added`}>
+              <div className="mb-3 flex flex-wrap gap-2">
                 <button
                   type="button"
-                  onClick={reSearchComparables}
-                  disabled={reSearching || title.trim().length < 3}
-                  title="Re-search live retail using this exact title"
-                  className="admin-btn admin-btn-outline whitespace-nowrap px-2.5 text-xs"
+                  onClick={() => cameraRef.current?.click()}
+                  className="admin-btn admin-btn-primary"
                 >
-                  {reSearching ? "Searching…" : "Re-search"}
+                  📷 Take photo
                 </button>
+                <button
+                  type="button"
+                  onClick={() => libraryRef.current?.click()}
+                  className="admin-btn admin-btn-outline"
+                >
+                  + Add from library
+                </button>
+                {photos.length === 0 ? (
+                  <span className="self-center text-xs text-muted-foreground">
+                    At least one real photo required. Multiple angles + a tag close-up help the AI.
+                  </span>
+                ) : null}
               </div>
-            </Field>
-            <Field label="Subtitle / spec">
-              <input
-                value={subtitle}
-                onChange={(e) => setSubtitle(e.target.value)}
-                placeholder='e.g. "Right-hand · Primed white · Hollow core"'
-                className="admin-input"
-              />
-            </Field>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <Field label="Manufacturer">
-                <input
-                  value={manufacturer}
-                  onChange={(e) => setManufacturer(e.target.value)}
-                  placeholder='e.g. "Masonite", "JELD-WEN"'
-                  className="admin-input"
-                />
-              </Field>
-              <Field label="Dimensions">
-                <input
-                  value={dimensions}
-                  onChange={(e) => setDimensions(e.target.value)}
-                  placeholder='e.g. "32×80×1-3/4"'
-                  className="admin-input"
-                />
-              </Field>
-            </div>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              <Field label="Category">
-                <select value={category} onChange={(e) => setCategory(e.target.value)} className="admin-input">
-                  {CATEGORIES.map((c) => (
-                    <option key={c} value={c}>
-                      {c[0].toUpperCase() + c.slice(1)}
-                    </option>
-                  ))}
-                </select>
-              </Field>
-              <Field label="Aisle / bin">
-                <input value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Aisle D · Bay 4" className="admin-input" />
-              </Field>
-              <Field label="Qty">
-                <input type="number" min={1} value={qty} onChange={(e) => setQty(Number(e.target.value))} className="admin-input" />
-              </Field>
-            </div>
-          </div>
-        </Section>
 
-        <Section title="Live retail comparables">
-          {comparables.length === 0 ? (
-            <div className="rounded-md border-2 border-dashed border-border bg-[#fafaf9] p-6 text-center text-sm text-muted-foreground">
-              {analyzing ? "Searching retailers…" : "Run Analyze to fetch live retail prices."}
-            </div>
-          ) : (
-            <ul className="divide-y divide-border border-y border-border">
-              {comparables.map((c, i) => (
-                <li key={i} className="grid grid-cols-[48px_1fr_auto] items-center gap-3 py-2.5">
-                  <div className="relative aspect-square overflow-hidden rounded bg-[#f4f4f3]">
-                    {c.image ? (
-                      <Image src={c.image} alt={c.source} fill className="object-cover" sizes="48px" unoptimized />
-                    ) : null}
-                  </div>
-                  <div className="min-w-0">
-                    <div className="text-xs font-medium text-[var(--brand-priceless)]">{c.source}</div>
-                    <div className="truncate text-sm">{c.title}</div>
-                  </div>
-                  <div className="text-right">
-                    <div className="font-mono text-sm font-semibold tabular-nums">{formatCurrency(c.price)}</div>
-                    <a
-                      href={c.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-xs text-[var(--brand-priceless)] underline decoration-[var(--brand-priceless)]/30 underline-offset-2 hover:decoration-[var(--brand-priceless)]"
+              <input
+                ref={cameraRef}
+                type="file"
+                accept="image/*"
+                capture="environment"
+                onChange={onFiles}
+                className="hidden"
+              />
+              <input
+                ref={libraryRef}
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={onFiles}
+                className="hidden"
+              />
+
+              {photos.length === 0 ? (
+                <button
+                  type="button"
+                  onClick={() => libraryRef.current?.click()}
+                  aria-label="Add a photo"
+                  className="flex aspect-[4/3] w-full flex-col items-center justify-center gap-3 rounded-md border-2 border-dashed border-border bg-[#fafaf9] text-muted-foreground transition hover:border-[var(--brand-priceless)] hover:bg-white"
+                >
+                  <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <circle cx="9" cy="9" r="2" />
+                    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                  </svg>
+                  <span className="text-sm font-medium text-foreground">Add a photo</span>
+                  <span className="text-xs">Tap to choose, or use Take photo above</span>
+                </button>
+              ) : (
+                <PhotoGrid
+                  photos={photos}
+                  cleaningIdx={cleaningIdx}
+                  onSetCover={setAsCover}
+                  onClean={cleanPhoto}
+                  onRemove={removePhoto}
+                />
+              )}
+            </Group>
+
+            <Group title="Identify & price with AI" hint={analyzed ? "done" : undefined} divided>
+              <p className="admin-help mb-2">
+                Optional context, then one click: AI reads the photos, identifies the item, runs
+                live retail comparables (Home Depot / Lowe&apos;s / Menards / Amazon) and suggests
+                a tag price from our tiered pricing rules.
+              </p>
+              <textarea
+                value={context}
+                onChange={(e) => setContext(e.target.value)}
+                placeholder='Optional context — e.g. "32-inch hollow-core interior door, slight scuff bottom right. Tag says Masonite Cheyenne."'
+                rows={2}
+                className="admin-input mb-3 w-full resize-y"
+              />
+              <label className="mb-3 flex cursor-pointer items-start gap-2.5 rounded border border-border bg-[#fafaf9] px-3 py-2.5">
+                <input
+                  type="checkbox"
+                  checked={broaden}
+                  onChange={(e) => setBroaden(e.target.checked)}
+                  className="mt-0.5 accent-[var(--brand-priceless)]"
+                />
+                <span className="text-xs leading-relaxed text-foreground">
+                  <strong>Broaden the search</strong> — look beyond the big-four retailers to
+                  specialty stores, manufacturers, and online sellers. Use for unique or
+                  special-value items (antique hardware, designer fixtures, discontinued lines)
+                  the big boxes don&apos;t carry.
+                </span>
+              </label>
+              <button
+                type="button"
+                onClick={analyzeAndPrice}
+                disabled={analyzing || !canAnalyze}
+                className="admin-btn admin-btn-primary w-full"
+              >
+                {analyzing
+                  ? "Analyzing…"
+                  : analyzed
+                    ? "Re-analyze with current photos + context"
+                    : "Analyze and price"}
+              </button>
+            </Group>
+          </Panel>
+
+          <Panel>
+            <Group
+              title="Live retail comparables"
+              hint={comparables.length > 0 ? `${comparables.length} found` : undefined}
+            >
+              <ComparablesList comparables={comparables} retailAvg={retailAvg} analyzing={analyzing} />
+            </Group>
+          </Panel>
+        </div>
+
+        {/* ───────── RIGHT: the listing you're building ───────── */}
+        <div className="space-y-6">
+          <Panel>
+            <Group title="Details">
+              <div className="space-y-4">
+                <Field label="Title">
+                  <div className="flex gap-2">
+                    <input
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      placeholder='e.g. "Pre-hung 6-panel interior door 32×80"'
+                      className="admin-input flex-1"
+                    />
+                    <button
+                      type="button"
+                      onClick={reSearchComparables}
+                      disabled={reSearching || title.trim().length < 3}
+                      title="Re-search live retail using this exact title"
+                      className="admin-btn admin-btn-outline whitespace-nowrap px-2.5 text-xs"
                     >
-                      view listing →
-                    </a>
+                      {reSearching ? "Searching…" : "Re-search"}
+                    </button>
                   </div>
-                </li>
-              ))}
-              <li className="flex items-center justify-between py-2.5">
-                <span className="text-sm font-medium text-muted-foreground">Retail average</span>
-                <span className="font-mono text-sm font-semibold tabular-nums">{formatCurrency(retailAvg)}</span>
-              </li>
-            </ul>
-          )}
-        </Section>
-
-        <Section title="Tag price">
-          <div className="flex items-center gap-2">
-            <span className="text-2xl text-muted-foreground">$</span>
-            <input
-              type="number"
-              min={0}
-              value={tagPrice}
-              onChange={(e) => setTagPrice(e.target.value === "" ? "" : Number(e.target.value))}
-              placeholder="0"
-              className="admin-input font-mono text-3xl font-semibold tabular-nums"
-            />
-            <span className="text-xs text-muted-foreground whitespace-nowrap">
-              {qty > 1 ? `× ${qty} units` : "per unit"}
-            </span>
-          </div>
-
-          {sliderMax > 0 ? (
-            <div className="mt-4">
-              <div className="mb-2 flex items-baseline justify-between text-xs">
-                <span className="text-muted-foreground">
-                  Margin slider — drag to override
-                </span>
-                <span className="font-mono tabular-nums text-foreground">
-                  {pctOfRetail}% of retail
-                </span>
-              </div>
-              <input
-                type="range"
-                min={0}
-                max={Math.round(sliderMax)}
-                step={1}
-                value={typeof tagPrice === "number" ? tagPrice : 0}
-                onChange={(e) => setTagPrice(Number(e.target.value))}
-                className="block w-full accent-[var(--brand-priceless)]"
-              />
-              <div className="mt-1 flex items-baseline justify-between text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-                <span>$0</span>
-                <span>${Math.round(sliderMax).toLocaleString()}</span>
-              </div>
-            </div>
-          ) : null}
-
-          {retailAvg > 0 && tagPriceNum > 0 ? (
-            <div className="mt-4 grid grid-cols-3 gap-3 rounded border-l-2 border-[var(--brand-priceless)] bg-[#fff5f4] p-3 text-sm">
-              <div>
-                <div className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">Tag</div>
-                <div className="font-mono mt-0.5 text-base font-semibold tabular-nums">{formatCurrency(tagPriceNum)}</div>
-              </div>
-              <div>
-                <div className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">Retail avg</div>
-                <div className="font-mono mt-0.5 text-base tabular-nums">{formatCurrency(retailAvg)}</div>
-              </div>
-              <div>
-                <div className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">Customer saves</div>
-                <div className="font-mono mt-0.5 text-base font-semibold tabular-nums text-[var(--brand-priceless)]">
-                  {customerSaves > 0 ? `${formatCurrency(customerSaves)} (${Math.round((customerSaves / retailAvg) * 100)}%)` : "—"}
+                </Field>
+                <Field label="Subtitle / spec">
+                  <input
+                    value={subtitle}
+                    onChange={(e) => setSubtitle(e.target.value)}
+                    placeholder='e.g. "Right-hand · Primed white · Hollow core"'
+                    className="admin-input"
+                  />
+                </Field>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <Field label="Manufacturer">
+                    <input
+                      value={manufacturer}
+                      onChange={(e) => setManufacturer(e.target.value)}
+                      placeholder='e.g. "Masonite", "JELD-WEN"'
+                      className="admin-input"
+                    />
+                  </Field>
+                  <Field label="Dimensions">
+                    <input
+                      value={dimensions}
+                      onChange={(e) => setDimensions(e.target.value)}
+                      placeholder='e.g. "32×80×1-3/4"'
+                      className="admin-input"
+                    />
+                  </Field>
+                </div>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                  <Field label="Category">
+                    <select value={category} onChange={(e) => setCategory(e.target.value)} className="admin-input">
+                      {CATEGORIES.map((c) => (
+                        <option key={c} value={c}>
+                          {c[0].toUpperCase() + c.slice(1)}
+                        </option>
+                      ))}
+                    </select>
+                  </Field>
+                  <Field label="Aisle / bin">
+                    <input value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Aisle D · Bay 4" className="admin-input" />
+                  </Field>
+                  <Field label="Qty">
+                    <input type="number" min={1} value={qty} onChange={(e) => setQty(Number(e.target.value))} className="admin-input" />
+                  </Field>
                 </div>
               </div>
-            </div>
-          ) : null}
-        </Section>
+            </Group>
 
-        <Section title="Floor tag preview">
-          <p className="admin-help mb-3">
-            Live mock of the 4×3&quot; thermal tag the floor printer will produce.
-            Updates as you edit. The barcode lands after the SKU is generated on Save.
-          </p>
-          <div className="mx-auto max-w-[320px] rounded border-2 border-[var(--brand-priceless)] bg-white p-4 shadow-sm">
-            <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-              Price-Less · {location || "Aisle TBD"}
-            </div>
-            <div className="mt-2 text-base font-semibold leading-snug text-foreground">
-              {title.trim() || "Item title"}
-            </div>
-            {subtitle ? (
-              <div className="mt-0.5 text-xs text-muted-foreground">{subtitle}</div>
-            ) : null}
-            <div className="my-3 border-t border-dashed border-border" />
-            <div className="flex items-baseline justify-between gap-2">
-              <span className="font-display text-3xl tabular-nums text-[var(--brand-priceless)]">
-                {tagPriceNum > 0 ? formatCurrency(tagPriceNum) : "$ —"}
-              </span>
-              {retailAvg > 0 && tagPriceNum > 0 && retailAvg > tagPriceNum ? (
-                <div className="text-right">
-                  <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-                    Retail
+            <Group title="Tag price" divided>
+              <div className="flex items-center gap-2">
+                <span className="text-2xl text-muted-foreground">$</span>
+                <input
+                  type="number"
+                  min={0}
+                  value={tagPrice}
+                  onChange={(e) => setTagPrice(e.target.value === "" ? "" : Number(e.target.value))}
+                  placeholder="0"
+                  className="admin-input font-mono text-3xl font-semibold tabular-nums"
+                />
+                <span className="text-xs text-muted-foreground whitespace-nowrap">
+                  {qty > 1 ? `× ${qty} units` : "per unit"}
+                </span>
+              </div>
+
+              {sliderMax > 0 ? (
+                <div className="mt-4">
+                  <div className="mb-2 flex items-baseline justify-between text-xs">
+                    <span className="text-muted-foreground">Margin slider — drag to override</span>
+                    <span className="font-mono tabular-nums text-foreground">{pctOfRetail}% of retail</span>
                   </div>
-                  <div className="font-mono text-sm tabular-nums text-muted-foreground line-through">
-                    {formatCurrency(retailAvg)}
-                  </div>
-                  <div className="text-[10px] font-semibold text-emerald-700">
-                    save {formatCurrency(retailAvg - tagPriceNum)}
+                  <input
+                    type="range"
+                    min={0}
+                    max={Math.round(sliderMax)}
+                    step={1}
+                    value={typeof tagPrice === "number" ? tagPrice : 0}
+                    onChange={(e) => setTagPrice(Number(e.target.value))}
+                    className="block w-full accent-[var(--brand-priceless)]"
+                  />
+                  <div className="mt-1 flex items-baseline justify-between text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                    <span>$0</span>
+                    <span>${Math.round(sliderMax).toLocaleString()}</span>
                   </div>
                 </div>
               ) : null}
-            </div>
-            {dimensions ? (
-              <div className="mt-2 text-xs text-muted-foreground">{dimensions}</div>
+
+              {retailAvg > 0 && tagPriceNum > 0 ? (
+                <div className="mt-4 grid grid-cols-3 gap-3 rounded border-l-2 border-[var(--brand-priceless)] bg-[#fff5f4] p-3 text-sm">
+                  <div>
+                    <div className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">Tag</div>
+                    <div className="font-mono mt-0.5 text-base font-semibold tabular-nums">{formatCurrency(tagPriceNum)}</div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">Retail avg</div>
+                    <div className="font-mono mt-0.5 text-base tabular-nums">{formatCurrency(retailAvg)}</div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">Customer saves</div>
+                    <div className="font-mono mt-0.5 text-base font-semibold tabular-nums text-[var(--brand-priceless)]">
+                      {customerSaves > 0 ? `${formatCurrency(customerSaves)} (${Math.round((customerSaves / retailAvg) * 100)}%)` : "—"}
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+            </Group>
+          </Panel>
+
+          {/* Save — the primary action, anchored at the bottom of the listing column. */}
+          <Panel>
+            <p className="admin-help mb-3">
+              Generates a SKU and saves a draft. A manager approves it in{" "}
+              <Link href="/admin/staging" className="underline hover:no-underline">Staging</Link>{" "}
+              before it appears on the storefront.
+            </p>
+            <button
+              type="button"
+              onClick={commit}
+              disabled={saving}
+              className="admin-btn admin-btn-primary w-full"
+            >
+              {saving ? "Saving…" : `Save to staging (${photos.length} photo${photos.length === 1 ? "" : "s"})`}
+            </button>
+            {realCount === 0 && photos.length > 0 ? (
+              <p className="mt-2 text-xs text-[var(--brand-priceless)]">
+                At least one real photo of the actual item is required to save.
+              </p>
             ) : null}
-            <div className="mt-3 flex items-center justify-between gap-2 border-t border-dashed border-border pt-2 text-[10px] text-muted-foreground">
-              <span className="font-mono">SKU: generated on save</span>
-              <span className="font-mono">▮▮▮ ▮ ▮▮ ▮ ▮▮▮ ▮</span>
-            </div>
-          </div>
-        </Section>
+          </Panel>
+        </div>
+      </div>
 
-        <AddItemMarketing
-          fields={{
-            title,
-            subtitle,
-            category,
-            manufacturer,
-            dimensions,
-            location,
-            price: tagPriceNum,
-            retailAvg,
-            inStock: qty,
-          }}
-          coverImage={photos.find((p) => p.source === "real")?.url ?? null}
-          images={photos.map((p) => p.url)}
-          onAddPhotos={(urls) =>
-            setPhotos((prev) => [...prev, ...urls.map<TrackedPhoto>((url) => ({ url, source: "ai-variant" }))])
-          }
-        />
+      {/* OPTIONAL TOOLS — full width below the workspace, behind disclosures so
+          they never clutter the primary path but stay one click away. */}
+      <div className="mt-6 space-y-3">
+        <div className="font-mono px-1 text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+          Optional tools
+        </div>
 
-        <Section title="Save to staging">
+        <Disclosure summary="Floor tag preview" hint="how the printed tag will look">
           <p className="admin-help mb-3">
-            Generates a SKU and saves a draft. A manager approves it in{" "}
-            <Link href="/admin/staging" className="underline hover:no-underline">Staging</Link>{" "}
-            before it appears on the storefront.
+            Live mock of the 4×3&quot; thermal tag the floor printer will produce. Updates as
+            you edit. The barcode lands after the SKU is generated on Save.
           </p>
-          <button
-            type="button"
-            onClick={commit}
-            disabled={saving}
-            className="admin-btn admin-btn-primary w-full"
-          >
-            {saving ? "Saving…" : `Save to staging (${photos.length} photo${photos.length === 1 ? "" : "s"})`}
-          </button>
-        </Section>
+          <TagPreview
+            title={title}
+            subtitle={subtitle}
+            price={tagPriceNum}
+            retailAvg={retailAvg}
+            dimensions={dimensions}
+            location={location}
+          />
+        </Disclosure>
+
+        <Disclosure summary="Marketing copy & scene photos" hint="listing posts + AI room shots">
+          <AddItemMarketing
+            fields={{
+              title,
+              subtitle,
+              category,
+              manufacturer,
+              dimensions,
+              location,
+              price: tagPriceNum,
+              retailAvg,
+              inStock: qty,
+            }}
+            coverImage={photos.find((p) => p.source === "real")?.url ?? null}
+            images={photos.map((p) => p.url)}
+            onAddPhotos={(urls) =>
+              setPhotos((prev) => [...prev, ...urls.map<TrackedPhoto>((url) => ({ url, source: "ai-variant" }))])
+            }
+          />
+        </Disclosure>
+      </div>
+
+      {/* Sticky mobile Save bar — keeps the primary action reachable without
+          scrolling on phones, where the two columns stack tall. Desktop uses
+          the in-column Save button instead. */}
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-white/95 p-3 backdrop-blur lg:hidden">
+        <button
+          type="button"
+          onClick={commit}
+          disabled={saving}
+          className="admin-btn admin-btn-primary w-full"
+        >
+          {saving ? "Saving…" : `Save to staging (${photos.length} photo${photos.length === 1 ? "" : "s"})`}
+        </button>
       </div>
     </div>
-  );
-}
-
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section className="admin-card p-5">
-      <h2 className="border-b border-border pb-2 text-base font-semibold text-foreground">{title}</h2>
-      <div className="mt-4">{children}</div>
-    </section>
-  );
-}
-
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <label className="block">
-      <span className="admin-label">{label}</span>
-      {children}
-    </label>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Bebas_Neue, Inter_Tight, Playfair_Display, JetBrains_Mono, Fraunces } from "next/font/google";
 import { Toaster } from "sonner";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { AuthErrorNotice } from "@/components/auth-error-notice";
 import "./globals.css";
 
 // display: 'swap' on every face so the H1 (LCP element on mobile)
@@ -139,6 +140,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-[100] focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:text-[var(--brand-priceless)] focus:shadow">Skip to main content</a>
         <SmoothScroll />
         <main id="main">{children}</main>
+        <AuthErrorNotice />
         <Toaster position="top-center" richColors />
       </body>
     </html>

@@ -214,17 +214,13 @@ export function AddItemMarketing({
   }
 
   return (
-    <section className="admin-card p-5">
-      <h2 className="border-b border-border pb-2 text-base font-semibold text-foreground">
-        Marketing (optional)
-      </h2>
-
+    <div>
       {!hasTitle ? (
-        <p className="admin-help mt-4">
+        <p className="admin-help">
           Analyze the item (or type a title) to generate listing copy and scene photos here.
         </p>
       ) : (
-        <div className="mt-4 space-y-6">
+        <div className="space-y-6">
           {/* Listing copy */}
           <div>
             <div className="flex flex-wrap items-center justify-between gap-3">
@@ -395,6 +391,6 @@ export function AddItemMarketing({
           </div>
         </div>
       )}
-    </section>
+    </div>
   );
 }
