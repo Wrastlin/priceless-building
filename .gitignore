@@ -44,3 +44,7 @@ npm-debug.log*
 
 # playwright test artifacts
 .playwright-mcp/
+
+# DEV-ONLY admin UI preview — must never reach production. Also 404s in prod
+# via a NODE_ENV guard and is listed in .vercelignore. Safe to delete anytime.
+app/dev-preview/

@@ -32,7 +32,7 @@ export function HeaderSearch() {
         type="search"
         placeholder="Search doors, windows, cabinets…"
         aria-label="Search the warehouse"
-        className="w-72 border-0 bg-transparent p-0 text-base font-medium text-[var(--foreground)] placeholder:font-medium placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-0 xl:w-96"
+        className="w-56 border-0 bg-transparent p-0 text-base font-medium text-[var(--foreground)] placeholder:font-medium placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-0 xl:w-72 2xl:w-96"
       />
     </form>
   );

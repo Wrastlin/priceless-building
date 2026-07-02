@@ -20,7 +20,7 @@ import {
   type Category,
   type CatalogItem,
 } from "@/lib/items/store";
-import { requireAdminSession } from "@/lib/auth/session";
+import { requireAdminSession, adminIdentity } from "@/lib/auth/session";
 import { formatSKU } from "@/lib/utils";
 
 const CATEGORY_TO_BRAND: Record<string, Brand> = {
@@ -176,21 +176,36 @@ export async function createDraftFromFormAction(formData: FormData): Promise<voi
   // second — normal during batch scanning, or with two staffers at once. A
   // millisecond clock plus per-attempt jitter makes a repeat collision
   // vanishingly unlikely within the retry budget.
-  let created = false;
-  for (let attempt = 0; attempt < 8 && !created; attempt++) {
+  let createdSku: string | null = null;
+  for (let attempt = 0; attempt < 8 && !createdSku; attempt++) {
     const suffix = (Date.now() + Math.floor(Math.random() * 1_000_000)) % 1_000_000;
     const sku = formatSKU(prefix, suffix);
     try {
       await createDraft({ ...baseDraft, id: sku.toLowerCase(), sku });
-      created = true;
+      createdSku = sku;
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
       if (msg.includes("already exists")) continue; // SKU collision — try a new suffix
       throw err; // any other failure bubbles up
     }
   }
-  if (!created) {
+  if (!createdSku) {
     throw new Error("Couldn't generate a unique SKU after several tries — please save again.");
+  }
+
+  // Private (never-public) cost + source lot, stored in item_private. Best
+  // effort: the draft is already saved, so if this fails (e.g. the migration
+  // hasn't run yet) don't lose the item — cost can be re-entered on the item
+  // page.
+  const cost = optionalNumber(formData, "cost");
+  const sourceLot = optional(formData, "source_lot");
+  if (cost !== undefined || sourceLot !== undefined) {
+    try {
+      const { upsertItemPrivate } = await import("@/lib/items/private-store");
+      await upsertItemPrivate(createdSku, { cost: cost ?? null, sourceLot: sourceLot ?? null });
+    } catch (err) {
+      console.error("createDraft: cost/source save failed (item still created)", err);
+    }
   }
 
   redirect("/admin/staging");
@@ -265,4 +280,59 @@ export async function updateItemDetailsAction(
     clean[k] = v === null ? undefined : v;
   }
   await updateItem(sku, clean);
+}
+
+/**
+ * Mark an item sold. Flips status to 'sold' (so it drops off the storefront —
+ * public reads only show 'published') and records the sale (when, price, who)
+ * in item_private. `soldPrice` defaults to the tag price if not passed.
+ */
+export async function markSoldAction(sku: string, soldPrice?: number | null): Promise<void> {
+  await requireAdminSession();
+  const me = await adminIdentity();
+  const { setStatus, findBySku } = await import("@/lib/items/store");
+  const item = await findBySku(sku);
+  const price = soldPrice ?? item?.price ?? null;
+  await setStatus(sku, "sold");
+  try {
+    const { upsertItemPrivate } = await import("@/lib/items/private-store");
+    await upsertItemPrivate(sku, {
+      soldAt: new Date().toISOString(),
+      soldPrice: price,
+      soldBy: me?.email ?? null,
+    });
+  } catch (err) {
+    // The status flip is the important part; the sold record is best-effort
+    // (e.g. before the migration runs).
+    console.error("markSold: sold record save failed", err);
+  }
+}
+
+/** Reverse a mark-sold: back to published and clear the sold record. */
+export async function unmarkSoldAction(sku: string): Promise<void> {
+  await requireAdminSession();
+  const { setStatus } = await import("@/lib/items/store");
+  await setStatus(sku, "published");
+  try {
+    const { upsertItemPrivate } = await import("@/lib/items/private-store");
+    await upsertItemPrivate(sku, { soldAt: null, soldPrice: null, soldBy: null });
+  } catch (err) {
+    console.error("unmarkSold: clear failed", err);
+  }
+}
+
+/**
+ * Set an item's private cost + source lot (the "what we paid" / which
+ * liquidation buy). Stored in item_private, never exposed to the storefront.
+ * Pass null to clear a value.
+ */
+export async function updateItemCostAction(
+  sku: string,
+  fields: { cost?: number | null; sourceLot?: string | null },
+): Promise<void> {
+  await requireAdminSession();
+  const { upsertItemPrivate } = await import("@/lib/items/private-store");
+  await upsertItemPrivate(sku, fields);
+  const { revalidatePath } = await import("next/cache");
+  revalidatePath(`/admin/inventory/${sku}`);
 }

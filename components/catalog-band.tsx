@@ -17,7 +17,7 @@ export function CatalogBand({ items }: { items: CatalogItem[] }) {
           data-reveal
         >
           <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
-            On the floor right now
+            On the floor
           </div>
           <form
             role="search"
@@ -65,11 +65,12 @@ export function CatalogBand({ items }: { items: CatalogItem[] }) {
           ))}
         </div>
 
-        {/* Mobile shows 6, desktop shows all 12 — the catalog was
-            scrolling past the rest of the home page on small screens. */}
-        <div className="mt-10 grid grid-cols-1 gap-px bg-[var(--border)] sm:grid-cols-2 lg:grid-cols-4">
+        {/* Mobile shows 6 (three tight rows of two), desktop shows all 12 —
+            the catalog was scrolling past the rest of the home page on small
+            screens. */}
+        <div className="mt-10 grid grid-cols-2 gap-px bg-[var(--border)] lg:grid-cols-4">
           {items.map((it, i) => (
-            <div key={it.id} className={i >= 4 ? "hidden sm:block" : ""}>
+            <div key={it.id} className={i >= 6 ? "hidden lg:block" : ""}>
               <ProductCard item={it} />
             </div>
           ))}

@@ -1,5 +1,6 @@
 import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
+import { isEmailAllowed, envAllowlistEmpty, devAdminBypass } from "@/lib/auth/allowlist";
 
 /**
  * Returns the current Supabase user's claims, or null if signed out
@@ -11,6 +12,7 @@ import { createClient } from "@/lib/supabase/server";
  * store once.
  */
 export const getClaims = cache(async (): Promise<AuthClaims> => {
+  if (devAdminBypass()) return { sub: "dev", email: "dev@local", role: "admin" };
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
   if (!supabaseUrl || !supabaseKey) {
@@ -25,17 +27,12 @@ export const getClaims = cache(async (): Promise<AuthClaims> => {
   const claims = data?.claims;
   if (!claims) return null;
   const email = (claims.email as string | undefined)?.toLowerCase();
-  const allow = parseAllowed(process.env.ALLOWED_EMAILS);
-  // Empty allowlist in prod = fail closed. In dev = anyone signed in.
-  if (allow.size === 0 && process.env.NODE_ENV === "production") return null;
-  if (allow.size > 0 && (!email || !allow.has(email))) return null;
-  return claims as AuthClaims;
+  // Allowed if in the env allowlist OR the staff_emails table.
+  if (await isEmailAllowed(email, supabase)) return claims as AuthClaims;
+  // No allowlist configured at all: fail closed in prod, open in dev.
+  if (envAllowlistEmpty() && process.env.NODE_ENV !== "production") return claims as AuthClaims;
+  return null;
 });
-
-function parseAllowed(env: string | undefined): Set<string> {
-  if (!env) return new Set();
-  return new Set(env.split(",").map((e) => e.trim().toLowerCase()).filter(Boolean));
-}
 
 export type AuthClaims = {
   sub: string;

@@ -3,26 +3,51 @@
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
+import { Turnstile, turnstileEnabled } from "@/components/turnstile";
 
 /**
- * Customer account sign-in / sign-up.
+ * Customer account sign-in / sign-up / password reset.
  *
- * Security is handled by the provider (Supabase Auth): password hashing,
- * email verification, and rate limiting all live in Supabase, so we never
- * store or see a raw password. Two paths:
+ * Security is handled by our managed third-party provider, Supabase Auth:
+ * password hashing, email verification, session issuance, and rate limiting
+ * all live in Supabase, so Price-Less never stores or sees a raw password.
+ * Three modes:
  *   - Continue with Google (OAuth)
  *   - Email + password (sign in or create account)
+ *   - Forgot password → emailed reset link
  *
- * This is the CUSTOMER gate (separate from staff /login). Customers can
- * sign in here without being on the admin allowlist; they just can't reach
- * /admin. Payment details are never collected here — those will be handled
- * by a tokenized payment provider so the store never touches card data.
+ * When a Cloudflare Turnstile site key is configured the email forms also
+ * require a bot-protection challenge whose token Supabase verifies
+ * server-side. This is the CUSTOMER gate (separate from staff /login).
+ * Payment details are never collected here — those are handled by a
+ * tokenized payment provider so the store never touches card data.
  */
+
+const MIN_PASSWORD = 10;
+
+type Mode = "signin" | "signup" | "reset";
+
 export function CustomerAuth() {
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [mode, setMode] = useState<Mode>("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
   const [pending, setPending] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  // Bumping the key remounts the Turnstile widget so a consumed token is
+  // re-issued after an attempt (Supabase invalidates a token once used).
+  const [captchaKey, setCaptchaKey] = useState(0);
+
+  function resetCaptcha() {
+    setCaptchaToken(null);
+    setCaptchaKey((k) => k + 1);
+  }
+
+  // When bot protection is on, require a solved challenge before any
+  // password call. When it's off this is a no-op so dev/local works.
+  function captchaReady() {
+    return !turnstileEnabled || !!captchaToken;
+  }
 
   async function handleGoogle() {
     setPending(true);
@@ -41,35 +66,86 @@ export function CustomerAuth() {
 
   async function handleEmail(e: React.FormEvent) {
     e.preventDefault();
-    if (password.length < 8) {
-      toast.error("Password too short", { description: "Use at least 8 characters." });
+
+    if (!captchaReady()) {
+      toast.error("One more step", { description: "Please complete the verification below." });
       return;
     }
-    setPending(true);
+    const captcha = captchaToken ?? undefined;
     const supabase = createClient();
+
+    if (mode === "reset") {
+      setPending(true);
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/auth/callback?next=/account/update-password`,
+        captchaToken: captcha,
+      });
+      resetCaptcha();
+      setPending(false);
+      if (error) {
+        toast.error("Could not send reset email", { description: error.message });
+        return;
+      }
+      // Worded so we never reveal whether an address has an account.
+      toast.success("Check your email", {
+        description: "If an account exists for that address, a password reset link is on its way.",
+      });
+      setMode("signin");
+      return;
+    }
+
+    if (password.length < MIN_PASSWORD) {
+      toast.error("Password too short", {
+        description: `Use at least ${MIN_PASSWORD} characters. A short phrase you'll remember works well.`,
+      });
+      return;
+    }
+
+    setPending(true);
+
     if (mode === "signup") {
+      if (password !== confirm) {
+        setPending(false);
+        toast.error("Passwords don't match", { description: "Re-enter the same password in both fields." });
+        return;
+      }
       const { error } = await supabase.auth.signUp({
         email,
         password,
-        options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=/account` },
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback?next=/account`,
+          captchaToken: captcha,
+        },
       });
+      resetCaptcha();
+      setPending(false);
       if (error) {
         toast.error("Could not create account", { description: error.message });
-        setPending(false);
         return;
       }
-      toast.success("Check your email", { description: "Confirm your address to finish setting up your account." });
-      setPending(false);
-    } else {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) {
-        toast.error("Sign-in failed", { description: error.message });
-        setPending(false);
-        return;
-      }
-      window.location.href = "/account";
+      toast.success("Check your email", {
+        description: "Confirm your address to finish setting up your account.",
+      });
+      return;
     }
+
+    // signin
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+      options: { captchaToken: captcha },
+    });
+    if (error) {
+      resetCaptcha();
+      setPending(false);
+      toast.error("Sign-in failed", { description: error.message });
+      return;
+    }
+    window.location.href = "/account";
   }
+
+  const submitLabel =
+    mode === "signup" ? "Create account" : mode === "reset" ? "Send reset link" : "Sign in";
 
   return (
     <div className="rounded-md border border-[var(--border)] bg-white p-6 shadow-sm">
@@ -102,37 +178,92 @@ export function CustomerAuth() {
             placeholder="you@email.com"
           />
         </label>
-        <label className="block">
-          <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">Password</span>
-          <input
-            type="password"
-            required
-            minLength={8}
-            autoComplete={mode === "signup" ? "new-password" : "current-password"}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 w-full rounded-md border border-[var(--border)] bg-white px-3 py-2.5 text-base focus:border-[var(--brand-priceless)] focus:outline-none"
-            placeholder="At least 8 characters"
-          />
-        </label>
+
+        {mode !== "reset" && (
+          <label className="block">
+            <span className="flex items-center justify-between gap-2">
+              <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">Password</span>
+              {mode === "signin" && (
+                <button
+                  type="button"
+                  onClick={() => setMode("reset")}
+                  className="font-mono text-xs uppercase tracking-[0.12em] text-[var(--brand-priceless)] underline underline-offset-2"
+                >
+                  Forgot password?
+                </button>
+              )}
+            </span>
+            <input
+              type="password"
+              required
+              minLength={MIN_PASSWORD}
+              autoComplete={mode === "signup" ? "new-password" : "current-password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="mt-1 w-full rounded-md border border-[var(--border)] bg-white px-3 py-2.5 text-base focus:border-[var(--brand-priceless)] focus:outline-none"
+              placeholder={mode === "signup" ? `At least ${MIN_PASSWORD} characters` : "Your password"}
+            />
+          </label>
+        )}
+
+        {mode === "signup" && (
+          <label className="block">
+            <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">Confirm password</span>
+            <input
+              type="password"
+              required
+              minLength={MIN_PASSWORD}
+              autoComplete="new-password"
+              value={confirm}
+              onChange={(e) => setConfirm(e.target.value)}
+              className="mt-1 w-full rounded-md border border-[var(--border)] bg-white px-3 py-2.5 text-base focus:border-[var(--brand-priceless)] focus:outline-none"
+              placeholder="Re-enter your password"
+            />
+          </label>
+        )}
+
+        {mode === "reset" && (
+          <p className="text-sm text-[var(--muted-foreground)]">
+            Enter your email and we&apos;ll send a link to set a new password.
+          </p>
+        )}
+
+        {/* Bot-protection challenge — only renders when configured. */}
+        <Turnstile key={captchaKey} onToken={setCaptchaToken} />
+
         <button
           type="submit"
           disabled={pending}
           className="w-full rounded-md bg-[var(--brand-priceless)] px-5 py-3 text-base font-semibold text-white transition hover:opacity-90 disabled:opacity-60"
         >
-          {pending ? "Working…" : mode === "signup" ? "Create account" : "Sign in"}
+          {pending ? "Working…" : submitLabel}
         </button>
       </form>
 
       <p className="mt-4 text-center text-sm text-[var(--muted-foreground)]">
-        {mode === "signup" ? "Already have an account?" : "New here?"}{" "}
-        <button
-          type="button"
-          onClick={() => setMode(mode === "signup" ? "signin" : "signup")}
-          className="font-semibold text-[var(--brand-priceless)] underline underline-offset-2"
-        >
-          {mode === "signup" ? "Sign in" : "Create an account"}
-        </button>
+        {mode === "reset" ? (
+          <>
+            Remembered it?{" "}
+            <button
+              type="button"
+              onClick={() => setMode("signin")}
+              className="font-semibold text-[var(--brand-priceless)] underline underline-offset-2"
+            >
+              Back to sign in
+            </button>
+          </>
+        ) : (
+          <>
+            {mode === "signup" ? "Already have an account?" : "New here?"}{" "}
+            <button
+              type="button"
+              onClick={() => setMode(mode === "signup" ? "signin" : "signup")}
+              className="font-semibold text-[var(--brand-priceless)] underline underline-offset-2"
+            >
+              {mode === "signup" ? "Sign in" : "Create an account"}
+            </button>
+          </>
+        )}
       </p>
     </div>
   );

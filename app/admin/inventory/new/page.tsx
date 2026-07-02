@@ -8,8 +8,10 @@ export default function NewItem() {
       title="Add new item"
       crumbs={[{ label: "Inventory", href: "/admin/inventory" }, { label: "Add item" }]}
     >
-      <p className="admin-help mb-5 max-w-2xl">
-        Snap a photo, describe what it is, pull live retail comparables, set a tag price, and generate the SKU + printable tag.
+      <p className="admin-help mb-5 max-w-3xl">
+        Left: snap the photos and let AI identify and price the item. Right: review the
+        details, set the tag price, and save. Marketing copy, scene photos, and the tag
+        preview are tucked under Optional tools below.
       </p>
       <NewItemForm />
     </AdminShell>

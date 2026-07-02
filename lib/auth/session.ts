@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { isEmailAllowed, envAllowlistEmpty, devAdminBypass } from "@/lib/auth/allowlist";
 
 /**
  * Single admin-access gate. Used by every protected route handler and
@@ -28,12 +29,6 @@ import { createClient } from "@/lib/supabase/server";
 
 const isProd = () => process.env.NODE_ENV === "production";
 
-function allowedEmails(): Set<string> {
-  const raw = process.env.ALLOWED_EMAILS?.trim() ?? "";
-  if (!raw) return new Set();
-  return new Set(raw.split(",").map((e) => e.trim().toLowerCase()).filter(Boolean));
-}
-
 /**
  * Pre-launch killswitch (documented in .env.example). In PRODUCTION the
  * admin is hard-locked unless PUBLIC_ADMIN_ENABLED=1, so a deploy can't
@@ -57,14 +52,14 @@ export type AdminIdentity = { email: string; sub: string };
  */
 export async function adminIdentity(): Promise<AdminIdentity | null> {
   if (!adminGloballyEnabled()) return null;
+  if (devAdminBypass()) return { email: "dev@local", sub: "dev" };
 
   const supabaseConfigured =
     !!process.env.NEXT_PUBLIC_SUPABASE_URL && !!process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
-  const allow = allowedEmails();
 
   if (!supabaseConfigured) {
     // Nothing configured: dev fallback open, prod hard-locked.
-    if (allow.size === 0 && !isProd()) return { email: "dev@local", sub: "dev" };
+    if (envAllowlistEmpty() && !isProd()) return { email: "dev@local", sub: "dev" };
     return null;
   }
 
@@ -75,13 +70,11 @@ export async function adminIdentity(): Promise<AdminIdentity | null> {
     if (!claims) return null;
     const email = (claims.email as string | undefined)?.toLowerCase();
     const sub = (claims.sub as string | undefined) ?? email ?? "unknown";
-    if (allow.size === 0) {
-      // Supabase wired but no allowlist: fail closed in prod, open in dev.
-      if (isProd()) return null;
-      return { email: email ?? "dev@local", sub };
-    }
-    if (!email || !allow.has(email)) return null;
-    return { email, sub };
+    // Allowed if in the env allowlist OR the staff_emails table.
+    if (await isEmailAllowed(email, supabase)) return { email: email ?? "unknown", sub };
+    // No allowlist configured at all: fail closed in prod, open in dev.
+    if (envAllowlistEmpty() && !isProd()) return { email: email ?? "dev@local", sub };
+    return null;
   } catch {
     return null;
   }

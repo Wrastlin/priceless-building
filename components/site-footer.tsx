@@ -1,75 +1,11 @@
 import Link from "next/link";
 import { CircularSeal } from "./brand-logo";
 import { ADDRESS, BUILDERS, PRICELESS } from "@/lib/brands";
-import { CATEGORIES } from "@/lib/catalog-meta";
-
-// Department links are derived from the same CATEGORIES metadata that
-// generates the /shop/[category] routes and the SEO sitemap, so the
-// footer stays in sync automatically when a department is added or removed.
-const SHOP_LINKS = [
-  { href: "/shop", label: "Shop all" },
-  ...Object.entries(CATEGORIES).map(([slug, meta]) => ({
-    href: `/shop/${slug}`,
-    label: meta.label,
-  })),
-  { href: "/search", label: "Search" },
-  { href: "/compare", label: "Compare vs. big box" },
-  { href: "/gift-cards", label: "Gift cards" },
-];
-
-// Full public-site navigation. Admin (/admin/*) routes are intentionally
-// omitted (staff-only), as are dynamic/template routes (/shop/item/[sku],
-// /blog/[slug]) and /connections (local-only, 404s in production).
-const NAV_SECTIONS: { title: string; links: { href: string; label: string }[] }[] = [
-  {
-    title: "Shop",
-    links: SHOP_LINKS,
-  },
-  {
-    title: "Brands & services",
-    links: [
-      { href: "/builders-corner", label: "Builders Corner" },
-      { href: "/four-squared", label: "4 Squared install" },
-      { href: "/contractors", label: "Contractor program" },
-      { href: "/financing", label: "Financing" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { href: "/about", label: "About" },
-      { href: "/reviews", label: "Reviews" },
-      { href: "/press", label: "Press" },
-      { href: "/careers", label: "Careers" },
-      { href: "/blog", label: "Blog" },
-    ],
-  },
-  {
-    title: "Support",
-    links: [
-      { href: "/contact", label: "Contact" },
-      { href: "/faq", label: "FAQ" },
-      { href: "/track", label: "Track an order" },
-      { href: "/cart", label: "Cart" },
-      { href: "/checkout", label: "Checkout" },
-    ],
-  },
-  {
-    title: "Account & policies",
-    links: [
-      { href: "/account", label: "My account" },
-      { href: "/login", label: "Sign in" },
-      { href: "/policies/pricing", label: "Pricing policy" },
-      { href: "/policies/returns", label: "Returns policy" },
-      { href: "/sitemap-overview", label: "Site map" },
-    ],
-  },
-];
 
 /**
  * Editorial footer. No bento, no colored brand band. Just a thin
- * top border, oversized brand wordmark, mono columns, a full
- * public-page navigation block, and a brand-red baseline strip.
+ * top border, oversized brand wordmark, mono columns, and a brand-red
+ * baseline strip.
  */
 export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
   const b = brand === "priceless" ? PRICELESS : BUILDERS;
@@ -191,50 +127,28 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
               ) : null}
               <li><FooterLink href="/contact">Contact</FooterLink></li>
             </ul>
+
+            <div className="font-mono mt-6 text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
+              Account
+            </div>
+            <ul className="mt-4 space-y-2 text-sm">
+              <li><FooterLink href="/account">My account</FooterLink></li>
+              <li><FooterLink href="/login">Employee sign in</FooterLink></li>
+            </ul>
           </div>
         </div>
-
-        {/* FULL SITE NAVIGATION — every public page, grouped by section */}
-        <nav
-          aria-label="All pages"
-          className="mt-12 grid gap-x-8 gap-y-10 border-t border-[var(--border)] pt-12 sm:grid-cols-2 lg:grid-cols-5"
-        >
-          {NAV_SECTIONS.map((section) => (
-            <div key={section.title}>
-              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
-                {section.title}
-              </div>
-              <ul className="mt-3 space-y-1">
-                {section.links.map((l) => (
-                  <li key={l.href}>
-                    <Link
-                      href={l.href}
-                      className="block py-1 text-sm text-[var(--foreground)] hover:text-[var(--brand-priceless)]"
-                    >
-                      {l.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </nav>
       </div>
 
-      {/* BASELINE */}
+      {/* BASELINE — copyright + location only. Account and staff sign-in
+          live up in the "Account" column above, as normal footer links,
+          rather than buried down here in the red. */}
       <div className="border-t bg-[var(--brand-priceless-dark)] text-white">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-2 px-6 py-3">
           <span className="font-mono text-xs uppercase tracking-[0.14em] text-white/85">
             © {new Date().getFullYear()} Price-Less Building · Builders Corner · 4 Squared
           </span>
-          <span className="flex flex-wrap items-center gap-3 font-mono text-xs uppercase tracking-[0.14em] text-white/85">
-            <span>{ADDRESS.city}, {ADDRESS.state} · Same building since 1978</span>
-            <Link href="/account" className="text-white/80 underline decoration-white/30 underline-offset-2 hover:text-white">
-              My account
-            </Link>
-            <Link href="/login" className="text-white/80 underline decoration-white/30 underline-offset-2 hover:text-white">
-              Employee sign in
-            </Link>
+          <span className="font-mono text-xs uppercase tracking-[0.14em] text-white/85">
+            {ADDRESS.city}, {ADDRESS.state} · Same building since 1978
           </span>
         </div>
       </div>

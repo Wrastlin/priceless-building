@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { RegisterServiceWorker } from "@/components/register-service-worker";
 
 /**
  * Admin-only layout. Overrides the storefront's metadata + manifest so
@@ -51,5 +52,10 @@ export const viewport: Viewport = {
 };
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return (
+    <>
+      <RegisterServiceWorker />
+      {children}
+    </>
+  );
 }

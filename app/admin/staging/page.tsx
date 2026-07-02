@@ -35,7 +35,7 @@ export default async function StagingPage() {
           </div>
         </div>
       ) : (
-        <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <ul className="space-y-3">
           {drafts.map((d) => (
             <StagingCard key={d.sku} draft={d} />
           ))}

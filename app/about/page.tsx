@@ -30,13 +30,9 @@ export default function AboutPage() {
         </div>
         <div className="relative mx-auto grid max-w-7xl gap-10 px-6 pt-28 pb-20 text-white md:grid-cols-12 md:pt-40 md:pb-28">
           <div className="md:col-span-8">
-            <div className="font-mono flex items-center gap-3 text-xs uppercase tracking-[0.14em] text-white/85">
-              <span className="size-1.5 rounded-full bg-[var(--brand-priceless)]" />
-              <span>Origin</span>
-              <span className="opacity-50">/</span>
-              <span>Since 1978</span>
-              <span className="opacity-50">/</span>
-              <span>{ADDRESS.city}, {ADDRESS.state}</span>
+            <div className="font-mono inline-flex items-center gap-2.5 rounded-full bg-black/45 px-4 py-2 text-sm font-semibold uppercase tracking-[0.14em] text-white ring-1 ring-white/15 backdrop-blur-sm">
+              <span className="size-2 rounded-full bg-[var(--brand-priceless)]" />
+              <span>Since 1978 &middot; {ADDRESS.city}, {ADDRESS.state}</span>
             </div>
             <h1 className="font-display mt-8 max-w-[18ch] text-[3.5rem] leading-[0.88] text-white sm:text-[5rem] md:text-[7.5rem]">
               A weekend venture that <span className="text-[var(--brand-priceless)]">never closed.</span>
@@ -258,7 +254,7 @@ export default function AboutPage() {
               Come walk the <span className="text-[var(--brand-priceless)]">warehouse.</span>
             </h2>
             <p className="font-serif mt-5 text-base italic leading-relaxed text-[var(--muted-foreground)]">
-              Open Monday through Saturday. The coffee pot is on and the load bay is open.
+              Open Monday through Saturday. Easy parking out front and the contractor load bay around back.
             </p>
             <p className="mt-4 text-sm text-[var(--muted-foreground)]">
               {ADDRESS.street} · {ADDRESS.city}, {ADDRESS.state} {ADDRESS.zip} · {ADDRESS.phone}

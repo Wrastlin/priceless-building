@@ -182,7 +182,7 @@ export default async function ItemPage({ params }: { params: Promise<{ sku: stri
             <div className="mt-4 flex items-center gap-2 text-sm">
               <span className="inline-flex size-2 rounded-full bg-emerald-500" />
               <span className="text-[var(--foreground)]">
-                {item.inStock > 0 ? `In stock · ${item.inStock} available today` : "Made to order · call to confirm"}
+                {item.inStock > 0 ? `In stock · ${item.inStock} available` : "Made to order · call to confirm"}
               </span>
             </div>
           </div>

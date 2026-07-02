@@ -1,4 +1,6 @@
 # Heavy / non-app working dirs — never deploy these.
+# Dev-only admin UI preview (404s in prod anyway; kept out of the deploy).
+app/dev-preview
 sandbox
 footage
 public/sandbox

@@ -306,6 +306,11 @@ export async function listStaged(): Promise<CatalogItem[]> {
   return listByStatus("staged");
 }
 
+/** Sold items (status = 'sold'). Used by the velocity dashboard. */
+export async function listSold(): Promise<CatalogItem[]> {
+  return listByStatus("sold");
+}
+
 /** Admin lookup — any status. Uses the authenticated session client. */
 export async function findBySku(sku: string): Promise<CatalogItem | undefined> {
   if (SANDBOX) {

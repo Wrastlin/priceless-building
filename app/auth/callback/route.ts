@@ -21,6 +21,22 @@ function safeNext(raw: string | null): string {
   return raw;
 }
 
+/**
+ * Where to send the browser when the exchange fails. Customer flows
+ * (anything under /account, e.g. password recovery) bounce back to that
+ * page, which detects the missing session and shows a friendly message —
+ * never the staff /login screen. Everything else is a staff flow and
+ * lands on /login with the error surfaced as a toast.
+ */
+function errorDestination(next: string, origin: string, message: string): URL {
+  if (next.startsWith("/account")) {
+    return new URL(next, origin);
+  }
+  const loginUrl = new URL("/login", origin);
+  loginUrl.searchParams.set("error", message);
+  return loginUrl;
+}
+
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
@@ -28,21 +44,17 @@ export async function GET(request: Request) {
   const errorParam = url.searchParams.get("error_description");
 
   if (errorParam) {
-    const loginUrl = new URL("/login", url.origin);
-    loginUrl.searchParams.set("error", errorParam);
-    return NextResponse.redirect(loginUrl);
+    return NextResponse.redirect(errorDestination(next, url.origin, errorParam));
   }
 
   if (!code) {
-    return NextResponse.redirect(new URL("/login", url.origin));
+    return NextResponse.redirect(errorDestination(next, url.origin, "Sign-in link was incomplete."));
   }
 
   const supabase = await createClient();
   const { error } = await supabase.auth.exchangeCodeForSession(code);
   if (error) {
-    const loginUrl = new URL("/login", url.origin);
-    loginUrl.searchParams.set("error", error.message);
-    return NextResponse.redirect(loginUrl);
+    return NextResponse.redirect(errorDestination(next, url.origin, error.message));
   }
 
   return NextResponse.redirect(new URL(next, url.origin));

@@ -2,13 +2,17 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AdminShell } from "@/components/admin-shell";
 import { findBySku } from "@/lib/items/store";
+import { getItemPrivate } from "@/lib/items/private-store";
 import { formatCurrency } from "@/lib/utils";
 import { ItemGallery } from "./item-gallery";
+import { CostPanel } from "./cost-panel";
+import { MarkSoldButton } from "./mark-sold-button";
 
 export default async function EditItem({ params }: { params: Promise<{ sku: string }> }) {
   const { sku } = await params;
   const item = await findBySku(sku);
   if (!item) notFound();
+  const priv = await getItemPrivate(item.sku);
 
   return (
     <AdminShell
@@ -23,6 +27,7 @@ export default async function EditItem({ params }: { params: Promise<{ sku: stri
           <Link href={`/admin/marketing?sku=${item.sku}`} className="admin-btn admin-btn-outline">Generate post</Link>
           <Link href={`/admin/tags?sku=${item.sku}`} className="admin-btn admin-btn-outline">Print tag</Link>
           <Link href={`/shop/item/${item.sku}`} className="admin-btn admin-btn-outline">Storefront</Link>
+          <MarkSoldButton sku={item.sku} price={item.price} status={item.status} />
         </>
       }
     >
@@ -47,6 +52,15 @@ export default async function EditItem({ params }: { params: Promise<{ sku: stri
               <Stat label="Margin" value={item.msrp ? `${Math.round((1 - item.price / item.msrp) * 100)}%` : "–"} />
             </div>
             <button className="admin-btn admin-btn-outline mt-4">Re-run live comparable search</button>
+          </Panel>
+
+          <Panel title="Cost & margin · internal">
+            <CostPanel
+              sku={item.sku}
+              price={item.price}
+              initialCost={priv?.cost ?? null}
+              initialSourceLot={priv?.sourceLot ?? null}
+            />
           </Panel>
 
           <Panel title={item.comparables && item.comparables.length > 0 ? `Live retail comparables (${item.comparables.length})` : "Live retail comparables"}>

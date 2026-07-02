@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -8,7 +6,7 @@ import { ProductCard } from "@/components/product-card";
 import { Pagination } from "@/components/pagination";
 import { VendorWall } from "@/components/vendor-wall";
 import { StoreShowcase } from "@/components/store-showcase";
-import { CATEGORIES, listPublishedPage } from "@/lib/catalog";
+import { listPublishedPage } from "@/lib/catalog";
 import { parsePage } from "@/lib/utils";
 
 const SITE_URL = "https://pricelessbuilding.com";
@@ -34,7 +32,6 @@ export default async function ShopIndex({ searchParams }: { searchParams: Promis
     page: parsePage(pageParam),
   });
   if (current > 1 && items.length === 0) notFound();
-  const entries = Object.entries(CATEGORIES) as [keyof typeof CATEGORIES, (typeof CATEGORIES)[keyof typeof CATEGORIES]][];
 
   return (
     <>
@@ -44,7 +41,7 @@ export default async function ShopIndex({ searchParams }: { searchParams: Promis
       <section className="mx-auto max-w-7xl px-6 pt-14 pb-12">
         <header className="max-w-3xl">
           <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
-            Shop · {total} items on the floor right now
+            Shop · {total} items in stock
           </div>
           <h1 className="font-display mt-3 text-[clamp(2.5rem,1.6rem+4vw,5rem)] leading-[1.02]">
             The whole <span className="text-[var(--brand-priceless)]">warehouse,</span> by department.
@@ -55,33 +52,9 @@ export default async function ShopIndex({ searchParams }: { searchParams: Promis
         </header>
       </section>
 
-      {/* DEPARTMENTS. Horizontal scroll strip */}
-      <section className="border-y bg-[var(--muted)]">
-        <div className="mx-auto max-w-7xl px-6 py-10">
-          <div className="font-mono mb-4 text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
-            8 departments
-          </div>
-          <ul className="-mx-6 flex snap-x snap-mandatory gap-px overflow-x-auto bg-[var(--border)] px-6 pb-3">
-            {entries.map(([key, cat], i) => (
-              <li key={key} className="snap-start shrink-0" style={{ width: "min(72vw, 320px)" }}>
-                <Link href={`/shop/${key}`} className="group relative block aspect-[3/4] overflow-hidden bg-[var(--muted)]">
-                  <Image src={cat.image} alt={cat.label} fill sizes="320px" className="object-cover transition duration-700 group-hover:scale-105" quality={70} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-                  <div className="absolute left-4 top-4 font-mono bg-white px-2 py-1 text-xs uppercase tracking-[0.14em] text-[var(--foreground)]">
-                    {String(i + 1).padStart(2, "0")} / Dept
-                  </div>
-                  <div className="absolute left-5 right-5 bottom-5 text-white">
-                    <div className="font-display text-3xl leading-none">{cat.label}.</div>
-                    <div className="mt-2 line-clamp-2 text-xs text-white/80">{cat.blurb}</div>
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* WHAT'S ON THE FLOOR — breadth + scale from the store walkthrough */}
+      {/* DEPARTMENTS + WHAT'S ON THE FLOOR. Single department browser — a
+          swipeable strip on mobile, the full walkthrough grid on desktop.
+          (The old separate numbered "8 departments" strip duplicated this.) */}
       <StoreShowcase />
 
       {/* INVENTORY GRID */}
@@ -91,14 +64,14 @@ export default async function ShopIndex({ searchParams }: { searchParams: Promis
             Everything in stock
           </div>
           <h2 className="font-display mt-3 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05]">
-            {total} items, <span className="text-[var(--brand-priceless)]">last refreshed today.</span>
+            {total} items <span className="text-[var(--brand-priceless)]">in the warehouse.</span>
           </h2>
           <div className="font-mono mt-5 text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
             Newest arrivals first
           </div>
         </header>
 
-        <div className="mt-10 grid grid-cols-1 gap-px bg-[var(--border)] sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid grid-cols-2 gap-px bg-[var(--border)] lg:grid-cols-4">
           {items.map((it, i) => <ProductCard key={it.id} item={it} priority={i < 4} />)}
         </div>
 
