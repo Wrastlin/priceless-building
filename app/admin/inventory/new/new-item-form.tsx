@@ -40,6 +40,9 @@ export function NewItemForm() {
   const [dimensions, setDimensions] = useState("");
   const [location, setLocation] = useState("");
   const [qty, setQty] = useState(1);
+  // Private (never public) — what we paid + which liquidation buy it came from.
+  const [cost, setCost] = useState("");
+  const [sourceLot, setSourceLot] = useState("");
 
   // Pricing
   const [comparables, setComparables] = useState<Comparable[]>([]);
@@ -254,6 +257,8 @@ export function NewItemForm() {
     }
     fd.set("location", location);
     fd.set("inStock", String(qty));
+    if (cost.trim()) fd.set("cost", cost.trim());
+    if (sourceLot.trim()) fd.set("source_lot", sourceLot.trim());
     fd.set("image", photos[0]!.url);
     if (photos.length > 1) {
       fd.set("gallery", JSON.stringify(photos.slice(1).map((p) => p.url)));
@@ -470,6 +475,28 @@ export function NewItemForm() {
                     <input type="number" min={1} value={qty} onChange={(e) => setQty(Number(e.target.value))} className="admin-input" />
                   </Field>
                 </div>
+              </div>
+            </Group>
+
+            <Group title="Internal · not shown to customers" divided>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <Field label="Our cost">
+                  <input
+                    inputMode="decimal"
+                    value={cost}
+                    onChange={(e) => setCost(e.target.value)}
+                    placeholder="What we paid, e.g. 18.50"
+                    className="admin-input"
+                  />
+                </Field>
+                <Field label="Source / lot">
+                  <input
+                    value={sourceLot}
+                    onChange={(e) => setSourceLot(e.target.value)}
+                    placeholder="e.g. HD closeout · Mar 2026"
+                    className="admin-input"
+                  />
+                </Field>
               </div>
             </Group>
 
