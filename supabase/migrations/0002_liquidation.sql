@@ -14,6 +14,21 @@
 --   mirrors how `public.items` writes already work.
 
 -- ─────────────────────────────────────────────────────────────────────────
+-- 0. Ensure items.sku is unique so item_private can reference it. The app
+--    already relies on the 23505 duplicate error on sku, so this normally
+--    already exists; guarded so re-running is safe.
+-- ─────────────────────────────────────────────────────────────────────────
+do $$
+begin
+  if not exists (
+    select 1 from pg_constraint where conrelid = 'public.items'::regclass and contype in ('p', 'u')
+      and conkey = array[(select attnum from pg_attribute where attrelid = 'public.items'::regclass and attname = 'sku')]
+  ) then
+    alter table public.items add constraint items_sku_key unique (sku);
+  end if;
+end $$;
+
+-- ─────────────────────────────────────────────────────────────────────────
 -- 1. item_private — cost / source lot / sold record. One row per SKU.
 -- ─────────────────────────────────────────────────────────────────────────
 create table if not exists public.item_private (
