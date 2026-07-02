@@ -22,6 +22,14 @@ export type StoreNotice = {
   endDate?: string;
   title: string;
   status: string;
+  /**
+   * Optional graphic for this notice — e.g. the "Closed for the 4th" image
+   * posted to Facebook. Download it into /public/real-photos/ and reference
+   * it here (a local path keeps it fast and avoids Facebook hotlink/CORS
+   * issues). Shown as a thumbnail beside the notice.
+   */
+  image?: string;
+  imageAlt?: string;
 };
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -40,7 +48,9 @@ export type StoreNotice = {
 //  the Facebook posts. An empty list is fine; the panel then just says
 //  "open regular hours."
 // ─────────────────────────────────────────────────────────────────────────
-export const STORE_NOTICES: StoreNotice[] = [];
+export const STORE_NOTICES: StoreNotice[] = [
+  { date: "2026-07-03", endDate: "2026-07-05", title: "Fourth of July", status: "Closed" },
+];
 
 /**
  * Single source of truth for the panel. Today it returns the hand-entered

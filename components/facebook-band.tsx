@@ -60,8 +60,20 @@ export function FacebookBand({ showHours = true }: { showHours?: boolean }) {
               {notices.length ? (
                 <ul className="mt-4 divide-y divide-[var(--border)]">
                   {notices.map((n) => (
-                    <li key={n.date} className="flex items-baseline justify-between gap-4 py-3">
-                      <div>
+                    <li key={n.date} className="flex items-center gap-4 py-3">
+                      {n.image ? (
+                        <span className="relative block size-14 shrink-0 overflow-hidden rounded-md bg-[var(--muted)]">
+                          <Image
+                            src={n.image}
+                            alt={n.imageAlt ?? `${n.title} — ${n.status}`}
+                            fill
+                            sizes="56px"
+                            quality={70}
+                            className="object-cover"
+                          />
+                        </span>
+                      ) : null}
+                      <div className="min-w-0 flex-1">
                         <div className="font-semibold text-[var(--foreground)]">{n.title}</div>
                         <div className="text-sm text-[var(--muted-foreground)]">{noticeDateLabel(n)}</div>
                       </div>
