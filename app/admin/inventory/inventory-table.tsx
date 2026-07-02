@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { formatCurrency } from "@/lib/utils";
 import type { CatalogItem } from "@/lib/items/types";
 import { ItemThumbZoom } from "@/components/item-thumb-zoom";
+import { daysOnFloor } from "@/lib/items/aging";
 import { updateStockAction } from "@/lib/actions/staging";
 
 type SortKey = "title" | "sku" | "category" | "price" | "msrp" | "inStock" | "createdAt";
@@ -203,6 +204,10 @@ export function InventoryTable({ items }: { items: CatalogItem[] }) {
                       </td>
                       <td className="hidden text-right text-xs text-muted-foreground tabular-nums xl:table-cell">
                         {c.createdAt ? new Date(c.createdAt).toLocaleDateString() : "–"}
+                        {(() => {
+                          const d = daysOnFloor(c.createdAt);
+                          return d != null ? <div className="text-[10px] text-muted-foreground/70">{d}d on floor</div> : null;
+                        })()}
                       </td>
                       <td className="text-right">
                         <Link href={`/admin/inventory/${c.sku}`} className="text-sm text-[var(--brand-priceless)] hover:underline">
