@@ -24,10 +24,34 @@ export type StoreNotice = {
   status: string;
 };
 
-// The real holiday schedule goes here. Aaron: paste the dates you post to
-// Facebook (see the format above). Example of a filled-in entry:
-//   { date: "2026-11-26", title: "Thanksgiving", status: "Closed" },
+// ─────────────────────────────────────────────────────────────────────────
+//  👉  PUT HOLIDAY DATES HERE  👈
+//
+//  One entry per closure or special-hours day. Add them in any order — the
+//  site sorts by date, drops past ones, and shows the next few. Copy a line
+//  from the examples, change the values, and delete the leading "//".
+//
+//    { date: "2026-07-04", title: "Independence Day",  status: "Closed" },
+//    { date: "2026-11-26", title: "Thanksgiving",      status: "Closed" },
+//    { date: "2026-11-28", title: "Day after Thanksgiving", status: "Open 8:30 AM – 12:30 PM" },
+//    { date: "2026-12-24", endDate: "2026-12-25", title: "Christmas", status: "Closed" },
+//
+//  These are only FORMAT examples — replace them with the real dates from
+//  the Facebook posts. An empty list is fine; the panel then just says
+//  "open regular hours."
+// ─────────────────────────────────────────────────────────────────────────
 export const STORE_NOTICES: StoreNotice[] = [];
+
+/**
+ * Single source of truth for the panel. Today it returns the hand-entered
+ * list above. LATER: to drive holidays from Google (Business Profile special
+ * hours / a shared Google Calendar of closures), replace the body of this
+ * one function with the fetch + a map to StoreNotice — nothing else changes,
+ * because every consumer reads notices through here.
+ */
+export function getStoreNotices(): StoreNotice[] {
+  return STORE_NOTICES;
+}
 
 /** ISO "YYYY-MM-DD" for a date (defaults to now). */
 function isoDay(d: Date = new Date()): string {
@@ -40,7 +64,8 @@ function isoDay(d: Date = new Date()): string {
  */
 export function upcomingNotices(limit = 4, now: Date = new Date()): StoreNotice[] {
   const today = isoDay(now);
-  return STORE_NOTICES.filter((n) => (n.endDate ?? n.date) >= today)
+  return getStoreNotices()
+    .filter((n) => (n.endDate ?? n.date) >= today)
     .sort((a, b) => a.date.localeCompare(b.date))
     .slice(0, limit);
 }
