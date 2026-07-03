@@ -16,7 +16,7 @@
 
 import { type NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
-import { isEmailAllowed, envAllowlistEmpty, devAdminBypass } from "@/lib/auth/allowlist";
+import { envAllowlistEmpty, devAdminBypass } from "@/lib/auth/allowlist";
 
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
@@ -78,11 +78,15 @@ export async function proxy(request: NextRequest) {
 
   if (isAdmin) {
     const email = (claims?.email as string | undefined)?.toLowerCase();
-    // Allowed if in the env allowlist OR the staff_emails table; with no
-    // allowlist configured at all, dev is open and prod is closed.
+    // The middleware is NOT the security boundary — requireAuth() (pages) and
+    // requireAdminSession() (actions/routes) are, and they run the authoritative
+    // env+DB allowlist check in the Node runtime via the service-role client.
+    // Here we only deter unauthenticated probing: let any signed-in user
+    // through and let the page redirect non-staff. (The staff_emails table
+    // isn't readable from the edge — it's service-role-only.)
     const ok =
       devAdminBypass() ||
-      (await isEmailAllowed(email, supabase)) ||
+      !!email ||
       (envAllowlistEmpty() && !inProd);
 
     if (!ok) {

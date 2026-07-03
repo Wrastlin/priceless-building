@@ -9,7 +9,7 @@
 
 import { revalidatePath } from "next/cache";
 import { requireAdminSession, adminIdentity } from "@/lib/auth/session";
-import { invalidateAllowlist } from "@/lib/auth/allowlist";
+import { invalidateAllowlist } from "@/lib/auth/staff-allowlist";
 import { addStaff, setStaffActive, removeStaff, normalizeEmail } from "@/lib/staff/store";
 
 export async function addStaffAction(formData: FormData): Promise<void> {
