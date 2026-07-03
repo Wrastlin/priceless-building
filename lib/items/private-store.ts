@@ -1,5 +1,5 @@
 import "server-only";
-import { createClient } from "@/lib/supabase/server";
+import { adminClient, hasServiceRole } from "@/lib/supabase/admin";
 
 /**
  * Private, admin-only item data — what we paid, which liquidation lot it came
@@ -28,9 +28,7 @@ export type ItemPrivatePatch = Partial<{
   soldBy: string | null;
 }>;
 
-const CONFIGURED =
-  !!process.env.NEXT_PUBLIC_SUPABASE_URL &&
-  !!process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+const CONFIGURED = hasServiceRole();
 
 type Row = {
   sku: string;
@@ -57,7 +55,7 @@ function toPrivate(r: Row): ItemPrivate {
 export async function getItemPrivate(sku: string): Promise<ItemPrivate | null> {
   if (!CONFIGURED) return null;
   try {
-    const supabase = await createClient();
+    const supabase = adminClient();
     const { data, error } = await supabase.from("item_private").select(COLS).eq("sku", sku).maybeSingle();
     if (error || !data) return null;
     return toPrivate(data as Row);
@@ -71,7 +69,7 @@ export async function getItemPrivateMap(skus: string[]): Promise<Map<string, Ite
   const map = new Map<string, ItemPrivate>();
   if (!CONFIGURED || skus.length === 0) return map;
   try {
-    const supabase = await createClient();
+    const supabase = adminClient();
     const { data, error } = await supabase.from("item_private").select(COLS).in("sku", skus);
     if (error) return map;
     for (const r of (data as Row[] | null) ?? []) map.set(r.sku, toPrivate(r));
@@ -85,7 +83,7 @@ export async function getItemPrivateMap(skus: string[]): Promise<Map<string, Ite
 export async function listSoldPrivate(): Promise<ItemPrivate[]> {
   if (!CONFIGURED) return [];
   try {
-    const supabase = await createClient();
+    const supabase = adminClient();
     const { data, error } = await supabase
       .from("item_private")
       .select(COLS)
@@ -100,7 +98,7 @@ export async function listSoldPrivate(): Promise<ItemPrivate[]> {
 
 /** Partial upsert — only the provided fields change; the rest are untouched. */
 export async function upsertItemPrivate(sku: string, patch: ItemPrivatePatch): Promise<void> {
-  const supabase = await createClient();
+  const supabase = adminClient();
   const row: Record<string, unknown> = { sku, updated_at: new Date().toISOString() };
   if ("cost" in patch) row.cost = patch.cost;
   if ("sourceLot" in patch) row.source_lot = patch.sourceLot;

@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
-import { isEmailAllowed, envAllowlistEmpty, devAdminBypass } from "@/lib/auth/allowlist";
+import { envAllowlistEmpty, devAdminBypass } from "@/lib/auth/allowlist";
+import { isEmailAllowed } from "@/lib/auth/staff-allowlist";
 
 /**
  * Returns the current Supabase user's claims, or null if signed out
@@ -27,8 +28,8 @@ export const getClaims = cache(async (): Promise<AuthClaims> => {
   const claims = data?.claims;
   if (!claims) return null;
   const email = (claims.email as string | undefined)?.toLowerCase();
-  // Allowed if in the env allowlist OR the staff_emails table.
-  if (await isEmailAllowed(email, supabase)) return claims as AuthClaims;
+  // Allowed if in the env allowlist OR the staff_emails table (service-role).
+  if (await isEmailAllowed(email)) return claims as AuthClaims;
   // No allowlist configured at all: fail closed in prod, open in dev.
   if (envAllowlistEmpty() && process.env.NODE_ENV !== "production") return claims as AuthClaims;
   return null;

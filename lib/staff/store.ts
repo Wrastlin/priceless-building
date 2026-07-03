@@ -1,5 +1,5 @@
 import "server-only";
-import { createClient } from "@/lib/supabase/server";
+import { adminClient, hasServiceRole } from "@/lib/supabase/admin";
 
 /**
  * Data layer for the `staff_emails` allowlist table (see
@@ -19,9 +19,7 @@ export type StaffRow = {
   active: boolean;
 };
 
-const CONFIGURED =
-  !!process.env.NEXT_PUBLIC_SUPABASE_URL &&
-  !!process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+const CONFIGURED = hasServiceRole();
 
 type Row = { email: string; added_by: string | null; added_at: string; active: boolean };
 
@@ -38,7 +36,7 @@ export function normalizeEmail(email: string): string {
 export async function listStaff(): Promise<StaffRow[]> {
   if (!CONFIGURED) return [];
   try {
-    const supabase = await createClient();
+    const supabase = adminClient();
     const { data, error } = await supabase
       .from("staff_emails")
       .select("email, added_by, added_at, active")
@@ -53,7 +51,7 @@ export async function listStaff(): Promise<StaffRow[]> {
 export async function addStaff(email: string, addedBy: string | null): Promise<void> {
   const e = normalizeEmail(email);
   if (!EMAIL_RE.test(e)) throw new Error("Enter a valid email address.");
-  const supabase = await createClient();
+  const supabase = adminClient();
   const { error } = await supabase
     .from("staff_emails")
     .upsert({ email: e, added_by: addedBy, active: true }, { onConflict: "email" });
@@ -61,7 +59,7 @@ export async function addStaff(email: string, addedBy: string | null): Promise<v
 }
 
 export async function setStaffActive(email: string, active: boolean): Promise<void> {
-  const supabase = await createClient();
+  const supabase = adminClient();
   const { error } = await supabase
     .from("staff_emails")
     .update({ active })
@@ -70,7 +68,7 @@ export async function setStaffActive(email: string, active: boolean): Promise<vo
 }
 
 export async function removeStaff(email: string): Promise<void> {
-  const supabase = await createClient();
+  const supabase = adminClient();
   const { error } = await supabase
     .from("staff_emails")
     .delete()
