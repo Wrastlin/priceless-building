@@ -13,9 +13,11 @@ type Staff = { email: string; addedBy: string | null; addedAt: string; active: b
 export function StaffManager({
   initialStaff,
   owners,
+  canManage,
 }: {
   initialStaff: Staff[];
   owners: string[];
+  canManage: boolean;
 }) {
   const [staff, setStaff] = useState<Staff[]>(initialStaff);
   const [email, setEmail] = useState("");
@@ -78,20 +80,26 @@ export function StaffManager({
     <div className="admin-card p-5">
       <h2 className="border-b border-border pb-2 text-base font-semibold text-foreground">Staff</h2>
 
-      <form onSubmit={add} className="mt-3 flex flex-col gap-2 sm:flex-row">
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="name@gmail.com"
-          aria-label="Staff Google email"
-          className="admin-input flex-1"
-        />
-        <button type="submit" disabled={pending} className="admin-btn admin-btn-primary shrink-0">
-          Add staff
-        </button>
-      </form>
-      <p className="admin-help mt-1.5">Use the Google account they&apos;ll sign in with.</p>
+      {canManage ? (
+        <>
+          <form onSubmit={add} className="mt-3 flex flex-col gap-2 sm:flex-row">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="name@gmail.com"
+              aria-label="Staff Google email"
+              className="admin-input flex-1"
+            />
+            <button type="submit" disabled={pending} className="admin-btn admin-btn-primary shrink-0">
+              Add staff
+            </button>
+          </form>
+          <p className="admin-help mt-1.5">Use the Google account they&apos;ll sign in with.</p>
+        </>
+      ) : (
+        <p className="admin-help mt-3">Only owners can add or remove staff.</p>
+      )}
 
       {staff.length ? (
         <ul className="mt-4 divide-y divide-border">
@@ -103,24 +111,26 @@ export function StaffManager({
                   <div className="text-xs text-muted-foreground">Access paused</div>
                 ) : null}
               </div>
-              <div className="flex shrink-0 items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => toggle(s)}
-                  disabled={pending}
-                  className="admin-btn admin-btn-ghost px-2 py-1 text-sm"
-                >
-                  {s.active ? "Pause" : "Resume"}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => remove(s)}
-                  disabled={pending}
-                  className="admin-btn admin-btn-danger px-2 py-1 text-sm"
-                >
-                  Remove
-                </button>
-              </div>
+              {canManage ? (
+                <div className="flex shrink-0 items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => toggle(s)}
+                    disabled={pending}
+                    className="admin-btn admin-btn-ghost px-2 py-1 text-sm"
+                  >
+                    {s.active ? "Pause" : "Resume"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => remove(s)}
+                    disabled={pending}
+                    className="admin-btn admin-btn-danger px-2 py-1 text-sm"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ) : null}
             </li>
           ))}
         </ul>

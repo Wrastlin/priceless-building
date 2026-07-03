@@ -8,12 +8,15 @@
  */
 
 import { revalidatePath } from "next/cache";
-import { requireAdminSession, adminIdentity } from "@/lib/auth/session";
+import { requireOwner, adminIdentity } from "@/lib/auth/session";
 import { invalidateAllowlist } from "@/lib/auth/staff-allowlist";
 import { addStaff, setStaffActive, removeStaff, normalizeEmail } from "@/lib/staff/store";
 
+// Managing the team is OWNERS ONLY (emails in ALLOWED_EMAILS, set in Vercel).
+// Added staff can use every other tool but can't add/pause/remove people.
+
 export async function addStaffAction(formData: FormData): Promise<void> {
-  await requireAdminSession();
+  await requireOwner();
   const email = String(formData.get("email") ?? "");
   const me = await adminIdentity();
   await addStaff(email, me?.email ?? null);
@@ -22,14 +25,14 @@ export async function addStaffAction(formData: FormData): Promise<void> {
 }
 
 export async function setStaffActiveAction(email: string, active: boolean): Promise<void> {
-  await requireAdminSession();
+  await requireOwner();
   await setStaffActive(email, active);
   invalidateAllowlist(email);
   revalidatePath("/admin/team");
 }
 
 export async function removeStaffAction(email: string): Promise<void> {
-  await requireAdminSession();
+  await requireOwner();
   await removeStaff(email);
   invalidateAllowlist(normalizeEmail(email));
   revalidatePath("/admin/team");
