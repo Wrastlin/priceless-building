@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { envAllowlistEmpty, devAdminBypass } from "@/lib/auth/allowlist";
+import { envAllowlistEmpty, devAdminBypass, isEnvAllowed } from "@/lib/auth/allowlist";
 import { isEmailAllowed } from "@/lib/auth/staff-allowlist";
 
 /**
@@ -88,5 +88,25 @@ export async function hasAdminSession(): Promise<boolean> {
 export async function requireAdminSession(): Promise<void> {
   if (!(await hasAdminSession())) {
     throw new Error("Unauthorized");
+  }
+}
+
+/**
+ * An "owner" is an email in the ALLOWED_EMAILS env list — the root of trust,
+ * settable only in the hosting env (Vercel), which only Aaron controls. Owners
+ * can manage the team (add / pause / remove staff); staff added via /admin/team
+ * get every other tool but CANNOT bring in more people. This is what stops a
+ * staffer from adding their own friends. (Later: point ALLOWED_EMAILS at a
+ * Google Workspace domain to lock it to the company account.)
+ */
+export async function isOwner(): Promise<boolean> {
+  if (devAdminBypass()) return true; // local testing convenience
+  const id = await adminIdentity();
+  return !!id && isEnvAllowed(id.email);
+}
+
+export async function requireOwner(): Promise<void> {
+  if (!(await isOwner())) {
+    throw new Error("Unauthorized: owners only");
   }
 }

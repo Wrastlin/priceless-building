@@ -1,24 +1,27 @@
 import { AdminShell } from "@/components/admin-shell";
 import { listStaff } from "@/lib/staff/store";
 import { envAllowedEmails } from "@/lib/auth/allowlist";
+import { isOwner } from "@/lib/auth/session";
 import { StaffManager } from "./staff-manager";
 
 export const metadata = { title: "Team" };
 
 export default async function TeamPage() {
-  const staff = await listStaff();
+  const [staff, owner] = await Promise.all([listStaff(), isOwner()]);
   const owners = Array.from(envAllowedEmails());
 
   return (
     <AdminShell active="team" title="Team">
       <p className="admin-help mb-5">
         Who can sign in to the admin. Staff sign in with Google at{" "}
-        <span className="font-mono text-foreground">/login</span> — add their Google email here and they get
-        access on their next sign-in. No redeploy needed.
+        <span className="font-mono text-foreground">/login</span>.{" "}
+        {owner
+          ? "Add their Google email here and they get access on their next sign-in — no redeploy needed."
+          : "Only owners can add or remove people, so this list is read-only for you."}
       </p>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <StaffManager initialStaff={staff} owners={owners} />
+        <StaffManager initialStaff={staff} owners={owners} canManage={owner} />
 
         {/* Owners: the ALLOWED_EMAILS env list. Always on, can't be removed here
             (they're the lock-out safety net), so we show them read-only. */}
