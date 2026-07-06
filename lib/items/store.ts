@@ -302,6 +302,39 @@ export async function listDrafts(): Promise<CatalogItem[]> {
   return listByStatus("draft");
 }
 
+/**
+ * Everything currently on the floor — draft, staged, and published — for
+ * admin inventory views. Drafts matter here: the rapid capture pass creates
+ * drafts, and the physical count must see them alongside live items.
+ * (Archived and sold stay out; they're not on the floor.)
+ */
+export async function listAdminAll(): Promise<CatalogItem[]> {
+  const FLOOR: ItemStatus[] = ["draft", "staged", "published"];
+  if (SANDBOX) {
+    const { getSandboxItems } = await import("@/lib/items/sandbox-data");
+    return getSandboxItems().filter((it) => FLOOR.includes(it.status));
+  }
+  if (!CONFIGURED) return SEED_ITEMS.filter((it) => FLOOR.includes(it.status));
+  const supabase = await sessionClient();
+  // PostgREST caps a single select at 1000 rows; the floor is already past
+  // that, so page through in chunks until a short page signals the end.
+  const PAGE = 1000;
+  const all: CatalogItem[] = [];
+  for (let from = 0; ; from += PAGE) {
+    const { data, error } = await supabase
+      .from("items")
+      .select("data")
+      .in("status", FLOOR)
+      .order("created_at", { ascending: false })
+      .range(from, from + PAGE - 1);
+    if (error) throw new Error(`listAdminAll: ${error.message}`);
+    const chunk = rowsToItems(data);
+    all.push(...chunk);
+    if (chunk.length < PAGE) break;
+  }
+  return all;
+}
+
 export async function listStaged(): Promise<CatalogItem[]> {
   return listByStatus("staged");
 }

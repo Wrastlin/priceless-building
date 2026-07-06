@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { AdminShell } from "@/components/admin-shell";
-import { listCatalog } from "@/lib/catalog";
+import { listAdminAll } from "@/lib/items/store";
 import { InventoryTable } from "./inventory-table";
 
 export const dynamic = "force-dynamic";
 
 export default async function InventoryList() {
-  const items = await listCatalog();
+  const items = await listAdminAll();
   return (
     <AdminShell
       active="inventory"

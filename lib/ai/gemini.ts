@@ -122,10 +122,17 @@ export async function callGemini(input: GeminiCallInput): Promise<GeminiResult> 
   return { ok: false, status: lastStatus || 502, error: lastError };
 }
 
-/** Pull the first non-empty text part out of a Gemini response. */
+/** Pull the first non-empty ANSWER text part out of a Gemini response.
+ *  Thinking models (gemini-3.1-pro) may emit reasoning parts flagged
+ *  `thought: true` before the answer — those must be skipped or callers
+ *  parse the reasoning instead of the JSON they asked for. */
 export function extractText(json: GeminiJson): string | null {
-  const parts = (json.candidates?.[0]?.content?.parts ?? []) as { text?: string }[];
+  const parts = (json.candidates?.[0]?.content?.parts ?? []) as {
+    text?: string;
+    thought?: boolean;
+  }[];
   for (const p of parts) {
+    if (p.thought === true) continue;
     if (typeof p.text === "string" && p.text.trim()) return p.text;
   }
   return null;

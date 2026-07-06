@@ -28,6 +28,8 @@ export function InventoryTable({ items }: { items: CatalogItem[] }) {
   const [q, setQ] = useState("");
   const [categoryFilter, setCategoryFilter] = useState<string>("all");
   const [brandFilter, setBrandFilter] = useState<string>("all");
+  // "Inventoried" = entered through the /admin/capture physical-count flow.
+  const [inventoriedFilter, setInventoriedFilter] = useState<"all" | "yes" | "no">("all");
   const [sort, setSort] = useState<SortState>({ key: "createdAt", dir: "desc" });
 
   // Optimistic stock overrides keyed by SKU; falls back to the item's value.
@@ -62,15 +64,23 @@ export function InventoryTable({ items }: { items: CatalogItem[] }) {
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
+    // A pure-number search also matches physical sticker numbers: "54"
+    // finds the record whose tag range contains unit #54.
+    const tagNum = /^#?\d+$/.test(needle) ? Number(needle.replace("#", "")) : null;
     return items.filter((i) => {
       if (categoryFilter !== "all" && i.category !== categoryFilter) return false;
       if (brandFilter !== "all" && i.brand !== brandFilter) return false;
+      if (inventoriedFilter === "yes" && !i.inventoriedAt) return false;
+      if (inventoriedFilter === "no" && i.inventoriedAt) return false;
       if (!needle) return true;
+      if (tagNum !== null && i.tagRange && tagNum >= i.tagRange.start && tagNum <= i.tagRange.end) {
+        return true;
+      }
       return [i.sku, i.title, i.subtitle, i.category, i.manufacturer ?? "", i.location ?? ""].some((s) =>
         s.toLowerCase().includes(needle),
       );
     });
-  }, [items, q, categoryFilter, brandFilter]);
+  }, [items, q, categoryFilter, brandFilter, inventoriedFilter]);
 
   const sorted = useMemo(() => {
     const copy = [...filtered];
@@ -96,7 +106,7 @@ export function InventoryTable({ items }: { items: CatalogItem[] }) {
           type="search"
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="Search SKU, title, location, manufacturer…"
+          placeholder="Search SKU, title, sticker #, location, manufacturer…"
           className="admin-input flex-1 min-w-[220px]"
         />
         <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)} className="admin-input w-auto">
@@ -114,6 +124,15 @@ export function InventoryTable({ items }: { items: CatalogItem[] }) {
               {b === "priceless" ? "Price-Less" : "Builders Corner"}
             </option>
           ))}
+        </select>
+        <select
+          value={inventoriedFilter}
+          onChange={(e) => setInventoriedFilter(e.target.value as "all" | "yes" | "no")}
+          className="admin-input w-auto"
+        >
+          <option value="all">Counted + not</option>
+          <option value="yes">Inventoried ✓</option>
+          <option value="no">Not inventoried</option>
         </select>
         <span className="font-mono ml-auto text-xs text-muted-foreground tabular-nums">
           {sorted.length} of {items.length}
@@ -134,7 +153,18 @@ export function InventoryTable({ items }: { items: CatalogItem[] }) {
                 <div key={c.id} className="admin-card overflow-hidden">
                   <ItemThumbZoom item={c} className="aspect-[4/3] w-full" iconClass="h-10 w-10" />
                   <div className="p-3">
-                    <div className="text-[10px] uppercase tracking-wide text-muted-foreground">{c.category}</div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] uppercase tracking-wide text-muted-foreground">{c.category}</span>
+                      {c.inventoriedAt ? (
+                        <span className="admin-pill bg-emerald-50 text-emerald-700">
+                          {c.tagRange
+                            ? c.tagRange.start === c.tagRange.end
+                              ? `✓ #${c.tagRange.start}`
+                              : `✓ #${c.tagRange.start}–${c.tagRange.end}`
+                            : "✓ Inv"}
+                        </span>
+                      ) : null}
+                    </div>
                     <Link
                       href={`/admin/inventory/${c.sku}`}
                       className="mt-0.5 line-clamp-2 block text-sm font-medium leading-tight text-foreground hover:text-[var(--brand-priceless)]"
@@ -181,7 +211,26 @@ export function InventoryTable({ items }: { items: CatalogItem[] }) {
                         <div className="flex items-center gap-3">
                           <ItemThumbZoom item={c} className="h-12 w-16 shrink-0 rounded" iconClass="h-6 w-6" />
                           <div className="min-w-0">
-                            <div className="font-medium text-foreground">{c.title}</div>
+                            <div className="flex items-center gap-1.5 font-medium text-foreground">
+                              <span>{c.title}</span>
+                              {c.status !== "published" ? (
+                                <span className="admin-pill shrink-0 bg-[#f4f4f3] capitalize text-muted-foreground">
+                                  {c.status}
+                                </span>
+                              ) : null}
+                              {c.inventoriedAt ? (
+                                <span
+                                  title={`Inventoried ${new Date(c.inventoriedAt).toLocaleDateString()}`}
+                                  className="admin-pill shrink-0 bg-emerald-50 text-emerald-700"
+                                >
+                                  {c.tagRange
+                                    ? c.tagRange.start === c.tagRange.end
+                                      ? `✓ #${c.tagRange.start}`
+                                      : `✓ #${c.tagRange.start}–${c.tagRange.end}`
+                                    : "✓ Inv"}
+                                </span>
+                              ) : null}
+                            </div>
                             <div className="text-xs text-muted-foreground">{c.subtitle}</div>
                           </div>
                         </div>

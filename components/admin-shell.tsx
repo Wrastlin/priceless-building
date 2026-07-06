@@ -21,11 +21,13 @@ type NavItem = {
 
 const NAV: NavItem[] = [
   { href: "/admin", label: "Dashboard", key: "dashboard", section: "Overview" },
+  { href: "/admin/capture", label: "Quick capture", key: "capture", section: "Items" },
   { href: "/admin/inventory/new", label: "Add item", key: "add", section: "Items" },
   { href: "/admin/staging", label: "Staging", key: "staging", section: "Items" },
   { href: "/admin/inventory", label: "Inventory", key: "inventory", section: "Items" },
   { href: "/admin/aging", label: "Aging", key: "aging", section: "Items" },
   { href: "/admin/featured", label: "Featured", key: "featured", section: "Items" },
+  { href: "/admin/labels", label: "Print stickers", key: "labels", section: "Items" },
   { href: "/admin/tags", label: "Print tags", key: "tags", section: "Items" },
   { href: "/admin/marketing", label: "Generate post", key: "marketing", section: "Marketing" },
   { href: "/admin/receiving", label: "Receiving", key: "receiving", section: "Flow" },

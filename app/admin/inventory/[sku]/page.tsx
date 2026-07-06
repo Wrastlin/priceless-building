@@ -6,6 +6,7 @@ import { getItemPrivate } from "@/lib/items/private-store";
 import { formatCurrency } from "@/lib/utils";
 import { ItemGallery } from "./item-gallery";
 import { CostPanel } from "./cost-panel";
+import { DetailsEditor } from "./details-editor";
 import { MarkSoldButton } from "./mark-sold-button";
 
 export default async function EditItem({ params }: { params: Promise<{ sku: string }> }) {
@@ -45,6 +46,33 @@ export default async function EditItem({ params }: { params: Promise<{ sku: stri
         />
 
         <div className="space-y-4">
+          <Panel title="Details · edit">
+            {item.tagRange ? (
+              <p className="admin-help mb-3">
+                Physical stickers{" "}
+                <span className="font-mono font-semibold text-foreground">
+                  {item.tagRange.start === item.tagRange.end
+                    ? `#${item.tagRange.start}`
+                    : `#${item.tagRange.start}–#${item.tagRange.end}`}
+                </span>
+                {item.inventoriedAt
+                  ? ` · inventoried ${new Date(item.inventoriedAt).toLocaleDateString()}`
+                  : null}
+              </p>
+            ) : null}
+            <DetailsEditor item={item} />
+            {item.tagExtract?.rawText ? (
+              <div className="mt-4 rounded border border-dashed border-border bg-[#fafaf9] p-3">
+                <div className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                  Read off the physical tag (verbatim)
+                </div>
+                <pre className="mt-1 whitespace-pre-wrap font-mono text-xs text-foreground">
+                  {item.tagExtract.rawText}
+                </pre>
+              </div>
+            ) : null}
+          </Panel>
+
           <Panel title="Pricing">
             <div className="grid grid-cols-3 gap-3">
               <Stat label="Tag" value={formatCurrency(item.price)} />
