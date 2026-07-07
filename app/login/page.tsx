@@ -60,7 +60,7 @@ export default async function LoginPage({
         </Link>
         <Link
           href="/"
-          className="font-mono text-xs uppercase tracking-[0.14em] text-white/70 underline decoration-white/20 underline-offset-4 transition hover:text-white"
+          className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-white/70 underline decoration-white/20 underline-offset-4 transition hover:text-white"
         >
           Back to storefront →
         </Link>

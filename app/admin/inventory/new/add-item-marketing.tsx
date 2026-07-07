@@ -255,7 +255,7 @@ export function AddItemMarketing({
                   className={
                     "px-3 py-2 text-sm font-medium transition border-b-2 -mb-px " +
                     (tab === t.key
-                      ? "border-[var(--brand-priceless)] text-foreground"
+                      ? "border-[var(--brand-navy)] text-foreground"
                       : "border-transparent text-muted-foreground hover:text-foreground")
                   }
                 >
@@ -265,7 +265,7 @@ export function AddItemMarketing({
             </nav>
             <div className="mt-4">
               {/* Live, platform-accurate preview — updates as the form fields change. */}
-              <div className="rounded-lg border border-border bg-[#eef0f2] p-3 sm:p-4">
+              <div className="rounded-lg border border-border bg-[var(--surface)] p-3 sm:p-4">
                 <PostPreview item={item} images={images} channel={tab} />
               </div>
               <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
@@ -319,8 +319,8 @@ export function AddItemMarketing({
                     className={
                       "rounded-full border px-3 py-1 text-xs transition " +
                       (on
-                        ? "border-[var(--brand-priceless)] bg-[var(--brand-priceless)] text-white"
-                        : "border-border bg-white text-foreground hover:border-[var(--brand-priceless)]")
+                        ? "border-[var(--brand-navy)] bg-[var(--brand-navy)] text-white"
+                        : "border-border bg-white text-foreground hover:border-[var(--brand-navy)]")
                     }
                   >
                     {s.label}
@@ -347,7 +347,7 @@ export function AddItemMarketing({
                     <li key={v.scene} className="overflow-hidden border border-border bg-white">
                       {v.image ? (
                         <>
-                          <div className="relative aspect-[4/3] w-full bg-[#fafaf9]">
+                          <div className="relative aspect-[4/3] w-full bg-[oklch(0.975_0.008_85)]">
                             <Image
                               src={v.image}
                               alt={`${fields.title} in ${v.scene}`}
@@ -374,7 +374,7 @@ export function AddItemMarketing({
                           </div>
                         </>
                       ) : (
-                        <div className="flex aspect-[4/3] flex-col items-center justify-center gap-1 bg-[#fafaf9] p-3 text-center">
+                        <div className="flex aspect-[4/3] flex-col items-center justify-center gap-1 bg-[oklch(0.975_0.008_85)] p-3 text-center">
                           <span className="text-xs font-semibold text-foreground">
                             {SCENES.find((s) => s.key === v.scene)?.label ?? v.scene}
                           </span>

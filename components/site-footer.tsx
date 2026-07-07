@@ -3,30 +3,30 @@ import { CircularSeal } from "./brand-logo";
 import { ADDRESS, BUILDERS, PRICELESS } from "@/lib/brands";
 
 /**
- * Editorial footer. No bento, no colored brand band. Just a thin
- * top border, oversized brand wordmark, mono columns, and a brand-red
- * baseline strip.
+ * Deep-navy anchor footer. Oversized serif address wordmark in cream
+ * with a brass accent line, warm label columns, and a hairline
+ * baseline. The dark band grounds every page the way the hero opens it.
  */
 export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
   const b = brand === "priceless" ? PRICELESS : BUILDERS;
   return (
-    <footer className="border-t border-[var(--border)] bg-white">
+    <footer className="bg-[var(--brand-navy-deep)] text-[var(--cream)]">
       <div className="mx-auto max-w-7xl px-6 pt-16 pb-8">
         {/* OVERSIZED BRAND ROW */}
-        <div className="grid items-end gap-10 border-b pb-12 md:grid-cols-12">
+        <div className="grid items-end gap-10 border-b border-white/12 pb-12 md:grid-cols-12">
           <div className="md:col-span-8">
-            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
+            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--brand-gold)]">
               Visit us · {ADDRESS.city}, {ADDRESS.state}
             </div>
-            <div className="font-display mt-4 text-6xl leading-[1.05] md:text-8xl">
+            <div className="font-display mt-4 text-5xl leading-[1.05] md:text-7xl">
               825 Washington<br />
-              <span className={brand === "priceless" ? "text-[var(--brand-priceless)]" : "text-[var(--brand-builders-gold)]"}>Street.</span>
+              <span className="italic text-[var(--brand-gold)]">Street.</span>
             </div>
           </div>
           <div className="md:col-span-4">
             <a
               href={`tel:${ADDRESS.phone.replace(/[^0-9+]/g, "")}`}
-              className="font-mono block text-sm uppercase tracking-[0.14em] underline decoration-[var(--brand-priceless)] decoration-2 underline-offset-4"
+              className="block text-sm font-semibold underline decoration-[var(--brand-gold)]/70 decoration-2 underline-offset-4 hover:decoration-[var(--brand-gold)]"
             >
               {ADDRESS.phone} →
             </a>
@@ -34,7 +34,7 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
               href={`https://maps.google.com/?q=${encodeURIComponent(`${ADDRESS.street}, ${ADDRESS.city}, ${ADDRESS.state} ${ADDRESS.zip}`)}`}
               target="_blank"
               rel="noreferrer"
-              className="font-mono mt-3 block text-sm uppercase tracking-[0.14em] underline decoration-[var(--muted-foreground)]/40 decoration-2 underline-offset-4"
+              className="mt-3 block text-sm font-semibold underline decoration-white/30 decoration-2 underline-offset-4 hover:decoration-[var(--brand-gold)]"
             >
               Get directions →
             </a>
@@ -44,19 +44,19 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
         {/* COLUMNS */}
         <div className="mt-12 grid gap-10 md:grid-cols-12">
           <div className="md:col-span-3">
-            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">Hours</div>
+            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--brand-gold)]">Hours</div>
             <ul className="mt-4 space-y-1.5">
               {b.hours.map((h) => (
-                <li key={h.day} className="font-mono flex justify-between gap-3 text-xs uppercase tracking-[0.12em]">
-                  <span className="text-[var(--foreground)]">{h.day}</span>
-                  <span className="text-[var(--muted-foreground)]">{h.hours}</span>
+                <li key={h.day} className="flex justify-between gap-3 text-sm">
+                  <span className="text-[var(--cream)]">{h.day}</span>
+                  <span className="text-white/60">{h.hours}</span>
                 </li>
               ))}
             </ul>
           </div>
 
           <div className="md:col-span-3">
-            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
+            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--brand-gold)]">
               {brand === "priceless" ? "Shop" : "Studio"}
             </div>
             <ul className="mt-4 space-y-2 text-sm">
@@ -79,7 +79,7 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
           </div>
 
           <div className="md:col-span-3">
-            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
+            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--brand-gold)]">
               Sister brands
             </div>
             <div className="mt-4 flex items-start gap-4">
@@ -90,7 +90,7 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
                 <li><FooterLink href="/four-squared">4 Squared</FooterLink></li>
               </ul>
             </div>
-            <div className="font-mono mt-6 text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
+            <div className="mt-6 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--brand-gold)]">
               Policies
             </div>
             <ul className="mt-4 space-y-2 text-sm">
@@ -99,7 +99,7 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
           </div>
 
           <div className="md:col-span-3">
-            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
+            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--brand-gold)]">
               Follow
             </div>
             <ul className="mt-4 space-y-2 text-sm">
@@ -108,7 +108,7 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
                   href={"facebook" in b.socials ? b.socials.facebook : "#"}
                   target="_blank"
                   rel="noreferrer"
-                  className="hover:text-[var(--brand-priceless)]"
+                  className="block py-2 text-base text-[var(--cream)] hover:text-[var(--brand-gold)]"
                 >
                   Facebook ↗
                 </a>
@@ -119,7 +119,7 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
                     href={b.socials.instagram}
                     target="_blank"
                     rel="noreferrer"
-                    className="hover:text-[var(--brand-priceless)]"
+                    className="block py-2 text-base text-[var(--cream)] hover:text-[var(--brand-gold)]"
                   >
                     Instagram ↗
                   </a>
@@ -128,7 +128,7 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
               <li><FooterLink href="/contact">Contact</FooterLink></li>
             </ul>
 
-            <div className="font-mono mt-6 text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
+            <div className="mt-6 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--brand-gold)]">
               Account
             </div>
             <ul className="mt-4 space-y-2 text-sm">
@@ -139,15 +139,13 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
         </div>
       </div>
 
-      {/* BASELINE — copyright + location only. Account and staff sign-in
-          live up in the "Account" column above, as normal footer links,
-          rather than buried down here in the red. */}
-      <div className="border-t bg-[var(--brand-priceless-dark)] text-white">
+      {/* BASELINE — copyright + location only. */}
+      <div className="border-t border-white/12">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-2 px-6 py-3">
-          <span className="font-mono text-xs uppercase tracking-[0.14em] text-white/85">
+          <span className="text-xs uppercase tracking-[0.14em] text-white/60">
             © {new Date().getFullYear()} Price-Less Building · Builders Corner · 4 Squared
           </span>
-          <span className="font-mono text-xs uppercase tracking-[0.14em] text-white/85">
+          <span className="text-xs uppercase tracking-[0.14em] text-white/60">
             {ADDRESS.city}, {ADDRESS.state} · Same building since 1978
           </span>
         </div>
@@ -160,7 +158,7 @@ function FooterLink({ href, children }: { href: string; children: React.ReactNod
   return (
     <Link
       href={href}
-      className="block py-2 text-base text-[var(--foreground)] hover:text-[var(--brand-priceless)]"
+      className="block py-2 text-base text-[var(--cream)] hover:text-[var(--brand-gold)]"
     >
       {children}
     </Link>

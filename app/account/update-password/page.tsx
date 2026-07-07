@@ -15,7 +15,7 @@ export const metadata = {
 export default function UpdatePasswordPage() {
   return (
     <main className="mx-auto max-w-md px-6 py-16">
-      <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
+      <div className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--brand-gold-deep)]">
         Price-Less Building · Customer account
       </div>
       <h1 className="font-display mt-6 text-4xl">

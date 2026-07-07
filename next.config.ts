@@ -34,7 +34,7 @@ const config: NextConfig = {
       { protocol: "https", hostname: "**.supabase.co" },
       { protocol: "https", hostname: "**.gstatic.com" },
     ],
-    qualities: [50, 55, 60, 65, 70, 75, 80, 85, 90, 92, 95, 100],
+    qualities: [50, 55, 60, 65, 70, 75, 78, 80, 85, 90, 92, 95, 100],
   },
 };
 

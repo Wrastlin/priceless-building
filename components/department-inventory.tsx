@@ -36,7 +36,7 @@ export function DepartmentInventory({ category }: { category: string }) {
   return (
     <section className="border-b bg-white">
       <div className="mx-auto max-w-7xl px-6 py-14">
-        <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
+        <div className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--brand-gold-deep)]">
           In this department
         </div>
         <h2 className="font-display mt-3 text-4xl leading-[1.05] md:text-5xl">
@@ -60,7 +60,7 @@ export function DepartmentInventory({ category }: { category: string }) {
                   quality={70}
                   className="object-cover transition duration-700 group-hover:scale-[1.04]"
                 />
-                <span className="font-mono absolute left-2 top-2 bg-white/95 px-2 py-1 text-[10px] uppercase tracking-[0.1em] text-[var(--muted-foreground)]">
+                <span className="font-sans font-semibold absolute left-2 top-2 bg-white/95 px-2 py-1 text-[10px] uppercase tracking-[0.1em] text-[var(--muted-foreground)]">
                   {SELECTION_LABEL[t.selection]}
                 </span>
               </div>

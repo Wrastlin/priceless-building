@@ -118,7 +118,7 @@ export function PhotoCarousel({
 
   if (all.length <= 1) {
     return (
-      <div className="mt-4 rounded border border-dashed border-border bg-[#fafaf9] px-3 py-4 text-xs text-muted-foreground">
+      <div className="mt-4 rounded-lg border border-dashed border-border bg-[oklch(0.975_0.008_85)] px-3 py-4 text-xs text-muted-foreground">
         Add more photos to the item gallery to use the {spec.label.toLowerCase()}.
       </div>
     );
@@ -151,7 +151,7 @@ export function PhotoCarousel({
           In the post (slot 1 first)
         </div>
         {order.length === 0 ? (
-          <div className="rounded border border-dashed border-border bg-[#fafaf9] px-3 py-4 text-xs text-muted-foreground">
+          <div className="rounded-lg border border-dashed border-border bg-[oklch(0.975_0.008_85)] px-3 py-4 text-xs text-muted-foreground">
             No photos selected. Pick from below.
           </div>
         ) : (
@@ -159,12 +159,12 @@ export function PhotoCarousel({
             {order.map((url, i) => (
               <li
                 key={url}
-                className="flex items-center gap-3 rounded border border-border bg-white p-2"
+                className="flex items-center gap-3 rounded-lg border border-border bg-white p-2"
               >
-                <span className="font-mono inline-flex h-7 w-7 shrink-0 items-center justify-center rounded bg-[var(--brand-priceless)] text-[11px] font-semibold text-white tabular-nums">
+                <span className="font-mono inline-flex h-7 w-7 shrink-0 items-center justify-center rounded bg-[var(--brand-navy)] text-[11px] font-semibold text-white tabular-nums">
                   {i + 1}
                 </span>
-                <div className="relative h-12 w-16 shrink-0 overflow-hidden bg-[#f7f7f6]">
+                <div className="relative h-12 w-16 shrink-0 overflow-hidden bg-[oklch(0.968_0.008_85)]">
                   <Image
                     src={url}
                     alt=""
@@ -183,7 +183,7 @@ export function PhotoCarousel({
                         setCaptions((c) => ({ ...c, [url]: e.target.value }))
                       }
                       placeholder="Slide caption (optional, IG-only)"
-                      className="block w-full rounded border border-border bg-white px-2 py-1 text-xs text-foreground focus:border-[var(--brand-priceless)] focus:outline-none"
+                      className="block w-full rounded-lg border border-border bg-white px-2 py-1 text-xs text-foreground focus:border-[var(--brand-navy)] focus:outline-none"
                     />
                   ) : (
                     <span className="text-xs text-muted-foreground">
@@ -214,7 +214,7 @@ export function PhotoCarousel({
                     type="button"
                     onClick={() => toggle(url)}
                     aria-label="Remove from carousel"
-                    className="rounded border border-border bg-white px-1.5 py-0.5 text-xs text-muted-foreground hover:border-[var(--brand-priceless)] hover:text-[var(--brand-priceless)]"
+                    className="rounded border border-border bg-white px-1.5 py-0.5 text-xs text-muted-foreground hover:border-[var(--sale-red)] hover:text-[var(--sale-red)]"
                   >
                     ✕
                   </button>
@@ -239,7 +239,7 @@ export function PhotoCarousel({
                   <button
                     type="button"
                     onClick={() => toggle(url)}
-                    className="group relative block aspect-square w-full overflow-hidden rounded border border-border bg-[#f7f7f6] transition hover:border-[var(--brand-priceless)]"
+                    className="group relative block aspect-square w-full overflow-hidden rounded border border-border bg-[oklch(0.968_0.008_85)] transition hover:border-[var(--brand-navy)]"
                   >
                     <Image
                       src={url}

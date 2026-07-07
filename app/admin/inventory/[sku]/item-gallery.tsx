@@ -65,7 +65,7 @@ export function ItemGallery({
         <button
           type="button"
           onClick={() => setLightboxIndex(0)}
-          className="relative block aspect-square w-full bg-[#f4f4f3]"
+          className="relative block aspect-square w-full bg-[oklch(0.968_0.008_85)]"
         >
           <Image src={cover} alt={alt} fill className="object-cover" sizes="(min-width:1024px) 30vw, 100vw" quality={80} />
         </button>
@@ -76,14 +76,14 @@ export function ItemGallery({
                 key={`${g}-${i}`}
                 type="button"
                 onClick={() => setLightboxIndex(i + 1)}
-                className="relative aspect-square overflow-hidden bg-[#f4f4f3]"
+                className="relative aspect-square overflow-hidden bg-[oklch(0.968_0.008_85)]"
               >
                 <Image src={g} alt={`${alt} ${i + 2}`} fill className="object-cover" sizes="20vw" quality={60} unoptimized={g.startsWith("data:")} />
               </button>
             ))}
           </div>
         ) : null}
-        <div className="border-t border-border bg-[#fafaf9] px-3 py-2 text-xs text-muted-foreground">
+        <div className="border-t border-border bg-[oklch(0.975_0.008_85)] px-3 py-2 text-xs text-muted-foreground">
           {allPhotos.length} photo{allPhotos.length === 1 ? "" : "s"} on file
         </div>
       </div>

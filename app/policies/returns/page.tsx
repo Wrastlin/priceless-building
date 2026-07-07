@@ -17,7 +17,7 @@ export default function ReturnsPolicy() {
     <>
       <SiteHeader brand="priceless" />
       <section className="mx-auto max-w-5xl px-6 pt-14 pb-10">
-        <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">Policies</div>
+        <div className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--brand-gold-deep)]">Policies</div>
         <h1 className="font-display mt-3 text-5xl leading-[1.05] md:text-7xl">
           Returns & <span className="text-[var(--brand-priceless)]">exchanges.</span>
         </h1>

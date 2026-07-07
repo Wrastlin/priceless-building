@@ -109,7 +109,7 @@ export function ReceivingForm() {
           <span className="text-xs text-muted-foreground">{drafts.length} items</span>
         </div>
         {drafts.length === 0 ? (
-          <div className="m-5 rounded-md border-2 border-dashed border-border bg-[#fafaf9] p-10 text-center text-sm text-muted-foreground">
+          <div className="m-5 rounded-lg border-2 border-dashed border-border bg-[oklch(0.975_0.008_85)] p-10 text-center text-sm text-muted-foreground">
             Empty queue · scan a packing slip or photograph items one at a time
           </div>
         ) : (
@@ -128,7 +128,7 @@ export function ReceivingForm() {
                 <tr key={d.id}>
                   <td>
                     <div className="flex items-center gap-3">
-                      <div className="relative h-9 w-12 shrink-0 overflow-hidden rounded bg-[#f4f4f3]">
+                      <div className="relative h-9 w-12 shrink-0 overflow-hidden rounded bg-[oklch(0.968_0.008_85)]">
                         {d.photo ? <Image src={d.photo} alt="" fill className="object-cover" sizes="48px" /> : <span className="flex h-full w-full items-center justify-center text-[10px] text-muted-foreground">no photo</span>}
                       </div>
                       <div>{d.title}</div>
@@ -140,7 +140,7 @@ export function ReceivingForm() {
                   <td>
                     <StatusPill s={d.status} />
                     {d.status === "tagged" ? (
-                      <Link href={`/admin/tags?sku=${formatSKU("PL", 900 + i)}`} className="ml-2 text-xs text-[var(--brand-priceless)] hover:underline">Print</Link>
+                      <Link href={`/admin/tags?sku=${formatSKU("PL", 900 + i)}`} className="ml-2 text-xs text-[var(--brand-navy)] hover:underline">Print</Link>
                     ) : null}
                   </td>
                 </tr>
@@ -155,7 +155,7 @@ export function ReceivingForm() {
 
 function StatusPill({ s }: { s: Draft["status"] }) {
   const styles = {
-    draft: "bg-[#f4f4f3] text-muted-foreground",
+    draft: "bg-[oklch(0.968_0.008_85)] text-muted-foreground",
     researching: "bg-amber-50 text-amber-700",
     priced: "bg-sky-50 text-sky-700",
     tagged: "bg-emerald-50 text-emerald-700",

@@ -40,7 +40,7 @@ export function Pagination({
   };
 
   const cell =
-    "font-mono inline-flex h-10 min-w-10 items-center justify-center px-3 text-xs uppercase tracking-[0.12em] transition";
+    "font-sans font-semibold inline-flex h-10 min-w-10 items-center justify-center px-3 text-xs uppercase tracking-[0.12em] transition";
   const active = `${cell} bg-[var(--brand-priceless)] text-white`;
   const link = `${cell} border border-[var(--border)] bg-white text-[var(--foreground)] hover:border-[var(--brand-priceless)] hover:text-[var(--brand-priceless)]`;
   const disabled = `${cell} border border-[var(--border)] bg-white text-[var(--muted-foreground)]/40`;

@@ -62,7 +62,7 @@ export default async function EditItem({ params }: { params: Promise<{ sku: stri
             ) : null}
             <DetailsEditor item={item} />
             {item.tagExtract?.rawText ? (
-              <div className="mt-4 rounded border border-dashed border-border bg-[#fafaf9] p-3">
+              <div className="mt-4 rounded-lg border border-dashed border-border bg-[oklch(0.975_0.008_85)] p-3">
                 <div className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
                   Read off the physical tag (verbatim)
                 </div>
@@ -97,7 +97,7 @@ export default async function EditItem({ params }: { params: Promise<{ sku: stri
                 {item.comparables.map((c, i) => (
                   <li key={i} className="flex items-center justify-between gap-3 py-2.5">
                     <div className="min-w-0">
-                      <div className="text-xs font-medium text-[var(--brand-priceless)]">{c.source}</div>
+                      <div className="text-xs font-medium text-[var(--brand-navy)]">{c.source}</div>
                       <div className="truncate text-sm text-muted-foreground">{c.title}</div>
                     </div>
                     <div className="text-right">
@@ -106,7 +106,7 @@ export default async function EditItem({ params }: { params: Promise<{ sku: stri
                         href={c.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-xs text-[var(--brand-priceless)] underline decoration-[var(--brand-priceless)]/30 underline-offset-2 hover:decoration-[var(--brand-priceless)]"
+                        className="text-xs text-[var(--brand-navy)] underline decoration-[var(--brand-navy)]/30 underline-offset-2 hover:decoration-[var(--brand-navy)]"
                       >
                         view →
                       </a>
@@ -115,7 +115,7 @@ export default async function EditItem({ params }: { params: Promise<{ sku: stri
                 ))}
               </ul>
             ) : (
-              <div className="rounded border border-dashed border-border bg-[#fafaf9] px-3 py-4 text-xs text-muted-foreground">
+              <div className="rounded-lg border border-dashed border-border bg-[oklch(0.975_0.008_85)] px-3 py-4 text-xs text-muted-foreground">
                 No saved comparables. Re-run analyze on this item from the Add Item flow to capture live retail prices.
               </div>
             )}
@@ -158,7 +158,7 @@ function Panel({ title, children }: { title: string; children: React.ReactNode }
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-md bg-[#fafaf9] p-3">
+    <div className="rounded-lg bg-[oklch(0.975_0.008_85)] p-3">
       <div className="text-xs text-muted-foreground">{label}</div>
       <div className="mt-1 font-mono text-lg font-semibold tabular-nums text-foreground">{value}</div>
     </div>

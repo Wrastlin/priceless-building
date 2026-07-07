@@ -28,7 +28,7 @@ export function VendorWall({
   return (
     <section className="border-b bg-[var(--muted)]">
       <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
-        <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
+        <div className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--brand-gold-deep)]">
           Verified vendors · {logos.length} brands
         </div>
         <h2 className="font-display mt-3 text-4xl leading-[1.05] md:text-6xl">{heading}</h2>

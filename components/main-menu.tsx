@@ -94,7 +94,7 @@ export function MainMenu({
         aria-expanded={open}
         aria-controls="main-menu-drawer"
         onClick={() => setOpen(true)}
-        className="inline-flex h-11 items-center gap-2.5 rounded-md border border-[var(--border)] bg-white px-3.5 text-base font-semibold text-[var(--foreground)] transition hover:border-[var(--foreground)]/30 hover:bg-[var(--muted)]"
+        className="inline-flex h-11 items-center gap-2.5 rounded-full border border-[var(--border)] bg-white px-4 text-base font-semibold text-[var(--foreground)] transition hover:border-[var(--foreground)]/30 hover:bg-[var(--muted)]"
       >
         <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round">
           <path d="M4 7h16M4 12h16M4 17h16" />
@@ -123,7 +123,7 @@ export function MainMenu({
         style={{ transitionTimingFunction: "cubic-bezier(.2,.8,.2,1)" }}
       >
         <div className="flex items-center justify-between border-b border-[var(--border)] px-5 py-4">
-          <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
+          <span className="eyebrow">
             Menu
           </span>
           <button
@@ -146,7 +146,7 @@ export function MainMenu({
             <Link
               href="/account"
               onClick={() => setOpen(false)}
-              className="flex items-center gap-3 rounded-md border border-[var(--border)] px-4 py-3 transition hover:border-[var(--foreground)]/30 hover:bg-[var(--muted)]"
+              className="flex items-center gap-3 rounded-[14px] border border-[var(--border)] px-4 py-3 transition hover:border-[var(--foreground)]/30 hover:bg-[var(--muted)]"
             >
               <span className="grid size-9 shrink-0 place-items-center rounded-full bg-[var(--muted)] text-[var(--foreground)]">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -158,7 +158,7 @@ export function MainMenu({
                 <span className="font-semibold">My account</span>
                 <span className="text-sm text-[var(--muted-foreground)]">Sign in or create an account</span>
               </span>
-              <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">→</span>
+              <span className="text-sm font-semibold text-[var(--muted-foreground)]">→</span>
             </Link>
           </section>
 
@@ -177,7 +177,7 @@ export function MainMenu({
           {/* Department list. Compact, secondary — for the visitor who
               already knows exactly what they want. */}
           <section className="mt-8 border-t border-[var(--border)] px-5 pt-5">
-            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
+            <div className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
               Or jump straight to a department
             </div>
             <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1">
@@ -186,9 +186,9 @@ export function MainMenu({
                   <Link
                     href={`/shop/${key}`}
                     onClick={() => setOpen(false)}
-                    className="flex items-center gap-3 py-2 text-base text-[var(--foreground)] transition hover:text-[var(--brand-priceless)]"
+                    className="flex items-center gap-3 py-2 text-base text-[var(--foreground)] transition hover:text-[var(--brand-navy)]"
                   >
-                    <span className="relative size-9 shrink-0 overflow-hidden bg-[var(--muted)]">
+                    <span className="relative size-9 shrink-0 overflow-hidden rounded-md bg-[var(--muted)]">
                       <Image src={dept.image} alt="" fill sizes="36px" className="object-cover" />
                     </span>
                     <span className="leading-tight">{dept.label}</span>
@@ -200,7 +200,7 @@ export function MainMenu({
 
           {/* Standard site nav. */}
           <section className="mt-8 border-t border-[var(--border)] px-5 pt-5 pb-6">
-            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
+            <div className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
               The rest of the site
             </div>
             <ul className="mt-3 grid grid-cols-3 gap-x-4 gap-y-1">
@@ -209,7 +209,7 @@ export function MainMenu({
                   <Link
                     href={n.href}
                     onClick={() => setOpen(false)}
-                    className="block py-2 text-base text-[var(--foreground)] transition hover:text-[var(--brand-priceless)]"
+                    className="block py-2 text-base text-[var(--foreground)] transition hover:text-[var(--brand-navy)]"
                   >
                     {n.label}
                   </Link>
@@ -254,7 +254,7 @@ function PrimaryRow({
       onClick={onClick}
       aria-current={active ? "page" : undefined}
       className={
-        "group flex items-center gap-4 border border-[var(--border)] p-4 transition " +
+        "group flex items-center gap-4 rounded-[14px] border border-[var(--border)] p-4 transition " +
         (active
           ? "border-[var(--foreground)]/40 bg-[var(--muted)]"
           : "hover:border-[var(--foreground)]/30 hover:bg-[var(--muted)]")
@@ -265,7 +265,7 @@ function PrimaryRow({
         <span className="font-display text-lg leading-tight">{label}</span>
         <span className="text-sm leading-snug text-[var(--muted-foreground)]">{sub}</span>
       </span>
-      <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)] group-hover:text-[var(--brand-priceless)]">
+      <span className="text-sm font-semibold text-[var(--muted-foreground)] group-hover:text-[var(--brand-navy)]">
         →
       </span>
     </Link>
@@ -277,7 +277,7 @@ function PrimaryIcon({ tone }: { tone: PathTone }) {
   // Reads as a real visual anchor instead of the old colored dot.
   if (tone === "priceless") {
     return (
-      <span className="grid size-14 shrink-0 place-items-center border border-[var(--border)] bg-white">
+      <span className="grid size-14 shrink-0 place-items-center rounded-lg border border-[var(--border)] bg-white">
         <Image
           src="/real-photos/logo-priceless-clean.webp"
           alt=""
@@ -290,7 +290,7 @@ function PrimaryIcon({ tone }: { tone: PathTone }) {
   }
   if (tone === "builders") {
     return (
-      <span className="grid size-14 shrink-0 place-items-center border border-[var(--border)] bg-white">
+      <span className="grid size-14 shrink-0 place-items-center rounded-lg border border-[var(--border)] bg-white">
         <Image
           src="/real-photos/logo-builders-corner@2x.webp"
           alt=""
@@ -304,7 +304,7 @@ function PrimaryIcon({ tone }: { tone: PathTone }) {
   if (tone === "four-squared") {
     // FS brand mark: four squares, sized to fill the icon tile.
     return (
-      <span className="grid size-14 shrink-0 place-items-center border border-[var(--border)] bg-white">
+      <span className="grid size-14 shrink-0 place-items-center rounded-lg border border-[var(--border)] bg-white">
         <svg width="32" height="32" viewBox="0 0 20 20" aria-hidden="true" className="text-emerald-700">
           <rect x="0" y="0" width="9" height="9" fill="currentColor" />
           <rect x="11" y="0" width="9" height="9" fill="currentColor" />
@@ -316,7 +316,7 @@ function PrimaryIcon({ tone }: { tone: PathTone }) {
   }
   // start: a build/wrench glyph so it reads as action, not brand.
   return (
-    <span className="grid size-14 shrink-0 place-items-center border border-[var(--border)] bg-[var(--brand-priceless)] text-white">
+    <span className="grid size-14 shrink-0 place-items-center rounded-lg border border-[var(--border)] bg-[var(--brand-navy)] text-white">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
       </svg>

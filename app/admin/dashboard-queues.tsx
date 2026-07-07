@@ -24,14 +24,14 @@ export function DashboardQueues({
             <h2 className="text-base font-semibold text-foreground">In staging</h2>
             <p className="mt-0.5 admin-help">Drafts waiting on approval.</p>
           </div>
-          <Link href="/admin/staging" className="text-sm text-[var(--brand-priceless)] hover:underline">
+          <Link href="/admin/staging" className="text-sm text-[var(--brand-navy)] hover:underline">
             See all
           </Link>
         </div>
         {drafts.length === 0 ? (
           <div className="px-5 py-8 text-sm text-muted-foreground">
             No drafts right now.{" "}
-            <Link href="/admin/inventory/new" className="text-[var(--brand-priceless)] hover:underline">
+            <Link href="/admin/inventory/new" className="text-[var(--brand-navy)] hover:underline">
               Add one
             </Link>
             .
@@ -44,7 +44,7 @@ export function DashboardQueues({
           </ul>
         )}
         {oldestDraft ? (
-          <div className="border-t border-border bg-[#fafaf9] px-5 py-2 text-xs text-muted-foreground">
+          <div className="border-t border-border bg-[oklch(0.975_0.008_85)] px-5 py-2 text-xs text-muted-foreground">
             Oldest draft: {oldestDraft.sku} · {oldestDraft.title}
           </div>
         ) : null}
@@ -56,14 +56,14 @@ export function DashboardQueues({
             <h2 className="text-base font-semibold text-foreground">Recently published</h2>
             <p className="mt-0.5 admin-help">Live on the storefront. Marketing-ready.</p>
           </div>
-          <Link href="/admin/inventory" className="text-sm text-[var(--brand-priceless)] hover:underline">
+          <Link href="/admin/inventory" className="text-sm text-[var(--brand-navy)] hover:underline">
             See all
           </Link>
         </div>
         {recent.length === 0 ? (
           <div className="px-5 py-8 text-sm text-muted-foreground">
             No live items yet. Approve a draft in{" "}
-            <Link href="/admin/staging" className="text-[var(--brand-priceless)] hover:underline">
+            <Link href="/admin/staging" className="text-[var(--brand-navy)] hover:underline">
               staging
             </Link>
             .

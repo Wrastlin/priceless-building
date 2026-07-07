@@ -161,13 +161,13 @@ export function CustomerAuth() {
 
       <div className="my-5 flex items-center gap-3 text-[var(--muted-foreground)]">
         <span className="h-px flex-1 bg-[var(--border)]" />
-        <span className="font-mono text-xs uppercase tracking-[0.14em]">or</span>
+        <span className="font-sans font-semibold text-xs uppercase tracking-[0.18em]">or</span>
         <span className="h-px flex-1 bg-[var(--border)]" />
       </div>
 
       <form onSubmit={handleEmail} className="space-y-3">
         <label className="block">
-          <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">Email</span>
+          <span className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)]">Email</span>
           <input
             type="email"
             required
@@ -182,12 +182,12 @@ export function CustomerAuth() {
         {mode !== "reset" && (
           <label className="block">
             <span className="flex items-center justify-between gap-2">
-              <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">Password</span>
+              <span className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)]">Password</span>
               {mode === "signin" && (
                 <button
                   type="button"
                   onClick={() => setMode("reset")}
-                  className="font-mono text-xs uppercase tracking-[0.12em] text-[var(--brand-priceless)] underline underline-offset-2"
+                  className="font-sans font-semibold text-xs uppercase tracking-[0.12em] text-[var(--brand-gold-deep)] underline underline-offset-2"
                 >
                   Forgot password?
                 </button>
@@ -208,7 +208,7 @@ export function CustomerAuth() {
 
         {mode === "signup" && (
           <label className="block">
-            <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">Confirm password</span>
+            <span className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)]">Confirm password</span>
             <input
               type="password"
               required

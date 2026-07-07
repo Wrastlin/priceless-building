@@ -16,14 +16,14 @@ export function CatalogBand({ items }: { items: CatalogItem[] }) {
           className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between md:gap-8"
           data-reveal
         >
-          <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
+          <div className="eyebrow">
             On the floor
           </div>
           <form
             role="search"
             action="/search"
             method="get"
-            className="flex h-11 w-full items-center gap-2.5 rounded-md border border-[var(--border)] bg-white px-3.5 transition focus-within:border-[var(--brand-priceless)] hover:border-[var(--foreground)]/30 md:w-96"
+            className="flex h-11 w-full items-center gap-2.5 rounded-full border border-[var(--border)] bg-white px-4 transition focus-within:border-[var(--brand-navy)] hover:border-[var(--foreground)]/30 md:w-96"
           >
             <svg
               width="18"
@@ -35,7 +35,7 @@ export function CatalogBand({ items }: { items: CatalogItem[] }) {
               strokeWidth="2.25"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="shrink-0 text-[var(--brand-priceless)]"
+              className="shrink-0 text-[var(--brand-navy)]"
             >
               <circle cx="11" cy="11" r="8" />
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
@@ -51,14 +51,14 @@ export function CatalogBand({ items }: { items: CatalogItem[] }) {
         </div>
 
         <div className="mt-6 flex flex-wrap items-center gap-2" data-reveal>
-          <span className="font-mono mr-1 text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
+          <span className="mr-1 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
             Browse
           </span>
           {(Object.entries(CATEGORIES) as [keyof typeof CATEGORIES, (typeof CATEGORIES)[keyof typeof CATEGORIES]][]).map(([key, cat]) => (
             <Link
               key={key}
               href={`/shop/${key}`}
-              className="inline-flex h-9 items-center rounded-full border border-[var(--border)] bg-white px-3.5 text-sm font-medium text-[var(--foreground)] transition hover:border-[var(--brand-priceless)] hover:text-[var(--brand-priceless)]"
+              className="inline-flex h-9 items-center rounded-full border border-[var(--border)] bg-white px-3.5 text-sm font-medium text-[var(--foreground)] transition hover:border-[var(--brand-navy)] hover:text-[var(--brand-navy)]"
             >
               {cat.label}
             </Link>
@@ -81,7 +81,7 @@ export function CatalogBand({ items }: { items: CatalogItem[] }) {
             Much more on the floor than what fits here.
           </p>
           <Link href="/shop" className="btn btn-priceless">
-            Shop all products →
+            Shop all products
           </Link>
         </div>
       </div>

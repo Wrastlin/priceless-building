@@ -30,7 +30,7 @@ export function ClosureNotices({ initial }: { initial: StoreNotice[] }) {
 
   return (
     <>
-      <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
+      <div className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--brand-gold-deep)]">
         {notices.length ? "Upcoming closures & holiday hours" : "Hours"}
       </div>
 
@@ -57,8 +57,8 @@ export function ClosureNotices({ initial }: { initial: StoreNotice[] }) {
               <span
                 className={
                   /closed/i.test(n.status)
-                    ? "font-mono shrink-0 text-xs font-bold uppercase tracking-[0.1em] text-[var(--brand-priceless)]"
-                    : "font-mono shrink-0 text-right text-xs uppercase tracking-[0.1em] text-[var(--foreground)]"
+                    ? "font-sans font-semibold shrink-0 text-xs font-bold uppercase tracking-[0.1em] text-[var(--brand-gold-deep)]"
+                    : "font-sans font-semibold shrink-0 text-right text-xs uppercase tracking-[0.1em] text-[var(--foreground)]"
                 }
               >
                 {n.status}

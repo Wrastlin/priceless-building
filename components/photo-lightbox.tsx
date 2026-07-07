@@ -127,7 +127,7 @@ export function PhotoLightbox({
         />
         <figcaption className="absolute inset-x-0 bottom-0 flex items-baseline justify-between gap-4 bg-gradient-to-t from-black/70 to-transparent px-4 py-4 text-sm text-white/90 md:text-base">
           <span className="line-clamp-2 max-w-[80%]">{p.alt}</span>
-          <span className="font-mono shrink-0 text-xs uppercase tracking-[0.14em] text-white/70">
+          <span className="font-sans font-semibold shrink-0 text-xs uppercase tracking-[0.18em] text-white/70">
             {active + 1} / {photos.length}
           </span>
         </figcaption>

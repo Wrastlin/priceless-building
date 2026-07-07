@@ -40,9 +40,9 @@ export function TimelineRail({ events }: { events: TimelineEvent[] }) {
             <span
               aria-hidden
               className={
-                "absolute left-1 top-1.5 size-4 rounded-full border-2 border-[var(--brand-priceless)] " +
+                "absolute left-1 top-1.5 size-4 rounded-full border-2 border-[var(--brand-gold)] " +
                 (isLast
-                  ? "bg-[var(--brand-priceless)]"
+                  ? "bg-[var(--brand-gold)]"
                   : "bg-[var(--muted,white)]")
               }
             />
@@ -52,14 +52,14 @@ export function TimelineRail({ events }: { events: TimelineEvent[] }) {
                   {e.year}
                 </div>
                 {e.month ? (
-                  <div className="font-mono mt-1.5 text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
+                  <div className="mt-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
                     {e.month}
                   </div>
                 ) : null}
               </div>
               <article className="grid grid-cols-1 gap-5 md:grid-cols-[260px_1fr] md:gap-6">
                 {e.image ? (
-                  <div className="relative aspect-[16/9] w-full overflow-hidden border border-[var(--border)] bg-white md:aspect-[4/3]">
+                  <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[14px] border border-[var(--border)] bg-white md:aspect-[4/3]">
                     <Image
                       src={e.image}
                       alt={e.imageAlt ?? e.title}
@@ -85,7 +85,7 @@ export function TimelineRail({ events }: { events: TimelineEvent[] }) {
                       href={e.source.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="font-mono mt-4 inline-flex text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
+                      className="mt-4 inline-flex text-sm font-semibold text-[var(--brand-navy)] underline decoration-[var(--brand-gold)]/60 underline-offset-4"
                     >
                       {e.source.label} →
                     </a>

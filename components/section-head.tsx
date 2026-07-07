@@ -8,10 +8,10 @@ import Link from "next/link";
  * single baseline and read as chaos. This component locks in one stacked
  * hierarchy:
  *
- *   KICKER (mono, 11px, brand color)
- *   Headline (display, fluid 4xl-5xl)
+ *   Kicker (eyebrow label, gold)
+ *   Headline (display serif, fluid 4xl-5xl)
  *   Optional sub-paragraph (body, sm-base)
- *   Optional right-aligned link (mono, 11px)
+ *   Optional text link (sentence case, gold underline)
  *
  * All left-aligned, vertical rhythm, generous breathing room. One look
  * everywhere. No more horizontal three-size jams.
@@ -37,18 +37,17 @@ export function SectionHead({
   invert?: boolean;
   className?: string;
 }) {
-  const accentColor =
-    accent === "builders" ? "text-[var(--brand-builders)]" :
-    accent === "emerald" ? "text-emerald-700" :
-    "text-[var(--brand-priceless)]";
-  const accentInvert =
-    accent === "builders" ? "text-[#9dbcff]" :
-    accent === "emerald" ? "text-emerald-300" :
-    "text-[#ff8b85]";
+  // Kicker: the shared .eyebrow treatment. Non-default accents keep
+  // their own hue via explicit utilities (same weight/tracking).
+  const kickerClass =
+    accent === "builders"
+      ? `text-xs font-semibold uppercase tracking-[0.18em] ${invert ? "text-[var(--brand-builders-gold)]" : "text-[var(--brand-builders)]"}`
+      : accent === "emerald"
+        ? `text-xs font-semibold uppercase tracking-[0.18em] ${invert ? "text-emerald-300" : "text-emerald-700"}`
+        : `eyebrow ${invert ? "eyebrow-on-dark" : ""}`;
   const headlineColor = invert ? "text-white" : "text-[var(--foreground)]";
   const subColor = invert ? "text-white/85" : "text-[var(--muted-foreground)]";
-  const kickerColor = invert ? accentInvert : accentColor;
-  const linkColor = invert ? accentInvert : accentColor;
+  const linkColor = invert ? "text-[var(--cream)]" : "text-[var(--brand-navy)]";
   const borderColor = invert ? "border-white/10" : "border-[var(--border)]";
   const wrap =
     align === "center"
@@ -60,7 +59,7 @@ export function SectionHead({
       className={`${wrap} ${bordered ? `border-b ${borderColor} pb-7` : ""} ${className}`}
     >
       {kicker ? (
-        <div className={`font-mono text-xs uppercase tracking-[0.14em] ${kickerColor}`}>
+        <div className={kickerClass}>
           {kicker}
         </div>
       ) : null}
@@ -78,7 +77,7 @@ export function SectionHead({
         <div className={`mt-5 ${align === "center" ? "" : ""}`}>
           <Link
             href={link.href}
-            className={`font-mono inline-flex items-center text-xs uppercase tracking-[0.14em] underline decoration-2 underline-offset-4 ${linkColor}`}
+            className={`inline-flex items-center text-sm font-semibold underline decoration-[var(--brand-gold)]/60 underline-offset-4 ${linkColor}`}
           >
             {link.label} →
           </Link>

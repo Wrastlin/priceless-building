@@ -1,17 +1,31 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #0b1220;
-  --muted: #f4f6f9;
-  --muted-foreground: #4a5568;
-  --border: #e2e8f0;
-  --accent: #d97706;
-  --accent-foreground: #ffffff;
-  --brand-priceless: #b91c1c;
-  --brand-priceless-dark: #7f1d1d;
-  --brand-builders: #1c3a5e;
-  --brand-builders-gold: #b08945;
+  /* "Showroom Warmth" palette (2026-07 redesign, see DESIGN.md).
+     Deep navy + brass gold on warm cream. Every neutral is tinted:
+     creams lean toward the gold hue (h≈85), inks toward navy (h≈255).
+     Red exists ONLY as --sale-red for savings badges and slashed
+     prices; it is no longer a brand color. */
+  --background: oklch(0.985 0.006 85);        /* warm cream white */
+  --surface: oklch(0.962 0.012 85);           /* section band cream */
+  --foreground: oklch(0.24 0.035 255);        /* navy ink */
+  --muted: oklch(0.955 0.01 85);
+  --muted-foreground: oklch(0.45 0.025 255);
+  --border: oklch(0.9 0.012 85);
+  --accent: oklch(0.72 0.115 78);             /* brass gold */
+  --accent-foreground: oklch(0.235 0.05 257);
+  --brand-navy: oklch(0.3 0.058 255);
+  --brand-navy-deep: oklch(0.235 0.05 257);   /* hero/footer navy */
+  --brand-gold: oklch(0.72 0.115 78);
+  --brand-gold-deep: oklch(0.58 0.11 72);     /* AA gold for text on cream */
+  --cream: oklch(0.96 0.01 85);               /* text on navy */
+  --sale-red: oklch(0.5 0.19 28);             /* savings only */
+  /* Legacy names, retargeted so every existing component inherits the
+     new system: "priceless" is now the navy brand primary. */
+  --brand-priceless: var(--brand-navy);
+  --brand-priceless-dark: var(--brand-navy-deep);
+  --brand-builders: oklch(0.3 0.058 255);
+  --brand-builders-gold: oklch(0.66 0.11 78);
 
   /* Utopia FYI fluid type scale.
      Min: 320px viewport, body 16px (1rem), minor third (1.2).
@@ -65,6 +79,13 @@
   --color-priceless-dark: var(--brand-priceless-dark);
   --color-builders: var(--brand-builders);
   --color-builders-gold: var(--brand-builders-gold);
+  --color-surface: var(--surface);
+  --color-navy: var(--brand-navy);
+  --color-navy-deep: var(--brand-navy-deep);
+  --color-gold: var(--brand-gold);
+  --color-gold-deep: var(--brand-gold-deep);
+  --color-cream: var(--cream);
+  --color-sale: var(--sale-red);
 
   /* Tell Tailwind v4 to use the Utopia scale for every text-* utility.
      Each maps to a real fluid clamp(): text-xs starts at step -1 and
@@ -134,8 +155,16 @@ img, video, iframe {
   }
 }
 
-.font-display { font-family: var(--font-display); letter-spacing: 0.02em; line-height: 0.9; }
-.font-serif { font-family: var(--font-serif); }
+/* Besley, a Clarendon-model slab serif: classic lumber-yard sign
+   lettering. Title case always; forced uppercase is the old system. */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 550;
+  letter-spacing: -0.01em;
+  line-height: 1.08;
+  text-transform: none;
+}
+.font-serif { font-family: var(--font-display); }
 .font-mono { font-family: var(--font-mono); }
 /* Fraunces. Builders Corner's voice. Default weight 400 (not 300) so
    it reads warm and welcoming, not skeletal. Subtle letter-tracking and
@@ -153,42 +182,47 @@ img, video, iframe {
    from the anti-AI-slop playbook. Every block should NOT share the
    same "shadow-card rounded-xl border" template. */
 .eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--brand-priceless);
+  color: var(--brand-gold-deep);
 }
+/* On navy surfaces the eyebrow brightens to full brass. */
+.eyebrow-on-dark { color: var(--brand-gold); }
 
 /* Marker headline. Used sparingly to break the Tailwind-rounded
-   monotony. */
+   monotony. Brass sweep now, not red. */
 .headline-marker {
-  background-image: linear-gradient(90deg, transparent 0, transparent 0.1em, rgba(185, 28, 28, 0.18) 0.1em, rgba(185, 28, 28, 0.18) calc(100% - 0.1em), transparent calc(100% - 0.1em));
+  background-image: linear-gradient(90deg, transparent 0, transparent 0.1em, oklch(0.72 0.115 78 / 0.22) 0.1em, oklch(0.72 0.115 78 / 0.22) calc(100% - 0.1em), transparent calc(100% - 0.1em));
   padding: 0 0.05em;
 }
 
+/* Storefront buttons: warm pills. Primary is brass with navy ink,
+   secondary is navy with cream. Sentence case, no mono, no shouting. */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-  padding: 0.85rem 1.5rem;
-  font-family: var(--font-mono);
-  font-weight: 600; font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  transition: background .2s, color .2s, border-color .2s;
-  border: 1px solid transparent;
+  padding: 0.8rem 1.75rem;
+  font-family: var(--font-sans);
+  font-weight: 600; font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  border-radius: 999px;
+  transition: background .2s, color .2s, border-color .2s, transform .2s;
+  border: 1.5px solid transparent;
 }
 .btn::after {
-  content: "→"; font-family: var(--font-mono); margin-left: 0.25rem; transition: transform .2s;
+  content: "→"; margin-left: 0.25rem; transition: transform .2s;
 }
-.btn:hover::after { transform: translateX(2px); }
-.btn-priceless { background: var(--brand-priceless); color: white; }
-.btn-priceless:hover { background: var(--brand-priceless-dark); }
-.btn-builders { background: var(--brand-builders); color: white; }
-.btn-builders:hover { background: #0f2c47; }
+.btn:hover::after { transform: translateX(3px); }
+.btn-priceless { background: var(--brand-gold); color: var(--brand-navy-deep); }
+.btn-priceless:hover { background: oklch(0.66 0.115 74); }
+.btn-builders { background: var(--brand-navy); color: var(--cream); }
+.btn-builders:hover { background: var(--brand-navy-deep); }
 .btn-outline { border-color: currentColor; color: var(--foreground); background: transparent; }
 .btn-outline:hover { background: var(--foreground); color: var(--background); }
 
-.shadow-card { box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 6px 24px -10px rgba(0,0,0,.10); }
+.shadow-card { box-shadow: 0 1px 2px oklch(0.3 0.04 255 / 0.05), 0 8px 28px -12px oklch(0.3 0.05 255 / 0.14); }
 
 /* ---------------------------------------------------------------------------
    Admin utility primitives. Sans-only, sentence case, fast-to-scan.
@@ -199,20 +233,20 @@ img, video, iframe {
   padding: 0.5rem 0.95rem;
   font-weight: 500; font-size: 0.875rem; line-height: 1.25rem;
   border: 1px solid transparent;
-  border-radius: 6px;
+  border-radius: 8px;
   transition: background .15s, color .15s, border-color .15s, box-shadow .15s;
   cursor: pointer;
   white-space: nowrap;
 }
 .admin-btn:disabled { opacity: .5; cursor: not-allowed; }
-.admin-btn-primary { background: var(--brand-priceless); color: #fff; }
-.admin-btn-primary:hover:not(:disabled) { background: var(--brand-priceless-dark); }
+.admin-btn-primary { background: var(--brand-navy); color: var(--cream); }
+.admin-btn-primary:hover:not(:disabled) { background: var(--brand-navy-deep); }
 .admin-btn-outline { border-color: var(--border); color: var(--foreground); background: #fff; }
-.admin-btn-outline:hover:not(:disabled) { background: #f8f8f7; }
+.admin-btn-outline:hover:not(:disabled) { background: oklch(0.975 0.008 85); }
 .admin-btn-ghost { color: var(--foreground); background: transparent; }
-.admin-btn-ghost:hover:not(:disabled) { background: #f4f4f3; }
-.admin-btn-danger { background: #b91c1c; color: #fff; }
-.admin-btn-danger:hover:not(:disabled) { background: #7f1d1d; }
+.admin-btn-ghost:hover:not(:disabled) { background: oklch(0.955 0.01 85); }
+.admin-btn-danger { background: oklch(0.5 0.19 28); color: #fff; }
+.admin-btn-danger:hover:not(:disabled) { background: oklch(0.42 0.17 28); }
 
 .admin-input {
   width: 100%;
@@ -221,14 +255,14 @@ img, video, iframe {
   padding: 0.5rem 0.75rem;
   font-size: 0.9rem;
   line-height: 1.25rem;
-  border-radius: 6px;
+  border-radius: 8px;
   color: var(--foreground);
   transition: border-color .15s, box-shadow .15s;
 }
 .admin-input:focus {
   outline: none;
-  border-color: var(--brand-priceless);
-  box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.12);
+  border-color: var(--brand-navy);
+  box-shadow: 0 0 0 3px oklch(0.3 0.058 255 / 0.15);
 }
 .admin-input::placeholder { color: var(--muted-foreground); opacity: .7; }
 
@@ -248,7 +282,7 @@ img, video, iframe {
 .admin-card {
   background: #fff;
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
 .admin-pill {
@@ -267,7 +301,7 @@ img, video, iframe {
   font-size: 0.75rem;
   padding: 0.625rem 0.75rem;
   border-bottom: 1px solid var(--border);
-  background: #fafaf9;
+  background: oklch(0.975 0.008 85);
 }
 .admin-table tbody td {
   padding: 0.625rem 0.75rem;
@@ -275,7 +309,7 @@ img, video, iframe {
   vertical-align: middle;
 }
 .admin-table tbody tr:last-child td { border-bottom: 0; }
-.admin-table tbody tr:hover { background: #fafaf9; }
+.admin-table tbody tr:hover { background: oklch(0.975 0.008 85); }
 /* Tighter horizontal padding on phones so the trimmed column set
    (Item / Tag / Qty / Edit) fits without horizontal scrolling. */
 @media (max-width: 640px) {

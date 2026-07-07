@@ -245,7 +245,7 @@ export default async function HomePage() {
 
       {/* NEWSLETTER. Doubles as the signup hook for the upcoming
           walkthrough launch in addition to the weekly inventory drop. */}
-      <section className="bg-white">
+      <section className="bg-[var(--background)]">
         <div className="mx-auto max-w-7xl px-6 py-10 md:py-14">
           <NewsletterBar />
         </div>

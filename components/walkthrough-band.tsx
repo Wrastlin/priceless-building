@@ -62,7 +62,7 @@ export function WalkthroughBand() {
               key={s.n}
               data-reveal
               data-reveal-delay={(i * 0.06).toFixed(2)}
-              className="flex flex-col overflow-hidden border border-[var(--border)] bg-white"
+              className="flex flex-col overflow-hidden rounded-[14px] border border-[var(--border)] bg-white"
             >
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
                 <Image
@@ -73,7 +73,7 @@ export function WalkthroughBand() {
                   className="object-cover"
                   quality={78}
                 />
-                <span className="font-display absolute left-3 top-3 inline-flex h-9 w-9 items-center justify-center bg-white text-base text-[var(--brand-priceless)] shadow-sm">
+                <span className="font-display absolute left-3 top-3 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white text-base text-[var(--brand-navy)] shadow-sm">
                   {s.n}
                 </span>
               </div>
@@ -89,7 +89,7 @@ export function WalkthroughBand() {
 
         {/* Where-to-find anchor. Full mural image since the old
             text-only "Where to find us" card was the weak link. */}
-        <div className="mt-10 overflow-hidden border border-[var(--border)] bg-white">
+        <div className="mt-10 overflow-hidden rounded-[14px] border border-[var(--border)] bg-white">
           <div className="relative w-full overflow-hidden bg-[var(--muted)]">
             <Image
               src="/real-photos/business/exterior-mural-build-your-future.webp"
@@ -109,7 +109,7 @@ export function WalkthroughBand() {
               </div>
             </div>
             <Link href="/contact" className="btn btn-priceless">
-              See our store →
+              See our store
             </Link>
           </div>
         </div>

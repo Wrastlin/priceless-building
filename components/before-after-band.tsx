@@ -21,10 +21,10 @@ export function BeforeAfterBand() {
   if (deck.length === 0) return null;
 
   return (
-    <section className="bg-white">
+    <section className="bg-[var(--background)]">
       {/* Dark heading strip. Anchors the section visually and breaks
-          the long run of white panels above and below. */}
-      <div className="bg-[#0b1220] text-white">
+          the long run of light panels above and below. */}
+      <div className="bg-[var(--brand-navy-deep)] text-white">
         <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
           <SectionHead
             invert
@@ -43,7 +43,7 @@ export function BeforeAfterBand() {
             We can pull from any of these designs as a starting point for your room.
           </div>
           <Link href="/four-squared" className="btn btn-priceless">
-            Start a project →
+            Start a project
           </Link>
         </div>
       </div>

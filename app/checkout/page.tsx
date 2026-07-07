@@ -11,7 +11,7 @@ export default async function CheckoutPage() {
       <section className="mx-auto max-w-6xl px-6 pt-14 pb-16">
         <div className="grid items-end gap-x-10 gap-y-4 md:grid-cols-12">
           <div className="md:col-span-8">
-            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">Checkout · Step 1 of 1</div>
+            <div className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--brand-gold-deep)]">Checkout · Step 1 of 1</div>
             <h1 className="font-display mt-3 text-6xl leading-[1.05] md:text-8xl">
               Reserve your <span className="text-[var(--brand-priceless)]">items.</span>
             </h1>

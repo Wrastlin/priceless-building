@@ -115,12 +115,12 @@ function StepCard({
     <Link
       href={href}
       className={
-        "admin-card group flex flex-col gap-3 p-5 transition hover:border-[var(--brand-priceless)] hover:shadow-sm " +
-        (highlight ? "border-[var(--brand-priceless)] bg-[#fff5f4]" : "")
+        "admin-card group flex flex-col gap-3 p-5 transition hover:border-[var(--brand-navy)] hover:shadow-sm " +
+        (highlight ? "border-[var(--brand-navy)] bg-[var(--brand-navy)]/5" : "")
       }
     >
       <div className="flex items-baseline justify-between">
-        <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
+        <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-navy)]">
           Step {step}
         </span>
         {count !== null ? (
@@ -131,7 +131,7 @@ function StepCard({
       </div>
       <h2 className="text-lg font-semibold leading-tight text-foreground">{title}</h2>
       <p className="text-sm leading-relaxed text-muted-foreground">{body}</p>
-      <span className="mt-auto text-sm font-medium text-[var(--brand-priceless)] group-hover:underline">
+      <span className="mt-auto text-sm font-medium text-[var(--brand-navy)] group-hover:underline">
         {cta} →
       </span>
     </Link>

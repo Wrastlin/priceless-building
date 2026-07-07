@@ -26,7 +26,7 @@ export function GiftCardForm() {
             onClick={() => { setAmount(p); setCustom(""); }}
             className={
               "rounded-lg border-2 px-3 py-3 text-lg font-bold " +
-              (amount === p && !custom ? "border-[var(--brand-priceless)] bg-[var(--brand-priceless)]/5 text-[var(--brand-priceless)]" : "bg-white")
+              (amount === p && !custom ? "border-[var(--brand-navy)] bg-[var(--brand-navy)]/5 text-[var(--brand-navy)]" : "bg-white")
             }
           >
             {formatCurrency(p)}
@@ -60,7 +60,7 @@ export function GiftCardForm() {
 
       <div className="grid grid-cols-2 gap-2">
         {(["email", "mail"] as const).map((d) => (
-          <label key={d} className={"flex cursor-pointer items-center gap-2 rounded-md border p-3 text-sm " + (delivery === d ? "border-[var(--brand-priceless)] bg-[var(--brand-priceless)]/5" : "")}>
+          <label key={d} className={"flex cursor-pointer items-center gap-2 rounded-md border p-3 text-sm " + (delivery === d ? "border-[var(--brand-navy)] bg-[var(--brand-navy)]/5" : "")}>
             <input type="radio" checked={delivery === d} onChange={() => setDelivery(d)} />
             <span className="font-semibold">{d === "email" ? "Email digital card" : "Mail printed card"}</span>
             <span className="ml-auto text-xs text-[var(--muted-foreground)]">{d === "email" ? "Instant" : "Free in WI"}</span>

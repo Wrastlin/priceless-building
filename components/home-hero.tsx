@@ -31,7 +31,7 @@ export function HomeHero() {
   return (
     <section className="relative border-b">
       {/* HERO VIEWPORT */}
-      <div className="relative min-h-[88svh] w-full overflow-hidden bg-[#0b1220]">
+      <div className="relative min-h-[88svh] w-full overflow-hidden bg-[var(--brand-navy-deep)]">
         {/* Poster — mobile only. On desktop the navy backdrop shows during
             load and the mosaic fades straight in over it, so desktop never
             flashes this single photo before snapping to the grid. */}
@@ -55,18 +55,18 @@ export function HomeHero() {
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, rgba(11,18,32,0.93) 0%, rgba(11,18,32,0.55) 46%, rgba(11,18,32,0.22) 74%, rgba(11,18,32,0.5) 100%)",
+              "linear-gradient(90deg, rgba(15,33,56,0.93) 0%, rgba(15,33,56,0.55) 46%, rgba(15,33,56,0.22) 74%, rgba(15,33,56,0.5) 100%)",
           }}
         />
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 md:hidden"
-          style={{ background: "linear-gradient(to top, rgba(11,18,32,0.9) 0%, rgba(11,18,32,0.35) 60%, rgba(11,18,32,0.55) 100%)" }}
+          style={{ background: "linear-gradient(to top, rgba(15,33,56,0.9) 0%, rgba(15,33,56,0.35) 60%, rgba(15,33,56,0.55) 100%)" }}
         />
 
         {/* CONTENT */}
         <div className="relative z-10 mx-auto flex min-h-[88svh] max-w-7xl flex-col justify-center px-6 py-20">
-          <div className="font-mono mb-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs uppercase tracking-[0.2em] text-white/75">
+          <div className="mb-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-semibold uppercase tracking-[0.18em] text-white/80">
             <span className="inline-flex items-center gap-2">
               <span className="size-2 rounded-full bg-emerald-400" />
               <OpenToday />
@@ -74,13 +74,12 @@ export function HomeHero() {
             <span className="text-white/30">·</span>
             <span>Wausau, WI</span>
             <span className="text-white/30">·</span>
-            <span>Est. 1978</span>
+            <span className="text-[var(--brand-gold)]">Family-run since 1978</span>
           </div>
 
-          <h1 className="font-display text-[clamp(2.75rem,1.8rem+6vw,7rem)] uppercase leading-[0.92] text-white">
-            <span className="block">Wausau&rsquo;s</span>
-            <span className="block">one-stop shop</span>
-            <span className="block text-[var(--accent)]">for everything.</span>
+          <h1 className="font-display max-w-[16ch] text-[clamp(2.25rem,1.5rem+3.6vw,4.35rem)] leading-[1.08] text-white">
+            <span className="block">Wausau&rsquo;s one-stop shop</span>
+            <span className="block italic text-[var(--brand-gold)]">for the home you&rsquo;re building.</span>
           </h1>
 
           <p className="mt-7 max-w-xl text-base text-white/85 md:text-lg">
@@ -88,15 +87,12 @@ export function HomeHero() {
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
-            <Link
-              href="/shop"
-              className="font-mono inline-flex items-center bg-[var(--brand-priceless)] px-7 py-4 text-sm uppercase tracking-[0.14em] text-white transition hover:bg-[var(--brand-priceless-dark)]"
-            >
-              Shop the inventory →
+            <Link href="/shop" className="btn btn-priceless">
+              Shop the inventory
             </Link>
             <Link
               href="/contact"
-              className="font-mono text-sm uppercase tracking-[0.14em] text-white underline decoration-white/40 underline-offset-[6px] hover:decoration-white"
+              className="text-sm font-semibold text-white underline decoration-[var(--brand-gold)]/60 underline-offset-[6px] transition hover:decoration-[var(--brand-gold)]"
             >
               Hours &amp; directions →
             </Link>
@@ -125,7 +121,7 @@ export function HomeHero() {
             href="https://www.wsaw.com/2023/06/18/new-mural-coming-downtown-wausau/"
             target="_blank"
             rel="noreferrer"
-            className="font-mono shrink-0 text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
+            className="shrink-0 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--brand-gold-deep)] underline decoration-2 underline-offset-4"
           >
             WSAW story →
           </a>

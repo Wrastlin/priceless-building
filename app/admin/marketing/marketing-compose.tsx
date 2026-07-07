@@ -145,7 +145,7 @@ export function MarketingCompose({ item }: { item: CatalogItem }) {
     <div className="grid gap-6 lg:grid-cols-[360px_1fr]">
       {/* Item card — inline editable */}
       <aside className="admin-card overflow-hidden">
-        <div className="relative aspect-[4/3] w-full bg-[#f7f7f6]">
+        <div className="relative aspect-[4/3] w-full bg-[oklch(0.968_0.008_85)]">
           <Image
             src={savedItem.image}
             alt={savedItem.title}
@@ -193,7 +193,7 @@ export function MarketingCompose({ item }: { item: CatalogItem }) {
           </div>
 
           {dirty ? (
-            <div className="flex items-center justify-between gap-2 rounded border border-[var(--brand-priceless)]/30 bg-[#fff5f4] px-3 py-2 text-xs">
+            <div className="flex items-center justify-between gap-2 rounded-lg border border-[var(--brand-navy)]/30 bg-[var(--brand-navy)]/5 px-3 py-2 text-xs">
               <span className="text-foreground">Unsaved item edits.</span>
               <div className="flex gap-2">
                 <button
@@ -231,7 +231,7 @@ export function MarketingCompose({ item }: { item: CatalogItem }) {
               className={
                 "px-3 py-2 text-sm font-medium transition border-b-2 -mb-px " +
                 (tab === t.key
-                  ? "border-[var(--brand-priceless)] text-foreground"
+                  ? "border-[var(--brand-navy)] text-foreground"
                   : "border-transparent text-muted-foreground hover:text-foreground")
               }
             >
@@ -245,7 +245,7 @@ export function MarketingCompose({ item }: { item: CatalogItem }) {
           the text blocks under it are editable — tweak, then hit Copy.
         </p>
 
-        <div className="mt-4 rounded-lg border border-border bg-[#eef0f2] p-3 sm:p-4">
+        <div className="mt-4 rounded-lg border border-border bg-[var(--surface)] p-3 sm:p-4">
           <PostPreview
             item={effective}
             images={[savedItem.image, ...(savedItem.gallery ?? [])].filter(Boolean) as string[]}
@@ -327,7 +327,7 @@ function EditField({
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
             rows={2}
-            className="block w-full resize-y rounded border border-border bg-white px-2 py-1.5 text-sm leading-snug text-foreground focus:border-[var(--brand-priceless)] focus:outline-none"
+            className="block w-full resize-y rounded-lg border border-border bg-white px-2 py-1.5 text-sm leading-snug text-foreground focus:border-[var(--brand-navy)] focus:outline-none"
           />
         ) : (
           <input
@@ -336,7 +336,7 @@ function EditField({
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
             className={
-              "block w-full rounded border border-border bg-white py-1.5 text-sm text-foreground focus:border-[var(--brand-priceless)] focus:outline-none " +
+              "block w-full rounded-lg border border-border bg-white py-1.5 text-sm text-foreground focus:border-[var(--brand-navy)] focus:outline-none " +
               (prefix ? "pl-5 pr-2" : "px-2")
             }
           />
@@ -388,7 +388,7 @@ function PhotoBundle({ item }: { item: CatalogItem }) {
       <ul className="mt-2 grid grid-cols-3 gap-1.5">
         {allPhotos.map((g, i) => (
           <li key={`${g}-${i}`} className="group relative">
-            <div className="relative aspect-square overflow-hidden bg-[#f7f7f6]">
+            <div className="relative aspect-square overflow-hidden bg-[oklch(0.968_0.008_85)]">
               <Image
                 src={g}
                 alt={`${item.title} photo ${i + 1}`}

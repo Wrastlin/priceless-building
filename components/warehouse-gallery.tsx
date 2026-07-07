@@ -151,7 +151,7 @@ export function WarehouseGallery() {
   if (ordered.length === 0) return null;
 
   return (
-    <section className="bg-white">
+    <section className="bg-[var(--background)]">
       <div className="mx-auto max-w-7xl px-6 py-10 md:py-16">
         <SectionHead
           headline="Around the warehouse."
@@ -180,7 +180,7 @@ export function WarehouseGallery() {
                     }}
                   >
                     <div
-                      className="absolute inset-0 overflow-hidden bg-[var(--muted)] ring-1 ring-transparent transition group-hover:ring-[var(--brand-priceless)]"
+                      className="absolute inset-0 overflow-hidden rounded-[14px] bg-[var(--muted)] ring-1 ring-transparent transition group-hover:ring-[var(--brand-gold)]"
                       style={{ backfaceVisibility: "hidden" }}
                     >
                       {f && (
@@ -196,7 +196,7 @@ export function WarehouseGallery() {
                       )}
                       <span
                         aria-hidden
-                        className="pointer-events-none absolute right-2 top-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/0 text-white opacity-0 transition group-hover:bg-white/90 group-hover:text-[var(--brand-priceless)] group-hover:opacity-100"
+                        className="pointer-events-none absolute right-2 top-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/0 text-white opacity-0 transition group-hover:bg-white/90 group-hover:text-[var(--brand-navy)] group-hover:opacity-100"
                       >
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                           <polyline points="15 3 21 3 21 9" />
@@ -207,7 +207,7 @@ export function WarehouseGallery() {
                       </span>
                     </div>
                     <div
-                      className="absolute inset-0 overflow-hidden bg-[var(--muted)] ring-1 ring-transparent transition group-hover:ring-[var(--brand-priceless)]"
+                      className="absolute inset-0 overflow-hidden rounded-[14px] bg-[var(--muted)] ring-1 ring-transparent transition group-hover:ring-[var(--brand-gold)]"
                       style={{
                         backfaceVisibility: "hidden",
                         transform: "rotateY(180deg)",
@@ -238,7 +238,7 @@ export function WarehouseGallery() {
             onClick={() => setOpenIndex(0)}
             className="btn btn-priceless"
           >
-            Open full gallery →
+            Open full gallery
           </button>
         </div>
       </div>

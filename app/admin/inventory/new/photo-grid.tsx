@@ -38,12 +38,12 @@ export function PhotoGrid({
               type="button"
               onClick={() => setZoom(i)}
               aria-label={`Enlarge photo ${i + 1}`}
-              className="relative block aspect-square w-full cursor-zoom-in overflow-hidden rounded border border-border bg-[#fafaf9]"
+              className="relative block aspect-square w-full cursor-zoom-in overflow-hidden rounded border border-border bg-[oklch(0.975_0.008_85)]"
             >
               <Image src={p.url} alt={`photo ${i + 1}`} fill className="object-cover" unoptimized />
             </button>
             {i === 0 ? (
-              <span className="font-mono pointer-events-none absolute left-1 top-1 bg-[var(--brand-priceless)] px-1.5 py-0.5 text-[10px] uppercase tracking-[0.1em] text-white">
+              <span className="font-mono pointer-events-none absolute left-1 top-1 bg-[var(--brand-navy)] px-1.5 py-0.5 text-[10px] uppercase tracking-[0.1em] text-white">
                 Cover
               </span>
             ) : null}

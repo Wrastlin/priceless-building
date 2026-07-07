@@ -114,7 +114,7 @@ export function InquiryForm({ brand, heading, intro, submitLabel }: Props) {
   const introClass =
     "mt-6 max-w-xl text-base leading-relaxed text-[var(--foreground)] md:text-lg";
   const labelBase =
-    "font-mono text-xs font-semibold uppercase tracking-[0.14em] text-[var(--foreground)]";
+    "font-sans text-xs font-semibold uppercase tracking-[0.18em] text-[var(--foreground)]";
   // Darker default border so input boundaries are obvious on light bgs
   // for older customers.
   const fieldBase =
@@ -333,7 +333,7 @@ function SuccessPanel({
         className={
           isBuilders
             ? "font-couture text-2xl italic text-[var(--brand-builders-gold)]"
-            : "font-mono text-xs uppercase tracking-[0.14em] text-emerald-700"
+            : "font-sans font-semibold text-xs uppercase tracking-[0.18em] text-emerald-700"
         }
       >
         Got it.

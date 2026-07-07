@@ -167,14 +167,14 @@ export function InventoryTable({ items }: { items: CatalogItem[] }) {
                     </div>
                     <Link
                       href={`/admin/inventory/${c.sku}`}
-                      className="mt-0.5 line-clamp-2 block text-sm font-medium leading-tight text-foreground hover:text-[var(--brand-priceless)]"
+                      className="mt-0.5 line-clamp-2 block text-sm font-medium leading-tight text-foreground hover:text-[var(--brand-navy)]"
                     >
                       {c.title}
                     </Link>
                     <div className="mt-2 flex items-center justify-between">
                       <span className="font-mono text-base font-semibold tabular-nums">{formatCurrency(c.price)}</span>
                       {savings > 0 ? (
-                        <span className="font-mono text-[10px] text-[var(--brand-priceless)] tabular-nums">–{savings}%</span>
+                        <span className="font-mono text-[10px] text-[var(--sale-red)] tabular-nums">–{savings}%</span>
                       ) : null}
                     </div>
                     <div className="mt-2 flex items-center justify-between border-t border-border pt-2">
@@ -214,7 +214,7 @@ export function InventoryTable({ items }: { items: CatalogItem[] }) {
                             <div className="flex items-center gap-1.5 font-medium text-foreground">
                               <span>{c.title}</span>
                               {c.status !== "published" ? (
-                                <span className="admin-pill shrink-0 bg-[#f4f4f3] capitalize text-muted-foreground">
+                                <span className="admin-pill shrink-0 bg-[oklch(0.968_0.008_85)] capitalize text-muted-foreground">
                                   {c.status}
                                 </span>
                               ) : null}
@@ -243,7 +243,7 @@ export function InventoryTable({ items }: { items: CatalogItem[] }) {
                           {c.msrp ? formatCurrency(c.msrp) : "–"}
                         </span>
                         {savings > 0 ? (
-                          <span className="font-mono ml-1 text-[10px] text-[var(--brand-priceless)] tabular-nums">–{savings}%</span>
+                          <span className="font-mono ml-1 text-[10px] text-[var(--sale-red)] tabular-nums">–{savings}%</span>
                         ) : null}
                       </td>
                       <td>
@@ -259,7 +259,7 @@ export function InventoryTable({ items }: { items: CatalogItem[] }) {
                         })()}
                       </td>
                       <td className="text-right">
-                        <Link href={`/admin/inventory/${c.sku}`} className="text-sm text-[var(--brand-priceless)] hover:underline">
+                        <Link href={`/admin/inventory/${c.sku}`} className="text-sm text-[var(--brand-navy)] hover:underline">
                           Edit
                         </Link>
                       </td>

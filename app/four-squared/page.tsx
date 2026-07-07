@@ -106,10 +106,10 @@ export default function FourSquaredPage() {
       <FourSquaredHero />
 
       {/* MEET JOSH + TOP 5. The face behind all three businesses. */}
-      <section className="bg-white">
+      <section className="bg-[var(--background)]">
         <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
           <div className="grid gap-10 md:grid-cols-[minmax(0,400px)_1fr] md:items-center">
-            <div data-reveal className="relative overflow-hidden rounded-2xl border border-[var(--border)] shadow-sm">
+            <div data-reveal className="relative overflow-hidden rounded-[14px] border border-[var(--border)] shadow-sm">
               <Image
                 src="/real-photos/josh-nickel.png"
                 alt="Josh Nickel, co-owner and the face behind Price-Less, Builders Corner, and 4 Squared."
@@ -120,7 +120,7 @@ export default function FourSquaredPage() {
               />
             </div>
             <div data-reveal>
-              <div className="font-mono text-base font-bold uppercase tracking-[0.22em] text-emerald-700 md:text-lg">
+              <div className="text-sm font-bold uppercase tracking-[0.18em] text-emerald-700 md:text-base">
                 Voted Top 5 in Marathon County
               </div>
               <h2 className="font-display mt-5 text-4xl leading-tight text-[var(--foreground)] md:text-5xl">
@@ -169,16 +169,16 @@ export default function FourSquaredPage() {
               href={FB_PHOTOS}
               target="_blank"
               rel="noreferrer"
-              className="font-mono inline-flex items-center bg-emerald-600 px-7 py-4 text-sm uppercase tracking-[0.14em] text-white transition hover:bg-emerald-700"
+              className="btn bg-emerald-700 text-white hover:bg-emerald-800"
             >
-              See all photos on Facebook →
+              See all photos on Facebook
             </a>
           </div>
         </div>
       </section>
 
-      {/* PROCESS. Four steps on a dark band. */}
-      <section className="bg-[#0a0e14] text-white">
+      {/* PROCESS. Four steps on a deep navy band. */}
+      <section className="bg-[var(--brand-navy-deep)] text-white">
         <div className="mx-auto max-w-7xl px-6 py-10 md:py-16">
           <SectionHead
             invert
@@ -193,9 +193,9 @@ export default function FourSquaredPage() {
                 key={p.n}
                 data-reveal
                 data-reveal-delay={(i * 0.05).toFixed(2)}
-                className="bg-[#0a0e14] p-6"
+                className="bg-[var(--brand-navy-deep)] p-6"
               >
-                <div className="relative mb-5 aspect-[4/3] overflow-hidden">
+                <div className="relative mb-5 aspect-[4/3] overflow-hidden rounded-[14px]">
                   <Image
                     src={p.img}
                     alt={p.name}
@@ -219,7 +219,7 @@ export default function FourSquaredPage() {
       </section>
 
       {/* INQUIRY FORM. Lead capture + contact details combined. */}
-      <section className="bg-white">
+      <section className="bg-[var(--background)]">
         <div className="mx-auto max-w-4xl px-6 py-10 md:py-16" data-reveal>
           <InquiryForm brand="four-squared" />
         </div>

@@ -27,7 +27,7 @@ export function ProductCard({
   return (
     <Link
       href={href ?? `/shop/item/${item.sku}`}
-      className="group relative block overflow-hidden border border-[var(--border)] bg-white transition hover:border-[var(--brand-priceless)] hover:-translate-y-0.5"
+      className="group relative block overflow-hidden rounded-[14px] border border-[var(--border)] bg-white transition hover:border-[var(--brand-gold)] hover:-translate-y-0.5 hover:shadow-card"
     >
       {/* Hover glow — pure CSS, no per-card JS */}
       <span
@@ -35,7 +35,7 @@ export function ProductCard({
         className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{
           background:
-            "radial-gradient(420px circle at 50% 0%, rgba(185, 28, 28, 0.10), transparent 60%)",
+            "radial-gradient(420px circle at 50% 0%, oklch(0.72 0.115 78 / 0.12), transparent 60%)",
         }}
       />
       <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
@@ -60,12 +60,12 @@ export function ProductCard({
           priority={priority}
         />
         {savings > 0 ? (
-          <span className="font-mono absolute left-0 top-3 z-20 bg-[var(--brand-priceless)] px-3 py-1 text-xs font-bold tracking-tight text-white">
-            {savings}% OFF
+          <span className="absolute left-3 top-3 z-20 rounded-full bg-[var(--sale-red)] px-3 py-1 text-xs font-bold tracking-tight text-white">
+            {savings}% off
           </span>
         ) : null}
         {item.badges?.[0] ? (
-          <span className="font-mono absolute right-3 top-3 z-20 bg-black/75 px-2.5 py-1 text-xs uppercase tracking-wider text-white">
+          <span className="absolute right-3 top-3 z-20 rounded-full bg-[var(--brand-navy-deep)]/85 px-2.5 py-1 text-xs font-semibold uppercase tracking-wider text-[var(--cream)]">
             {item.badges[0]}
           </span>
         ) : null}
@@ -74,7 +74,7 @@ export function ProductCard({
           side (big-box catalog density). The SKU/location meta is hidden on
           phones to keep each card short; it returns on sm+ screens. */}
       <div className="relative p-3 sm:p-5">
-        <div className="font-display text-sm leading-snug tracking-[0.01em] line-clamp-2 sm:text-lg">{item.title}</div>
+        <div className="font-display text-sm leading-snug line-clamp-2 sm:text-lg">{item.title}</div>
         <div className="mt-1 hidden text-xs text-[var(--muted-foreground)] sm:block">{item.subtitle}</div>
         <div className="mt-2 flex items-end justify-between gap-2 sm:mt-4">
           <div>
@@ -82,12 +82,12 @@ export function ProductCard({
               {item.price > 0 ? formatCurrency(item.price) : <span className="text-base sm:text-lg">Call for price</span>}
             </div>
             {item.msrp && item.msrp > item.price ? (
-              <div className="font-mono mt-0.5 text-[11px] text-[var(--muted-foreground)] line-through sm:text-xs">
+              <div className="mt-0.5 text-[11px] text-[var(--sale-red)] line-through sm:text-xs">
                 Retail {formatCurrency(item.msrp)}
               </div>
             ) : null}
           </div>
-          <div className="font-mono hidden text-right text-xs uppercase tracking-wider text-[var(--muted-foreground)] sm:block">
+          <div className="font-sans font-semibold hidden text-right text-xs uppercase tracking-wider text-[var(--muted-foreground)] sm:block">
             <div>{item.location}</div>
             <div className="mt-0.5">SKU {item.sku}</div>
           </div>

@@ -34,7 +34,7 @@ export default async function AccountPage() {
 
   return (
     <main className="mx-auto max-w-md px-6 py-16">
-      <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
+      <div className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--brand-gold-deep)]">
         Price-Less Building · Customer account
       </div>
 
@@ -58,7 +58,7 @@ export default async function AccountPage() {
           <form action={signOutCustomerAction} className="mt-8">
             <button
               type="submit"
-              className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)] underline underline-offset-4 hover:text-[var(--foreground)]"
+              className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)] underline underline-offset-4 hover:text-[var(--foreground)]"
             >
               Sign out
             </button>

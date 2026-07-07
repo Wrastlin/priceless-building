@@ -80,7 +80,7 @@ export default function ReviewsPage() {
           </h1>
           <div className="mt-6 flex flex-wrap items-center gap-5 text-sm text-white/90">
             <div className="flex items-center gap-2 text-2xl">
-              <span className="text-amber-400">★★★★★</span>
+              <span className="text-[var(--brand-gold)]">★★★★★</span>
               <span className="font-display">{avg}/5</span>
             </div>
             <div>Google · Facebook · Yelp</div>
@@ -99,9 +99,9 @@ export default function ReviewsPage() {
       </section>
 
       {/* LEAVE A REVIEW */}
-      <section className="border-t bg-[var(--brand-priceless-dark)] py-20 text-white">
+      <section className="border-t bg-[var(--brand-navy-deep)] py-20 text-white">
         <div className="mx-auto max-w-4xl px-6 text-center">
-          <div className="text-xs font-semibold uppercase tracking-wider text-white/85">
+          <div className="eyebrow eyebrow-on-dark">
             Bought from us recently?
           </div>
           <h2 className="font-display mt-2 text-4xl md:text-5xl">Leave us a review.</h2>
@@ -114,7 +114,7 @@ export default function ReviewsPage() {
               href="https://www.google.com/search?q=Price-Less+Building+Center+Wausau"
               target="_blank"
               rel="noreferrer"
-              className="btn bg-white text-[var(--brand-priceless)]"
+              className="btn bg-white text-[var(--brand-navy)] hover:bg-white/90"
             >
               Review on Google
             </a>
@@ -122,7 +122,7 @@ export default function ReviewsPage() {
               href="https://www.facebook.com/p/Price-Less-Building-Center-100057337665027/"
               target="_blank"
               rel="noreferrer"
-              className="btn bg-white text-[var(--brand-priceless)]"
+              className="btn bg-white text-[var(--brand-navy)] hover:bg-white/90"
             >
               Review on Facebook
             </a>
@@ -130,7 +130,7 @@ export default function ReviewsPage() {
               href="https://www.yelp.com/biz/price-less-building-center-wausau"
               target="_blank"
               rel="noreferrer"
-              className="btn bg-white text-[var(--brand-priceless)]"
+              className="btn bg-white text-[var(--brand-navy)] hover:bg-white/90"
             >
               Review on Yelp
             </a>

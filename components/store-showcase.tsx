@@ -49,13 +49,13 @@ function deptStats(category: Category) {
 export function StoreShowcase() {
   const thumbsByKey = buildThumbs();
   return (
-    <section className="border-y bg-white">
+    <section className="border-y bg-[var(--background)]">
       <div className="mx-auto max-w-7xl px-6 py-16 md:py-24">
-        <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
+        <div className="eyebrow">
           {DEPTS.length} departments · everything under one roof
         </div>
-        <h2 className="font-display mt-3 max-w-4xl text-4xl leading-[1.04] md:text-6xl">
-          What&rsquo;s on the floor<span className="text-[var(--brand-priceless)]">.</span>
+        <h2 className="font-display mt-3 max-w-4xl text-4xl leading-[1.05] md:text-6xl">
+          What&rsquo;s on the floor<span className="text-[var(--brand-gold-deep)]">.</span>
         </h2>
         <p className="font-serif mt-4 max-w-2xl text-base italic leading-relaxed text-[var(--muted-foreground)] md:text-lg">
           A whole-store walkthrough, department by department. Surplus moves
@@ -72,7 +72,7 @@ export function StoreShowcase() {
             const { priceFrom } = deptStats(key);
             return (
               <li key={key} className="snap-start shrink-0" style={{ width: "min(60vw, 240px)" }}>
-                <Link href={`/shop/${key}`} className="group relative block aspect-[3/4] overflow-hidden bg-[var(--muted)]">
+                <Link href={`/shop/${key}`} className="group relative block aspect-[3/4] overflow-hidden rounded-[14px] bg-[var(--muted)]">
                   <Image
                     src={cat.image}
                     alt={cat.label}
@@ -85,7 +85,7 @@ export function StoreShowcase() {
                   <div className="absolute inset-x-4 bottom-4 text-white">
                     <div className="font-display text-2xl leading-none">{cat.label}</div>
                     {priceFrom != null && (
-                      <div className="font-mono mt-1 text-[11px] uppercase tracking-[0.1em] text-white/85">from ${priceFrom}</div>
+                      <div className="mt-1 text-[11px] font-semibold uppercase tracking-[0.1em] text-white/85">from ${priceFrom}</div>
                     )}
                   </div>
                 </Link>
@@ -104,7 +104,7 @@ export function StoreShowcase() {
               <div key={key}>
                 <Link
                   href={`/shop/${key}`}
-                  className="group relative block aspect-[16/9] overflow-hidden bg-[var(--muted)]"
+                  className="group relative block aspect-[16/9] overflow-hidden rounded-[14px] bg-[var(--muted)]"
                 >
                   <Image
                     src={cat.image}
@@ -118,7 +118,7 @@ export function StoreShowcase() {
                   <div className="absolute inset-x-5 bottom-4 flex items-end justify-between gap-4 text-white">
                     <h3 className="font-display text-3xl leading-none md:text-4xl">{cat.label}</h3>
                     {priceFrom != null && (
-                      <span className="font-mono shrink-0 pb-1 text-[11px] uppercase tracking-[0.1em] text-white/85">
+                      <span className="shrink-0 pb-1 text-[11px] font-semibold uppercase tracking-[0.1em] text-white/85">
                         from ${priceFrom}
                       </span>
                     )}
@@ -129,7 +129,7 @@ export function StoreShowcase() {
                   <div className="mt-3 grid grid-cols-4 gap-2">
                     {thumbs.map(({ t, src }) => (
                       <Link key={t.name} href={`/shop/${key}`} className="group block">
-                        <div className="relative aspect-square overflow-hidden bg-[var(--muted)]">
+                        <div className="relative aspect-square overflow-hidden rounded-[14px] bg-[var(--muted)]">
                           <Image
                             src={src}
                             alt={t.name}
@@ -149,7 +149,7 @@ export function StoreShowcase() {
 
                 <Link
                   href={`/shop/${key}`}
-                  className="font-mono mt-4 inline-flex items-center text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] hover:underline"
+                  className="mt-4 inline-flex items-center text-sm font-semibold text-[var(--brand-navy)] underline decoration-[var(--brand-gold)]/60 underline-offset-4 hover:decoration-[var(--brand-gold)]"
                 >
                   Browse all {cat.label.toLowerCase()} →
                 </Link>

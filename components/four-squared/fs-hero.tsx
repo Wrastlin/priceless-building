@@ -42,12 +42,12 @@ export function FourSquaredHero() {
               className="h-20 w-auto object-contain md:h-24"
             />
           </div>
-          <div className="font-mono mt-7 text-xs uppercase tracking-[0.14em] text-emerald-300">
+          <div className="mt-7 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-300">
             The install side of 825 Washington Street
           </div>
-          <h1 className="font-display mt-3 text-[clamp(2.75rem,1.8rem+6vw,7rem)] uppercase leading-[0.92] text-white">
+          <h1 className="font-display mt-4 max-w-[16ch] text-[clamp(2.25rem,1.5rem+3.6vw,4.35rem)] leading-[1.08] text-white">
             The install crew that{" "}
-            <span className="text-emerald-400">finishes the job.</span>
+            <span className="italic text-emerald-400">finishes the job.</span>
           </h1>
           <p className="mt-7 max-w-xl text-base leading-relaxed text-white/85 md:text-lg">
             4 Squared handles the work. Kitchens, baths, doors, finish carpentry. We install cabinets from Builders Corner, materials from the Price-Less floor, or anything you bring on your own. One crew lead from demo through the final walkthrough.
@@ -55,13 +55,13 @@ export function FourSquaredHero() {
           <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
             <a
               href={EMAIL_MAILTO}
-              className="font-mono inline-flex items-center bg-emerald-600 px-7 py-4 text-sm uppercase tracking-[0.14em] text-white transition hover:bg-emerald-700"
+              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-emerald-700"
             >
-              Get a free estimate →
+              Get a free estimate <span aria-hidden>→</span>
             </a>
             <a
               href={PHONE_TEL}
-              className="font-mono text-sm uppercase tracking-[0.14em] text-white underline decoration-emerald-400/60 underline-offset-[6px] hover:decoration-emerald-400"
+              className="text-sm font-semibold text-white underline decoration-emerald-400/60 underline-offset-[6px] transition hover:decoration-emerald-400"
             >
               Or call {PHONE}
             </a>

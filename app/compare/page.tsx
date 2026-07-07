@@ -70,7 +70,7 @@ export default async function ComparePage() {
 
                   {/* body */}
                   <div className="flex flex-col p-6">
-                    <div className="text-xs font-mono uppercase tracking-wider text-[var(--muted-foreground)]">
+                    <div className="text-xs font-sans font-semibold uppercase tracking-wider text-[var(--muted-foreground)]">
                       SKU {it.sku}
                     </div>
                     <h3 className="font-display mt-1 text-xl leading-tight">{it.title}</h3>

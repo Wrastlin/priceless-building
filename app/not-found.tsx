@@ -19,7 +19,7 @@ export default function NotFound() {
           404 · Page not found
         </div>
         <h1 className="font-display mt-6 max-w-3xl text-5xl leading-[1.05] md:text-7xl">
-          LOOKS LIKE THIS AISLE IS EMPTY.
+          Looks like this aisle is empty.
         </h1>
         <p className="mt-5 max-w-xl text-white/80">
           We could not find what you came in for. Either the page moved, the link is wrong, or
@@ -42,7 +42,7 @@ export default function NotFound() {
                 <Link
                   key={key}
                   href={`/shop/${key}`}
-                  className="group relative aspect-[4/5] overflow-hidden rounded-xl bg-black"
+                  className="group relative aspect-[4/5] overflow-hidden rounded-[14px] bg-black"
                 >
                   <Image src={cat.image} alt={cat.label} fill sizes="(min-width:640px) 25vw, 50vw" className="object-cover opacity-75 transition group-hover:scale-105 group-hover:opacity-100" quality={70} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />

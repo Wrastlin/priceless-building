@@ -63,7 +63,7 @@ export function BrandLogo({
           <rect x="0" y="11" width="9" height="9" fill="currentColor" />
           <rect x="11" y="11" width="9" height="9" fill="currentColor" />
         </svg>
-        <span className="font-display text-2xl font-semibold uppercase tracking-[0.06em] text-foreground">
+        <span className="font-display text-2xl font-semibold text-foreground">
           4 Squared
         </span>
       </span>

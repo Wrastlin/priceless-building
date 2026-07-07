@@ -53,7 +53,7 @@ const CARDS: FamilyCardSpec[] = [
 
 export function FamilyBand() {
   return (
-    <section className="bg-[#0b1220] text-white">
+    <section className="bg-[var(--brand-navy-deep)] text-white">
       <div className="mx-auto max-w-7xl px-6 py-10 md:py-16">
         <SectionHead
           invert
@@ -76,7 +76,7 @@ function FamilyCard({ card }: { card: FamilyCardSpec }) {
     <Link
       href={card.href}
       data-reveal
-      className="group flex flex-col overflow-hidden border border-white/10 bg-white transition hover:border-white/30"
+      className="group flex flex-col overflow-hidden rounded-[14px] border border-white/10 bg-white transition hover:border-white/30"
     >
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-[var(--muted)]">
         <Image
@@ -87,7 +87,7 @@ function FamilyCard({ card }: { card: FamilyCardSpec }) {
           className="object-cover transition duration-700 group-hover:scale-[1.03]"
           quality={80}
         />
-        <div className="absolute left-4 top-4 inline-flex items-center bg-white px-3 py-2 shadow-sm">
+        <div className="absolute left-4 top-4 inline-flex items-center rounded-[8px] bg-white px-3 py-2 shadow-sm">
           {card.logoBrand === "four-squared" ? (
             <Image src="/real-photos/logo-4squared.jpg" alt="4 Squared — New Construction, Restoration, Remodeling" width={180} height={180} className="h-9 w-auto object-contain" />
           ) : card.logoBrand === "builders" ? (
@@ -132,7 +132,7 @@ function FamilyCard({ card }: { card: FamilyCardSpec }) {
             </span>
           ))}
         </div>
-        <span className="font-mono mt-5 inline-block text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4">
+        <span className="mt-5 inline-block text-sm font-semibold text-[var(--brand-navy)] underline decoration-[var(--brand-gold)]/60 underline-offset-4">
           {card.cta} →
         </span>
       </div>

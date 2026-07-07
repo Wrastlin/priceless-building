@@ -99,7 +99,7 @@ export function MobileDrawer({
         style={{ transitionTimingFunction: "cubic-bezier(.2,.8,.2,1)" }}
       >
         <div className="flex items-center justify-between border-b border-[var(--border)] px-5 py-4">
-          <span className="font-mono text-xs uppercase tracking-[0.14em]" style={{ color: accent }}>
+          <span className="font-sans font-semibold text-xs uppercase tracking-[0.18em]" style={{ color: accent }}>
             Menu
           </span>
           <button
@@ -123,7 +123,7 @@ export function MobileDrawer({
                   onClick={() => setOpen(false)}
                   className={
                     isPL
-                      ? "font-mono block px-4 py-3.5 text-sm uppercase tracking-[0.14em] text-[var(--foreground)] hover:bg-[var(--muted)] hover:text-[var(--brand-priceless)]"
+                      ? "font-sans font-semibold block px-4 py-3.5 text-sm uppercase tracking-[0.18em] text-[var(--foreground)] hover:bg-[var(--muted)] hover:text-[var(--brand-gold-deep)]"
                       : "font-couture block px-4 py-3.5 text-base text-[var(--brand-builders)] hover:bg-[var(--muted)] hover:text-[var(--brand-builders-gold)]"
                   }
                 >

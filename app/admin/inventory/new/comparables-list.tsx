@@ -20,7 +20,7 @@ export function ComparablesList({
 }) {
   if (comparables.length === 0) {
     return (
-      <div className="rounded-md border-2 border-dashed border-border bg-[#fafaf9] p-4 text-center text-sm text-muted-foreground">
+      <div className="rounded-lg border-2 border-dashed border-border bg-[oklch(0.975_0.008_85)] p-4 text-center text-sm text-muted-foreground">
         {analyzing ? "Searching retailers…" : "Run Analyze to fetch live retail prices."}
       </div>
     );
@@ -29,13 +29,13 @@ export function ComparablesList({
     <ul className="divide-y divide-border border-y border-border">
       {comparables.map((c, i) => (
         <li key={i} className="grid grid-cols-[48px_1fr_auto] items-center gap-3 py-2.5">
-          <div className="relative aspect-square overflow-hidden rounded bg-[#f4f4f3]">
+          <div className="relative aspect-square overflow-hidden rounded bg-[oklch(0.968_0.008_85)]">
             {c.image ? (
               <Image src={c.image} alt={c.source} fill className="object-cover" sizes="48px" unoptimized />
             ) : null}
           </div>
           <div className="min-w-0">
-            <div className="text-xs font-medium text-[var(--brand-priceless)]">{c.source}</div>
+            <div className="text-xs font-medium text-[var(--brand-navy)]">{c.source}</div>
             <div className="truncate text-sm">{c.title}</div>
           </div>
           <div className="text-right">
@@ -44,7 +44,7 @@ export function ComparablesList({
               href={c.url}
               target="_blank"
               rel="noreferrer"
-              className="text-xs text-[var(--brand-priceless)] underline decoration-[var(--brand-priceless)]/30 underline-offset-2 hover:decoration-[var(--brand-priceless)]"
+              className="text-xs text-[var(--brand-navy)] underline decoration-[var(--brand-navy)]/30 underline-offset-2 hover:decoration-[var(--brand-navy)]"
             >
               view listing →
             </a>

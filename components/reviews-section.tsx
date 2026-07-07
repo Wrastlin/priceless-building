@@ -30,7 +30,7 @@ function SourceLink({ href, label }: { href: string; label: string }) {
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="font-mono inline-flex items-center border border-[var(--border)] bg-white px-3 py-2 text-xs uppercase tracking-[0.14em] text-[var(--foreground)] hover:bg-[var(--muted)]"
+      className="font-sans font-semibold inline-flex items-center border border-[var(--border)] bg-white px-3 py-2 text-xs uppercase tracking-[0.18em] text-[var(--foreground)] hover:bg-[var(--muted)]"
     >
       {label} →
     </a>
@@ -67,7 +67,7 @@ export function ReviewsSection() {
 
         <Link
           href="/reviews"
-          className="font-mono mt-8 inline-flex items-center text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
+          className="font-sans font-semibold mt-8 inline-flex items-center text-xs uppercase tracking-[0.18em] text-[var(--brand-gold-deep)] underline decoration-2 underline-offset-4"
         >
           Read all the reviews →
         </Link>

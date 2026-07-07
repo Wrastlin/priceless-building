@@ -116,7 +116,7 @@ export default function PressPage() {
             Press &amp; media
           </div>
           <h1 className="font-display mt-5 max-w-3xl text-5xl leading-[1.05] md:text-7xl">
-            IN THE NEWS.
+            In the news.
           </h1>
           <p className="mt-5 max-w-2xl text-base text-white/85 md:text-lg">
             Selected coverage of the warehouse and the cluster of brands at 825 Washington Street. Every link below is to the original article. For interview requests, warehouse tours, or photo permissions, see the contact at the bottom of this page.
@@ -130,12 +130,12 @@ export default function PressPage() {
           {CLIPS.map((c, i) => (
             <article
               key={i}
-              className="group flex flex-col gap-5 rounded-2xl border bg-white p-6 shadow-card sm:flex-row sm:items-start sm:p-7"
+              className="group flex flex-col gap-5 rounded-[14px] border bg-white p-6 shadow-card sm:flex-row sm:items-start sm:p-7"
             >
               <Badge short={c.outletShort} bg={c.badgeBg} fg={c.badgeFg} />
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-wider text-[var(--muted-foreground)]">
-                  <span className="font-semibold text-[var(--brand-priceless)]">{c.outlet}</span>
+                  <span className="font-semibold text-[var(--brand-navy)]">{c.outlet}</span>
                   <span aria-hidden>·</span>
                   <span>{c.date}</span>
                   <span aria-hidden>·</span>
@@ -151,7 +151,7 @@ export default function PressPage() {
                   href={c.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--brand-priceless)] hover:underline"
+                  className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--brand-navy)] hover:underline"
                 >
                   Read the original
                   <span aria-hidden>→</span>
@@ -164,9 +164,9 @@ export default function PressPage() {
 
       {/* PRESS CONTACT */}
       <section className="mx-auto max-w-7xl px-6 py-20">
-        <div className="grid items-center gap-6 rounded-2xl bg-[var(--brand-priceless)] p-10 text-white md:grid-cols-[2fr_1fr]">
+        <div className="grid items-center gap-6 rounded-[14px] bg-[var(--brand-navy)] p-10 text-white md:grid-cols-[2fr_1fr]">
           <div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-white/80">
+            <div className="eyebrow eyebrow-on-dark">
               Press contact
             </div>
             <h2 className="font-display mt-2 text-3xl md:text-4xl">
@@ -180,7 +180,7 @@ export default function PressPage() {
             </p>
           </div>
           <div className="flex flex-wrap justify-end gap-3">
-            <a href="mailto:pricelessbuildingcenter@gmail.com" className="btn bg-white text-[var(--brand-priceless)]">
+            <a href="mailto:pricelessbuildingcenter@gmail.com" className="btn bg-white text-[var(--brand-navy)] hover:bg-white/90">
               pricelessbuildingcenter@gmail.com
             </a>
             <Link href="/about" className="btn btn-outline border-white/50 bg-transparent text-white">

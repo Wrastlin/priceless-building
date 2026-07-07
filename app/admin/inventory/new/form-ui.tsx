@@ -52,7 +52,7 @@ export function Disclosure({
 }) {
   return (
     <details className="admin-card group overflow-hidden">
-      <summary className="flex cursor-pointer list-none items-center gap-2 px-5 py-3.5 text-sm font-semibold text-foreground hover:bg-[#fafaf9]">
+      <summary className="flex cursor-pointer list-none items-center gap-2 px-5 py-3.5 text-sm font-semibold text-foreground hover:bg-[oklch(0.975_0.008_85)]">
         <span className="text-muted-foreground transition group-open:rotate-90">▶</span>
         <span className="flex-1">{summary}</span>
         {hint ? <span className="text-xs font-normal text-muted-foreground">{hint}</span> : null}

@@ -30,12 +30,12 @@ export default function AboutPage() {
         </div>
         <div className="relative mx-auto grid max-w-7xl gap-10 px-6 pt-28 pb-20 text-white md:grid-cols-12 md:pt-40 md:pb-28">
           <div className="md:col-span-8">
-            <div className="font-mono inline-flex items-center gap-2.5 rounded-full bg-black/45 px-4 py-2 text-sm font-semibold uppercase tracking-[0.14em] text-white ring-1 ring-white/15 backdrop-blur-sm">
-              <span className="size-2 rounded-full bg-[var(--brand-priceless)]" />
+            <div className="inline-flex items-center gap-2.5 rounded-full bg-black/45 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white ring-1 ring-white/15 backdrop-blur-sm">
+              <span className="size-2 rounded-full bg-[var(--brand-gold)]" />
               <span>Since 1978 &middot; {ADDRESS.city}, {ADDRESS.state}</span>
             </div>
-            <h1 className="font-display mt-8 max-w-[18ch] text-[3.5rem] leading-[0.88] text-white sm:text-[5rem] md:text-[7.5rem]">
-              A weekend venture that <span className="text-[var(--brand-priceless)]">never closed.</span>
+            <h1 className="font-display mt-8 max-w-[18ch] text-[3rem] leading-[1.05] text-white sm:text-[4rem] md:text-[5.5rem]">
+              A weekend venture that <span className="text-[var(--brand-gold)]">never closed.</span>
             </h1>
             <p className="font-serif mt-8 max-w-xl text-lg italic leading-snug text-white/85 md:text-xl">
               Price-Less Building Center started in 1978 as a weekend operation and went full-time in 1982. The cabinet-manufacturing arm, Builders Corner, opened in 1983. Decades later, the same building on Washington Street still does the same thing: surplus and cancelled-order building materials at warehouse prices.
@@ -43,7 +43,7 @@ export default function AboutPage() {
           </div>
           <aside className="md:col-span-4 md:pt-16">
             <div className="border-l border-white/20 pl-5">
-              <div className="font-mono text-xs uppercase tracking-[0.14em] text-white/80">In numbers</div>
+              <div className="text-xs font-semibold uppercase tracking-[0.14em] text-white/80">In numbers</div>
               <dl className="mt-5 space-y-5 text-white">
                 <AboutStat n="1978" label="founded as a weekend venture" />
                 <AboutStat n="1982" label="went full-time" />
@@ -62,7 +62,7 @@ export default function AboutPage() {
             <Image src={ORIGIN} alt="The Build Your Future mural on the warehouse" fill className="object-cover" sizes="(min-width:768px) 50vw, 100vw" quality={75} />
           </div>
           <div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-[var(--brand-priceless)]">Chapter One · 1978</div>
+            <div className="eyebrow">Chapter One · 1978</div>
             <h2 className="font-display mt-3 text-3xl md:text-4xl">A weekend operation on Washington Street.</h2>
             <p className="mt-5 text-[var(--muted-foreground)]">
               Price-Less Building Center opened in 1978 as a weekend venture, selling discounted and surplus building materials out of the same Wausau address it still occupies today. The model from day one was simple: cancelled-order, surplus, and overstock material from the same manufacturers supplying the national chains, sold for what the big-box wouldn&apos;t.
@@ -78,7 +78,7 @@ export default function AboutPage() {
       <section className="bg-[var(--muted)] py-20">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 md:grid-cols-2">
           <div className="order-2 md:order-1">
-            <div className="text-xs font-semibold uppercase tracking-wider text-[var(--brand-priceless)]">Chapter Two · 2019</div>
+            <div className="eyebrow">Chapter Two · 2019</div>
             <h2 className="font-display mt-3 text-3xl md:text-4xl">New ownership, same building, same idea.</h2>
             <p className="mt-5 text-[var(--muted-foreground)]">
               In May 2019, Josh Nickel took over the business. He kept the storefront, the buying relationships, and the focus on surplus inventory.
@@ -100,7 +100,7 @@ export default function AboutPage() {
             <Image src={FAMILY} alt="A community day at the building" fill className="object-cover" sizes="(min-width:768px) 50vw, 100vw" quality={75} />
           </div>
           <div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-[var(--brand-priceless)]">Chapter Three · The cluster</div>
+            <div className="eyebrow">Chapter Three · The cluster</div>
             <h2 className="font-display mt-3 text-3xl md:text-4xl">Three brands, one address.</h2>
             <div className="mt-6 flex flex-wrap items-center gap-x-7 gap-y-4 border-y border-[var(--border)] py-5">
               <BrandLogo brand="priceless" size="sm" />
@@ -121,16 +121,16 @@ export default function AboutPage() {
       </section>
 
       {/* SECTION 4. THE MURAL + COMMUNITY */}
-      <section className="bg-[var(--brand-priceless-dark)] py-20 text-white">
+      <section className="bg-[var(--brand-navy-deep)] py-20 text-white">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="text-xs font-semibold uppercase tracking-wider text-white/85">Chapter Four · 2023 onward</div>
+          <div className="eyebrow eyebrow-on-dark">Chapter Four · 2023 onward</div>
           <h2 className="font-display mt-3 max-w-3xl text-3xl md:text-5xl">
             Build Your Future.
           </h2>
           <p className="mt-6 max-w-3xl text-white/85">
             In June 2023, more than 50 community volunteers painted the &ldquo;Build Your Future&rdquo; mural on the warehouse wall. The artist behind it is Stephanie Kohli of Stephanie Kohli Art LLC.
           </p>
-          <blockquote className="mt-8 max-w-3xl border-l-2 border-white/40 pl-5 text-white/90">
+          <blockquote className="mt-8 max-w-3xl border-l border-white/40 pl-5 text-white/90">
             <p className="font-serif text-lg italic leading-snug md:text-xl">
               &ldquo;Trades is a dying breed. So we want to do something that represents what us hard-working guys do.&rdquo;
             </p>
@@ -167,12 +167,12 @@ export default function AboutPage() {
       <section className="mx-auto max-w-7xl px-6 py-20">
         <div className="grid items-center gap-12 md:grid-cols-12">
           <div className="md:col-span-7">
-            <div className="text-xs font-semibold uppercase tracking-wider text-[var(--brand-priceless)]">Today</div>
+            <div className="eyebrow">Today</div>
             <h2 className="font-display mt-3 text-3xl md:text-4xl">Who runs it.</h2>
             <p className="mt-4 text-[var(--muted-foreground)]">
               Price-Less Building Center, Builders Corner Cabinetry &amp; Design, and 4 Squared all share the building at 825 Washington. Josh Nickel is behind all three. On the install side, 4 Squared is Josh and Ty. Most customers meet whoever&apos;s on the floor that day, not the same person every time.
             </p>
-            <blockquote className="mt-8 border-l-2 border-[var(--brand-priceless)] pl-5">
+            <blockquote className="mt-8 border-l border-[var(--brand-gold)] pl-5">
               <p className="font-serif text-lg italic leading-snug text-[var(--foreground)] md:text-xl">
                 &ldquo;It takes a village to make small businesses successful. We couldn&apos;t do it without you. We look forward to serving the Wausau and surrounding areas.&rdquo;
               </p>
@@ -185,7 +185,7 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="md:col-span-5">
-            <div className="relative aspect-[4/5] w-full overflow-hidden border border-[var(--border)] bg-[var(--muted)]">
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[14px] border border-[var(--border)] bg-[var(--muted)]">
               <Image
                 src="/real-photos/josh-nickel.png"
                 alt="Josh Nickel, who runs Price-Less, Builders Corner, and 4 Squared."
@@ -201,12 +201,12 @@ export default function AboutPage() {
       {/* COMMUNITY photo strip */}
       <section className="border-y border-[var(--border)] bg-[var(--muted)]">
         <div className="mx-auto max-w-7xl px-6 py-16">
-          <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
+          <div className="eyebrow">
             With our community
           </div>
           <h2 className="font-display mt-3 text-3xl leading-tight md:text-4xl">Beyond the doors and cabinets.</h2>
           <div className="mt-8 grid gap-4 md:grid-cols-2">
-            <figure className="overflow-hidden border border-[var(--border)] bg-white">
+            <figure className="overflow-hidden rounded-[14px] border border-[var(--border)] bg-white">
               <div className="relative aspect-[16/9] w-full bg-[var(--muted)]">
                 <Image src="/real-photos/grocery-giveaway-waow.webp" alt="Great Grocery Giveaway in partnership with WAOW NewsChannel 9" fill sizes="(min-width:768px) 50vw, 100vw" className="object-cover" />
               </div>
@@ -214,7 +214,7 @@ export default function AboutPage() {
                 The Great Grocery Giveaway, in partnership with WAOW NewsChannel 9. Win free groceries for a year.
               </figcaption>
             </figure>
-            <figure className="overflow-hidden border border-[var(--border)] bg-white">
+            <figure className="overflow-hidden rounded-[14px] border border-[var(--border)] bg-white">
               <div className="relative aspect-[16/9] w-full bg-[var(--muted)]">
                 <Image src="/real-photos/santa-at-storefront.webp" alt="Santa visiting the Price-Less storefront during the annual Santa's Workshop" fill sizes="(min-width:768px) 50vw, 100vw" className="object-cover" />
               </div>
@@ -222,7 +222,7 @@ export default function AboutPage() {
                 Santa&apos;s Workshop, two years running. Free photos, free hot chocolate, building materials still half off.
               </figcaption>
             </figure>
-            <figure className="overflow-hidden border border-[var(--border)] bg-white">
+            <figure className="overflow-hidden rounded-[14px] border border-[var(--border)] bg-white">
               <div className="relative aspect-[16/9] w-full bg-[var(--muted)]">
                 <Image src="/real-photos/mural-from-field.webp" alt="The Build Your Future mural on the side of the warehouse" fill sizes="(min-width:768px) 50vw, 100vw" className="object-cover" />
               </div>
@@ -230,7 +230,7 @@ export default function AboutPage() {
                 The Build Your Future mural, painted June 2023 by 50+ volunteers with artist Stephanie Kohli.
               </figcaption>
             </figure>
-            <figure className="overflow-hidden border border-[var(--border)] bg-white">
+            <figure className="overflow-hidden rounded-[14px] border border-[var(--border)] bg-white">
               <div className="relative aspect-[16/9] w-full bg-[var(--muted)]">
                 <Image src="/real-photos/school-food-drive.webp" alt="Middle school food and clothing drive promotional flyer" fill sizes="(min-width:768px) 50vw, 100vw" className="object-cover" />
               </div>
@@ -244,14 +244,14 @@ export default function AboutPage() {
 
       {/* CLOSER */}
       <section className="mx-auto max-w-7xl px-6 pb-24">
-        <div className="grid items-center gap-px bg-[var(--border)] md:grid-cols-12">
+        <div className="grid items-center gap-px overflow-hidden rounded-[14px] bg-[var(--border)] md:grid-cols-12">
           <div className="relative aspect-[4/3] md:col-span-7 md:aspect-auto md:h-full">
             <Image src={AISLE} alt="A community mural paint day at the warehouse" fill className="object-cover" sizes="(min-width:768px) 60vw, 100vw" quality={75} />
           </div>
           <div className="bg-white p-8 md:col-span-5 md:p-12">
-            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">Drop in</div>
+            <div className="eyebrow">Drop in</div>
             <h2 className="font-display mt-3 text-5xl leading-[1.05]">
-              Come walk the <span className="text-[var(--brand-priceless)]">warehouse.</span>
+              Come walk the <span className="text-[var(--brand-gold-deep)]">warehouse.</span>
             </h2>
             <p className="font-serif mt-5 text-base italic leading-relaxed text-[var(--muted-foreground)]">
               Open Monday through Saturday. Easy parking out front and the contractor load bay around back.
@@ -287,9 +287,9 @@ function AboutStat({ n, label, sub }: { n: string; label: string; sub?: string }
     <div>
       <div className="flex items-baseline gap-2">
         <span className="font-display text-4xl leading-none text-white md:text-5xl">{n}</span>
-        {sub ? <span className="font-mono text-xs uppercase tracking-[0.14em] text-white/80">{sub}</span> : null}
+        {sub ? <span className="text-xs font-semibold uppercase tracking-[0.14em] text-white/80">{sub}</span> : null}
       </div>
-      <div className="font-mono mt-1 text-xs uppercase tracking-[0.14em] text-white/85">{label}</div>
+      <div className="mt-1 text-xs font-semibold uppercase tracking-[0.14em] text-white/85">{label}</div>
     </div>
   );
 }

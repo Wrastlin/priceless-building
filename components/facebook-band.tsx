@@ -55,7 +55,7 @@ export function FacebookBand({ showHours = true }: { showHours?: boolean }) {
         <div className="mt-10 grid items-start gap-8 md:grid-cols-12 md:gap-10">
           {/* HOURS + HOLIDAY CLOSURES — our own data, never blank. */}
           <div className="md:col-span-5">
-            <div className="rounded-lg border border-[var(--border)] bg-white p-6 md:p-7">
+            <div className="rounded-[14px] border border-[var(--border)] bg-white p-6 md:p-7">
               <ClosureNotices initial={initialNotices} />
 
               {showHours ? (
@@ -73,7 +73,7 @@ export function FacebookBand({ showHours = true }: { showHours?: boolean }) {
 
               <Link
                 href="/contact#hours"
-                className="font-mono mt-6 inline-flex text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
+                className="mt-6 inline-flex text-sm font-semibold text-[var(--brand-navy)] underline decoration-[var(--brand-gold)]/60 underline-offset-4"
               >
                 Full hours &amp; directions →
               </Link>
@@ -84,7 +84,7 @@ export function FacebookBand({ showHours = true }: { showHours?: boolean }) {
           <div className="md:col-span-7">
             <div className="mb-3 flex items-center gap-2 text-[var(--foreground)]">
               <FacebookGlyph className="size-5 text-[#1877F2]" />
-              <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
+              <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
                 Latest from our Facebook
               </span>
             </div>
@@ -96,7 +96,7 @@ export function FacebookBand({ showHours = true }: { showHours?: boolean }) {
               aria-label="See more on the Price-Less Building Center Facebook page"
             >
               {RECENT.map((p) => (
-                <span key={p.src} className="relative block aspect-square overflow-hidden bg-[var(--muted)]">
+                <span key={p.src} className="relative block aspect-square overflow-hidden rounded-[14px] bg-[var(--muted)]">
                   <Image
                     src={p.src}
                     alt={p.alt}
@@ -113,7 +113,7 @@ export function FacebookBand({ showHours = true }: { showHours?: boolean }) {
                 href={PRICELESS.socials.facebook}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-md bg-[#1877F2] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#0f66d0]"
+                className="inline-flex items-center gap-2 rounded-full bg-[#1877F2] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#0f66d0]"
               >
                 <FacebookGlyph className="size-4" />
                 Follow on Facebook
@@ -122,7 +122,7 @@ export function FacebookBand({ showHours = true }: { showHours?: boolean }) {
                 href={PRICELESS.socials.instagram}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center rounded-md border border-[var(--border)] bg-white px-4 py-2.5 text-sm font-semibold text-[var(--foreground)] transition hover:border-[var(--brand-priceless)]"
+                className="inline-flex items-center rounded-full border border-[var(--border)] bg-white px-4 py-2.5 text-sm font-semibold text-[var(--foreground)] transition hover:border-[var(--brand-navy)]"
               >
                 Instagram →
               </a>

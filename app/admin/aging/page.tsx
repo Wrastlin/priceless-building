@@ -42,9 +42,9 @@ export default async function AgingPage() {
             <div className="mt-1 font-mono text-2xl font-semibold tabular-nums text-foreground">{counts[b]}</div>
           </div>
         ))}
-        <div className="admin-card border-[var(--brand-priceless)]/30 p-3">
-          <div className="text-xs text-[var(--brand-priceless)]">Markdown candidates</div>
-          <div className="mt-1 font-mono text-2xl font-semibold tabular-nums text-[var(--brand-priceless)]">{candidates}</div>
+        <div className="admin-card border-[var(--sale-red)]/30 p-3">
+          <div className="text-xs text-[var(--sale-red)]">Markdown candidates</div>
+          <div className="mt-1 font-mono text-2xl font-semibold tabular-nums text-[var(--sale-red)]">{candidates}</div>
         </div>
       </div>
 

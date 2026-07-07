@@ -68,7 +68,7 @@ export function PressCycle({
                   className={
                     "font-mono mt-1 w-7 shrink-0 text-xs tracking-tight " +
                     (isActive
-                      ? "text-[var(--brand-priceless)]"
+                      ? "text-[var(--brand-gold-deep)]"
                       : "text-[var(--muted-foreground)]")
                   }
                 >
@@ -79,7 +79,7 @@ export function PressCycle({
                     <span className="font-medium text-[var(--foreground)]">
                       {p.publisher}
                     </span>
-                    <span className="font-mono">{p.date}</span>
+                    <span>{p.date}</span>
                   </div>
                   <h3
                     className={
@@ -105,7 +105,7 @@ export function PressCycle({
         href={current.url}
         target="_blank"
         rel="noreferrer"
-        className="group block overflow-hidden border border-[var(--border)] bg-white transition hover:border-[var(--brand-priceless)] md:col-span-6"
+        className="group block overflow-hidden rounded-[14px] border border-[var(--border)] bg-white transition hover:border-[var(--brand-navy)] md:col-span-6"
       >
         <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
           <Image
@@ -121,7 +121,7 @@ export function PressCycle({
             <span className="font-medium text-[var(--foreground)]">
               {current.publisher}
             </span>
-            <span className="font-mono">{current.date}</span>
+            <span>{current.date}</span>
           </div>
           <h3 className="font-display mt-3 text-2xl leading-snug">
             {current.headline}
@@ -132,7 +132,7 @@ export function PressCycle({
           <div className="mt-3 text-xs text-[var(--muted-foreground)]">
             {current.attribution}
           </div>
-          <span className="font-mono mt-5 inline-block text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4">
+          <span className="mt-5 inline-block text-sm font-semibold text-[var(--brand-navy)] underline decoration-[var(--brand-gold)]/60 underline-offset-4">
             Read the full story →
           </span>
         </div>
@@ -146,7 +146,7 @@ export function PressCycle({
               className={
                 "block h-1 rounded-full transition-all " +
                 (i === active
-                  ? "w-8 bg-[var(--brand-priceless)]"
+                  ? "w-8 bg-[var(--brand-gold)]"
                   : "w-3 bg-[var(--border)]")
               }
             />

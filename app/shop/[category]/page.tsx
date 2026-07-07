@@ -65,12 +65,12 @@ export default async function CategoryPage({
       <section className="grid border-b md:grid-cols-12">
         <div className="relative aspect-[4/3] md:col-span-7 md:aspect-auto md:min-h-[420px]">
           <Image src={cat.image} alt={cat.label} fill className="object-cover" priority quality={80} sizes="(min-width:768px) 60vw, 100vw" />
-          <span className="font-mono absolute left-6 top-6 bg-white px-2.5 py-1.5 text-xs uppercase tracking-[0.14em] text-[var(--foreground)]">
+          <span className="font-sans font-semibold absolute left-6 top-6 bg-white px-2.5 py-1.5 text-xs uppercase tracking-[0.18em] text-[var(--foreground)]">
             Department No. {String(idx + 1).padStart(2, "0")}
           </span>
         </div>
         <div className="flex flex-col justify-center gap-6 px-6 py-12 md:col-span-5 md:px-10">
-          <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
+          <div className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--brand-gold-deep)]">
             Floor · {total} items in stock
           </div>
           <h1 className="font-display text-6xl leading-[1.05] md:text-8xl">
@@ -80,10 +80,10 @@ export default async function CategoryPage({
             {cat.blurb}
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link href="/shop" className="font-mono text-xs uppercase tracking-[0.14em] underline decoration-[var(--brand-priceless)] decoration-2 underline-offset-4">
+            <Link href="/shop" className="font-sans font-semibold text-xs uppercase tracking-[0.18em] underline decoration-[var(--brand-priceless)] decoration-2 underline-offset-4">
               ← All departments
             </Link>
-            <Link href="/contact" className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)] underline decoration-[var(--muted-foreground)]/40 decoration-2 underline-offset-4">
+            <Link href="/contact" className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)] underline decoration-[var(--muted-foreground)]/40 decoration-2 underline-offset-4">
               Ask about a specific size →
             </Link>
           </div>
@@ -98,19 +98,19 @@ export default async function CategoryPage({
         <div className="mx-auto max-w-7xl px-6 py-14">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">On the floor</div>
+              <div className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--brand-gold-deep)]">On the floor</div>
               <h2 className="font-display mt-3 text-4xl leading-[1.05]">
                 {total} <span className="text-[var(--brand-priceless)]">{total === 1 ? "item" : "items"}.</span>
               </h2>
             </div>
-            <div className="font-mono hidden text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)] md:block">
+            <div className="font-sans font-semibold hidden text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)] md:block">
               Newest arrivals first
             </div>
           </div>
 
           {total === 0 ? (
             <div className="mt-10 border bg-white p-16 text-center">
-              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">Nothing here yet</div>
+              <div className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--brand-gold-deep)]">Nothing here yet</div>
               <p className="font-serif mt-3 text-2xl italic">Check back Wednesday. Fresh tags every week.</p>
             </div>
           ) : (

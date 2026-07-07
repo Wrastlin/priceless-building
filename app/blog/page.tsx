@@ -147,8 +147,8 @@ export default function BlogPage() {
           <div className="inline-flex w-fit items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs uppercase tracking-wider backdrop-blur">
             The Price-Less Journal
           </div>
-          <h1 className="font-display mt-5 max-w-3xl text-5xl leading-[1.05] md:text-7xl">
-            STORIES FROM THE WAREHOUSE.
+          <h1 className="font-display mt-5 max-w-3xl text-5xl leading-[1.08] md:text-6xl">
+            Stories from the warehouse.
           </h1>
           <p className="mt-5 max-w-2xl text-base text-white/85 md:text-lg">
             Buying guides, reclaimed-material drops, and the behind-the-scenes math of how we price every

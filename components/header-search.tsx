@@ -10,7 +10,7 @@ export function HeaderSearch() {
       role="search"
       action="/search"
       method="get"
-      className="hidden h-11 items-center gap-2.5 rounded-md border border-[var(--border)] bg-white px-3.5 text-base transition focus-within:border-[var(--brand-priceless)] hover:border-[var(--foreground)]/30 lg:flex"
+      className="hidden h-11 min-w-0 items-center gap-2.5 rounded-full border border-[var(--border)] bg-white px-4 text-base transition focus-within:border-[var(--brand-navy)] hover:border-[var(--foreground)]/30 lg:flex"
     >
       <svg
         width="18"
@@ -22,7 +22,7 @@ export function HeaderSearch() {
         strokeWidth="2.25"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="shrink-0 text-[var(--brand-priceless)]"
+        className="shrink-0 text-[var(--brand-navy)]"
       >
         <circle cx="11" cy="11" r="8" />
         <line x1="21" y1="21" x2="16.65" y2="16.65" />
@@ -32,7 +32,7 @@ export function HeaderSearch() {
         type="search"
         placeholder="Search doors, windows, cabinets…"
         aria-label="Search the warehouse"
-        className="w-56 border-0 bg-transparent p-0 text-base font-medium text-[var(--foreground)] placeholder:font-medium placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-0 xl:w-72 2xl:w-96"
+        className="w-36 min-w-0 border-0 bg-transparent p-0 text-base font-medium text-[var(--foreground)] placeholder:font-medium placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-0 xl:w-52 2xl:w-72"
       />
     </form>
   );

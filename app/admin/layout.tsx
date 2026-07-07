@@ -48,7 +48,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#b91c1c",
+  themeColor: "#1b3a63",
 };
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

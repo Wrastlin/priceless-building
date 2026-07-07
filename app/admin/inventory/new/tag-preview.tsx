@@ -22,7 +22,7 @@ export function TagPreview({
   location: string;
 }) {
   return (
-    <div className="mx-auto max-w-[320px] rounded border-2 border-[var(--brand-priceless)] bg-white p-4 shadow-sm">
+    <div className="mx-auto max-w-[320px] rounded-lg border-2 border-[var(--brand-navy)] bg-white p-4 shadow-sm">
       <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
         Price-Less · {location || "Aisle TBD"}
       </div>
@@ -32,7 +32,7 @@ export function TagPreview({
       {subtitle ? <div className="mt-0.5 text-xs text-muted-foreground">{subtitle}</div> : null}
       <div className="my-3 border-t border-dashed border-border" />
       <div className="flex items-baseline justify-between gap-2">
-        <span className="font-display text-3xl tabular-nums text-[var(--brand-priceless)]">
+        <span className="font-display text-3xl tabular-nums text-[var(--brand-navy)]">
           {price > 0 ? formatCurrency(price) : "$ —"}
         </span>
         {retailAvg > 0 && price > 0 && retailAvg > price ? (

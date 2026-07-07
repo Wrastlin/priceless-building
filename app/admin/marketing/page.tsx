@@ -54,7 +54,7 @@ export default async function MarketingPage({
       {items.length === 0 ? (
         <div className="admin-card p-6 text-sm text-muted-foreground">
           No published items yet. Approve a draft in{" "}
-          <Link href="/admin/staging" className="text-[var(--brand-priceless)] hover:underline">
+          <Link href="/admin/staging" className="text-[var(--brand-navy)] hover:underline">
             staging
           </Link>{" "}
           to start posting.
@@ -65,9 +65,9 @@ export default async function MarketingPage({
             <li key={it.id}>
               <Link
                 href={`/admin/marketing?sku=${it.sku}`}
-                className="admin-card group block overflow-hidden transition hover:border-[var(--brand-priceless)] hover:shadow-sm"
+                className="admin-card group block overflow-hidden transition hover:border-[var(--brand-navy)] hover:shadow-sm"
               >
-                <div className="relative aspect-[4/3] w-full bg-[#f7f7f6]">
+                <div className="relative aspect-[4/3] w-full bg-[oklch(0.968_0.008_85)]">
                   <Image
                     src={it.image}
                     alt={it.title}

@@ -11,10 +11,10 @@ import { ADDRESS, BUILDERS } from "@/lib/brands";
 
 /**
  * Builders Corner article page. Lives inside the Price-Less family of
- * brands and uses the Price-Less visual language (display + sans
- * typography, brand-red accents, ink dark anchors) instead of a
- * separate couture/navy/gold system. The "premium" feel comes from
- * better photos and service cards, not from a different typeface.
+ * brands and uses the shared "Showroom Warmth" language (serif display
+ * + sans typography, navy anchors, brass gold accents). The "premium"
+ * feel comes from better photos and service cards, not from a
+ * different typeface.
  */
 
 export const metadata: Metadata = {
@@ -163,15 +163,15 @@ export default function BuildersCornerPage() {
       />
       <SiteHeader brand="builders" />
 
-      {/* HERO. Dark anchor band, Price-Less display + sans typography,
-          brand-red accent. No couture/gold. */}
-      <section className="relative bg-[#0b1220] text-white">
+      {/* HERO. Deep navy anchor band, serif display + sans typography,
+          brass gold accents. */}
+      <section className="relative bg-[var(--brand-navy-deep)] text-white">
         <div className="mx-auto max-w-7xl px-6 pt-14 md:pt-20" data-reveal>
           <div className="flex items-baseline justify-between gap-6 border-b border-white/10 pb-6">
             <BrandLogo brand="builders" size="lg" />
             <a
               href={`tel:${ADDRESS.phone.replace(/[^0-9+]/g, "")}`}
-              className="hidden text-sm font-semibold text-white/85 underline decoration-[#ff8b85] decoration-2 underline-offset-[6px] md:inline md:text-base"
+              className="hidden text-sm font-semibold text-white/85 underline decoration-[var(--brand-gold)] decoration-2 underline-offset-[6px] md:inline md:text-base"
             >
               {ADDRESS.phone}
             </a>
@@ -179,10 +179,10 @@ export default function BuildersCornerPage() {
 
           <div className="mt-10 grid gap-x-12 gap-y-10 md:mt-14 md:grid-cols-12">
             <div className="md:col-span-7">
-              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[#ff8b85]">
+              <div className="eyebrow eyebrow-on-dark">
                 The premium side of Price-Less
               </div>
-              <h1 className="font-display mt-4 text-[clamp(2.5rem,1.4rem+4vw,4.5rem)] leading-[1.02] tracking-tight text-white">
+              <h1 className="font-display mt-4 text-[clamp(2.5rem,1.4rem+4vw,4.5rem)] leading-[1.05] text-white">
                 Premium custom cabinetry, designed and built in Wausau.
               </h1>
               <p className="mt-7 max-w-xl text-lg leading-[1.7] text-white/90 md:text-xl">
@@ -204,7 +204,7 @@ export default function BuildersCornerPage() {
               </div>
             </div>
             <div className="md:col-span-5">
-              <div className="relative aspect-[4/5] w-full overflow-hidden bg-[var(--muted)] ring-1 ring-white/10">
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[14px] bg-[var(--muted)] ring-1 ring-white/10">
                 <HeroPhotoFader photos={HERO_DECK} intervalMs={5500} />
               </div>
             </div>
@@ -213,7 +213,7 @@ export default function BuildersCornerPage() {
           <div className="mt-12 grid grid-cols-1 gap-6 border-t border-white/10 pt-8 pb-16 md:grid-cols-3 md:gap-10 md:pb-20">
             <BCStat n="1983" label="Designing and building cabinetry in Wausau." />
             <BCStat n="4.8★" label="On Google across all three brands." />
-            <BCStat n="MON–SAT" label="Showroom open six days a week." />
+            <BCStat n="Mon–Sat" label="Showroom open six days a week." />
           </div>
         </div>
       </section>
@@ -232,7 +232,7 @@ export default function BuildersCornerPage() {
                 key={c.t}
                 data-reveal
                 data-reveal-delay={(i * 0.06).toFixed(2)}
-                className="group overflow-hidden border border-[var(--border)] bg-white transition hover:border-[var(--brand-priceless)]"
+                className="group overflow-hidden rounded-[14px] border border-[var(--border)] bg-white transition hover:border-[var(--brand-navy)]"
               >
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
                   <Image
@@ -258,8 +258,8 @@ export default function BuildersCornerPage() {
         </div>
       </section>
 
-      {/* PROCESS. Four compact steps on a dark anchor band. */}
-      <section className="bg-[#0b1220] text-white">
+      {/* PROCESS. Four compact steps on a deep navy anchor band. */}
+      <section className="bg-[var(--brand-navy-deep)] text-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
             invert
@@ -272,9 +272,9 @@ export default function BuildersCornerPage() {
                 key={s.n}
                 data-reveal
                 data-reveal-delay={(i * 0.05).toFixed(2)}
-                className="bg-[#0b1220] p-6"
+                className="bg-[var(--brand-navy-deep)] p-6"
               >
-                <div className="relative mb-5 aspect-[4/3] overflow-hidden">
+                <div className="relative mb-5 aspect-[4/3] overflow-hidden rounded-[14px]">
                   <Image
                     src={s.img}
                     alt={s.t}
@@ -284,7 +284,7 @@ export default function BuildersCornerPage() {
                     quality={72}
                   />
                 </div>
-                <div className="font-display text-3xl leading-none text-[#ff8b85]">
+                <div className="font-display text-3xl leading-none text-[var(--brand-gold)]">
                   {s.n}
                 </div>
                 <h3 className="font-display mt-3 text-xl leading-snug text-white md:text-2xl">
@@ -300,7 +300,7 @@ export default function BuildersCornerPage() {
       </section>
 
       {/* SHOWROOM GRID. Magazine-style asymmetric grid of recent work. */}
-      <section className="bg-white">
+      <section className="bg-[var(--background)]">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <SectionHead
             headline="Recent rooms."
@@ -325,7 +325,7 @@ export default function BuildersCornerPage() {
                   data-reveal-delay={((i % 4) * 0.05).toFixed(2)}
                   className={`${span} group`}
                 >
-                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[14px] bg-[var(--muted)]">
                     <Image
                       src={p.src}
                       alt={p.caption}
@@ -335,7 +335,7 @@ export default function BuildersCornerPage() {
                       quality={78}
                       loading="lazy"
                     />
-                    <span className="font-mono absolute left-3 top-3 bg-white/95 px-2 py-1 text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] shadow-sm">
+                    <span className="absolute left-3 top-3 rounded-full bg-white/95 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--brand-navy)] shadow-sm">
                       {p.tag}
                     </span>
                   </div>
@@ -350,7 +350,7 @@ export default function BuildersCornerPage() {
       </section>
 
       {/* CONSULT INQUIRY. Lead capture, anchored for the hero CTA. */}
-      <section id="consult" className="scroll-mt-24 bg-white">
+      <section id="consult" className="scroll-mt-24 bg-surface">
         <div className="mx-auto max-w-4xl px-6 py-16 md:py-20" data-reveal>
           <InquiryForm brand="builders" />
         </div>

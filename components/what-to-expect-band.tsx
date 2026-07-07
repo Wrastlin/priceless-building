@@ -29,7 +29,7 @@ const CARDS = [
  */
 export function WhatToExpectBand() {
   return (
-    <section className="bg-white">
+    <section className="bg-[var(--background)]">
       <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
         <SectionHead
           headline="A few things worth knowing before you visit."
@@ -42,7 +42,7 @@ export function WhatToExpectBand() {
               key={c.t}
               data-reveal
               data-reveal-delay={(i * 0.06).toFixed(2)}
-              className="overflow-hidden border border-[var(--border)] bg-white"
+              className="overflow-hidden rounded-[14px] border border-[var(--border)] bg-white"
             >
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
                 <Image
@@ -65,11 +65,11 @@ export function WhatToExpectBand() {
 
         <div className="mt-12 flex flex-wrap items-center justify-center gap-5 border-t border-[var(--border)] pt-10">
           <Link href="/shop" className="btn btn-priceless">
-            Shop everything →
+            Shop everything
           </Link>
           <Link
             href="/reviews"
-            className="text-base text-[var(--brand-priceless)] underline decoration-[var(--brand-priceless)]/30 underline-offset-4 hover:decoration-[var(--brand-priceless)] md:text-lg"
+            className="text-base font-semibold text-[var(--brand-navy)] underline decoration-[var(--brand-gold)]/60 underline-offset-4 hover:decoration-[var(--brand-gold)] md:text-lg"
           >
             Read our 9 Google reviews
           </Link>

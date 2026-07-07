@@ -157,7 +157,7 @@ export default function FAQPage() {
             <a
               key={s.id}
               href={`#${s.id}`}
-              className="rounded-full border bg-white px-4 py-2 font-medium text-[var(--brand-priceless)] hover:bg-[var(--brand-priceless)] hover:text-white"
+              className="rounded-full border bg-white px-4 py-2 font-medium text-[var(--brand-navy)] hover:bg-[var(--brand-navy)] hover:text-white"
             >
               {s.title}
             </a>
@@ -169,17 +169,17 @@ export default function FAQPage() {
       <section className="mx-auto max-w-4xl px-6 py-16">
         {SECTIONS.map((s) => (
           <div key={s.id} id={s.id} className="scroll-mt-24 pb-14">
-            <div className="text-xs font-semibold uppercase tracking-wider text-[var(--brand-priceless)]">
+            <div className="eyebrow">
               {s.kicker}
             </div>
             <h2 className="font-display mt-2 text-3xl md:text-4xl">{s.title}</h2>
-            <div className="mt-8 divide-y rounded-2xl border bg-white shadow-card">
+            <div className="mt-8 divide-y rounded-[14px] border bg-white shadow-card">
               {s.items.map((qa, i) => (
                 <details key={i} className="group">
                   <summary className="flex cursor-pointer list-none items-start justify-between gap-6 px-6 py-5 hover:bg-[var(--muted)]/40">
                     <span className="font-display text-lg leading-snug">{qa.q}</span>
                     <span
-                      className="mt-1 shrink-0 text-[var(--brand-priceless)] transition group-open:rotate-180"
+                      className="mt-1 shrink-0 text-[var(--brand-navy)] transition group-open:rotate-180"
                       aria-hidden
                     >
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -199,7 +199,7 @@ export default function FAQPage() {
 
       {/* STILL STUCK */}
       <section className="mx-auto max-w-7xl px-6 pb-24">
-        <div className="grid items-center gap-6 rounded-2xl bg-[var(--brand-priceless)] p-10 text-white md:grid-cols-[2fr_1fr]">
+        <div className="grid items-center gap-6 rounded-[14px] bg-[var(--brand-navy)] p-10 text-white md:grid-cols-[2fr_1fr]">
           <div>
             <h2 className="font-display text-3xl md:text-4xl">Didn't see your question?</h2>
             <p className="mt-2 text-white/85">
@@ -207,7 +207,7 @@ export default function FAQPage() {
             </p>
           </div>
           <div className="flex flex-wrap justify-end gap-3">
-            <a href="tel:+17158483855" className="btn bg-white text-[var(--brand-priceless)]">
+            <a href="tel:+17158483855" className="btn bg-white text-[var(--brand-navy)] hover:bg-white/90">
               Call {ADDRESS.phone}
             </a>
             <Link href="/contact" className="btn btn-outline border-white/50 bg-transparent text-white">

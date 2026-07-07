@@ -60,12 +60,12 @@ export default async function ContactPage({
         </div>
         <div className="relative mx-auto grid max-w-7xl gap-10 px-6 pt-28 pb-20 text-white md:grid-cols-12 md:pt-40 md:pb-28">
           <div className="md:col-span-8">
-            <div className="font-mono inline-flex items-center gap-2.5 rounded-full bg-black/45 px-4 py-2 text-sm font-semibold uppercase tracking-[0.14em] text-white ring-1 ring-white/15 backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2.5 rounded-full bg-black/45 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white ring-1 ring-white/15 backdrop-blur-sm">
               <span className="size-2 animate-pulse rounded-full bg-emerald-400" />
               <span>Open Mon&ndash;Sat &middot; Walk-ins welcome</span>
             </div>
-            <h1 className="font-display mt-8 max-w-[18ch] text-[3.5rem] leading-[0.88] text-white sm:text-[5rem] md:text-[7.5rem]">
-              Come see the <span className="text-[var(--brand-priceless)]">warehouse.</span>
+            <h1 className="font-display mt-8 max-w-[18ch] text-[3rem] leading-[1.05] text-white sm:text-[4rem] md:text-[5.5rem]">
+              Come see the <span className="text-[var(--brand-gold)]">warehouse.</span>
             </h1>
             <p className="font-serif mt-8 max-w-xl text-lg italic leading-snug text-white/90 md:text-xl">
               Easy parking out front, contractor load bay around back. Look for the red brick building with the white &ldquo;PRICE-LESS&rdquo; sign on the roof.
@@ -76,7 +76,7 @@ export default async function ContactPage({
                 href={`https://maps.google.com/?q=${encodeURIComponent(`${ADDRESS.street}, ${ADDRESS.city}, ${ADDRESS.state} ${ADDRESS.zip}`)}`}
                 target="_blank"
                 rel="noreferrer"
-                className="font-mono text-xs uppercase tracking-[0.14em] text-white/85 underline decoration-[var(--brand-priceless)] decoration-2 underline-offset-4"
+                className="text-xs font-semibold uppercase tracking-[0.14em] text-white/85 underline decoration-[var(--brand-gold)] decoration-2 underline-offset-4"
               >
                 Get directions →
               </a>
@@ -84,7 +84,7 @@ export default async function ContactPage({
           </div>
           <aside className="md:col-span-4 md:pt-16">
             <div className="border-l border-white/20 pl-5">
-              <div className="font-mono text-xs uppercase tracking-[0.14em] text-white/80">
+              <div className="text-xs font-semibold uppercase tracking-[0.14em] text-white/80">
                 When we&apos;re open
               </div>
               <p className="mt-4 text-base leading-relaxed text-white/85">
@@ -92,7 +92,7 @@ export default async function ContactPage({
               </p>
               <a
                 href="#hours"
-                className="font-mono mt-4 inline-flex text-xs uppercase tracking-[0.14em] text-white/80 underline decoration-white/40 decoration-2 underline-offset-4 hover:text-white"
+                className="mt-4 inline-flex text-xs font-semibold uppercase tracking-[0.14em] text-white/80 underline decoration-white/40 decoration-2 underline-offset-4 hover:text-white"
               >
                 Jump to full hours →
               </a>
@@ -105,7 +105,7 @@ export default async function ContactPage({
       <section className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-10 md:grid-cols-3">
           <div className="md:col-span-1">
-            <div className="text-xs font-semibold uppercase tracking-wider text-[var(--brand-priceless)]">Visit</div>
+            <div className="eyebrow">Visit</div>
             <h2 className="font-display mt-2 text-2xl md:text-3xl">The address.</h2>
             <p className="mt-4 text-[var(--muted-foreground)]">
               {ADDRESS.street}<br />
@@ -120,9 +120,9 @@ export default async function ContactPage({
           </div>
 
           <div id="hours" className="md:col-span-1 scroll-mt-24">
-            <div className="text-xs font-semibold uppercase tracking-wider text-[var(--brand-priceless)]">Hours</div>
+            <div className="eyebrow">Hours</div>
             <h2 className="font-display mt-2 text-2xl md:text-3xl">When we&apos;re open.</h2>
-            <ul className="mt-4 divide-y rounded-xl border bg-white">
+            <ul className="mt-4 divide-y rounded-[14px] border bg-white">
               {PRICELESS.hours.map((h) => (
                 <li key={h.day} className="flex items-center justify-between px-4 py-3 text-base">
                   <span className="font-semibold">{h.day}</span>
@@ -136,7 +136,7 @@ export default async function ContactPage({
           </div>
 
           <div className="md:col-span-1">
-            <div className="text-xs font-semibold uppercase tracking-wider text-[var(--brand-priceless)]">Contractors</div>
+            <div className="eyebrow">Contractors</div>
             <h2 className="font-display mt-2 text-2xl md:text-3xl">Coming in for a load?</h2>
             <p className="mt-4 text-[var(--muted-foreground)]">
               Call ahead and we'll have your will-call staged at the back bay. Forklift on site,
@@ -169,9 +169,9 @@ export default async function ContactPage({
               />
             </div>
             <div className="border-t p-8">
-              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">Drop a pin</div>
+              <div className="eyebrow">Drop a pin</div>
               <h3 className="font-display mt-3 text-3xl leading-tight">
-                Eight minutes from <span className="text-[var(--brand-priceless)]">the freeway.</span>
+                Eight minutes from <span className="text-[var(--brand-gold-deep)]">the freeway.</span>
               </h3>
               <p className="font-serif mt-3 text-sm italic leading-relaxed text-[var(--muted-foreground)]">
                 US-51 / I-39 sits eight minutes east, downtown Wausau ten minutes west, and roughly forty minutes pulls you in from Stevens Point, Antigo, and Merrill.
@@ -180,7 +180,7 @@ export default async function ContactPage({
                 href={`https://maps.google.com/?q=${encodeURIComponent(`${ADDRESS.street}, ${ADDRESS.city}, ${ADDRESS.state} ${ADDRESS.zip}`)}`}
                 target="_blank"
                 rel="noreferrer"
-                className="font-mono mt-4 inline-block text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
+                className="mt-4 inline-block text-xs font-semibold uppercase tracking-[0.14em] text-[var(--brand-navy)] underline decoration-[var(--brand-gold)] decoration-2 underline-offset-4"
               >
                 Open in Google Maps →
               </a>
@@ -189,9 +189,9 @@ export default async function ContactPage({
 
           {/* FORM */}
           <div className="bg-white p-8 md:p-12">
-            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">Send us a note</div>
+            <div className="eyebrow">Send us a note</div>
             <h2 className="font-display mt-3 text-4xl leading-[1.05] md:text-5xl">
-              Got a project? <span className="text-[var(--brand-priceless)]">Tell us.</span>
+              Got a project? <span className="text-[var(--brand-gold-deep)]">Tell us.</span>
             </h2>
             <p className="font-serif mt-4 text-base italic leading-relaxed text-[var(--muted-foreground)]">
               Sourcing something specific? We'll check the shelf and call you back inside one business day. For urgent will-call, please use the phone instead.
@@ -204,7 +204,7 @@ export default async function ContactPage({
                   required
                   type="text"
                   placeholder="Pat Lindgren"
-                  className="w-full rounded-md border-2 border-[var(--foreground)]/25 bg-white px-3.5 py-3 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0"
+                  className="w-full rounded-md border-2 border-[var(--foreground)]/25 bg-white px-3.5 py-3 text-base focus:border-[var(--brand-navy)] focus:outline-none focus:ring-0"
                 />
               </Field>
 
@@ -214,7 +214,7 @@ export default async function ContactPage({
                   required
                   type="email"
                   placeholder="name@yourbusiness.com"
-                  className="w-full rounded-md border-2 border-[var(--foreground)]/25 bg-white px-3.5 py-3 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0"
+                  className="w-full rounded-md border-2 border-[var(--foreground)]/25 bg-white px-3.5 py-3 text-base focus:border-[var(--brand-navy)] focus:outline-none focus:ring-0"
                 />
               </Field>
 
@@ -223,7 +223,7 @@ export default async function ContactPage({
                   name="phone"
                   type="tel"
                   placeholder="(715) 555-0123"
-                  className="w-full rounded-md border-2 border-[var(--foreground)]/25 bg-white px-3.5 py-3 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0"
+                  className="w-full rounded-md border-2 border-[var(--foreground)]/25 bg-white px-3.5 py-3 text-base focus:border-[var(--brand-navy)] focus:outline-none focus:ring-0"
                 />
               </Field>
 
@@ -232,7 +232,7 @@ export default async function ContactPage({
                   name="looking_for"
                   required
                   defaultValue=""
-                  className="w-full rounded-md border-2 border-[var(--foreground)]/25 bg-white px-3.5 py-3 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0"
+                  className="w-full rounded-md border-2 border-[var(--foreground)]/25 bg-white px-3.5 py-3 text-base focus:border-[var(--brand-navy)] focus:outline-none focus:ring-0"
                 >
                   <option value="" disabled>Choose a department…</option>
                   <option value="doors">Doors (interior, exterior, reclaimed)</option>
@@ -254,7 +254,7 @@ export default async function ContactPage({
                   required
                   rows={5}
                   placeholder="Tell us sizes, finish, qty, when you need it…"
-                  className="w-full resize-y border border-[var(--border)] bg-transparent px-3 py-2 text-base focus:border-[var(--brand-priceless)] focus:outline-none focus:ring-0"
+                  className="w-full resize-y border border-[var(--border)] bg-transparent px-3 py-2 text-base focus:border-[var(--brand-navy)] focus:outline-none focus:ring-0"
                 />
               </Field>
 
@@ -270,17 +270,17 @@ export default async function ContactPage({
       </section>
 
       {/* PHONE CTA */}
-      <section className="bg-[var(--brand-priceless-dark)] py-14 text-white">
+      <section className="bg-[var(--brand-navy-deep)] py-14 text-white">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-6 md:flex-row md:items-center">
           <div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-white/85">Faster than a form</div>
+            <div className="eyebrow eyebrow-on-dark">Faster than a form</div>
             <div className="font-display mt-2 text-3xl md:text-4xl">Pick up the phone.</div>
             <p className="mt-2 max-w-xl text-sm text-white/80">
               During warehouse hours, a real person on the floor answers every call. Tell us what
               you need and we'll walk over and look at it for you.
             </p>
           </div>
-          <a href="tel:+17158483855" className="btn bg-white text-[var(--brand-priceless)] hover:bg-white/90">
+          <a href="tel:+17158483855" className="btn bg-white text-[var(--brand-navy)] hover:bg-white/90">
             {ADDRESS.phone}
           </a>
         </div>

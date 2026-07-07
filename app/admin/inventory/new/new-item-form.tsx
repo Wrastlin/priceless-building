@@ -335,7 +335,7 @@ export function NewItemForm() {
                   type="button"
                   onClick={() => libraryRef.current?.click()}
                   aria-label="Add a photo"
-                  className="flex aspect-[4/3] w-full flex-col items-center justify-center gap-3 rounded-md border-2 border-dashed border-border bg-[#fafaf9] text-muted-foreground transition hover:border-[var(--brand-priceless)] hover:bg-white"
+                  className="flex aspect-[4/3] w-full flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed border-border bg-[oklch(0.975_0.008_85)] text-muted-foreground transition hover:border-[var(--brand-navy)] hover:bg-white"
                 >
                   <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                     <rect x="3" y="3" width="18" height="18" rx="2" />
@@ -369,12 +369,12 @@ export function NewItemForm() {
                 rows={2}
                 className="admin-input mb-3 w-full resize-y"
               />
-              <label className="mb-3 flex cursor-pointer items-start gap-2.5 rounded border border-border bg-[#fafaf9] px-3 py-2.5">
+              <label className="mb-3 flex cursor-pointer items-start gap-2.5 rounded-lg border border-border bg-[oklch(0.975_0.008_85)] px-3 py-2.5">
                 <input
                   type="checkbox"
                   checked={broaden}
                   onChange={(e) => setBroaden(e.target.checked)}
-                  className="mt-0.5 accent-[var(--brand-priceless)]"
+                  className="mt-0.5 accent-[var(--brand-navy)]"
                 />
                 <span className="text-xs leading-relaxed text-foreground">
                   <strong>Broaden the search</strong> — look beyond the big-four retailers to
@@ -529,7 +529,7 @@ export function NewItemForm() {
                     step={1}
                     value={typeof tagPrice === "number" ? tagPrice : 0}
                     onChange={(e) => setTagPrice(Number(e.target.value))}
-                    className="block w-full accent-[var(--brand-priceless)]"
+                    className="block w-full accent-[var(--brand-navy)]"
                   />
                   <div className="mt-1 flex items-baseline justify-between text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
                     <span>$0</span>
@@ -539,7 +539,7 @@ export function NewItemForm() {
               ) : null}
 
               {retailAvg > 0 && tagPriceNum > 0 ? (
-                <div className="mt-4 grid grid-cols-3 gap-3 rounded border-l-2 border-[var(--brand-priceless)] bg-[#fff5f4] p-3 text-sm">
+                <div className="mt-4 grid grid-cols-3 gap-3 rounded-lg border border-[var(--brand-navy)]/20 bg-[var(--brand-navy)]/5 p-3 text-sm">
                   <div>
                     <div className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">Tag</div>
                     <div className="font-mono mt-0.5 text-base font-semibold tabular-nums">{formatCurrency(tagPriceNum)}</div>
@@ -550,7 +550,7 @@ export function NewItemForm() {
                   </div>
                   <div>
                     <div className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">Customer saves</div>
-                    <div className="font-mono mt-0.5 text-base font-semibold tabular-nums text-[var(--brand-priceless)]">
+                    <div className="font-mono mt-0.5 text-base font-semibold tabular-nums text-[var(--sale-red)]">
                       {customerSaves > 0 ? `${formatCurrency(customerSaves)} (${Math.round((customerSaves / retailAvg) * 100)}%)` : "—"}
                     </div>
                   </div>
@@ -575,7 +575,7 @@ export function NewItemForm() {
               {saving ? "Saving…" : `Save to staging (${photos.length} photo${photos.length === 1 ? "" : "s"})`}
             </button>
             {realCount === 0 && photos.length > 0 ? (
-              <p className="mt-2 text-xs text-[var(--brand-priceless)]">
+              <p className="mt-2 text-xs text-[var(--sale-red)]">
                 At least one real photo of the actual item is required to save.
               </p>
             ) : null}

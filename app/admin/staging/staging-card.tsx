@@ -107,7 +107,7 @@ export function StagingCard({ draft }: { draft: CatalogItem }) {
   }
 
   const thumb = (
-    <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden rounded bg-[#f4f4f3] sm:w-60">
+    <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden rounded bg-[oklch(0.968_0.008_85)] sm:w-60">
       {saved.image ? (
         <button
           type="button"

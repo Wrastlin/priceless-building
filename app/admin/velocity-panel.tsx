@@ -34,7 +34,7 @@ export function VelocityPanel({ v }: { v: VelocitySummary }) {
               <div key={i} className="flex flex-1 flex-col items-center gap-1" title={`${n} sold`}>
                 <div className="flex w-full flex-1 items-end">
                   <div
-                    className="w-full rounded-t bg-[var(--brand-priceless)]"
+                    className="w-full rounded-t bg-[var(--brand-navy)]"
                     style={{ height: `${(n / max) * 100}%`, minHeight: n > 0 ? 4 : 0 }}
                   />
                 </div>
@@ -52,7 +52,7 @@ export function VelocityPanel({ v }: { v: VelocitySummary }) {
 
 function Tile({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-md bg-[#fafaf9] p-3">
+    <div className="rounded-lg bg-[oklch(0.975_0.008_85)] p-3">
       <div className="text-xs text-muted-foreground">{label}</div>
       <div className="mt-1 font-mono text-2xl font-semibold tabular-nums text-foreground">{value}</div>
     </div>

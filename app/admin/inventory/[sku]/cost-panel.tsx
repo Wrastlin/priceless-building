@@ -92,12 +92,12 @@ export function CostPanel({
 
 function Stat({ label, value, tone }: { label: string; value: string; tone?: "bad" }) {
   return (
-    <div className="rounded-md bg-[#fafaf9] p-3">
+    <div className="rounded-lg bg-[oklch(0.975_0.008_85)] p-3">
       <div className="text-xs text-muted-foreground">{label}</div>
       <div
         className={
           "mt-1 font-mono text-lg font-semibold tabular-nums " +
-          (tone === "bad" ? "text-[var(--brand-priceless)]" : "text-foreground")
+          (tone === "bad" ? "text-[var(--sale-red)]" : "text-foreground")
         }
       >
         {value}

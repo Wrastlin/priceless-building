@@ -12,12 +12,12 @@ import { GOOGLE_RATING } from "@/lib/google-reviews";
  */
 export function StatsStrip() {
   return (
-    <section className="border-b bg-[#0b1220] text-white">
+    <section className="border-b bg-[var(--brand-navy-deep)] text-white">
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-y-6 px-6 py-8 md:grid-cols-4 md:gap-x-6 md:py-10">
-        <NumStat n="HUGE" label="savings vs. big-box retail" />
+        <NumStat n="Huge" label="savings vs. big-box retail" />
         <NumStat n="1978" label="serving central Wisconsin since" />
         <NumStat n={`${GOOGLE_RATING.average.toFixed(1)}★`} label={`on Google · ${GOOGLE_RATING.count} reviews`} />
-        <NumStat n="MON–SAT" label="open six days a week" />
+        <NumStat n="Mon–Sat" label="open six days a week" />
       </div>
     </section>
   );
@@ -26,7 +26,7 @@ export function StatsStrip() {
 function NumStat({ n, label }: { n: string; label: string }) {
   return (
     <div>
-      <div className="font-display text-4xl leading-none text-white md:text-5xl">
+      <div className="font-display text-4xl leading-[1.05] text-[var(--brand-gold)] md:text-5xl">
         {n}
       </div>
       <div className="mt-1 text-xs leading-snug text-white/85">{label}</div>

@@ -67,7 +67,7 @@ export async function AdminShell({
   const sections = Array.from(new Set(NAV.map((n) => n.section ?? "More")));
 
   return (
-    <div className="min-h-screen bg-[#f7f7f6] text-foreground">
+    <div className="min-h-screen bg-[oklch(0.968_0.008_85)] text-foreground">
       {/* TOP BAR */}
       <header className="sticky top-0 z-20 border-b border-border bg-white">
         <div className="flex h-12 items-center justify-between gap-4 px-5">
@@ -116,15 +116,12 @@ export async function AdminShell({
                       key={n.key}
                       href={n.href}
                       className={
-                        "relative block px-4 py-1.5 text-sm transition " +
+                        "mx-2 block rounded-lg px-2.5 py-1.5 text-sm transition " +
                         (isActive
-                          ? "bg-[var(--brand-priceless)]/8 font-semibold text-[var(--brand-priceless)]"
-                          : "text-foreground hover:bg-[#f4f4f3]")
+                          ? "bg-[var(--brand-navy)]/10 font-semibold text-[var(--brand-navy)]"
+                          : "text-foreground hover:bg-[oklch(0.955_0.01_85)]")
                       }
                     >
-                      {isActive ? (
-                        <span className="absolute left-0 top-0 h-full w-[3px] bg-[var(--brand-priceless)]" />
-                      ) : null}
                       {n.label}
                     </Link>
                   );

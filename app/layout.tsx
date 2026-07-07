@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Bebas_Neue, Inter_Tight, Playfair_Display, JetBrains_Mono, Fraunces } from "next/font/google";
+import { Besley, Hanken_Grotesk, JetBrains_Mono, Fraunces } from "next/font/google";
 import { Toaster } from "sonner";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { AuthErrorNotice } from "@/components/auth-error-notice";
@@ -10,21 +10,14 @@ import "./globals.css";
 // font when it arrives. Without this Lighthouse measures LCP as
 // gated by font load (~900ms element render delay). preload: true
 // on the display face since it's used in the hero H1.
-const display = Bebas_Neue({
-  weight: "400",
+const display = Besley({
   subsets: ["latin"],
+  style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
   preload: true,
 });
-const serif = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-serif",
-  style: ["normal", "italic"],
-  display: "swap",
-  preload: false,
-});
-const sans = Inter_Tight({
+const sans = Hanken_Grotesk({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
@@ -107,14 +100,14 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b1220" },
+    { media: "(prefers-color-scheme: light)", color: "#fbf9f5" },
+    { media: "(prefers-color-scheme: dark)", color: "#122844" },
   ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${serif.variable} ${sans.variable} ${mono.variable} ${couture.variable}`}>
+    <html lang="en" className={`${display.variable} ${sans.variable} ${mono.variable} ${couture.variable}`}>
       <head>
         {/* Always reload to the top of the page. Disable the browser's
             scroll restoration synchronously, before first paint, so a
@@ -137,7 +130,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="font-sans">
-        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-[100] focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:text-[var(--brand-priceless)] focus:shadow">Skip to main content</a>
+        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-[100] focus:bg-background focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:text-[var(--brand-navy)] focus:shadow">Skip to main content</a>
         <SmoothScroll />
         <main id="main">{children}</main>
         <AuthErrorNotice />

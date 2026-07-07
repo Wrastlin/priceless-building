@@ -130,8 +130,8 @@ export function GenerateVariants({ item }: { item: CatalogItem }) {
               className={
                 "rounded-full border px-3 py-1 text-xs transition " +
                 (on
-                  ? "border-[var(--brand-priceless)] bg-[var(--brand-priceless)] text-white"
-                  : "border-border bg-white text-foreground hover:border-[var(--brand-priceless)]")
+                  ? "border-[var(--brand-navy)] bg-[var(--brand-navy)] text-white"
+                  : "border-border bg-white text-foreground hover:border-[var(--brand-navy)]")
               }
               title={s.sub}
             >
@@ -159,7 +159,7 @@ export function GenerateVariants({ item }: { item: CatalogItem }) {
               <li key={v.scene} className="overflow-hidden border border-border bg-white">
                 {v.image ? (
                   <>
-                    <div className="relative aspect-[4/3] w-full bg-[#fafaf9]">
+                    <div className="relative aspect-[4/3] w-full bg-[oklch(0.975_0.008_85)]">
                       <Image
                         src={v.image}
                         alt={`${item.title} in ${v.scene}`}
@@ -187,7 +187,7 @@ export function GenerateVariants({ item }: { item: CatalogItem }) {
                     </div>
                   </>
                 ) : (
-                  <div className="flex aspect-[4/3] flex-col items-center justify-center gap-1 bg-[#fafaf9] p-3 text-center">
+                  <div className="flex aspect-[4/3] flex-col items-center justify-center gap-1 bg-[oklch(0.975_0.008_85)] p-3 text-center">
                     <span className="text-xs font-semibold text-foreground">
                       {SCENES.find((s) => s.key === v.scene)?.label ?? v.scene}
                     </span>

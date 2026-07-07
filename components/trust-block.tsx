@@ -17,15 +17,15 @@ const directions = `https://www.google.com/maps/dir/?api=1&destination=${mapsQue
 
 export function TrustBlock() {
   return (
-    <section id="trust" className="border-y bg-white">
+    <section id="trust" className="border-y bg-[var(--background)]">
       <div className="mx-auto max-w-7xl px-6 py-14 md:py-16">
         <div className="max-w-3xl">
-          <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
+          <div className="eyebrow">
             Visit the store
           </div>
           <h2 className="font-display mt-3 text-4xl leading-[1.05] md:text-5xl">
             We&apos;ve been here{" "}
-            <span className="text-[var(--brand-priceless)]">since 1978</span>.
+            <span className="text-[var(--brand-gold-deep)]">since 1978</span>.
           </h2>
           <p className="mt-4 max-w-xl text-base text-[var(--muted-foreground)] md:text-lg">
             {ADDRESS.street} in Wausau. Open Mon through Sat. Family owned. Come
@@ -36,7 +36,7 @@ export function TrustBlock() {
         <div className="mt-10 grid gap-10 md:grid-cols-12">
           {/* Map */}
           <div className="md:col-span-7">
-            <div className="aspect-[4/3] overflow-hidden border border-[var(--border)] md:aspect-[16/10]">
+            <div className="aspect-[4/3] overflow-hidden rounded-[14px] border border-[var(--border)] md:aspect-[16/10]">
               <iframe
                 src={mapsEmbed}
                 width="100%"
@@ -62,7 +62,7 @@ export function TrustBlock() {
                 href={directions}
                 target="_blank"
                 rel="noreferrer"
-                className="font-mono inline-flex shrink-0 items-center text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
+                className="inline-flex shrink-0 items-center text-sm font-semibold text-[var(--brand-navy)] underline decoration-[var(--brand-gold)]/60 underline-offset-4"
               >
                 Get directions →
               </a>
@@ -71,7 +71,7 @@ export function TrustBlock() {
 
           {/* Hours + phone + project CTA */}
           <div className="md:col-span-5">
-            <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
+            <div className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
               Hours
             </div>
             <ul className="mt-3 divide-y divide-[var(--border)]/60">
@@ -84,13 +84,13 @@ export function TrustBlock() {
             </ul>
             <a
               href={`tel:+1${ADDRESS.phone.replace(/[^0-9]/g, "")}`}
-              className="font-mono mt-5 inline-flex items-center text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
+              className="mt-5 inline-flex items-center text-sm font-semibold text-[var(--brand-navy)] underline decoration-[var(--brand-gold)]/60 underline-offset-4"
             >
               Call {ADDRESS.phone}
             </a>
 
-            <div className="mt-10 border border-[var(--brand-priceless)] bg-white p-6">
-              <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
+            <div className="mt-10 rounded-[14px] border border-[var(--border)] bg-white p-6 shadow-card">
+              <div className="eyebrow">
                 Have a project in mind?
               </div>
               <p className="mt-2 text-base leading-relaxed text-[var(--foreground)]">
@@ -98,7 +98,7 @@ export function TrustBlock() {
               </p>
               <Link
                 href="/#design-walkthrough"
-                className="font-mono mt-4 inline-flex items-center text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)] underline decoration-2 underline-offset-4"
+                className="mt-4 inline-flex items-center text-sm font-semibold text-[var(--brand-navy)] underline decoration-[var(--brand-gold)]/60 underline-offset-4"
               >
                 See how it works →
               </Link>

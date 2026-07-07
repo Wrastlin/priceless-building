@@ -50,10 +50,10 @@ export function TagPrinter({ initialItems, all }: { initialItems: CatalogItem[];
             className="admin-input"
           />
           {results.length > 0 ? (
-            <ul className="absolute left-0 right-0 z-10 mt-1 overflow-hidden rounded-md border border-border bg-white shadow-lg">
+            <ul className="absolute left-0 right-0 z-10 mt-1 overflow-hidden rounded-lg border border-border bg-white shadow-lg">
               {results.map((r) => (
                 <li key={r.sku} className="border-b border-border last:border-0">
-                  <button onClick={() => add(r)} className="block w-full px-3 py-2 text-left text-sm hover:bg-[#f4f4f3]">
+                  <button onClick={() => add(r)} className="block w-full px-3 py-2 text-left text-sm hover:bg-[oklch(0.975_0.008_85)]">
                     <span className="font-mono text-xs text-muted-foreground">{r.sku}</span> · {r.title}
                   </button>
                 </li>
@@ -64,7 +64,7 @@ export function TagPrinter({ initialItems, all }: { initialItems: CatalogItem[];
 
         <ul className="mt-4 divide-y divide-border border-y border-border">
           {selected.length === 0 ? (
-            <li className="rounded-md border-2 border-dashed border-border bg-[#fafaf9] p-6 text-center text-sm text-muted-foreground">
+            <li className="rounded-lg border-2 border-dashed border-border bg-[oklch(0.975_0.008_85)] p-6 text-center text-sm text-muted-foreground">
               Empty queue · add an item to print
             </li>
           ) : selected.map((c, i) => (

@@ -68,7 +68,7 @@ export function UpdatePasswordForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-3 rounded-md border border-[var(--border)] bg-white p-6 shadow-sm">
       <label className="block">
-        <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">New password</span>
+        <span className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)]">New password</span>
         <input
           type="password"
           required
@@ -81,7 +81,7 @@ export function UpdatePasswordForm() {
         />
       </label>
       <label className="block">
-        <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">Confirm new password</span>
+        <span className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)]">Confirm new password</span>
         <input
           type="password"
           required

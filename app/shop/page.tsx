@@ -40,7 +40,7 @@ export default async function ShopIndex({ searchParams }: { searchParams: Promis
       {/* HEADER */}
       <section className="mx-auto max-w-7xl px-6 pt-14 pb-12">
         <header className="max-w-3xl">
-          <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
+          <div className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--brand-gold-deep)]">
             Shop · {total} items in stock
           </div>
           <h1 className="font-display mt-3 text-[clamp(2.5rem,1.6rem+4vw,5rem)] leading-[1.02]">
@@ -60,13 +60,13 @@ export default async function ShopIndex({ searchParams }: { searchParams: Promis
       {/* INVENTORY GRID */}
       <section className="mx-auto max-w-7xl px-6 pt-14 pb-20">
         <header className="max-w-3xl">
-          <div className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
+          <div className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--brand-gold-deep)]">
             Everything in stock
           </div>
           <h2 className="font-display mt-3 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05]">
             {total} items <span className="text-[var(--brand-priceless)]">in the warehouse.</span>
           </h2>
-          <div className="font-mono mt-5 text-xs uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
+          <div className="font-sans font-semibold mt-5 text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
             Newest arrivals first
           </div>
         </header>

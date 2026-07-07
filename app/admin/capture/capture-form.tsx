@@ -241,7 +241,7 @@ export function CaptureForm() {
               +
             </button>
             {startNum > 0 ? (
-              <span className="ml-auto rounded bg-[#fff5f4] px-3 py-2 text-sm font-semibold text-[var(--brand-priceless)]">
+              <span className="ml-auto rounded-lg bg-[var(--brand-navy)]/10 px-3 py-2 text-sm font-semibold text-[var(--brand-navy)]">
                 Sticker {rangeLabel(startNum, count)}
               </span>
             ) : null}
@@ -307,7 +307,7 @@ export function CaptureForm() {
         {photos.length > 0 ? (
           <div className="grid grid-cols-4 gap-2">
             {photos.map((p, i) => (
-              <div key={i} className="relative aspect-square overflow-hidden rounded bg-[#f4f4f3]">
+              <div key={i} className="relative aspect-square overflow-hidden rounded bg-[oklch(0.968_0.008_85)]">
                 <Image src={p} alt={`Photo ${i + 1}`} fill className="object-cover" sizes="120px" unoptimized />
                 <button
                   type="button"
@@ -362,7 +362,7 @@ export function CaptureForm() {
                 ) : en.status === "saved" ? (
                   <Link
                     href={`/admin/inventory/${en.sku}`}
-                    className="admin-btn admin-btn-ghost px-2 py-1 text-xs text-[var(--brand-priceless)]"
+                    className="admin-btn admin-btn-ghost px-2 py-1 text-xs text-[var(--brand-navy)]"
                   >
                     Open
                   </Link>

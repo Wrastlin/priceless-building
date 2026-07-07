@@ -18,7 +18,7 @@ const SOURCE_BADGE: Record<CuratedReview["source"], string> = {
 
 function Stars({ n }: { n: number }) {
   return (
-    <div className="flex gap-0.5 text-base text-amber-500" aria-label={`${n} stars`}>
+    <div className="flex gap-0.5 text-base text-[var(--brand-gold)]" aria-label={`${n} stars`}>
       {Array.from({ length: 5 }).map((_, i) => (
         <span key={i}>{i < n ? "★" : "☆"}</span>
       ))}
