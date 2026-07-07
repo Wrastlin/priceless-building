@@ -17,6 +17,7 @@
   --brand-navy: oklch(0.3 0.058 255);
   --brand-navy-deep: oklch(0.235 0.05 257);   /* hero/footer navy */
   --brand-gold: oklch(0.72 0.115 78);
+  --brand-gold-2: oklch(0.8 0.11 82);         /* brighter brass, cursor hover */
   --brand-gold-deep: oklch(0.58 0.11 72);     /* AA gold for text on cream */
   --cream: oklch(0.96 0.01 85);               /* text on navy */
   --sale-red: oklch(0.5 0.19 28);             /* savings only */
@@ -153,6 +154,86 @@ img, video, iframe {
     transform: none;
     transition: none;
   }
+}
+
+/* ---------------------------------------------------------------------------
+   Motion engine primitives (see components/smooth-scroll.tsx). GSAP owns
+   the animation; these classes only set up the clipping frame and the
+   custom cursor. All of it no-ops under reduced motion.
+   --------------------------------------------------------------------------- */
+
+/* Masked headline reveal: the heading becomes a clip window, its wrapped
+   .rise-inner rises up out of it. Padding + matching negative margin keep
+   descenders (g, y, p) from being shaved without shifting layout. */
+.rise-mask {
+  overflow: hidden;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+.rise-inner {
+  display: block;
+  will-change: transform;
+}
+
+/* Clip-path image unveil. GSAP animates the inset; this just declares the
+   will-change and keeps the media from peeking before it fires. */
+[data-clip] {
+  overflow: hidden;
+}
+[data-clip] img,
+[data-clip] video {
+  will-change: transform;
+}
+
+/* Lerped custom cursor. A small brass dot that grows over interactive
+   elements. Difference blend keeps it visible on both cream and navy. */
+.site-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--brand-gold);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: width 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.28s cubic-bezier(0.22, 1, 0.36, 1), background 0.28s, opacity 0.28s;
+  will-change: transform;
+}
+.site-cursor.is-hover {
+  width: 54px;
+  height: 54px;
+  background: var(--brand-gold-2, #e5be6f);
+}
+/* Hide the native pointer only where the custom one runs. */
+@media (pointer: fine) {
+  body:has(.site-cursor) { cursor: none; }
+  body:has(.site-cursor) a,
+  body:has(.site-cursor) button { cursor: none; }
+}
+
+/* Site header motion: solidify + hide-on-scroll-down. The header already
+   carries its Tailwind background; these add the transition and states. */
+[data-site-header] {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.4s ease, box-shadow 0.4s ease;
+  will-change: transform;
+}
+[data-site-header].is-solid {
+  box-shadow: 0 1px 0 var(--border), 0 10px 30px -22px oklch(0.3 0.05 255 / 0.5);
+}
+[data-site-header].is-hidden {
+  transform: translateY(-108%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise-inner { transform: none !important; }
+  [data-clip] { clip-path: none !important; }
+  [data-clip] img, [data-clip] video { transform: none !important; }
+  .site-cursor { display: none; }
+  [data-site-header].is-hidden { transform: none; }
 }
 
 /* Besley, a Clarendon-model slab serif: classic lumber-yard sign

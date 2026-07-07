@@ -64,7 +64,8 @@ export function SectionHead({
         </div>
       ) : null}
       <h2
-        className={`font-display mt-3 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05] ${headlineColor}`}
+        data-rise
+        className={`font-display mt-3 text-[clamp(2.35rem,1.5rem+4vw,4.25rem)] leading-[1.03] ${headlineColor}`}
       >
         {headline}
       </h2>

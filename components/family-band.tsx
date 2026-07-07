@@ -78,7 +78,7 @@ function FamilyCard({ card }: { card: FamilyCardSpec }) {
       data-reveal
       className="group flex flex-col overflow-hidden rounded-[14px] border border-white/10 bg-white transition hover:border-white/30"
     >
-      <div className="relative aspect-[16/10] w-full overflow-hidden bg-[var(--muted)]">
+      <div data-clip className="relative aspect-[16/10] w-full overflow-hidden bg-[var(--muted)]">
         <Image
           src={card.hero.src}
           alt={card.hero.alt}
