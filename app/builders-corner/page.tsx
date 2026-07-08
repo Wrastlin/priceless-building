@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { SiteFooter } from "@/components/site-footer";
+import { BuildersFooter } from "@/components/builders/builders-footer";
 import { InquiryForm } from "@/components/inquiry-form";
 import { SectionHead } from "@/components/section-head";
 import { HeroPhotoFader, type HeroPhotoSource } from "@/components/hero-photo-fader";
@@ -57,9 +57,9 @@ const HERO_DECK: HeroPhotoSource[] = [
 // sites merchandise their portfolio.
 const WORK = [
   { label: "Kitchens", img: "/real-photos/business/white-kitchen-marble-island.jpg", alt: "A bright white custom kitchen with a marble-topped island." },
-  { label: "Baths", img: "/real-photos/business/dark-double-vanity-bathroom-install.jpg", alt: "A custom double-vanity bath with framed mirrors and quartz tops." },
-  { label: "Islands & millwork", img: "/real-photos/business/kitchen-island-wood-cabinets-range.jpg", alt: "A large wood-cabinet island beneath pendant lighting." },
-  { label: "Built-ins", img: "/real-photos/business/wood-cabinets-dark-counters.jpg", alt: "Custom wood cabinetry with dark stone counters." },
+  { label: "Baths & vanities", img: "/real-photos/business/dark-double-vanity-bathroom-install.jpg", alt: "A custom double-vanity bath with framed mirrors and quartz tops." },
+  { label: "Islands & seating", img: "/real-photos/business/white-kitchen-wood-island.jpg", alt: "A white kitchen anchored by a warm wood island with seating." },
+  { label: "Cabinetry & finishes", img: "/real-photos/business/white-shaker-kitchen-cabinets.jpg", alt: "A classic white-shaker kitchen with custom cabinetry and finishes." },
 ];
 
 const STEPS = [
@@ -159,6 +159,13 @@ export default function BuildersCornerPage() {
             >
               Price-Less ↗
             </Link>
+            {/* Mobile: a single tappable call action stands in for the nav. */}
+            <a
+              href={`tel:${ADDRESS.phone.replace(/[^0-9+]/g, "")}`}
+              className="text-sm font-semibold text-white transition hover:text-white/80 md:hidden"
+            >
+              Call
+            </a>
           </div>
         </nav>
 
@@ -166,21 +173,23 @@ export default function BuildersCornerPage() {
           <div className="absolute inset-0">
             <HeroPhotoFader photos={HERO_DECK} intervalMs={6000} />
           </div>
+          {/* Contrast scrim. A base darken plus a stronger centre band and
+              vignette so the serif holds over any bright kitchen behind it. */}
           <div
             aria-hidden
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(16,28,48,0.55) 0%, rgba(16,28,48,0.16) 30%, rgba(16,28,48,0.22) 60%, rgba(16,28,48,0.74) 100%)",
+                "radial-gradient(120% 90% at 50% 46%, rgba(14,25,44,0.28) 0%, rgba(14,25,44,0.5) 62%, rgba(14,25,44,0.66) 100%), linear-gradient(180deg, rgba(14,25,44,0.6) 0%, rgba(14,25,44,0.34) 34%, rgba(14,25,44,0.4) 62%, rgba(14,25,44,0.78) 100%)",
             }}
           />
           <div className="relative z-10 mx-auto flex h-full max-w-4xl flex-col items-center justify-center px-6 text-center text-white">
             <div className="eyebrow eyebrow-on-dark">Custom cabinetry &middot; Wausau, since 1983</div>
-            <h1 className="font-couture mt-6 text-[clamp(2.7rem,1.35rem+5vw,5.5rem)] leading-[1.05]">
-              Custom kitchens, built by hand in Wausau.
+            <h1 className="font-couture mt-6 text-[clamp(2.7rem,1.35rem+5vw,5.5rem)] leading-[1.05] [text-shadow:0_1px_30px_rgba(10,18,32,0.35)]">
+              Kitchens, baths, and built-ins, made by hand in Wausau.
             </h1>
-            <p className="mx-auto mt-7 max-w-[46ch] text-lg font-light leading-[1.7] text-white/85 md:text-xl">
-              Designed with you in the showroom, built in our own shop, and installed by the 4 Squared crew.
+            <p className="mx-auto mt-7 max-w-[46ch] text-lg font-light leading-[1.7] text-white/90 md:text-xl">
+              Custom cabinetry for the whole home. Designed with you in the showroom, built in our own shop, and installed by the 4 Squared crew.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-6">
               <Link
@@ -203,12 +212,17 @@ export default function BuildersCornerPage() {
         </section>
       </div>
 
-      {/* Trust strip on white. Calm, hairline-separated, no side stripes. */}
+      {/* Intro statement. A quiet editorial line the way the reference
+          remodelers open, trust carried in prose, not metric tiles. */}
       <section className="bg-[var(--background)]">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 py-12 sm:grid-cols-3 md:gap-14 md:px-10 md:py-16">
-          <BCStat n="Since 1983" label="Designing and building cabinetry in Wausau." />
-          <BCStat n="4.8★" label="On Google across all three brands." />
-          <BCStat n="Mon–Sat" label="Showroom open six days a week." />
+        <div className="mx-auto max-w-4xl px-6 py-28 text-center md:py-36">
+          <p className="font-couture text-[clamp(1.65rem,1.05rem+2.4vw,2.9rem)] leading-[1.34] text-[var(--brand-navy)]">
+            For four decades we&rsquo;ve designed and built custom cabinetry for
+            central Wisconsin homes, one room, one family at a time.
+          </p>
+          <p className="mx-auto mt-9 max-w-xl text-[1.05rem] leading-relaxed text-[var(--muted-foreground)] text-balance">
+            Rated 4.8 on Google across all three brands. Visit the showroom Monday through Saturday, or have us come to you.
+          </p>
         </div>
       </section>
 
@@ -244,10 +258,10 @@ export default function BuildersCornerPage() {
                   <div
                     aria-hidden
                     className="absolute inset-0"
-                    style={{ background: "linear-gradient(180deg, rgba(16,28,48,0) 45%, rgba(16,28,48,0.6) 100%)" }}
+                    style={{ background: "linear-gradient(180deg, rgba(14,25,44,0) 34%, rgba(14,25,44,0.35) 68%, rgba(14,25,44,0.8) 100%)" }}
                   />
                   <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-4 p-7 md:p-9">
-                    <span className="font-couture text-2xl text-white md:text-[2rem]">{w.label}</span>
+                    <span className="font-couture text-2xl text-white md:text-[2rem] [text-shadow:0_1px_16px_rgba(10,18,32,0.5)]">{w.label}</span>
                     <span className="text-xs font-semibold uppercase tracking-[0.16em] text-white/85 opacity-0 transition group-hover:opacity-100">
                       View →
                     </span>
@@ -259,35 +273,33 @@ export default function BuildersCornerPage() {
         </div>
       </section>
 
-      {/* PROCESS. Near-white band, elegant numbered steps. */}
-      <section id="process" className="scroll-mt-8 border-t border-[var(--border)] bg-[var(--surface)]">
+      {/* PROCESS. Clean typographic sequence, no imagery. Big elegant
+          numerals over a hairline per step reads far more premium than
+          rough in-progress shop photos would. */}
+      <section id="process" className="scroll-mt-8 border-t border-[var(--border)] bg-[var(--background)]">
         <div className="mx-auto max-w-7xl px-6 py-24 md:px-10 md:py-32">
           <SectionHead
             font="couture"
             kicker="How it works"
             headline="Four steps from idea to install."
+            sub="One shop, one crew, one point of contact from the first sketch to the final walkthrough."
           />
 
-          <ol className="mt-14 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+          <ol className="mt-16 grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map((s, i) => (
-              <li key={s.n} data-reveal data-reveal-delay={(i * 0.06).toFixed(2)}>
-                <div className="relative mb-6 aspect-[4/3] overflow-hidden rounded-[16px]">
-                  <Image
-                    src={s.img}
-                    alt={s.t}
-                    fill
-                    className="object-cover object-top"
-                    sizes="(min-width:768px) 25vw, 100vw"
-                    quality={74}
-                  />
-                </div>
-                <div className="font-couture text-3xl leading-none text-[var(--brand-gold-deep)]">
+              <li
+                key={s.n}
+                data-reveal
+                data-reveal-delay={(i * 0.06).toFixed(2)}
+                className="border-t border-[var(--border)] pt-7"
+              >
+                <div className="font-couture text-[2.75rem] leading-none text-[var(--brand-gold-deep)]">
                   {s.n}
                 </div>
-                <h3 className="font-couture mt-3 text-xl leading-snug text-[var(--brand-navy)] md:text-2xl">
+                <h3 className="font-couture mt-6 text-2xl leading-snug text-[var(--brand-navy)]">
                   {s.t}
                 </h3>
-                <p className="mt-2 text-[0.95rem] leading-[1.6] text-[var(--muted-foreground)]">
+                <p className="mt-3 text-[0.95rem] leading-[1.65] text-[var(--muted-foreground)]">
                   {s.b}
                 </p>
               </li>
@@ -303,22 +315,7 @@ export default function BuildersCornerPage() {
         </div>
       </section>
 
-      <SiteFooter brand="builders" />
+      <BuildersFooter />
     </>
-  );
-}
-
-/** Calm trust stat: elegant Marcellus numeral over a small label, no
- *  side-stripe (the layout spacing does the separating). */
-function BCStat({ n, label }: { n: string; label: string }) {
-  return (
-    <div>
-      <div className="font-couture text-[2.75rem] leading-none text-[var(--brand-navy)] md:text-[3.25rem]">
-        {n}
-      </div>
-      <div className="mt-3 max-w-[26ch] text-sm leading-snug text-[var(--muted-foreground)] md:text-base">
-        {label}
-      </div>
-    </div>
   );
 }

@@ -109,8 +109,9 @@ export function InquiryForm({ brand, heading, intro, submitLabel }: Props) {
   // boxes, and a real solid submit button so older customers always
   // see a tappable target.
   const accent = isBuilders ? "text-[var(--brand-priceless)]" : "text-emerald-400";
-  const headingClass =
-    "font-display text-5xl leading-[1.02] text-[var(--foreground)] md:text-6xl";
+  const headingClass = isBuilders
+    ? "font-couture text-5xl leading-[1.06] text-[var(--brand-navy)] md:text-6xl"
+    : "font-display text-5xl leading-[1.02] text-[var(--foreground)] md:text-6xl";
   const introClass =
     "mt-6 max-w-xl text-base leading-relaxed text-[var(--foreground)] md:text-lg";
   const labelBase =
