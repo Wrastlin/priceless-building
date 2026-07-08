@@ -62,6 +62,24 @@ const WORK = [
   { label: "Cabinetry & finishes", img: "/real-photos/business/white-shaker-kitchen-cabinets.jpg", alt: "A classic white-shaker kitchen with custom cabinetry and finishes." },
 ];
 
+// Story assets. A real before/after, one cinematic full-bleed moment, and
+// an authentic handwritten thank-you note that even names Josh and Ty.
+const BEFORE_AFTER = {
+  img: "/real-photos/business/kitchen-remodel-before-after.jpg",
+  alt: "Before and after of a Wausau kitchen: dated oak cabinets replaced with white custom cabinetry and stone counters, same footprint.",
+};
+const FEATURE_BAND = {
+  img: "/real-photos/business/rustic-wood-kitchen-island.jpg",
+  alt: "A warm rustic kitchen with custom wood cabinetry, a large island, and pendant lighting, built by Builder's Corner.",
+};
+const TESTIMONIAL = {
+  quote:
+    "Thank you so much for our amazing new kitchen. We couldn't be happier. Your attention to detail and craftsmanship are top notch.",
+  who: "Rosalie & Noah",
+  note: "/real-photos/business/customer-thank-you-note.jpg",
+  noteAlt: "A handwritten thank-you note to Josh and Ty at Builder's Corner for a new kitchen.",
+};
+
 const STEPS = [
   { n: "01", t: "Free consultation", b: "Showroom visit or we come to your home. Bring photos or just an idea.", img: "/real-photos/business/staff-member-showroom-display.webp" },
   { n: "02", t: "Design with you", b: "We measure, draw your room, and walk you through real samples.", img: "/real-photos/business/light-wood-cabinet-display.jpg" },
@@ -273,6 +291,62 @@ export default function BuildersCornerPage() {
         </div>
       </section>
 
+      {/* BEFORE / AFTER. The transformation story, big and side-by-side. */}
+      <section className="border-t border-[var(--border)] bg-[var(--surface)]">
+        <div className="mx-auto max-w-7xl px-6 py-24 md:px-10 md:py-32">
+          <div className="grid gap-x-16 gap-y-10 md:grid-cols-12 md:items-center">
+            <div className="md:col-span-5" data-reveal>
+              <div className="eyebrow">The transformation</div>
+              <h2 className="font-couture mt-4 text-[clamp(2rem,1.3rem+2.8vw,3.4rem)] leading-[1.12] text-[var(--brand-navy)]">
+                From dated to timeless, without moving a wall.
+              </h2>
+              <p className="mt-6 max-w-md text-[1.05rem] leading-relaxed text-[var(--muted-foreground)]">
+                Same footprint, a brand-new kitchen. New custom cabinetry, stone counters, and lighting, drawn and built to fit the room you already have.
+              </p>
+            </div>
+            <figure className="md:col-span-7" data-reveal data-reveal-delay="0.08">
+              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[3px] bg-[var(--muted)] shadow-[0_30px_60px_-34px_rgba(20,40,68,0.4)]">
+                <Image
+                  src={BEFORE_AFTER.img}
+                  alt={BEFORE_AFTER.alt}
+                  fill
+                  sizes="(min-width:768px) 58vw, 100vw"
+                  quality={85}
+                  className="object-cover"
+                />
+              </div>
+              <figcaption className="mt-4 text-sm text-[var(--muted-foreground)]">
+                A recent Wausau remodel, before and after.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      {/* CINEMATIC BAND. One large full-bleed moment to breathe. */}
+      <section className="relative">
+        <div className="relative h-[62vh] min-h-[400px] w-full overflow-hidden bg-[var(--brand-navy-deep)]">
+          <Image
+            src={FEATURE_BAND.img}
+            alt={FEATURE_BAND.alt}
+            fill
+            sizes="100vw"
+            quality={85}
+            className="object-cover"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{ background: "linear-gradient(90deg, rgba(14,25,44,0.72) 0%, rgba(14,25,44,0.4) 45%, rgba(14,25,44,0.12) 100%)" }}
+          />
+          <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-6 md:px-10">
+            <p className="font-couture max-w-[17ch] text-[clamp(1.9rem,1.2rem+2.6vw,3.25rem)] leading-[1.16] text-white [text-shadow:0_1px_24px_rgba(10,18,32,0.4)]">
+              Drawn in the showroom, built in our shop, installed by our crew.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* PROCESS. Clean typographic sequence, no imagery. Big elegant
           numerals over a hairline per step reads far more premium than
           rough in-progress shop photos would. */}
@@ -305,6 +379,36 @@ export default function BuildersCornerPage() {
               </li>
             ))}
           </ol>
+        </div>
+      </section>
+
+      {/* TESTIMONIAL. A real handwritten note, alongside the words, so it
+          reads as genuine rather than a stock pull-quote. */}
+      <section className="border-t border-[var(--border)] bg-[var(--surface)]">
+        <div className="mx-auto max-w-7xl px-6 py-24 md:px-10 md:py-32">
+          <div className="grid gap-x-16 gap-y-12 md:grid-cols-12 md:items-center">
+            <div className="md:col-span-7" data-reveal>
+              <div className="eyebrow">In their words</div>
+              <blockquote className="font-couture mt-6 text-[clamp(1.7rem,1.1rem+2.5vw,2.9rem)] leading-[1.3] text-[var(--brand-navy)]">
+                &ldquo;{TESTIMONIAL.quote}&rdquo;
+              </blockquote>
+              <div className="mt-8 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--muted-foreground)]">
+                {TESTIMONIAL.who}, Wausau
+              </div>
+            </div>
+            <figure className="md:col-span-5" data-reveal data-reveal-delay="0.08">
+              <div className="relative aspect-[4/3] w-full -rotate-1 overflow-hidden rounded-[3px] bg-white shadow-[0_24px_50px_-30px_rgba(20,40,68,0.5)] ring-1 ring-[var(--border)]">
+                <Image
+                  src={TESTIMONIAL.note}
+                  alt={TESTIMONIAL.noteAlt}
+                  fill
+                  sizes="(min-width:768px) 40vw, 100vw"
+                  quality={85}
+                  className="object-cover"
+                />
+              </div>
+            </figure>
+          </div>
         </div>
       </section>
 
