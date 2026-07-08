@@ -25,6 +25,7 @@ export function SectionHead({
   align = "left",
   bordered = false,
   invert = false,
+  font = "display",
   className = "",
 }: {
   kicker?: string;
@@ -35,6 +36,9 @@ export function SectionHead({
   align?: "left" | "center";
   bordered?: boolean;
   invert?: boolean;
+  /** "display" = Besley slab (Price-Less). "couture" = Marcellus, the
+   *  elegant Builder's Corner voice. */
+  font?: "display" | "couture";
   className?: string;
 }) {
   // Kicker: the shared .eyebrow treatment. Non-default accents keep
@@ -64,7 +68,11 @@ export function SectionHead({
         </div>
       ) : null}
       <h2
-        className={`font-display mt-3 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05] ${headlineColor}`}
+        className={
+          font === "couture"
+            ? `font-couture mt-4 text-[clamp(2.1rem,1.4rem+3.2vw,3.6rem)] leading-[1.12] ${headlineColor}`
+            : `font-display mt-3 text-[clamp(2rem,1.4rem+3vw,3.5rem)] leading-[1.05] ${headlineColor}`
+        }
       >
         {headline}
       </h2>

@@ -163,54 +163,54 @@ export default function BuildersCornerPage() {
       />
       <SiteHeader brand="builders" />
 
-      {/* HERO. Deep navy anchor band, serif display + sans typography,
-          brass gold accents. */}
-      <section className="relative bg-[var(--brand-navy-deep)] text-white">
-        <div className="mx-auto max-w-7xl px-6 pt-14 md:pt-20" data-reveal>
-          <div className="flex items-baseline justify-between gap-6 border-b border-white/10 pb-6">
+      {/* HERO. Light and airy, the Sicora lane: warm stone ground, elegant
+          Marcellus display, one large calm photograph. Navy is ink and
+          accent, not a dark band. */}
+      <section className="bg-[var(--stone)]">
+        <div className="mx-auto max-w-7xl px-6 pt-10 md:pt-14">
+          <div className="flex items-center justify-between gap-6 border-b border-[var(--stone-deep)] pb-6">
             <BrandLogo brand="builders" size="lg" />
             <a
               href={`tel:${ADDRESS.phone.replace(/[^0-9+]/g, "")}`}
-              className="hidden text-sm font-semibold text-white/85 underline decoration-[var(--brand-gold)] decoration-2 underline-offset-[6px] md:inline md:text-base"
+              className="hidden text-sm font-semibold text-[var(--brand-navy)] underline decoration-[var(--brand-gold)] decoration-2 underline-offset-[6px] md:inline md:text-base"
             >
               {ADDRESS.phone}
             </a>
           </div>
 
-          <div className="mt-10 grid gap-x-12 gap-y-10 md:mt-14 md:grid-cols-12">
-            <div className="md:col-span-7">
-              <div className="eyebrow eyebrow-on-dark">
-                The premium side of Price-Less
-              </div>
-              <h1 className="font-display mt-4 text-[clamp(2.5rem,1.4rem+4vw,4.5rem)] leading-[1.05] text-white">
-                Premium custom cabinetry, designed and built in Wausau.
+          <div className="grid items-center gap-x-14 gap-y-10 py-14 md:grid-cols-12 md:py-20">
+            <div className="md:col-span-6" data-reveal>
+              <div className="eyebrow">Custom cabinetry &middot; Wausau, since 1983</div>
+              <h1 className="font-couture mt-5 text-[clamp(2.6rem,1.5rem+4.4vw,5rem)] leading-[1.08] text-[var(--brand-navy)]">
+                Designed with you, built in our own shop.
               </h1>
-              <p className="mt-7 max-w-xl text-lg leading-[1.7] text-white/90 md:text-xl">
-                Thinking about a kitchen, a bath, or a built-in? We design it with you in the showroom, build it in our own shop, and the 4 Squared crew installs it. Big project or small, this is where to start.
+              <p className="mt-7 max-w-xl text-lg leading-[1.75] text-[var(--muted-foreground)]">
+                Kitchens, baths, and built-ins for central Wisconsin homes. We
+                draw it with you in the showroom, build it here in Wausau, and
+                the 4 Squared crew installs it. Big project or small, this is
+                where to start.
               </p>
               <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
-                <Link
-                  href="#consult"
-                  className="btn btn-priceless"
-                >
+                <Link href="#consult" className="btn btn-builders">
                   Book a free consultation
                 </Link>
                 <a
                   href={`tel:${ADDRESS.phone.replace(/[^0-9+]/g, "")}`}
-                  className="text-base font-semibold text-white/85 underline decoration-white/30 decoration-2 underline-offset-[6px] transition hover:text-white md:text-lg"
+                  className="text-base font-semibold text-[var(--brand-navy)] underline decoration-[var(--brand-gold)]/50 decoration-2 underline-offset-[6px] transition hover:decoration-[var(--brand-gold)]"
                 >
                   Or call {ADDRESS.phone}
                 </a>
               </div>
             </div>
-            <div className="md:col-span-5">
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[14px] bg-[var(--muted)] ring-1 ring-white/10">
+            <div className="md:col-span-6" data-reveal data-reveal-delay="0.1">
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[18px] bg-[var(--muted)] shadow-[0_30px_60px_-30px_rgba(20,40,68,0.45)]">
                 <HeroPhotoFader photos={HERO_DECK} intervalMs={5500} />
               </div>
             </div>
           </div>
 
-          <div className="mt-12 grid grid-cols-1 gap-6 border-t border-white/10 pt-8 pb-16 md:grid-cols-3 md:gap-10 md:pb-20">
+          {/* Trust row. Calm, hairline-separated, no side stripes. */}
+          <div className="grid grid-cols-1 gap-8 border-t border-[var(--stone-deep)] py-10 sm:grid-cols-3 md:gap-12">
             <BCStat n="1983" label="Designing and building cabinetry in Wausau." />
             <BCStat n="4.8★" label="On Google across all three brands." />
             <BCStat n="Mon–Sat" label="Showroom open six days a week." />
@@ -218,79 +218,71 @@ export default function BuildersCornerPage() {
         </div>
       </section>
 
-      {/* WHAT WE MAKE. Service cards. */}
-      <section className="bg-[var(--muted)]">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+      {/* WHAT WE MAKE. Editorial, image-forward. Photos carry the section;
+          minimal chrome, caption below. */}
+      <section className="bg-[var(--background)]">
+        <div className="mx-auto max-w-7xl px-6 py-20 md:py-28">
           <SectionHead
-            headline={<>What we make.</>}
-            sub="Custom cabinetry for kitchens, baths, and the rest of the house. Designed and built here, installed by the 4 Squared crew."
+            font="couture"
+            kicker="What we make"
+            headline="Cabinetry for the whole house."
+            sub="Designed and built here in Wausau, installed by the 4 Squared crew."
           />
 
-          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="mt-14 grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-3">
             {SERVICES.map((c, i) => (
-              <article
-                key={c.t}
-                data-reveal
-                data-reveal-delay={(i * 0.06).toFixed(2)}
-                className="group overflow-hidden rounded-[14px] border border-[var(--border)] bg-white transition hover:border-[var(--brand-navy)]"
-              >
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--muted)]">
+              <article key={c.t} data-reveal data-reveal-delay={(i * 0.08).toFixed(2)} className="group">
+                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[16px] bg-[var(--muted)]">
                   <Image
                     src={c.img}
                     alt={c.alt}
                     fill
                     sizes="(min-width:768px) 33vw, 100vw"
-                    className="object-cover transition duration-700 group-hover:scale-[1.03]"
+                    className="object-cover transition duration-[900ms] ease-out group-hover:scale-[1.04]"
                     quality={80}
                   />
                 </div>
-                <div className="p-5">
-                  <h3 className="font-display text-xl leading-snug md:text-2xl">
-                    {c.t}
-                  </h3>
-                  <p className="mt-2.5 text-base leading-relaxed text-[var(--foreground)]">
-                    {c.b}
-                  </p>
-                </div>
+                <h3 className="font-couture mt-6 text-2xl leading-snug text-[var(--brand-navy)] md:text-[1.7rem]">
+                  {c.t}
+                </h3>
+                <p className="mt-2.5 text-base leading-relaxed text-[var(--muted-foreground)]">
+                  {c.b}
+                </p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* PROCESS. Four compact steps on a deep navy anchor band. */}
-      <section className="bg-[var(--brand-navy-deep)] text-white">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+      {/* PROCESS. Light stone band, elegant numbered steps. */}
+      <section className="bg-[var(--stone)]">
+        <div className="mx-auto max-w-7xl px-6 py-20 md:py-28">
           <SectionHead
-            invert
+            font="couture"
+            kicker="How it works"
             headline="Four steps from idea to install."
           />
 
-          <ol className="mt-10 grid gap-px bg-white/10 md:grid-cols-4">
+          <ol className="mt-14 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map((s, i) => (
-              <li
-                key={s.n}
-                data-reveal
-                data-reveal-delay={(i * 0.05).toFixed(2)}
-                className="bg-[var(--brand-navy-deep)] p-6"
-              >
-                <div className="relative mb-5 aspect-[4/3] overflow-hidden rounded-[14px]">
+              <li key={s.n} data-reveal data-reveal-delay={(i * 0.06).toFixed(2)}>
+                <div className="relative mb-6 aspect-[4/3] overflow-hidden rounded-[16px]">
                   <Image
                     src={s.img}
                     alt={s.t}
                     fill
                     className="object-cover object-top"
                     sizes="(min-width:768px) 25vw, 100vw"
-                    quality={72}
+                    quality={74}
                   />
                 </div>
-                <div className="font-display text-3xl leading-none text-[var(--brand-gold)]">
+                <div className="font-couture text-3xl leading-none text-[var(--brand-gold-deep)]">
                   {s.n}
                 </div>
-                <h3 className="font-display mt-3 text-xl leading-snug text-white md:text-2xl">
+                <h3 className="font-couture mt-3 text-xl leading-snug text-[var(--brand-navy)] md:text-2xl">
                   {s.t}
                 </h3>
-                <p className="mt-2 text-sm leading-[1.55] text-white/85">
+                <p className="mt-2 text-[0.95rem] leading-[1.6] text-[var(--muted-foreground)]">
                   {s.b}
                 </p>
               </li>
@@ -299,19 +291,18 @@ export default function BuildersCornerPage() {
         </div>
       </section>
 
-      {/* SHOWROOM GRID. Magazine-style asymmetric grid of recent work. */}
+      {/* RECENT ROOMS. Magazine-style asymmetric gallery. */}
       <section className="bg-[var(--background)]">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+        <div className="mx-auto max-w-7xl px-6 py-20 md:py-28">
           <SectionHead
-            headline="Recent rooms."
-            sub="A few directions to start from. Every photo is a real install."
+            font="couture"
+            kicker="Recent rooms"
+            headline="A few directions to start from."
+            sub="Every photo is a real install by our shop and crew."
           />
 
-          <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-6 sm:gap-4">
+          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-6 sm:gap-5">
             {SHOWROOM.map((p, i) => {
-              // Asymmetric magazine layout. First row 3+3, middle rows
-              // 2+2+2, last row 3+3. Reads as a gallery rather than a
-              // uniform grid.
               const span =
                 i === 0 || i === 1
                   ? "sm:col-span-3"
@@ -325,21 +316,21 @@ export default function BuildersCornerPage() {
                   data-reveal-delay={((i % 4) * 0.05).toFixed(2)}
                   className={`${span} group`}
                 >
-                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[14px] bg-[var(--muted)]">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[16px] bg-[var(--muted)]">
                     <Image
                       src={p.src}
                       alt={p.caption}
                       fill
                       sizes="(min-width:1024px) 33vw, 50vw"
-                      className="object-cover transition duration-[900ms] group-hover:scale-[1.04]"
+                      className="object-cover transition duration-[900ms] ease-out group-hover:scale-[1.04]"
                       quality={78}
                       loading="lazy"
                     />
-                    <span className="absolute left-3 top-3 rounded-full bg-white/95 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--brand-navy)] shadow-sm">
+                    <span className="absolute left-3 top-3 rounded-full bg-[var(--background)]/95 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--brand-navy)] shadow-sm">
                       {p.tag}
                     </span>
                   </div>
-                  <figcaption className="mt-3 text-base text-[var(--foreground)] md:text-lg">
+                  <figcaption className="mt-3.5 text-base text-[var(--muted-foreground)]">
                     {p.caption}
                   </figcaption>
                 </figure>
@@ -350,8 +341,8 @@ export default function BuildersCornerPage() {
       </section>
 
       {/* CONSULT INQUIRY. Lead capture, anchored for the hero CTA. */}
-      <section id="consult" className="scroll-mt-24 bg-surface">
-        <div className="mx-auto max-w-4xl px-6 py-16 md:py-20" data-reveal>
+      <section id="consult" className="scroll-mt-24 bg-[var(--stone)]">
+        <div className="mx-auto max-w-4xl px-6 py-20 md:py-28" data-reveal>
           <InquiryForm brand="builders" />
         </div>
       </section>
@@ -361,13 +352,15 @@ export default function BuildersCornerPage() {
   );
 }
 
+/** Calm trust stat: elegant Marcellus numeral over a small label, no
+ *  side-stripe (the layout spacing does the separating). */
 function BCStat({ n, label }: { n: string; label: string }) {
   return (
-    <div className="border-l border-white/15 pl-5">
-      <div className="font-display text-4xl leading-none text-white md:text-5xl">
+    <div>
+      <div className="font-couture text-[2.75rem] leading-none text-[var(--brand-navy)] md:text-[3.25rem]">
         {n}
       </div>
-      <div className="mt-3 max-w-[24ch] text-sm leading-snug text-white/85 md:text-base">
+      <div className="mt-3 max-w-[26ch] text-sm leading-snug text-[var(--muted-foreground)] md:text-base">
         {label}
       </div>
     </div>

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Besley, Hanken_Grotesk, JetBrains_Mono, Fraunces } from "next/font/google";
+import { Besley, Hanken_Grotesk, JetBrains_Mono, Marcellus } from "next/font/google";
 import { Toaster } from "sonner";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { AuthErrorNotice } from "@/components/auth-error-notice";
@@ -29,11 +29,14 @@ const mono = JetBrains_Mono({
   display: "swap",
   preload: false,
 });
-const couture = Fraunces({
+// Marcellus: an elegant humanist titling serif. Builder's Corner's display
+// voice, echoing Sicora's refined-remodeler feel without copying it. Kept in
+// the --font-couture slot so the .font-couture class (Builder's Corner
+// headlines) picks it up site-wide.
+const couture = Marcellus({
+  weight: "400",
   subsets: ["latin"],
-  style: ["normal", "italic"],
   variable: "--font-couture",
-  axes: ["opsz", "SOFT"],
   display: "swap",
   preload: false,
 });

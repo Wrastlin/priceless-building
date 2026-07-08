@@ -19,6 +19,8 @@
   --brand-gold: oklch(0.72 0.115 78);
   --brand-gold-deep: oklch(0.58 0.11 72);     /* AA gold for text on cream */
   --cream: oklch(0.96 0.01 85);               /* text on navy */
+  --stone: oklch(0.93 0.014 78);              /* warm stone band (Builder's Corner) */
+  --stone-deep: oklch(0.86 0.02 76);          /* stone hairline / deeper band */
   --sale-red: oklch(0.5 0.19 28);             /* savings only */
   /* Legacy names, retargeted so every existing component inherits the
      new system: "priceless" is now the navy brand primary. */
@@ -85,6 +87,8 @@
   --color-gold: var(--brand-gold);
   --color-gold-deep: var(--brand-gold-deep);
   --color-cream: var(--cream);
+  --color-stone: var(--stone);
+  --color-stone-deep: var(--stone-deep);
   --color-sale: var(--sale-red);
 
   /* Tell Tailwind v4 to use the Utopia scale for every text-* utility.
@@ -166,16 +170,15 @@ img, video, iframe {
 }
 .font-serif { font-family: var(--font-display); }
 .font-mono { font-family: var(--font-mono); }
-/* Fraunces. Builders Corner's voice. Default weight 400 (not 300) so
-   it reads warm and welcoming, not skeletal. Subtle letter-tracking and
-   slightly looser leading by default. Display use cases override with
-   text-{4xl..6xl} and tighten line-height inline. */
+/* Marcellus. Builder's Corner's display voice: an elegant humanist titling
+   serif, echoing the refined-remodeler feel of the scouted references
+   (Sicora) as our own. One weight, so hierarchy comes from size + generous
+   whitespace, not weight. A hair of positive tracking keeps it airy. */
 .font-couture {
   font-family: var(--font-couture);
   font-weight: 400;
-  font-variation-settings: "opsz" 24, "SOFT" 50;
-  letter-spacing: -0.005em;
-  line-height: 1.1;
+  letter-spacing: 0.005em;
+  line-height: 1.12;
 }
 
 /* Editorial detail: small caps + tracking for eyebrow labels. Borrowed
