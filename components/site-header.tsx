@@ -22,7 +22,7 @@ const PHONE_DISPLAY = "(715) 848-3855";
  */
 export function SiteHeader({ brand }: { brand: "priceless" | "builders" | "four-squared" }) {
   return (
-    <header data-site-header className="sticky top-0 z-40 border-b border-[var(--border)] bg-[var(--background)]/95 backdrop-blur-sm">
+    <header className="sticky top-0 z-40 border-b border-[var(--border)] bg-[var(--background)]/95 backdrop-blur-sm">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 md:gap-6 md:px-6">
         {/* Price-Less brand on the left, always. Home is always one
             click away from anywhere on the site. */}

@@ -77,17 +77,17 @@ export function HomeHero() {
             <span className="text-[var(--brand-gold)]">Family-run since 1978</span>
           </div>
 
-          <h1 className="font-display max-w-[15ch] text-[clamp(2.75rem,1.6rem+5.4vw,6rem)] leading-[1.02] text-white">
-            <span className="block" data-rise data-rise-delay="0.05">Wausau&rsquo;s one-stop shop</span>
-            <span className="block italic text-[var(--brand-gold)]" data-rise data-rise-delay="0.15">for the home you&rsquo;re building.</span>
+          <h1 className="font-display max-w-[16ch] text-[clamp(2.25rem,1.5rem+3.6vw,4.35rem)] leading-[1.08] text-white">
+            <span className="block">Wausau&rsquo;s one-stop shop</span>
+            <span className="block italic text-[var(--brand-gold)]">for the home you&rsquo;re building.</span>
           </h1>
 
-          <p className="mt-7 max-w-xl text-base text-white/85 md:text-lg" data-reveal data-reveal-delay="0.25">
+          <p className="mt-7 max-w-xl text-base text-white/85 md:text-lg">
             Discount and surplus materials, custom cabinetry, and a full install crew. Walk the warehouse, design with our team, install with our crew.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
-            <Link href="/shop" className="btn btn-priceless" data-magnetic="0.5">
+            <Link href="/shop" className="btn btn-priceless">
               Shop the inventory
             </Link>
             <Link
@@ -102,7 +102,7 @@ export function HomeHero() {
 
       {/* Mural figure. Anchored, with full press attribution. */}
       <figure className="border-t border-[var(--border)]">
-        <div data-clip className="relative w-full overflow-hidden bg-[var(--muted)]">
+        <div className="relative w-full overflow-hidden bg-[var(--muted)]">
           <Image
             src={MURAL_HERO}
             alt="Build Your Future community mural on the side of the Price-Less Building Center, painted by 50 Wausau volunteers in June 2023."
