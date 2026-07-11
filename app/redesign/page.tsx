@@ -68,6 +68,19 @@ const BEFORE_AFTER = [
 
 const BRANDS = ["Andersen", "Marvin", "JELD-WEN", "Masonite", "Pella", "Kohler", "Delta", "Schlage", "Kwikset", "Therma-Tru", "Cambria", "Blum"];
 
+// Condensed local-press strip. First links to the real WSAW mural story; the
+// other two are placeholders pending real article URLs from Aaron.
+const NEWS = [
+  { source: "WSAW NewsChannel 7", date: "June 2023", title: "A “Build Your Future” community mural comes to downtown Wausau.", url: "https://www.wsaw.com/2023/06/18/new-mural-coming-downtown-wausau/" },
+  { source: "Wausau Business News", date: "2019", title: "Josh Nickel takes the reins at Price-Less and Builders Corner.", url: "#" },
+  { source: "WSAW NewsChannel 7", date: "2025", title: "Community day and Easter event draws families to the storefront.", url: "#" },
+];
+
+// Recent social posts for the Facebook band.
+const FB_PHOTOS = [`${P}/paint-day-rainbow.webp`, `${P}/anniversary-6-year.webp`, `${P}/santa-at-storefront.webp`, `${P}/school-food-drive.webp`];
+const FB_URL = "https://www.facebook.com/pricelessbuildingcenter";
+const IG_URL = "https://www.instagram.com/pricelessbuildingcenter";
+
 const GALLERY = [
   `${B}/white-kitchen-wood-island.jpg`, `${B}/kohler-vessel-sink-gold-faucet.jpg`,
   `${B}/dark-double-vanity-bathroom-install.jpg`, `${B}/crystal-ceiling-fan-warehouse.jpg`,
@@ -247,6 +260,52 @@ export default function RedesignPreview() {
             {GALLERY.map((src, i) => (
               <div key={i} className={`relative overflow-hidden ${i === 0 ? "md:col-span-2 md:row-span-2 aspect-[16/10] md:aspect-auto" : "aspect-square"}`} style={{ background: "#e9e5df" }}>
                 <Image src={src} alt="" fill sizes="(max-width:768px) 45vw, 30vw" className="object-cover" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---- CONDENSED NEWS / PRESS ---- */}
+      <section className="mx-auto max-w-[1240px] px-8 py-24">
+        <div className="flex items-end justify-between gap-6">
+          <div>
+            <Eyebrow>In the local news</Eyebrow>
+            <H2 className="mt-4">Wausau keeps <span className="italic font-normal">talking.</span></H2>
+          </div>
+          <a href={FB_URL} target="_blank" rel="noreferrer" className="hidden shrink-0 text-[0.72rem] font-medium uppercase tracking-[0.18em] underline-offset-[6px] hover:underline sm:inline-block">All press ›</a>
+        </div>
+        <div className="mt-12 grid gap-10 md:grid-cols-3">
+          {NEWS.map((n) => (
+            <a key={n.title} href={n.url} target="_blank" rel="noreferrer" className="group block border-t pt-6" style={{ borderColor: INK }}>
+              <div className="flex items-baseline justify-between text-[0.7rem] font-medium uppercase tracking-[0.14em]" style={{ color: SOFT }}>
+                <span>{n.source}</span><span>{n.date}</span>
+              </div>
+              <h3 style={{ fontFamily: "var(--font-utopia)" }} className="mt-4 text-[1.25rem] font-semibold leading-[1.3] transition group-hover:opacity-70">{n.title}</h3>
+              <span className="mt-5 inline-block text-[0.7rem] font-medium uppercase tracking-[0.18em]" style={{ color: RUST }}>Read the story ›</span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      {/* ---- FACEBOOK ---- */}
+      <section style={{ background: CREAM }} className="border-t" >
+        <div className="mx-auto grid max-w-[1240px] items-center gap-14 px-8 py-24 md:grid-cols-2" style={{ borderColor: LINE }}>
+          <div>
+            <Eyebrow>Around the store lately</Eyebrow>
+            <H2 className="mt-4">Follow along on <span className="italic font-normal">Facebook.</span></H2>
+            <p className="mt-5 max-w-[46ch] text-[1rem] font-light leading-[1.75]" style={{ color: SOFT }}>
+              New stock, holiday hours, paint days, and community events — we post a few times a week. It&rsquo;s the most current look at what&rsquo;s on the floor between visits.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <a href={FB_URL} target="_blank" rel="noreferrer" className="border px-8 py-4 text-[0.72rem] font-medium uppercase tracking-[0.2em] text-[#1a1818] transition hover:bg-[#1a1818] hover:text-white" style={{ borderColor: INK }}>Follow on Facebook ›</a>
+              <a href={IG_URL} target="_blank" rel="noreferrer" className="text-[0.72rem] font-medium uppercase tracking-[0.2em] underline-offset-[6px] hover:underline">Instagram ›</a>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            {FB_PHOTOS.map((src, i) => (
+              <div key={i} className="relative aspect-square overflow-hidden" style={{ background: "#e4ddd0" }}>
+                <Image src={src} alt="A recent Price-Less Building Center Facebook post." fill sizes="(max-width:768px) 45vw, 22vw" className="object-cover" />
               </div>
             ))}
           </div>
