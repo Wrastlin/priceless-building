@@ -81,12 +81,12 @@ const WORK = [
 ];
 
 const GALLERY = [
-  "/real-photos/legacy/install-kitchen-walnut-island-windows.webp",
-  "/real-photos/legacy/install-kitchen-soapstone-island.webp",
-  "/real-photos/legacy/install-kitchen-white-open.webp",
+  "/real-photos/foursquared/kitchen-wood-island-black-pendants.jpg",
+  "/real-photos/foursquared/kitchen-counter-marble-detail.jpg",
+  "/real-photos/foursquared/kitchen-white-island-shiplap.jpg",
   "/real-photos/business/kitchen-island-wood-cabinets-range.jpg",
   "/real-photos/foursquared/kitchen-oak-mosaic-backsplash.jpg",
-  "/real-photos/legacy/install-bathroom-blue-tile-shower.webp",
+  "/real-photos/business/dark-double-vanity-bathroom-install.jpg",
 ];
 
 const STEPS = [
@@ -272,7 +272,7 @@ export default function BuildersCornerPage() {
               <SwipeCard key={w.label}>
                 <Link href={w.href} className="group relative block overflow-hidden">
                   <div className="relative aspect-[4/5] w-full bg-[var(--ink)]">
-                    <Image src={w.img} alt={w.alt} fill sizes="80vw" quality={80} className="object-cover" />
+                    <Image src={w.img} alt={w.alt} fill sizes="80vw" quality={90} className="object-cover" />
                     <div
                       aria-hidden
                       className="absolute inset-0"
@@ -296,11 +296,11 @@ export default function BuildersCornerPage() {
       <section className="relative">
         <div className="relative h-[52svh] min-h-[320px] w-full overflow-hidden md:h-[64svh]">
           <Image
-            src="/real-photos/legacy/install-kitchen-walnut-island-windows.webp"
-            alt="Bright finished kitchen with walnut island and large windows."
+            src="/real-photos/builders-corner-hero.jpg"
+            alt="Dark charcoal kitchen with marble island, built by Builders Corner."
             fill
             sizes="100vw"
-            quality={85}
+            quality={90}
             className="object-cover"
           />
           <div
@@ -374,7 +374,7 @@ export default function BuildersCornerPage() {
             {STEPS.map((s) => (
               <article key={s.n} className="flex flex-col">
                 <div className="relative aspect-[4/5] w-full overflow-hidden bg-[var(--taupe)]">
-                  <Image src={s.img} alt="" fill sizes="25vw" quality={80} className="object-cover" />
+                  <Image src={s.img} alt="" fill sizes="25vw" quality={90} className="object-cover" />
                 </div>
                 <p className="mt-4 text-[0.65rem] font-medium uppercase tracking-[0.18em] text-[var(--rust)]">
                   {s.n}
@@ -390,7 +390,7 @@ export default function BuildersCornerPage() {
               <SwipeCard key={s.n}>
                 <article>
                   <div className="relative aspect-[4/5] w-full overflow-hidden bg-[var(--taupe)]">
-                    <Image src={s.img} alt="" fill sizes="78vw" quality={80} className="object-cover" />
+                    <Image src={s.img} alt="" fill sizes="78vw" quality={90} className="object-cover" />
                   </div>
                   <p className="mt-3 text-[0.65rem] font-medium uppercase tracking-[0.18em] text-[var(--rust)]">
                     {s.n}
@@ -427,7 +427,7 @@ export default function BuildersCornerPage() {
                 alt=""
                 fill
                 sizes={i === 0 ? "(min-width:768px) 66vw, 100vw" : "(min-width:768px) 33vw, 50vw"}
-                quality={80}
+                quality={90}
                 className="object-cover"
               />
             </div>
@@ -454,7 +454,7 @@ export default function BuildersCornerPage() {
                 alt="Handwritten thank-you note to Builders Corner."
                 fill
                 sizes="(min-width:768px) 40vw, 100vw"
-                quality={80}
+                quality={90}
                 className="object-cover"
               />
             </div>
