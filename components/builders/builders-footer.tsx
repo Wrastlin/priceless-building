@@ -26,10 +26,10 @@ export function BuildersFooter() {
     <footer className="bg-[var(--background)]">
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         {/* Closing invitation */}
-        <div className="grid gap-x-10 gap-y-8 border-t border-[var(--border)] py-24 md:grid-cols-12 md:py-32">
+        <div className="grid gap-x-10 gap-y-8 border-t border-[var(--line)] py-14 md:grid-cols-12 md:py-20">
           <div className="md:col-span-7">
             <div className="eyebrow">Builder&rsquo;s Corner &middot; Wausau</div>
-            <p className="font-couture mt-6 text-[clamp(2rem,1.25rem+2.8vw,3.5rem)] leading-[1.1] text-[var(--brand-navy)]">
+            <p className="font-display mt-4 text-[clamp(1.8rem,1.1rem+2.4vw,3rem)] leading-[1.1] text-[var(--ink)]">
               Let&rsquo;s design the room you keep coming back to.
             </p>
           </div>
@@ -39,7 +39,7 @@ export function BuildersFooter() {
             </Link>
             <a
               href={TEL}
-              className="text-sm font-semibold text-[var(--brand-navy)] underline decoration-[var(--brand-gold)]/50 decoration-2 underline-offset-[6px] transition hover:decoration-[var(--brand-gold)]"
+              className="text-sm font-medium text-[var(--ink)] underline decoration-[var(--rust)]/40 decoration-2 underline-offset-[6px] transition hover:decoration-[var(--rust)]"
             >
               Or call {ADDRESS.phone}
             </a>
@@ -47,12 +47,12 @@ export function BuildersFooter() {
         </div>
 
         {/* Details */}
-        <div className="grid gap-x-10 gap-y-12 border-t border-[var(--border)] py-16 md:grid-cols-12">
+        <div className="grid gap-x-10 gap-y-10 border-t border-[var(--line)] py-12 md:grid-cols-12">
           <div className="md:col-span-5">
-            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+            <div className="text-[0.65rem] font-medium uppercase tracking-[0.18em] text-[var(--soft)]">
               Visit the showroom
             </div>
-            <p className="mt-5 font-couture text-xl leading-snug text-[var(--brand-navy)]">
+            <p className="font-display mt-4 text-xl leading-snug text-[var(--ink)]">
               {ADDRESS.street}
               <br />
               {ADDRESS.city}, {ADDRESS.state}
@@ -61,53 +61,53 @@ export function BuildersFooter() {
               href={DIRECTIONS}
               target="_blank"
               rel="noreferrer"
-              className="mt-4 inline-block text-sm font-semibold text-[var(--brand-navy)] underline decoration-[var(--brand-gold)]/50 decoration-2 underline-offset-[6px] transition hover:decoration-[var(--brand-gold)]"
+              className="mt-3 inline-block text-sm font-medium text-[var(--ink)] underline decoration-[var(--rust)]/40 decoration-2 underline-offset-[6px] transition hover:decoration-[var(--rust)]"
             >
               Get directions →
             </a>
           </div>
 
           <div className="md:col-span-4">
-            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+            <div className="text-[0.65rem] font-medium uppercase tracking-[0.18em] text-[var(--soft)]">
               Showroom hours
             </div>
-            <dl className="mt-5 space-y-2.5 text-[0.95rem]">
+            <dl className="mt-4 space-y-2 text-[0.9rem]">
               {HOURS.map((row) => (
                 <div key={row.d} className="flex justify-between gap-6">
-                  <dt className="text-[var(--muted-foreground)]">{row.d}</dt>
-                  <dd className="whitespace-nowrap text-[var(--foreground)]">{row.h}</dd>
+                  <dt className="text-[var(--soft)]">{row.d}</dt>
+                  <dd className="whitespace-nowrap text-[var(--ink)]">{row.h}</dd>
                 </div>
               ))}
             </dl>
           </div>
 
           <div className="md:col-span-3">
-            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+            <div className="text-[0.65rem] font-medium uppercase tracking-[0.18em] text-[var(--soft)]">
               Explore
             </div>
-            <ul className="mt-5 space-y-3 text-[0.95rem]">
+            <ul className="mt-4 space-y-2.5 text-[0.9rem]">
               <li>
-                <a href="#work" className="text-[var(--foreground)] transition hover:text-[var(--brand-navy)]">
+                <a href="#work" className="text-[var(--ink)] transition hover:opacity-55">
                   Our work
                 </a>
               </li>
               <li>
-                <a href="#process" className="text-[var(--foreground)] transition hover:text-[var(--brand-navy)]">
+                <a href="#process" className="text-[var(--ink)] transition hover:opacity-55">
                   Process
                 </a>
               </li>
               <li>
                 <a
-                  href={"facebook" in BUILDERS.socials ? BUILDERS.socials.facebook : "#"}
+                  href={BUILDERS.socials.facebook}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-[var(--foreground)] transition hover:text-[var(--brand-navy)]"
+                  className="text-[var(--ink)] transition hover:opacity-55"
                 >
                   Facebook ↗
                 </a>
               </li>
               <li>
-                <Link href="/" className="text-[var(--foreground)] transition hover:text-[var(--brand-navy)]">
+                <Link href="/" className="text-[var(--ink)] transition hover:opacity-55">
                   Price-Less family ↗
                 </Link>
               </li>
@@ -115,8 +115,7 @@ export function BuildersFooter() {
           </div>
         </div>
 
-        {/* Baseline */}
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--border)] py-8 text-xs text-[var(--muted-foreground)]">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--line)] py-6 text-xs text-[var(--soft)]">
           <span>© {new Date().getFullYear()} Builder&rsquo;s Corner Cabinetry &amp; Design</span>
           <span>Designed &amp; built in Wausau, WI, since 1983</span>
         </div>

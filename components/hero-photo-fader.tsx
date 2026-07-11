@@ -36,7 +36,7 @@ export function HeroPhotoFader({
           alt={i === 0 ? p.alt : ""}
           aria-hidden={i === index ? undefined : true}
           fill
-          sizes="(min-width:768px) 60vw, 100vw"
+          sizes="100vw"
           priority={i === 0}
           quality={82}
           className={
