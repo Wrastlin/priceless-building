@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import type { Review } from "@/lib/google-reviews";
 import { GOOGLE_RATING } from "@/lib/google-reviews";
 
-const DWELL_MS = 5500;
-const FADE_MS = 900;
+const DWELL_MS = 14000;
+const FADE_MS = 1400;
 
 /**
  * Rejuvenation-style "living" reviews: three slots on desktop (staggered
@@ -47,7 +47,7 @@ export function ReviewsFade({ reviews }: { reviews: Review[] }) {
             key={slot}
             reviews={pool}
             startIndex={slot % pool.length}
-            staggerMs={slot * 1800}
+            staggerMs={slot * 4500}
           />
         ))}
       </div>
