@@ -53,7 +53,7 @@ export function ProductCard({
           </span>
         ) : null}
       </div>
-      <div className="relative py-2.5 pr-0.5 sm:py-4 sm:pr-1">
+      <div className="relative px-3 py-3 sm:px-4 sm:py-4">
         <div className="font-display text-[0.95rem] leading-snug line-clamp-2 sm:text-lg">{item.title}</div>
         {item.subtitle ? (
           <div className="mt-0.5 hidden text-xs font-light text-[var(--soft)] line-clamp-1 sm:mt-1 sm:block">
@@ -61,7 +61,7 @@ export function ProductCard({
           </div>
         ) : null}
 
-        <div className="mt-2 flex items-start justify-between gap-2 sm:mt-3 sm:gap-3">
+        <div className="mt-2 flex items-start justify-between gap-3 sm:mt-3 sm:gap-4">
           <div className="min-w-0">
             <div className="text-base font-medium tabular-nums tracking-tight sm:text-xl">
               {item.price > 0 ? (
@@ -76,7 +76,7 @@ export function ProductCard({
               </div>
             ) : null}
           </div>
-          <div className="hidden max-w-[46%] shrink-0 text-right text-[0.62rem] font-medium uppercase leading-snug tracking-[0.1em] text-[var(--soft)] sm:block">
+          <div className="hidden max-w-[42%] shrink-0 text-right text-[0.62rem] font-medium uppercase leading-snug tracking-[0.1em] text-[var(--soft)] sm:block">
             <div className="line-clamp-2">{item.location || "On the floor"}</div>
             <div className="mt-0.5 tabular-nums">SKU {item.sku}</div>
           </div>
