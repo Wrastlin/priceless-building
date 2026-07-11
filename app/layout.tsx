@@ -1,45 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Besley, Hanken_Grotesk, JetBrains_Mono, Marcellus } from "next/font/google";
 import { Toaster } from "sonner";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { AuthErrorNotice } from "@/components/auth-error-notice";
+import { gotham, utopia, mono } from "@/lib/fonts";
 import "./globals.css";
-
-// display: 'swap' on every face so the H1 (LCP element on mobile)
-// paints with the fallback font immediately and swaps in the web
-// font when it arrives. Without this Lighthouse measures LCP as
-// gated by font load (~900ms element render delay). preload: true
-// on the display face since it's used in the hero H1.
-const display = Besley({
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  variable: "--font-display",
-  display: "swap",
-  preload: true,
-});
-const sans = Hanken_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-  preload: true,
-});
-const mono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
-  preload: false,
-});
-// Marcellus: an elegant humanist titling serif. Builder's Corner's display
-// voice, echoing Sicora's refined-remodeler feel without copying it. Kept in
-// the --font-couture slot so the .font-couture class (Builder's Corner
-// headlines) picks it up site-wide.
-const couture = Marcellus({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-couture",
-  display: "swap",
-  preload: false,
-});
 
 const SITE_URL = "https://pricelessbuilding.com";
 
@@ -103,37 +67,47 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fbf9f5" },
-    { media: "(prefers-color-scheme: dark)", color: "#122844" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#1a1818" },
   ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  // --font-utopia / --font-couture alias Utopia so redesign preview +
+  // Builders Corner .font-couture keep working without a second face.
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable} ${mono.variable} ${couture.variable}`}>
+    <html
+      lang="en"
+      className={`${gotham.variable} ${utopia.variable} ${mono.variable}`}
+      style={
+        {
+          ["--font-utopia" as string]: "var(--font-display)",
+          ["--font-couture" as string]: "var(--font-display)",
+          ["--font-gotham" as string]: "var(--font-sans)",
+        } as React.CSSProperties
+      }
+    >
       <head>
-        {/* Always reload to the top of the page. Disable the browser's
-            scroll restoration synchronously, before first paint, so a
-            refresh never drops the visitor back where they were. Runs
-            ahead of hydration so there is no jump. */}
         <script
           dangerouslySetInnerHTML={{
             __html:
               "if('scrollRestoration' in history){history.scrollRestoration='manual';}",
           }}
         />
-        {/* LCP hint. The home hero's looping video is poster-backed
-            by this image. Telling the browser to preload it cuts
-            the LCP discovery delay Lighthouse flags. */}
         <link
           rel="preload"
           as="image"
-          href="/real-photos/storefront-bg-poster.jpg"
+          href="/real-photos/business/dark-base-cabinets-warehouse-row.jpg"
           fetchPriority="high"
         />
       </head>
-      <body className="font-sans">
-        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-[100] focus:bg-background focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:text-[var(--brand-navy)] focus:shadow">Skip to main content</a>
+      <body className="font-sans font-light">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-[100] focus:bg-background focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:text-foreground focus:shadow"
+        >
+          Skip to main content
+        </a>
         <SmoothScroll />
         <main id="main">{children}</main>
         <AuthErrorNotice />

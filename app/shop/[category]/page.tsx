@@ -55,70 +55,98 @@ export default async function CategoryPage({
   });
   if (current > 1 && items.length === 0) notFound();
   const allKeys = Object.keys(CATEGORIES) as Category[];
-  const idx = allKeys.indexOf(category as Category);
 
   return (
     <>
       <SiteHeader brand="priceless" />
 
-      {/* HERO. Editorial half-image / half-copy */}
-      <section className="grid border-b md:grid-cols-12">
-        <div className="relative aspect-[4/3] md:col-span-7 md:aspect-auto md:min-h-[420px]">
-          <Image src={cat.image} alt={cat.label} fill className="object-cover" priority quality={80} sizes="(min-width:768px) 60vw, 100vw" />
-          <span className="font-sans font-semibold absolute left-6 top-6 bg-white px-2.5 py-1.5 text-xs uppercase tracking-[0.18em] text-[var(--foreground)]">
-            Department No. {String(idx + 1).padStart(2, "0")}
-          </span>
-        </div>
-        <div className="flex flex-col justify-center gap-6 px-6 py-12 md:col-span-5 md:px-10">
-          <div className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--brand-gold-deep)]">
-            Floor · {total} items in stock
-          </div>
-          <h1 className="font-display text-6xl leading-[1.05] md:text-8xl">
-            {cat.label}.
-          </h1>
-          <p className="font-serif text-base italic leading-relaxed text-[var(--muted-foreground)] md:text-lg">
-            {cat.blurb}
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Link href="/shop" className="font-sans font-semibold text-xs uppercase tracking-[0.18em] underline decoration-[var(--brand-priceless)] decoration-2 underline-offset-4">
-              ← All departments
-            </Link>
-            <Link href="/contact" className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)] underline decoration-[var(--muted-foreground)]/40 decoration-2 underline-offset-4">
-              Ask about a specific size →
-            </Link>
+      {/* Full-bleed category hero — image first, type centered */}
+      <section className="bg-white">
+        <div className="px-0 md:px-5 md:pt-5">
+          <div className="relative h-[48svh] w-full overflow-hidden md:h-[58svh]">
+            <Image
+              src={cat.image}
+              alt={cat.label}
+              fill
+              className="object-cover"
+              priority
+              quality={80}
+              sizes="100vw"
+            />
+            <div
+              aria-hidden
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(to bottom, rgba(20,18,18,0.30), rgba(20,18,18,0.38) 55%, rgba(20,18,18,0.55))",
+              }}
+            />
+            <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center text-white">
+              <p className="text-[0.68rem] font-medium uppercase tracking-[0.24em] text-white/85">
+                Floor · {total} {total === 1 ? "item" : "items"} in stock
+              </p>
+              <h1 className="font-display mt-4 text-[clamp(2.8rem,1rem+5vw,5.5rem)] leading-[1.02]">
+                {cat.label}.
+              </h1>
+              <p className="mt-5 max-w-[42ch] text-[0.95rem] font-light leading-[1.65] text-white/85">
+                {cat.blurb}
+              </p>
+              <Link
+                href="/shop"
+                className="mt-8 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-white/90 underline-offset-[6px] hover:underline"
+              >
+                ← All departments
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* VERIFIED FLOOR INVENTORY (from the in-store walkthrough catalog) */}
+      {/* Sibling department strip */}
+      <nav className="border-b border-[var(--line)] bg-white">
+        <div className="mx-auto flex max-w-[1360px] gap-1 overflow-x-auto px-4 py-3 md:justify-center md:px-8">
+          {allKeys.map((key) => (
+            <Link
+              key={key}
+              href={`/shop/${key}`}
+              className={`shrink-0 px-4 py-2 text-[0.68rem] font-medium uppercase tracking-[0.16em] transition ${
+                key === category
+                  ? "bg-[var(--ink)] text-white"
+                  : "text-[var(--ink)] hover:bg-[var(--cream)]"
+              }`}
+            >
+              {CATEGORIES[key].label}
+            </Link>
+          ))}
+        </div>
+      </nav>
+
       <DepartmentInventory category={category} />
 
-      {/* INVENTORY */}
-      <section className="bg-[var(--muted)]">
-        <div className="mx-auto max-w-7xl px-6 py-14">
-          <div className="flex items-end justify-between gap-4">
-            <div>
-              <div className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--brand-gold-deep)]">On the floor</div>
-              <h2 className="font-display mt-3 text-4xl leading-[1.05]">
-                {total} <span className="text-[var(--brand-priceless)]">{total === 1 ? "item" : "items"}.</span>
-              </h2>
-            </div>
-            <div className="font-sans font-semibold hidden text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)] md:block">
-              Newest arrivals first
-            </div>
+      <section className="bg-[var(--cream)]">
+        <div className="mx-auto max-w-[1360px] px-6 py-16 md:px-8 md:py-20">
+          <div className="mx-auto max-w-[36ch] text-center">
+            <p className="eyebrow">On the floor</p>
+            <h2 className="font-display mt-4 text-[clamp(1.8rem,1rem+2vw,2.6rem)] leading-[1.05]">
+              {total}{" "}
+              <span className="font-normal italic">{total === 1 ? "item." : "items."}</span>
+            </h2>
           </div>
 
           {total === 0 ? (
-            <div className="mt-10 border bg-white p-16 text-center">
-              <div className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--brand-gold-deep)]">Nothing here yet</div>
-              <p className="font-serif mt-3 text-2xl italic">Check back Wednesday. Fresh tags every week.</p>
+            <div className="mx-auto mt-12 max-w-xl border border-[var(--line)] bg-white p-14 text-center">
+              <p className="eyebrow">Nothing here yet</p>
+              <p className="font-display mt-4 text-2xl italic">
+                Check back Wednesday. Fresh tags every week.
+              </p>
             </div>
           ) : (
             <>
-              <div className="mt-8 grid grid-cols-2 gap-px bg-[var(--border)] lg:grid-cols-3">
-                {items.map((it, i) => <ProductCard key={it.id} item={it} priority={i < 4} />)}
+              <div className="mt-12 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 md:gap-x-6">
+                {items.map((it, i) => (
+                  <ProductCard key={it.id} item={it} priority={i < 4} />
+                ))}
               </div>
-
               <Pagination basePath={`/shop/${category}`} page={current} totalPages={totalPages} />
             </>
           )}

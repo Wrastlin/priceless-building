@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { ProductCard } from "@/components/product-card";
 import { listCatalog, findItem, byCategory } from "@/lib/catalog";
 import { formatCurrency } from "@/lib/utils";
 import { ADDRESS } from "@/lib/brands";
@@ -13,9 +14,6 @@ import { ProductGallery } from "@/components/product-gallery";
 const SITE_URL = "https://pricelessbuilding.com";
 
 export async function generateStaticParams() {
-  // With a large catalog, prerendering every item would make the build
-  // enormous. Prerender only the featured pool + the most recent items;
-  // everything else renders on-demand (dynamicParams) and is then ISR-cached.
   const all = await listCatalog();
   const seen = new Set<string>();
   return [...all.filter((c) => c.featured), ...all.slice(0, 60)]
@@ -59,13 +57,12 @@ export async function generateMetadata({ params }: { params: Promise<{ sku: stri
   };
 }
 
-function productJsonLd(item: Awaited<ReturnType<typeof findItem>>): string | null {
-  if (!item) return null;
+function productJsonLd(item: NonNullable<Awaited<ReturnType<typeof findItem>>>): string {
   const heroAbs = item.image.startsWith("http") ? item.image : `${SITE_URL}${item.image}`;
   const galleryAbs = (item.gallery ?? []).map((g) =>
     g.startsWith("http") ? g : `${SITE_URL}${g}`,
   );
-  const data = {
+  return JSON.stringify({
     "@context": "https://schema.org/",
     "@type": "Product",
     name: item.title,
@@ -95,12 +92,8 @@ function productJsonLd(item: Awaited<ReturnType<typeof findItem>>): string | nul
           addressCountry: "US",
         },
       },
-      ...(item.msrp && item.msrp > item.price
-        ? { priceSpecification: { "@type": "PriceSpecification", price: item.msrp, priceCurrency: "USD", valueAddedTaxIncluded: false } }
-        : {}),
     },
-  };
-  return JSON.stringify(data);
+  });
 }
 
 export default async function ItemPage({ params }: { params: Promise<{ sku: string }> }) {
@@ -108,34 +101,24 @@ export default async function ItemPage({ params }: { params: Promise<{ sku: stri
   const item = await findItem(sku);
   if (!item) notFound();
   const similar = (await byCategory(item.brand, item.category)).filter((c) => c.sku !== item.sku).slice(0, 4);
-  const savings = item.msrp && item.msrp > item.price ? Math.round((1 - item.price / item.msrp) * 100) : 0;
   const hero = item.staged || item.image;
   const ff = item.fulfillment ?? { pickup: true, localDelivery: true, ships: false };
 
-  const ld = productJsonLd(item);
-
   return (
     <>
-      {ld ? (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: ld }}
-        />
-      ) : null}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: productJsonLd(item) }} />
       <SiteHeader brand={item.brand} />
 
-      {/* CRUMB */}
-      <div className="border-b border-[var(--border)]">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3 text-sm text-[var(--muted-foreground)]">
-          <Link href={`/shop/${item.category}`} className="capitalize hover:text-[var(--brand-priceless)]">
+      <div className="border-b border-[var(--line)]">
+        <div className="mx-auto flex max-w-[1360px] items-center justify-between gap-4 px-6 py-3 text-[0.72rem] font-medium uppercase tracking-[0.14em] text-[var(--soft)] md:px-8">
+          <Link href={`/shop/${item.category}`} className="hover:text-[var(--ink)]">
             ← All {item.category}
           </Link>
           <div>SKU {item.sku}</div>
         </div>
       </div>
 
-      {/* HERO. Image left at the natural reading order, content right */}
-      <section className="mx-auto grid max-w-7xl gap-12 px-6 py-10 md:grid-cols-12 md:gap-16">
+      <section className="mx-auto grid max-w-[1360px] gap-10 px-6 py-10 md:grid-cols-12 md:gap-14 md:px-8 md:py-14">
         <div className="md:col-span-7">
           <ProductGallery
             title={item.title}
@@ -144,131 +127,114 @@ export default async function ItemPage({ params }: { params: Promise<{ sku: stri
           />
         </div>
 
-        <div className="md:col-span-5">
+        <div className="md:col-span-5 md:pt-2">
           {item.manufacturer ? (
-            <div className="text-sm uppercase tracking-[0.12em] text-[var(--muted-foreground)]">
+            <p className="text-[0.7rem] font-medium uppercase tracking-[0.2em] text-[var(--rust)]">
               {item.manufacturer}
-            </div>
+            </p>
           ) : null}
 
-          <h1 className="font-display mt-2 text-4xl leading-[1.05] md:text-5xl">
+          <h1 className="font-display mt-3 text-[clamp(1.8rem,1rem+2vw,2.8rem)] leading-[1.08]">
             {item.title}
           </h1>
-          <p className="mt-3 text-base text-[var(--muted-foreground)] md:text-lg">{item.subtitle}</p>
+          {item.subtitle ? (
+            <p className="mt-3 text-[1rem] font-light leading-[1.65] text-[var(--soft)]">{item.subtitle}</p>
+          ) : null}
 
-          {/* PRICE BLOCK. Direct, no editorial */}
-          <div className="mt-8 border-t border-[var(--border)] pt-6">
+          <div className="mt-8 border-t border-[var(--line)] pt-6">
             <div className="flex items-end gap-6">
               <div>
-                <div className="text-sm text-[var(--muted-foreground)]">Our price</div>
-                <div className="font-display mt-1 text-6xl leading-none text-[var(--brand-priceless)]">
+                <div className="text-[0.7rem] font-medium uppercase tracking-[0.16em] text-[var(--soft)]">Our price</div>
+                <div className="mt-1 text-4xl font-medium tracking-tight md:text-5xl">
                   {formatCurrency(item.price)}
                 </div>
               </div>
               {item.msrp && item.msrp > item.price ? (
                 <div className="pb-1">
-                  <div className="text-sm text-[var(--muted-foreground)]">
-                    Estimated retail
+                  <div className="text-[0.7rem] font-medium uppercase tracking-[0.16em] text-[var(--soft)]">
+                    Est. retail
                   </div>
-                  <div className="font-display mt-1 text-2xl text-[var(--muted-foreground)] line-through">
+                  <div className="mt-1 text-xl text-[var(--rust)] line-through">
                     {formatCurrency(item.comparable?.price ?? item.msrp)}
                   </div>
-                  <Link href="/policies/pricing" className="mt-1 block text-xs text-[var(--muted-foreground)] underline decoration-[var(--muted-foreground)]/40 underline-offset-2 hover:text-[var(--foreground)]">
-                    How we estimate this
-                  </Link>
                 </div>
               ) : null}
             </div>
-            <div className="mt-4 flex items-center gap-2 text-sm">
-              <span className="inline-flex size-2 rounded-full bg-emerald-500" />
-              <span className="text-[var(--foreground)]">
-                {item.inStock > 0 ? `In stock · ${item.inStock} available` : "Made to order · call to confirm"}
-              </span>
-            </div>
+            <p className="mt-4 text-sm font-light text-[var(--ink)]">
+              {item.inStock > 0 ? `In stock · ${item.inStock} available` : "Call to confirm availability"}
+            </p>
           </div>
 
-          {/* BUY ACTIONS. Dominant primary, plain secondary */}
-          <div className="mt-6 space-y-3">
-            <AddToCartButton sku={item.sku} title={item.title} />
-            <div className="flex flex-wrap gap-3 text-sm">
-              <a href="tel:+17158483855" className="text-[var(--brand-priceless)] underline decoration-2 underline-offset-4">
+          <div className="mt-6 space-y-4">
+            <AddToCartButton sku={item.sku} title={item.title} className="btn btn-priceless w-full" />
+            <div className="flex flex-wrap gap-x-4 gap-y-2 text-[0.72rem] font-medium uppercase tracking-[0.14em]">
+              <a href="tel:+17158483855" className="text-[var(--rust)] underline-offset-4 hover:underline">
                 Call {ADDRESS.phone} to hold
               </a>
-              <span className="text-[var(--muted-foreground)]">·</span>
-              <Link href="/contact" className="text-[var(--muted-foreground)] underline decoration-[var(--muted-foreground)]/40 decoration-2 underline-offset-4">
+              <Link href="/contact" className="text-[var(--soft)] underline-offset-4 hover:underline">
                 Ask a question
               </Link>
             </div>
           </div>
 
-          {/* FULFILLMENT. What they actually get */}
-          <ul className="mt-8 space-y-2 border-t border-[var(--border)] pt-6 text-base text-[var(--foreground)]">
+          <ul className="mt-8 space-y-2.5 border-t border-[var(--line)] pt-6 text-sm font-light leading-relaxed">
             {ff.pickup ? (
-              <li className="flex items-baseline gap-3">
-                <span className="text-[var(--brand-priceless)]">✓</span>
-                <span>Free pickup at <span className="underline">{ADDRESS.street}, {ADDRESS.city}</span></span>
-              </li>
+              <li>Free pickup at {ADDRESS.street}, {ADDRESS.city}</li>
             ) : null}
             {ff.localDelivery ? (
-              <li className="flex items-baseline gap-3">
-                <span className="text-[var(--brand-priceless)]">✓</span>
-                <span>Local delivery within Marathon County starts at $79</span>
-              </li>
+              <li>Local delivery within Marathon County from $79</li>
             ) : null}
             {ff.ships ? (
-              <li className="flex items-baseline gap-3">
-                <span className="text-[var(--brand-priceless)]">✓</span>
-                <span>Ships within Wisconsin · UPS or LTL freight</span>
-              </li>
+              <li>Ships within Wisconsin · UPS or LTL freight</li>
             ) : (
-              <li className="flex items-baseline gap-3 text-[var(--muted-foreground)]">
-                <span>·</span>
-                <span>Too large to ship. Pickup or local delivery only</span>
-              </li>
+              <li className="text-[var(--soft)]">Too large to ship — pickup or local delivery only</li>
             )}
           </ul>
 
-          {/* SPEC TABLE */}
-          <dl className="mt-8 divide-y divide-[var(--border)] border-t border-b border-[var(--border)]">
-            <Row label="SKU" value={item.sku} mono />
+          <dl className="mt-8 divide-y divide-[var(--line)] border-y border-[var(--line)]">
+            <Row label="SKU" value={item.sku} />
             {item.manufacturer ? <Row label="Manufacturer" value={item.manufacturer} /> : null}
             {item.dimensions ? <Row label="Dimensions" value={item.dimensions} /> : null}
             {item.weight ? <Row label="Weight" value={item.weight} /> : null}
-            <Row label="Category" value={item.category} className="capitalize" />
+            <Row label="Category" value={item.category} />
             <Row label="In store" value={item.location ?? "Front floor"} />
           </dl>
 
-          {/* WHY THIS PRICE. Plain language */}
-          <div className="mt-8 bg-[var(--muted)] p-6">
-            <div className="text-sm font-semibold text-[var(--foreground)]">Why is it cheaper?</div>
-            <p className="mt-2 text-base leading-[1.7] text-[var(--muted-foreground)]">
-              Brand-new in its original packaging. Our estimated retail{item.comparable?.url ? <> (based on a similar item <a href={item.comparable.url} target="_blank" rel="noreferrer" className="underline">at a major retailer</a> this week)</> : ""} runs around {item.msrp ? formatCurrency(item.msrp) : "2× our tag"}. <Link href="/policies/pricing" className="underline decoration-[var(--muted-foreground)]/40 underline-offset-2">Methodology</Link>.
+          <div className="mt-8 bg-[var(--cream)] p-6">
+            <p className="text-[0.7rem] font-medium uppercase tracking-[0.18em] text-[var(--rust)]">
+              Why is it cheaper?
+            </p>
+            <p className="mt-3 text-sm font-light leading-[1.7] text-[var(--soft)]">
+              Brand-new in its original packaging. Our estimated retail
+              {item.comparable?.url ? (
+                <>
+                  {" "}
+                  (based on a similar item{" "}
+                  <a href={item.comparable.url} target="_blank" rel="noreferrer" className="underline">
+                    at a major retailer
+                  </a>{" "}
+                  this week)
+                </>
+              ) : null}{" "}
+              runs around {item.msrp ? formatCurrency(item.msrp) : "2× our tag"}.{" "}
+              <Link href="/policies/pricing" className="underline">
+                Methodology
+              </Link>
+              .
             </p>
           </div>
         </div>
       </section>
 
-      {/* SIMILAR */}
       {similar.length > 0 ? (
-        <section className="border-t border-[var(--border)] bg-[var(--muted)]/40">
-          <div className="mx-auto max-w-7xl px-6 py-16">
-            <h2 className="font-display text-3xl leading-tight md:text-4xl">
-              Other {item.category} in stock
+        <section className="border-t border-[var(--line)] bg-[var(--cream)]">
+          <div className="mx-auto max-w-[1360px] px-6 py-16 md:px-8 md:py-20">
+            <h2 className="font-display text-center text-[clamp(1.8rem,1rem+2vw,2.6rem)] leading-[1.05]">
+              Other {item.category} in <span className="font-normal italic">stock.</span>
             </h2>
-            <div className="mt-8 grid grid-cols-1 gap-px bg-[var(--border)] sm:grid-cols-2 lg:grid-cols-4">
-              {similar.map((s) => (
-                <Link key={s.id} href={`/shop/item/${s.sku}`} className="group block bg-white">
-                  <div className="relative aspect-[4/3] overflow-hidden bg-[var(--muted)]">
-                    <Image src={s.staged || s.image} alt={s.title} fill className="object-cover transition duration-500 group-hover:scale-[1.04]" sizes="25vw" quality={70} />
-                  </div>
-                  <div className="p-4">
-                    <div className="font-display text-lg leading-tight">{s.title}</div>
-                    <div className="mt-2 flex items-baseline justify-between">
-                      <span className="font-display text-xl text-[var(--brand-priceless)]">{formatCurrency(s.price)}</span>
-                      {s.msrp ? <span className="text-sm text-[var(--muted-foreground)] line-through">{formatCurrency(s.msrp)}</span> : null}
-                    </div>
-                  </div>
-                </Link>
+            <div className="mt-12 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-4 md:gap-x-6">
+              {similar.map((s, i) => (
+                <ProductCard key={s.id} item={s} priority={i < 2} />
               ))}
             </div>
           </div>
@@ -280,11 +246,11 @@ export default async function ItemPage({ params }: { params: Promise<{ sku: stri
   );
 }
 
-function Row({ label, value, mono, className }: { label: string; value: string; mono?: boolean; className?: string }) {
+function Row({ label, value }: { label: string; value: string }) {
   return (
-    <div className="grid grid-cols-[140px_1fr] items-baseline gap-4 py-3">
-      <dt className="text-sm text-[var(--muted-foreground)]">{label}</dt>
-      <dd className={(mono ? "font-mono " : "") + "text-base text-[var(--foreground)] " + (className ?? "")}>{value}</dd>
+    <div className="grid grid-cols-[120px_1fr] items-baseline gap-4 py-3">
+      <dt className="text-[0.7rem] font-medium uppercase tracking-[0.14em] text-[var(--soft)]">{label}</dt>
+      <dd className="text-sm font-light capitalize text-[var(--ink)]">{value}</dd>
     </div>
   );
 }

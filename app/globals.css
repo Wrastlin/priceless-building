@@ -1,33 +1,38 @@
 @import "tailwindcss";
 
 :root {
-  /* "Showroom Warmth" palette (2026-07 redesign, see DESIGN.md).
-     Deep navy + brass gold on warm cream. Every neutral is tinted:
-     creams lean toward the gold hue (h≈85), inks toward navy (h≈255).
-     Red exists ONLY as --sale-red for savings badges and slashed
-     prices; it is no longer a brand color. */
-  --background: oklch(0.985 0.006 85);        /* warm cream white */
-  --surface: oklch(0.962 0.012 85);           /* section band cream */
-  --foreground: oklch(0.24 0.035 255);        /* navy ink */
-  --muted: oklch(0.955 0.01 85);
-  --muted-foreground: oklch(0.45 0.025 255);
-  --border: oklch(0.9 0.012 85);
-  --accent: oklch(0.72 0.115 78);             /* brass gold */
-  --accent-foreground: oklch(0.235 0.05 257);
-  --brand-navy: oklch(0.3 0.058 255);
-  --brand-navy-deep: oklch(0.235 0.05 257);   /* hero/footer navy */
-  --brand-gold: oklch(0.72 0.115 78);
-  --brand-gold-deep: oklch(0.58 0.11 72);     /* AA gold for text on cream */
-  --cream: oklch(0.96 0.01 85);               /* text on navy */
-  --stone: oklch(0.93 0.014 78);              /* warm stone band (Builder's Corner) */
-  --stone-deep: oklch(0.86 0.02 76);          /* stone hairline / deeper band */
-  --sale-red: oklch(0.5 0.19 28);             /* savings only */
-  /* Legacy names, retargeted so every existing component inherits the
-     new system: "priceless" is now the navy brand primary. */
-  --brand-priceless: var(--brand-navy);
-  --brand-priceless-dark: var(--brand-navy-deep);
-  --brand-builders: oklch(0.3 0.058 255);
-  --brand-builders-gold: oklch(0.66 0.11 78);
+  /* Rejuvenation-matched palette (2026-07 redesign-rejuvenation).
+     Near-black ink + warm rust accent on white / soft cream.
+     Legacy --brand-navy / --brand-gold names are remapped so existing
+     components inherit the new system without a mass rename. */
+  --ink: #1a1818;
+  --soft: #57534f;
+  --rust: #d04727;
+  --line: #e6e2dc;
+  --cream: #f7f5f1;
+  --taupe: #e7e0d4;
+
+  --background: #ffffff;
+  --surface: var(--cream);
+  --foreground: var(--ink);
+  --muted: var(--cream);
+  --muted-foreground: var(--soft);
+  --border: var(--line);
+  --accent: var(--rust);
+  --accent-foreground: #ffffff;
+
+  /* Legacy aliases → rejuvenation tokens */
+  --brand-navy: var(--ink);
+  --brand-navy-deep: var(--ink);
+  --brand-gold: var(--rust);
+  --brand-gold-deep: var(--rust);
+  --stone: var(--taupe);
+  --stone-deep: #d8cfc0;
+  --sale-red: var(--rust);
+  --brand-priceless: var(--ink);
+  --brand-priceless-dark: var(--ink);
+  --brand-builders: var(--ink);
+  --brand-builders-gold: var(--rust);
 
   /* Utopia FYI fluid type scale.
      Min: 320px viewport, body 16px (1rem), minor third (1.2).
@@ -90,6 +95,11 @@
   --color-stone: var(--stone);
   --color-stone-deep: var(--stone-deep);
   --color-sale: var(--sale-red);
+  --color-ink: var(--ink);
+  --color-soft: var(--soft);
+  --color-rust: var(--rust);
+  --color-line: var(--line);
+  --color-taupe: var(--taupe);
 
   /* Tell Tailwind v4 to use the Utopia scale for every text-* utility.
      Each maps to a real fluid clamp(): text-xs starts at step -1 and
@@ -115,6 +125,7 @@ html, body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
   font-size: var(--text-base);
   line-height: var(--leading-base);
   /* Defensive: stop any rogue child (iframe, image with intrinsic width,
@@ -159,73 +170,65 @@ img, video, iframe {
   }
 }
 
-/* Besley, a Clarendon-model slab serif: classic lumber-yard sign
-   lettering. Title case always; forced uppercase is the old system. */
+/* Utopia display — rejuvenation-style headlines. Semibold roman +
+   italic for the soft half of a split headline. */
 .font-display {
-  font-family: var(--font-display);
-  font-weight: 550;
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+  font-weight: 600;
   letter-spacing: -0.01em;
-  line-height: 1.08;
+  line-height: 1.05;
   text-transform: none;
 }
-.font-serif { font-family: var(--font-display); }
+.font-serif { font-family: var(--font-display), Georgia, serif; }
 .font-mono { font-family: var(--font-mono); }
-/* Marcellus. Builder's Corner's display voice: an elegant humanist titling
-   serif, echoing the refined-remodeler feel of the scouted references
-   (Sicora) as our own. One weight, so hierarchy comes from size + generous
-   whitespace, not weight. A hair of positive tracking keeps it airy. */
+/* Builders Corner display voice — same Utopia face as the rest of the site. */
 .font-couture {
-  font-family: var(--font-couture);
-  font-weight: 400;
-  letter-spacing: 0.005em;
-  line-height: 1.12;
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.08;
 }
 
-/* Editorial detail: small caps + tracking for eyebrow labels. Borrowed
-   from the anti-AI-slop playbook. Every block should NOT share the
-   same "shadow-card rounded-xl border" template. */
+/* Eyebrow labels — Gotham medium, rust accent (rejuvenation). */
 .eyebrow {
   font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--brand-gold-deep);
+  color: var(--rust);
 }
-/* On navy surfaces the eyebrow brightens to full brass. */
-.eyebrow-on-dark { color: var(--brand-gold); }
+.eyebrow-on-dark { color: #e6b8a6; }
 
-/* Marker headline. Used sparingly to break the Tailwind-rounded
-   monotony. Brass sweep now, not red. */
 .headline-marker {
-  background-image: linear-gradient(90deg, transparent 0, transparent 0.1em, oklch(0.72 0.115 78 / 0.22) 0.1em, oklch(0.72 0.115 78 / 0.22) calc(100% - 0.1em), transparent calc(100% - 0.1em));
+  background-image: linear-gradient(90deg, transparent 0, transparent 0.1em, color-mix(in srgb, var(--rust) 22%, transparent) 0.1em, color-mix(in srgb, var(--rust) 22%, transparent) calc(100% - 0.1em), transparent calc(100% - 0.1em));
   padding: 0 0.05em;
 }
 
-/* Storefront buttons: warm pills. Primary is brass with navy ink,
-   secondary is navy with cream. Sentence case, no mono, no shouting. */
+/* Storefront buttons — sharp rejuvenation outline, uppercase tracking.
+   No pills, no arrows-as-pseudo. */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-  padding: 0.8rem 1.75rem;
+  padding: 1rem 2.25rem;
   font-family: var(--font-sans);
-  font-weight: 600; font-size: 0.95rem;
-  letter-spacing: 0.01em;
-  border-radius: 999px;
-  transition: background .2s, color .2s, border-color .2s, transform .2s;
-  border: 1.5px solid transparent;
+  font-weight: 500;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border-radius: 0;
+  transition: background .2s, color .2s, border-color .2s;
+  border: 1px solid transparent;
 }
-.btn::after {
-  content: "→"; margin-left: 0.25rem; transition: transform .2s;
-}
-.btn:hover::after { transform: translateX(3px); }
-.btn-priceless { background: var(--brand-gold); color: var(--brand-navy-deep); }
-.btn-priceless:hover { background: oklch(0.66 0.115 74); }
-.btn-builders { background: var(--brand-navy); color: var(--cream); }
-.btn-builders:hover { background: var(--brand-navy-deep); }
+.btn-priceless { background: var(--ink); color: #fff; border-color: var(--ink); }
+.btn-priceless:hover { background: transparent; color: var(--ink); }
+.btn-builders { background: var(--ink); color: #fff; border-color: var(--ink); }
+.btn-builders:hover { background: transparent; color: var(--ink); }
 .btn-outline { border-color: currentColor; color: var(--foreground); background: transparent; }
 .btn-outline:hover { background: var(--foreground); color: var(--background); }
+.btn-outline-light { border-color: rgba(255,255,255,0.85); color: #fff; background: transparent; }
+.btn-outline-light:hover { background: #fff; color: var(--ink); }
 
-.shadow-card { box-shadow: 0 1px 2px oklch(0.3 0.04 255 / 0.05), 0 8px 28px -12px oklch(0.3 0.05 255 / 0.14); }
+.shadow-card { box-shadow: none; }
 
 /* ---------------------------------------------------------------------------
    Admin utility primitives. Sans-only, sentence case, fast-to-scan.

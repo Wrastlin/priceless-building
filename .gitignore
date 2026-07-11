@@ -48,3 +48,6 @@ npm-debug.log*
 # DEV-ONLY admin UI preview — must never reach production. Also 404s in prod
 # via a NODE_ENV guard and is listed in .vercelignore. Safe to delete anytime.
 app/dev-preview/
+
+# Photo scrape inbox (Apify/IG dumps) — curate keepers out; don't ship raw pulls
+public/real-photos/_inbox/
