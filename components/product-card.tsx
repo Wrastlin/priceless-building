@@ -24,7 +24,7 @@ export function ProductCard({
       href={href ?? `/shop/item/${item.sku}`}
       className="group relative block overflow-hidden bg-white"
     >
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--taupe)]">
+      <div className="relative aspect-[5/4] w-full overflow-hidden bg-[var(--taupe)] sm:aspect-[4/3]">
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-1.5 text-[var(--soft)]/55">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
@@ -43,43 +43,38 @@ export function ProductCard({
           priority={priority}
         />
         {savings > 0 ? (
-          <span className="absolute left-3 top-3 z-20 bg-[var(--rust)] px-2.5 py-1 text-[0.65rem] font-medium uppercase tracking-[0.12em] text-white">
+          <span className="absolute left-2 top-2 z-20 bg-[var(--rust)] px-2 py-0.5 text-[0.6rem] font-medium uppercase tracking-[0.12em] text-white sm:left-3 sm:top-3 sm:px-2.5 sm:py-1 sm:text-[0.65rem]">
             {savings}% off
           </span>
         ) : null}
         {item.badges?.[0] ? (
-          <span className="absolute right-3 top-3 z-20 bg-[var(--ink)]/85 px-2.5 py-1 text-[0.65rem] font-medium uppercase tracking-[0.12em] text-white">
+          <span className="absolute right-2 top-2 z-20 bg-[var(--ink)]/85 px-2 py-0.5 text-[0.6rem] font-medium uppercase tracking-[0.12em] text-white sm:right-3 sm:top-3 sm:px-2.5 sm:py-1 sm:text-[0.65rem]">
             {item.badges[0]}
           </span>
         ) : null}
       </div>
-      <div className="relative py-4 pr-1">
-        <div className="font-display text-base leading-snug line-clamp-2 sm:text-lg">{item.title}</div>
-        <div className="mt-1 min-h-[1.15rem] text-xs font-light text-[var(--soft)] line-clamp-1">
-          {item.subtitle || "\u00A0"}
-        </div>
+      <div className="relative py-2.5 pr-0.5 sm:py-4 sm:pr-1">
+        <div className="font-display text-[0.95rem] leading-snug line-clamp-2 sm:text-lg">{item.title}</div>
+        {item.subtitle ? (
+          <div className="mt-0.5 hidden text-xs font-light text-[var(--soft)] line-clamp-1 sm:mt-1 sm:block">
+            {item.subtitle}
+          </div>
+        ) : null}
 
-        <div className="mt-3 flex items-start justify-between gap-3">
+        <div className="mt-2 flex items-start justify-between gap-2 sm:mt-3 sm:gap-3">
           <div className="min-w-0">
-            <div className="text-lg font-medium tabular-nums tracking-tight sm:text-xl">
+            <div className="text-base font-medium tabular-nums tracking-tight sm:text-xl">
               {item.price > 0 ? (
                 formatCurrency(item.price)
               ) : (
-                <span className="text-base font-light">Call for price</span>
+                <span className="text-sm font-light sm:text-base">Call for price</span>
               )}
             </div>
-            {/* Always reserve the compare-at line so every card shares the same rhythm */}
-            <div className="mt-0.5 min-h-[1.1rem] text-[11px] tabular-nums sm:text-xs">
-              {hasMsrp ? (
-                <span className="text-[var(--rust)] line-through">
-                  Retail {formatCurrency(item.msrp!)}
-                </span>
-              ) : (
-                <span className="invisible" aria-hidden>
-                  Retail $0
-                </span>
-              )}
-            </div>
+            {hasMsrp ? (
+              <div className="mt-0.5 text-[10px] tabular-nums text-[var(--rust)] line-through sm:text-xs">
+                Retail {formatCurrency(item.msrp!)}
+              </div>
+            ) : null}
           </div>
           <div className="hidden max-w-[46%] shrink-0 text-right text-[0.62rem] font-medium uppercase leading-snug tracking-[0.1em] text-[var(--soft)] sm:block">
             <div className="line-clamp-2">{item.location || "On the floor"}</div>

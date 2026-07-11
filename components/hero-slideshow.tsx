@@ -83,7 +83,7 @@ export function HeroSlideshow() {
         </div>
       </div>
 
-      <p className="font-display mx-auto max-w-[60ch] px-8 pb-6 pt-16 text-center text-[1.3rem] font-normal italic leading-[1.5] text-[var(--ink)]">
+      <p className="font-display mx-auto max-w-[60ch] px-6 pb-4 pt-8 text-center text-[1.1rem] font-normal italic leading-[1.45] text-[var(--ink)] sm:px-8 sm:pb-6 sm:pt-16 sm:text-[1.3rem] sm:leading-[1.5]">
         From a bin find to a finished kitchen — Wausau&rsquo;s discount and surplus
         building yard since 1978.
       </p>

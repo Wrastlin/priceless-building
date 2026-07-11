@@ -48,7 +48,7 @@ export function DepartmentInventory({ category }: { category: string }) {
           check stock and exact sizes for you.
         </p>
 
-        <div className="mt-10 grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-10 grid grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-3 sm:gap-x-5 sm:gap-y-8 lg:grid-cols-4">
           {withPhoto.map(({ t, src }) => (
             <div key={t.name} className="group flex flex-col">
               <div className="relative aspect-[4/3] overflow-hidden bg-[var(--muted)]">

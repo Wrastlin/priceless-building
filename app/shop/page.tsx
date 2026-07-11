@@ -88,7 +88,7 @@ export default async function ShopIndex({ searchParams }: { searchParams: Promis
             </p>
           </div>
 
-          <div className="mt-14 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 md:gap-x-6 lg:grid-cols-4">
+          <div className="mt-14 grid grid-cols-2 gap-x-3 gap-y-5 md:grid-cols-3 md:gap-x-6 md:gap-y-10 lg:grid-cols-4">
             {items.map((it, i) => (
               <ProductCard key={it.id} item={it} priority={i < 4} />
             ))}

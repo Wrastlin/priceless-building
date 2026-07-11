@@ -4,6 +4,8 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { HeroSlideshow } from "@/components/hero-slideshow";
 import { ProductCard } from "@/components/product-card";
+import { ReviewsFade } from "@/components/reviews-fade";
+import { SwipeCard, SwipeRail } from "@/components/swipe-rail";
 import { ADDRESS, PRICELESS } from "@/lib/brands";
 import { CATEGORIES, byCategory, listFeatured } from "@/lib/catalog";
 import { fetchReviews, GOOGLE_RATING } from "@/lib/google-reviews";
@@ -211,7 +213,7 @@ export default async function HomePage() {
     items = perCategory.flatMap((list) => list.slice(0, 2)).slice(0, 8);
   }
 
-  const reviews = (await fetchReviews()).slice(0, 3);
+  const reviews = await fetchReviews();
 
   return (
     <>
@@ -252,35 +254,35 @@ export default async function HomePage() {
 
       {/* Three businesses */}
       <section className="bg-[var(--taupe)]">
-        <div className="mx-auto max-w-[1240px] px-8 py-24 text-center">
+        <div className="mx-auto max-w-[1240px] px-5 py-14 text-center sm:px-8 sm:py-20 md:py-24">
           <Eyebrow>One yard · three ways to build</Eyebrow>
-          <H2 className="mx-auto mt-4 max-w-[22ch]">
+          <H2 className="mx-auto mt-3 max-w-[22ch] sm:mt-4">
             Shop it, design it, <span className="font-normal italic">build it.</span>
           </H2>
-          <div className="mt-16 grid gap-x-10 gap-y-14 text-left md:grid-cols-3">
+          <div className="mt-10 grid gap-x-10 gap-y-10 text-left sm:mt-14 md:mt-16 md:grid-cols-3 md:gap-y-14">
             {SERVICES.map((s) => (
               <div key={s.name} className="flex flex-col">
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--stone-deep)]">
                   <Image src={s.img} alt={s.name} fill sizes="(max-width:768px) 90vw, 30vw" className="object-cover" />
                 </div>
-                <div className="mt-7 flex items-center gap-3.5">
+                <div className="mt-5 flex items-center gap-3 sm:mt-7 sm:gap-3.5">
                   <Image
                     src={s.logo}
                     alt=""
                     width={s.logoW}
                     height={s.logoH}
-                    className="h-11 w-auto max-w-[3.25rem] shrink-0 object-contain"
+                    className="h-9 w-auto max-w-[2.75rem] shrink-0 object-contain sm:h-11 sm:max-w-[3.25rem]"
                   />
-                  <h3 className="font-display text-[1.35rem] leading-tight text-[var(--ink)] sm:text-[1.45rem]">
+                  <h3 className="font-display text-[1.2rem] leading-tight text-[var(--ink)] sm:text-[1.45rem]">
                     {s.name}
                   </h3>
                 </div>
-                <p className="mt-3 max-w-[36ch] text-[0.92rem] font-light leading-[1.65] text-[var(--soft)]">
+                <p className="mt-2 line-clamp-2 max-w-[36ch] text-[0.88rem] font-light leading-[1.55] text-[var(--soft)] sm:mt-3 sm:line-clamp-none sm:text-[0.92rem] sm:leading-[1.65]">
                   {s.body}
                 </p>
                 <Link
                   href={s.href}
-                  className="mt-5 inline-block text-[0.72rem] font-medium uppercase tracking-[0.2em] underline-offset-[6px] transition hover:underline"
+                  className="mt-3 inline-block text-[0.72rem] font-medium uppercase tracking-[0.2em] underline-offset-[6px] transition hover:underline sm:mt-5"
                 >
                   {s.cta} ›
                 </Link>
@@ -292,11 +294,11 @@ export default async function HomePage() {
 
       {/* Featured inventory */}
       {items.length > 0 ? (
-        <section className="mx-auto max-w-[1360px] px-8 pt-20 pb-10">
+        <section className="mx-auto max-w-[1360px] px-5 pt-14 pb-8 sm:px-8 sm:pt-20 sm:pb-10">
           <div className="flex items-end justify-between gap-6">
             <div>
               <Eyebrow>On the floor now</Eyebrow>
-              <H2 className="mt-4">
+              <H2 className="mt-3 sm:mt-4">
                 Fresh finds from the <span className="font-normal italic">warehouse.</span>
               </H2>
             </div>
@@ -307,7 +309,7 @@ export default async function HomePage() {
               Shop everything ›
             </Link>
           </div>
-          <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4 md:gap-x-6">
+          <div className="mt-8 grid grid-cols-2 gap-x-3 gap-y-5 md:mt-10 md:grid-cols-4 md:gap-x-6 md:gap-y-8">
             {items.map((item, i) => (
               <ProductCard key={item.sku} item={item} priority={i < 4} />
             ))}
@@ -316,26 +318,28 @@ export default async function HomePage() {
       ) : null}
 
       {/* Before / after */}
-      <section className="mx-auto max-w-[1360px] px-8 pt-10 pb-20">
+      <section className="mx-auto max-w-[1360px] px-5 pt-8 pb-14 sm:px-8 sm:pt-10 sm:pb-20">
         <div className="max-w-[46ch]">
           <Eyebrow>The remodeling journey</Eyebrow>
           <H2 className="mt-3">
             Before, and <span className="font-normal italic">after.</span>
           </H2>
-          <p className="mt-4 text-[1rem] font-light leading-[1.7] text-[var(--soft)]">
+          <p className="mt-3 hidden text-[1rem] font-light leading-[1.7] text-[var(--soft)] sm:mt-4 sm:block">
             Real rooms the in-house crew has finished — shopped, designed, and installed without
             leaving the lot.
           </p>
         </div>
-        <div className="mt-8 grid gap-8 md:grid-cols-2">
+        <div className="mt-6 grid gap-6 sm:mt-8 sm:gap-8 md:grid-cols-2">
           {BEFORE_AFTER.map((ba) => (
             <figure key={ba.label}>
               <div className="relative aspect-[16/10] w-full overflow-hidden bg-[var(--line)]">
                 <Image src={ba.img} alt={ba.label} fill sizes="(max-width:768px) 90vw, 45vw" className="object-cover" />
               </div>
-              <figcaption className="mt-5">
-                <h3 className="font-display text-[1.4rem] font-semibold">{ba.label}</h3>
-                <p className="mt-2 text-[0.95rem] font-light leading-[1.7] text-[var(--soft)]">{ba.body}</p>
+              <figcaption className="mt-3 sm:mt-5">
+                <h3 className="font-display text-[1.2rem] font-semibold sm:text-[1.4rem]">{ba.label}</h3>
+                <p className="mt-1.5 hidden text-[0.95rem] font-light leading-[1.7] text-[var(--soft)] sm:mt-2 sm:block">
+                  {ba.body}
+                </p>
               </figcaption>
             </figure>
           ))}
@@ -344,12 +348,12 @@ export default async function HomePage() {
 
       {/* Brands */}
       <section className="bg-[var(--ink)] text-white">
-        <div className="mx-auto max-w-[1360px] px-8 py-20 text-center">
+        <div className="mx-auto max-w-[1360px] px-5 py-12 text-center sm:px-8 sm:py-20">
           <Eyebrow onDark>Read straight off the boxes in our aisles</Eyebrow>
-          <H2 className="mt-4 text-white">Brands on the floor.</H2>
-          <div className="mx-auto mt-12 flex max-w-[1100px] flex-wrap items-center justify-center gap-x-12 gap-y-6">
+          <H2 className="mt-3 text-white sm:mt-4">Brands on the floor.</H2>
+          <div className="mx-auto mt-8 flex max-w-[1100px] flex-wrap items-center justify-center gap-x-6 gap-y-3 sm:mt-12 sm:gap-x-12 sm:gap-y-6">
             {BRANDS.map((b) => (
-              <span key={b} className="text-[1.15rem] font-medium uppercase tracking-[0.18em] text-white/70">
+              <span key={b} className="text-[0.85rem] font-medium uppercase tracking-[0.16em] text-white/70 sm:text-[1.15rem] sm:tracking-[0.18em]">
                 {b}
               </span>
             ))}
@@ -357,51 +361,16 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Reviews */}
-      <section className="mx-auto max-w-[1240px] px-8 py-24 text-center">
-        <Eyebrow>Since 1978</Eyebrow>
-        <H2 className="mx-auto mt-4 max-w-[24ch]">
-          Trusted across <span className="font-normal italic">central Wisconsin.</span>
-        </H2>
-        <div className="mt-5 flex items-center justify-center gap-3">
-          <span className="text-sm tracking-[0.2em] text-[var(--rust)]" aria-hidden>
-            ★★★★★
-          </span>
-          <span className="text-[0.76rem] font-medium uppercase tracking-[0.18em] text-[var(--soft)]">
-            {GOOGLE_RATING.average} on Google · Family-run since 1978
-          </span>
-        </div>
-        <div className="mt-16 grid gap-8 text-left md:grid-cols-3">
-          {reviews.map((r) => (
-            <figure key={`${r.author}-${r.relative}`} className="flex flex-col border border-[var(--line)] p-8">
-              <div className="text-sm tracking-[0.2em] text-[var(--rust)]" aria-hidden>
-                {"★".repeat(r.rating ?? 5)}
-              </div>
-              <blockquote className="font-display mt-5 flex-1 text-[1.12rem] font-normal italic leading-[1.55]">
-                &ldquo;{r.quote}&rdquo;
-              </blockquote>
-              <figcaption className="mt-6 text-[0.74rem] font-medium uppercase tracking-[0.12em] text-[var(--soft)]">
-                {r.author ?? "Customer"} · {r.source}
-                {r.relative ? ` · ${r.relative}` : ""}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-        <Link
-          href="/reviews"
-          className="mt-12 inline-block text-[0.72rem] font-medium uppercase tracking-[0.18em] underline-offset-[6px] hover:underline"
-        >
-          More reviews ›
-        </Link>
-      </section>
+      {/* Reviews — slow crossfade through the pool (Rejuvenation "living" feel) */}
+      <ReviewsFade reviews={reviews} />
 
       {/* Gallery */}
       <section className="border-t border-[var(--line)] bg-[var(--cream)]">
-        <div className="mx-auto max-w-[1360px] px-8 py-24">
+        <div className="mx-auto max-w-[1360px] px-5 py-14 sm:px-8 sm:py-24">
           <div className="flex items-end justify-between gap-6">
             <div>
               <Eyebrow>Around the yard</Eyebrow>
-              <H2 className="mt-4">A slice of the floor.</H2>
+              <H2 className="mt-3 sm:mt-4">A slice of the floor.</H2>
             </div>
             <Link
               href="/shop"
@@ -410,7 +379,7 @@ export default async function HomePage() {
               See the full gallery ›
             </Link>
           </div>
-          <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3">
+          <div className="mt-8 grid grid-cols-2 gap-2.5 sm:mt-12 sm:gap-4 md:grid-cols-3">
             {GALLERY.map((src, i) => (
               <div
                 key={src}
@@ -426,11 +395,11 @@ export default async function HomePage() {
       </section>
 
       {/* Press */}
-      <section className="mx-auto max-w-[1240px] px-8 py-24">
+      <section className="mx-auto max-w-[1240px] px-5 py-14 sm:px-8 sm:py-24">
         <div className="flex items-end justify-between gap-6">
           <div>
             <Eyebrow>In the local news</Eyebrow>
-            <H2 className="mt-4">
+            <H2 className="mt-3 sm:mt-4">
               Wausau keeps <span className="font-normal italic">talking.</span>
             </H2>
           </div>
@@ -441,48 +410,49 @@ export default async function HomePage() {
             All press ›
           </Link>
         </div>
-        <div className="mt-12 grid gap-10 md:grid-cols-3">
+        <SwipeRail className="mt-8 md:mt-12 md:grid-cols-3">
           {NEWS.map((n) => (
-            <a
-              key={n.title}
-              href={n.url}
-              target="_blank"
-              rel="noreferrer"
-              className="group block border-t border-[var(--ink)] pt-6"
-            >
-              <div className="flex items-baseline justify-between text-[0.7rem] font-medium uppercase tracking-[0.14em] text-[var(--soft)]">
-                <span>{n.source}</span>
-                <span>{n.date}</span>
-              </div>
-              <h3 className="font-display mt-4 text-[1.25rem] font-semibold leading-[1.3] transition group-hover:opacity-70">
-                {n.title}
-              </h3>
-              <span className="mt-5 inline-block text-[0.7rem] font-medium uppercase tracking-[0.18em] text-[var(--rust)]">
-                Read the story ›
-              </span>
-            </a>
+            <SwipeCard key={n.title}>
+              <a
+                href={n.url}
+                target="_blank"
+                rel="noreferrer"
+                className="group flex h-full flex-col border-t border-[var(--ink)] pt-5 sm:pt-6"
+              >
+                <div className="flex items-baseline justify-between gap-3 text-[0.65rem] font-medium uppercase tracking-[0.14em] text-[var(--soft)] sm:text-[0.7rem]">
+                  <span className="truncate">{n.source}</span>
+                  <span className="shrink-0">{n.date}</span>
+                </div>
+                <h3 className="font-display mt-3 line-clamp-3 text-[1.1rem] font-semibold leading-[1.3] transition group-hover:opacity-70 sm:mt-4 sm:line-clamp-none sm:text-[1.25rem]">
+                  {n.title}
+                </h3>
+                <span className="mt-4 inline-block text-[0.7rem] font-medium uppercase tracking-[0.18em] text-[var(--rust)] sm:mt-5">
+                  Read the story ›
+                </span>
+              </a>
+            </SwipeCard>
           ))}
-        </div>
+        </SwipeRail>
       </section>
 
-      {/* Facebook */}
+      {/* Facebook — photos lead on mobile */}
       <section className="border-t border-[var(--line)] bg-[var(--cream)]">
-        <div className="mx-auto grid max-w-[1240px] items-center gap-14 px-8 py-24 md:grid-cols-2">
-          <div>
+        <div className="mx-auto grid max-w-[1240px] items-center gap-8 px-5 py-14 sm:gap-14 sm:px-8 sm:py-24 md:grid-cols-2">
+          <div className="order-2 md:order-1">
             <Eyebrow>Around the store lately</Eyebrow>
-            <H2 className="mt-4">
+            <H2 className="mt-3 sm:mt-4">
               Follow along on <span className="font-normal italic">Facebook.</span>
             </H2>
-            <p className="mt-5 max-w-[46ch] text-[1rem] font-light leading-[1.75] text-[var(--soft)]">
+            <p className="mt-3 hidden max-w-[46ch] text-[1rem] font-light leading-[1.75] text-[var(--soft)] sm:mt-5 sm:block">
               New stock, holiday hours, paint days, and community events — we post a few times a
               week. It&rsquo;s the most current look at what&rsquo;s on the floor between visits.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 sm:mt-8">
               <a
                 href={PRICELESS.socials.facebook}
                 target="_blank"
                 rel="noreferrer"
-                className="border border-[var(--ink)] px-8 py-4 text-[0.72rem] font-medium uppercase tracking-[0.2em] transition hover:bg-[var(--ink)] hover:text-white"
+                className="border border-[var(--ink)] px-6 py-3 text-[0.72rem] font-medium uppercase tracking-[0.2em] transition hover:bg-[var(--ink)] hover:text-white sm:px-8 sm:py-4"
               >
                 Follow on Facebook ›
               </a>
@@ -496,7 +466,7 @@ export default async function HomePage() {
               </a>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="order-1 grid grid-cols-2 gap-2 sm:gap-3 md:order-2">
             {FB_PHOTOS.map((src) => (
               <div key={src} className="relative aspect-square overflow-hidden bg-[var(--stone-deep)]">
                 <Image
@@ -515,18 +485,18 @@ export default async function HomePage() {
       {/* Closing CTA + map */}
       <section className="border-t border-[var(--line)] bg-white">
         <div className="mx-auto grid max-w-[1360px] md:grid-cols-2">
-          <div className="flex flex-col justify-center px-8 py-20 md:px-14 md:py-24 lg:px-20">
+          <div className="flex flex-col justify-center px-5 py-12 sm:px-8 sm:py-20 md:px-14 md:py-24 lg:px-20">
             <Eyebrow>Visit the yard</Eyebrow>
-            <H2 className="mt-4 max-w-[16ch]">
+            <H2 className="mt-3 max-w-[16ch] sm:mt-4">
               Come see it. You&rsquo;re in{" "}
               <span className="font-normal italic">Wausau.</span>
             </H2>
-            <p className="mt-5 max-w-[42ch] text-[1rem] font-light leading-[1.7] text-[var(--soft)]">
+            <p className="mt-4 max-w-[42ch] text-[0.95rem] font-light leading-[1.65] text-[var(--soft)] sm:mt-5 sm:text-[1rem] sm:leading-[1.7]">
               {ADDRESS.street}
               <br />
               {ADDRESS.city}, {ADDRESS.state} {ADDRESS.zip}
             </p>
-            <ul className="mt-6 space-y-1.5 text-[0.85rem] font-light leading-relaxed text-[var(--soft)]">
+            <ul className="mt-5 hidden space-y-1.5 text-[0.85rem] font-light leading-relaxed text-[var(--soft)] sm:mt-6 sm:block">
               {PRICELESS.hours
                 .filter((h) => h.hours !== "Closed")
                 .map((h) => (
@@ -542,10 +512,13 @@ export default async function HomePage() {
                 <span>Closed</span>
               </li>
             </ul>
-            <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <p className="mt-3 text-[0.85rem] font-light text-[var(--soft)] sm:hidden">
+              Mon–Thu 8:30–5:30 · Fri 8:30–4:30 · Sat 8:30–12:30
+            </p>
+            <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3 sm:mt-10">
               <Link
                 href="/shop"
-                className="border border-[var(--ink)] px-8 py-4 text-[0.72rem] font-medium uppercase tracking-[0.2em] transition hover:bg-[var(--ink)] hover:text-white"
+                className="border border-[var(--ink)] px-6 py-3 text-[0.72rem] font-medium uppercase tracking-[0.2em] transition hover:bg-[var(--ink)] hover:text-white sm:px-8 sm:py-4"
               >
                 Shop the warehouse ›
               </Link>
@@ -559,7 +532,7 @@ export default async function HomePage() {
               </a>
             </div>
           </div>
-          <div className="relative min-h-[320px] bg-[var(--taupe)] md:min-h-full">
+          <div className="relative min-h-[240px] bg-[var(--taupe)] sm:min-h-[320px] md:min-h-full">
             <iframe
               title="Map to Price-Less Building Center, 825 Washington St, Wausau WI"
               src={`https://www.google.com/maps?q=${encodeURIComponent(
