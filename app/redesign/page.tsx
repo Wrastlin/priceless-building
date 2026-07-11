@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import localFont from "next/font/local";
+import { SiteNav, HeroSlideshow } from "./hero";
 
 /**
  * PREVIEW ROUTE — /redesign  (WIP, non-destructive)
@@ -98,68 +99,9 @@ function H2({ children, className = "" }: { children: React.ReactNode; className
 export default function RedesignPreview() {
   return (
     <div className={`${gotham.variable} ${utopia.variable} min-h-dvh bg-white`} style={{ color: INK, fontFamily: "var(--font-gotham)", fontWeight: 300 }}>
-      {/* ============================ HEADER ============================ */}
-      <header className="absolute inset-x-0 top-0 z-50">
-        <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-28" style={{ background: "linear-gradient(to bottom, rgba(20,20,20,0.5), transparent)" }} />
-        <div className="relative mx-auto flex max-w-[1360px] items-center px-8 py-7 text-white">
-          <Link href="/" className="absolute left-1/2 -translate-x-1/2 text-center">
-            <span className="block text-[1.5rem] font-medium tracking-[0.36em] leading-none">PRICE-LESS</span>
-            <span className="mt-[7px] block text-[0.58rem] font-medium tracking-[0.44em] text-white/70">WAUSAU · EST. 1978</span>
-          </Link>
-          <nav className="hidden items-center gap-7 text-[0.72rem] font-medium uppercase tracking-[0.16em] text-white/90 lg:flex">
-            <span>Shop</span><span>Cabinetry</span><span>Remodels</span>
-          </nav>
-          <div className="ml-auto flex items-center gap-7 text-[0.72rem] font-medium uppercase tracking-[0.16em] text-white/90">
-            <span className="hidden md:inline">Search</span>
-            <span className="hidden md:inline">(715) 848-3855</span>
-          </div>
-        </div>
-      </header>
-
-      {/* ============================= HERO ============================= */}
-      <section className="relative min-h-[92svh] w-full overflow-hidden" style={{ background: INK }}>
-        <Image src={`${B}/dark-base-cabinets-warehouse-row.jpg`} alt="A long row of black surplus kitchen cabinets down an aisle of the Price-Less warehouse in Wausau." fill priority sizes="100vw" quality={82} className="object-cover object-[60%_center]" />
-        <div aria-hidden className="absolute inset-0" style={{ background: "linear-gradient(80deg, rgba(26,24,24,0.90) 0%, rgba(26,24,24,0.60) 36%, rgba(26,24,24,0.16) 64%, transparent 88%)" }} />
-        <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/2" style={{ background: "linear-gradient(to top, rgba(26,24,24,0.75), transparent)" }} />
-        <div className="relative z-10 mx-auto flex min-h-[92svh] max-w-[1360px] flex-col justify-end px-8 pb-24 pt-40 text-white">
-          <div className="mb-7 flex items-center gap-3">
-            <span style={{ color: RUST }} className="tracking-[0.2em] text-sm" aria-hidden>★★★★★</span>
-            <span className="text-[0.7rem] font-medium uppercase tracking-[0.22em] text-white/85">4.8 on Google · Family-run in Wausau since 1978</span>
-          </div>
-          <h1 style={{ fontFamily: "var(--font-utopia)" }} className="text-white leading-[1.0] tracking-[0.002em] text-[clamp(3rem,1rem+7vw,7rem)]">
-            <span className="font-semibold">The whole home,</span>
-            <span className="block italic font-normal">priced for less.</span>
-          </h1>
-          <p className="mt-8 max-w-[46ch] text-[1.02rem] font-light leading-[1.7] tracking-[0.01em] text-white/85">
-            Discount and surplus doors, windows, cabinets and vanities — plus custom cabinetry and a full install crew. One Wausau yard, from a bin find to a finished kitchen.
-          </p>
-          <div className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-4">
-            <Link href="/shop" data-ink className="border border-white/80 px-9 py-4 text-[0.72rem] font-medium uppercase tracking-[0.2em] text-white transition hover:bg-white" style={{ ["--h" as string]: INK }}>Shop the warehouse ›</Link>
-            <Link href="/contact" className="text-[0.72rem] font-medium uppercase tracking-[0.2em] text-white/90 underline-offset-[6px] hover:underline">Plan a remodel ›</Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ---- slate promo strip ---- */}
-      <div style={{ background: SLATE }} className="text-white">
-        <div className="mx-auto grid max-w-[1360px] grid-cols-1 divide-white/15 px-8 py-4 text-center md:grid-cols-3 md:divide-x">
-          {[["New tags every Wednesday", "Fresh surplus hits the floor weekly ›"], ["Everything under one roof", "Shop · design · install ›"], ["4.8★ on Google", "Family-run since 1978 ›"]].map(([a, b]) => (
-            <div key={a} className="px-4 py-1">
-              <div className="text-[0.8rem] font-medium uppercase tracking-[0.12em]">{a}</div>
-              <div className="mt-0.5 text-[0.72rem] font-light tracking-[0.03em] text-white/75">{b}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ---- INTRO ---- */}
-      <section className="mx-auto max-w-[900px] px-8 py-24 text-center">
-        <Eyebrow>One yard, three ways to build</Eyebrow>
-        <H2 className="mx-auto mt-4 max-w-[20ch]">From a bin find to a finished kitchen.</H2>
-        <p className="mx-auto mt-6 max-w-[62ch] text-[1.05rem] font-light leading-[1.75]" style={{ color: SOFT }}>
-          Price-Less began in 1978 as Wausau&rsquo;s discount and surplus building yard. Today the same lot holds three businesses — shop the floor, design with our cabinet team, and remodel with our own crew, all under one roof.
-        </p>
-      </section>
+      {/* ===================== HEADER + HERO (rejuvenation) ===================== */}
+      <SiteNav />
+      <HeroSlideshow />
 
       {/* ---- MURAL WALL (wide, full-bleed) ---- */}
       <figure className="relative">
