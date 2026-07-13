@@ -252,41 +252,53 @@ export default async function HomePage() {
         </figcaption>
       </figure>
 
-      {/* Three businesses */}
-      <section className="bg-[var(--taupe)]">
-        <div className="mx-auto max-w-[1240px] px-5 py-14 text-center sm:px-8 sm:py-20 md:py-24">
-          <Eyebrow>One yard · three ways to build</Eyebrow>
-          <H2 className="mx-auto mt-3 max-w-[22ch] sm:mt-4">
+      {/* Three businesses — photo captions */}
+      <section className="bg-[var(--ink)]">
+        <div className="mx-auto max-w-[1360px] px-5 py-14 text-center sm:px-8 sm:py-16 md:py-20">
+          <Eyebrow onDark>
+            <span className="text-[var(--rust)]">One yard · three ways to build</span>
+          </Eyebrow>
+          <H2 className="mx-auto mt-3 max-w-[22ch] text-white sm:mt-4">
             Shop it, design it, <span className="font-normal italic">build it.</span>
           </H2>
-          <div className="mt-10 grid gap-x-10 gap-y-10 text-left sm:mt-14 md:mt-16 md:grid-cols-3 md:gap-y-14">
-            {SERVICES.map((s) => (
-              <div key={s.name} className="flex flex-col">
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--stone-deep)]">
-                  <Image src={s.img} alt={s.name} fill sizes="(max-width:768px) 90vw, 30vw" className="object-cover" />
+          <div className="mt-10 grid gap-3 sm:mt-12 md:mt-14 md:grid-cols-3 md:gap-4">
+            {SERVICES.map((s, i) => (
+              <Link
+                key={s.name}
+                href={s.href}
+                className="group relative aspect-[3/4] overflow-hidden sm:aspect-[4/5]"
+              >
+                <Image
+                  src={s.img}
+                  alt={s.name}
+                  fill
+                  sizes="(max-width:768px) 100vw, 33vw"
+                  quality={90}
+                  className="object-cover transition duration-700 group-hover:scale-[1.04]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/5" />
+                <div className="absolute left-5 top-5 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-white/70">
+                  0{i + 1}
                 </div>
-                <div className="mt-5 flex items-center gap-3 sm:mt-7 sm:gap-3.5">
-                  <Image
-                    src={s.logo}
-                    alt=""
-                    width={s.logoW}
-                    height={s.logoH}
-                    className="h-9 w-auto max-w-[2.75rem] shrink-0 object-contain sm:h-11 sm:max-w-[3.25rem]"
-                  />
-                  <h3 className="font-display text-[1.2rem] leading-tight text-[var(--ink)] sm:text-[1.45rem]">
-                    {s.name}
-                  </h3>
+                <div className="absolute inset-x-0 bottom-0 p-5 text-left text-white sm:p-6">
+                  <div className="flex items-center gap-3">
+                    <Image
+                      src={s.logo}
+                      alt=""
+                      width={s.logoW}
+                      height={s.logoH}
+                      className="h-9 w-auto max-w-[2.75rem] shrink-0 object-contain brightness-0 invert sm:h-10 sm:max-w-[3rem]"
+                    />
+                    <h3 className="font-display text-[1.3rem] leading-tight sm:text-[1.45rem]">{s.name}</h3>
+                  </div>
+                  <p className="mt-2 line-clamp-2 text-[0.85rem] font-light leading-[1.5] text-white/80 sm:text-[0.9rem]">
+                    {s.body}
+                  </p>
+                  <span className="mt-4 inline-block text-[0.68rem] font-medium uppercase tracking-[0.2em]">
+                    {s.cta} ›
+                  </span>
                 </div>
-                <p className="mt-2 line-clamp-2 max-w-[36ch] text-[0.88rem] font-light leading-[1.55] text-[var(--soft)] sm:mt-3 sm:line-clamp-none sm:text-[0.92rem] sm:leading-[1.65]">
-                  {s.body}
-                </p>
-                <Link
-                  href={s.href}
-                  className="mt-3 inline-block text-[0.72rem] font-medium uppercase tracking-[0.2em] underline-offset-[6px] transition hover:underline sm:mt-5"
-                >
-                  {s.cta} ›
-                </Link>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
