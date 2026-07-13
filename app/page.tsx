@@ -253,12 +253,10 @@ export default async function HomePage() {
       </figure>
 
       {/* Three businesses — photo captions */}
-      <section className="bg-[var(--ink)]">
+      <section className="bg-[var(--taupe)]">
         <div className="mx-auto max-w-[1360px] px-5 py-14 text-center sm:px-8 sm:py-16 md:py-20">
-          <Eyebrow onDark>
-            <span className="text-[var(--rust)]">One yard · three ways to build</span>
-          </Eyebrow>
-          <H2 className="mx-auto mt-3 max-w-[22ch] text-white sm:mt-4">
+          <Eyebrow>One yard · three ways to build</Eyebrow>
+          <H2 className="mx-auto mt-3 max-w-[22ch] sm:mt-4">
             Shop it, design it, <span className="font-normal italic">build it.</span>
           </H2>
           <div className="mt-10 grid gap-3 sm:mt-12 md:mt-14 md:grid-cols-3 md:gap-4">
