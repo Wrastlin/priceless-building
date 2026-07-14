@@ -19,7 +19,7 @@ const SERVICES = [
     logo: `${P}/logo-priceless-clean.webp`,
     logoW: 120,
     logoH: 120,
-    body: "Discount and surplus doors, windows, cabinets, and lighting — tagged and ready to take home.",
+    body: "Surplus doors, windows, cabinets, and lighting. Walk the aisles and take it home the same day.",
     cta: "Shop the warehouse",
     href: "/shop",
     img: `${B}/white-kitchen-marble-island.jpg`,
@@ -29,7 +29,7 @@ const SERVICES = [
     logo: `${P}/logo-builders-corner@2x.webp`,
     logoW: 446,
     logoH: 320,
-    body: "Custom cabinetry and full kitchen & bath design, built in our own Wausau shop.",
+    body: "Custom kitchens and baths, designed in the showroom and built in our Wausau shop.",
     cta: "Design a kitchen",
     href: "/builders-corner",
     img: `${P}/builders-corner-hero.jpg`,
@@ -39,7 +39,7 @@ const SERVICES = [
     logo: `${P}/logo-4squared.jpg`,
     logoW: 140,
     logoH: 140,
-    body: "Our own crew handles the whole remodel — from demo to the final walkthrough.",
+    body: "Our install crew — demo through finish on kitchens, baths, and full remodels.",
     cta: "Start a remodel",
     href: "/four-squared",
     img: `${P}/foursquared/kitchen-white-island-shiplap.jpg`,
@@ -50,12 +50,12 @@ const BEFORE_AFTER = [
   {
     label: "Kitchen remodel",
     img: `${B}/kitchen-remodel-before-after.jpg`,
-    body: "Dated oak galley to a bright white-cabinet kitchen with stone counters — designed, supplied, and installed under one roof.",
+    body: "Oak galley kitchen redone with white cabinets and stone counters. Materials and install from this lot.",
   },
   {
     label: "Kitchen & bath",
     img: `${B}/kitchen-and-bath-remodel-split.jpg`,
-    body: "A whole-home refresh: cabinetry from Builders Corner, fixtures off the Price-Less floor, installed by the 4 Squared crew.",
+    body: "Cabinets from Builders Corner, fixtures from Price-Less, installed by 4 Squared.",
   },
 ];
 
@@ -269,12 +269,12 @@ export default async function HomePage() {
       {/* Three businesses — photo captions */}
       <section className="bg-[var(--taupe)]">
         <div className="mx-auto max-w-[1360px] px-5 py-14 text-center sm:px-8 sm:py-16 md:py-20">
-          <H2 className="mx-auto max-w-[22ch]">
-            Shop it, design it, build it.
+          <H2 className="mx-auto max-w-[24ch]">
+            Three businesses on one lot
           </H2>
           <Sub className="mx-auto">
-            Price-Less, Builders Corner, and 4 Squared — surplus shopping, custom cabinetry, and
-            remodels on the same lot.
+            Shop surplus at Price-Less, design cabinets at Builders Corner, or book a remodel
+            with 4 Squared. Same address.
           </Sub>
           <div className="mt-10 grid gap-3 sm:mt-12 md:mt-14 md:grid-cols-3 md:gap-4">
             {SERVICES.map((s, i) => (
@@ -292,9 +292,6 @@ export default async function HomePage() {
                   className="object-cover transition duration-700 group-hover:scale-[1.04]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/5" />
-                <div className="absolute left-5 top-5 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-white/70">
-                  0{i + 1}
-                </div>
                 <div className="absolute inset-x-0 bottom-0 p-5 text-left text-white sm:p-6">
                   <div className="flex items-center gap-3">
                     <span className="grid size-10 shrink-0 place-items-center bg-white p-1 sm:size-11">
@@ -326,10 +323,8 @@ export default async function HomePage() {
         <section className="mx-auto max-w-[1360px] px-5 pt-14 pb-8 sm:px-8 sm:pt-20 sm:pb-10">
           <div className="flex items-end justify-between gap-6">
             <div>
-              <H2>
-                Fresh finds from the warehouse.
-              </H2>
-              <Sub>What&rsquo;s tagged and ready to take home right now.</Sub>
+              <H2>What&rsquo;s in stock</H2>
+              <Sub>A few pieces from the warehouse floor this week.</Sub>
             </div>
             <Link
               href="/shop"
@@ -349,12 +344,9 @@ export default async function HomePage() {
       {/* Before / after */}
       <section className="mx-auto max-w-[1360px] px-5 pt-8 pb-14 sm:px-8 sm:pt-10 sm:pb-20">
         <div className="max-w-[46ch]">
-          <H2>
-            Before, and after.
-          </H2>
+          <H2>Recent remodels</H2>
           <Sub>
-            Real rooms the in-house crew has finished — shopped, designed, and installed without
-            leaving the lot.
+            Kitchens and baths finished by our crew, using materials from this lot.
           </Sub>
         </div>
         <div className="mt-6 grid gap-6 sm:mt-8 sm:gap-8 md:grid-cols-2">
@@ -377,9 +369,9 @@ export default async function HomePage() {
       {/* Brands */}
       <section className="bg-[var(--ink)] text-white">
         <div className="mx-auto max-w-[1360px] px-5 py-12 text-center sm:px-8 sm:py-20">
-          <H2 className="text-white">Brands on the floor.</H2>
+          <H2 className="text-white">Brands we carry</H2>
           <Sub onDark className="mx-auto">
-            Names you&rsquo;ll recognize — read straight off the boxes in our aisles.
+            Whatever came in on the truck — Andersen, Kohler, and the rest.
           </Sub>
           <div className="mx-auto mt-8 flex max-w-[1100px] flex-wrap items-center justify-center gap-x-6 gap-y-3 sm:mt-12 sm:gap-x-12 sm:gap-y-6">
             {BRANDS.map((b) => (
@@ -399,8 +391,8 @@ export default async function HomePage() {
         <div className="mx-auto max-w-[1360px] px-5 py-14 sm:px-8 sm:py-24">
           <div className="flex items-end justify-between gap-6">
             <div>
-              <H2>A slice of the floor.</H2>
-              <Sub>Warehouse aisles, finished installs, and the work in between.</Sub>
+              <H2>Photos from the yard</H2>
+              <Sub>The warehouse, the installs, and a few finished rooms.</Sub>
             </div>
             <Link
               href="/shop"
@@ -428,10 +420,8 @@ export default async function HomePage() {
       <section className="mx-auto max-w-[1240px] px-5 py-14 sm:px-8 sm:py-24">
         <div className="flex items-end justify-between gap-6">
           <div>
-            <H2>
-              Wausau keeps talking.
-            </H2>
-            <Sub>Local coverage from WSAW and The Business News.</Sub>
+            <H2>In the news</H2>
+            <Sub>Coverage from WSAW and The Business News.</Sub>
           </div>
           <Link
             href="/press"
@@ -469,12 +459,9 @@ export default async function HomePage() {
       <section className="border-t border-[var(--line)] bg-[var(--cream)]">
         <div className="mx-auto grid max-w-[1240px] items-center gap-8 px-5 py-14 sm:gap-14 sm:px-8 sm:py-24 md:grid-cols-2">
           <div className="order-2 md:order-1">
-            <H2>
-              Follow along on Facebook.
-            </H2>
+            <H2>On Facebook</H2>
             <Sub className="hidden sm:block">
-              New stock, holiday hours, paint days, and community events — we post a few times a
-              week. It&rsquo;s the most current look at what&rsquo;s on the floor between visits.
+              New stock, holiday hours, and store events. We post a few times a week.
             </Sub>
             <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 sm:mt-8">
               <a
@@ -516,7 +503,7 @@ export default async function HomePage() {
         <div className="mx-auto grid max-w-[1360px] md:grid-cols-2">
           <div className="flex flex-col justify-center px-5 py-12 sm:px-8 sm:py-20 md:px-14 md:py-24 lg:px-20">
             <H2 className="max-w-[16ch]">
-              Come see it. You&rsquo;re in Wausau.
+              Come by the warehouse
             </H2>
             <p className="mt-4 max-w-[42ch] text-[0.95rem] font-light leading-[1.65] text-[var(--soft)] sm:mt-5 sm:text-[1rem] sm:leading-[1.7]">
               {ADDRESS.street}
