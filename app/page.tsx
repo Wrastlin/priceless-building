@@ -345,7 +345,7 @@ export default async function HomePage() {
         <div className="max-w-[46ch]">
           <H2>Before, and after.</H2>
           <Sub>
-            Real rooms the in-house crew has finished — shopped, designed, and installed without
+            Real rooms the in-house crew has finished. Shopped, designed, and installed without
             leaving the lot.
           </Sub>
         </div>
@@ -371,7 +371,7 @@ export default async function HomePage() {
         <div className="mx-auto max-w-[1360px] px-5 py-12 text-center sm:px-8 sm:py-20">
           <H2 className="text-white">Brands on the floor.</H2>
           <Sub onDark className="mx-auto">
-            Names you&rsquo;ll recognize — read straight off the boxes in our aisles.
+            Names you&rsquo;ll recognize, read straight off the boxes in our aisles.
           </Sub>
           <div className="mx-auto mt-8 flex max-w-[1100px] flex-wrap items-center justify-center gap-x-6 gap-y-3 sm:mt-12 sm:gap-x-12 sm:gap-y-6">
             {BRANDS.map((b) => (
@@ -461,7 +461,7 @@ export default async function HomePage() {
           <div className="order-2 md:order-1">
             <H2>Follow along on Facebook.</H2>
             <Sub className="hidden sm:block">
-              New stock, holiday hours, paint days, and community events — we post a few times a
+              New stock, holiday hours, paint days, and community events. We post a few times a
               week. It&rsquo;s the most current look at what&rsquo;s on the floor between visits.
             </Sub>
             <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 sm:mt-8">
