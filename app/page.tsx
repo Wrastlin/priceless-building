@@ -184,9 +184,23 @@ const HOME_JSON_LD = {
   ],
 };
 
-function Eyebrow({ children, onDark = false }: { children: React.ReactNode; onDark?: boolean }) {
+function Sub({
+  children,
+  onDark = false,
+  className = "",
+}: {
+  children: React.ReactNode;
+  onDark?: boolean;
+  className?: string;
+}) {
   return (
-    <p className={`eyebrow ${onDark ? "eyebrow-on-dark" : ""}`}>{children}</p>
+    <p
+      className={`mt-3 max-w-[42ch] text-[0.95rem] font-light leading-[1.65] sm:mt-4 sm:text-[1rem] sm:leading-[1.7] ${
+        onDark ? "text-white/70" : "text-[var(--soft)]"
+      } ${className}`}
+    >
+      {children}
+    </p>
   );
 }
 
@@ -255,10 +269,13 @@ export default async function HomePage() {
       {/* Three businesses — photo captions */}
       <section className="bg-[var(--taupe)]">
         <div className="mx-auto max-w-[1360px] px-5 py-14 text-center sm:px-8 sm:py-16 md:py-20">
-          <Eyebrow>One yard · three ways to build</Eyebrow>
-          <H2 className="mx-auto mt-3 max-w-[22ch] sm:mt-4">
+          <H2 className="mx-auto max-w-[22ch]">
             Shop it, design it, <span className="font-normal italic">build it.</span>
           </H2>
+          <Sub className="mx-auto">
+            Price-Less, Builders Corner, and 4 Squared — surplus shopping, custom cabinetry, and
+            remodels on the same lot.
+          </Sub>
           <div className="mt-10 grid gap-3 sm:mt-12 md:mt-14 md:grid-cols-3 md:gap-4">
             {SERVICES.map((s, i) => (
               <Link
@@ -309,10 +326,10 @@ export default async function HomePage() {
         <section className="mx-auto max-w-[1360px] px-5 pt-14 pb-8 sm:px-8 sm:pt-20 sm:pb-10">
           <div className="flex items-end justify-between gap-6">
             <div>
-              <Eyebrow>On the floor now</Eyebrow>
-              <H2 className="mt-3 sm:mt-4">
+              <H2>
                 Fresh finds from the <span className="font-normal italic">warehouse.</span>
               </H2>
+              <Sub>What&rsquo;s tagged and ready to take home right now.</Sub>
             </div>
             <Link
               href="/shop"
@@ -332,14 +349,13 @@ export default async function HomePage() {
       {/* Before / after */}
       <section className="mx-auto max-w-[1360px] px-5 pt-8 pb-14 sm:px-8 sm:pt-10 sm:pb-20">
         <div className="max-w-[46ch]">
-          <Eyebrow>The remodeling journey</Eyebrow>
-          <H2 className="mt-3">
+          <H2>
             Before, and <span className="font-normal italic">after.</span>
           </H2>
-          <p className="mt-3 hidden text-[1rem] font-light leading-[1.7] text-[var(--soft)] sm:mt-4 sm:block">
+          <Sub>
             Real rooms the in-house crew has finished — shopped, designed, and installed without
             leaving the lot.
-          </p>
+          </Sub>
         </div>
         <div className="mt-6 grid gap-6 sm:mt-8 sm:gap-8 md:grid-cols-2">
           {BEFORE_AFTER.map((ba) => (
@@ -361,8 +377,10 @@ export default async function HomePage() {
       {/* Brands */}
       <section className="bg-[var(--ink)] text-white">
         <div className="mx-auto max-w-[1360px] px-5 py-12 text-center sm:px-8 sm:py-20">
-          <Eyebrow onDark>Read straight off the boxes in our aisles</Eyebrow>
-          <H2 className="mt-3 text-white sm:mt-4">Brands on the floor.</H2>
+          <H2 className="text-white">Brands on the floor.</H2>
+          <Sub onDark className="mx-auto">
+            Names you&rsquo;ll recognize — read straight off the boxes in our aisles.
+          </Sub>
           <div className="mx-auto mt-8 flex max-w-[1100px] flex-wrap items-center justify-center gap-x-6 gap-y-3 sm:mt-12 sm:gap-x-12 sm:gap-y-6">
             {BRANDS.map((b) => (
               <span key={b} className="text-[0.85rem] font-medium uppercase tracking-[0.16em] text-white/70 sm:text-[1.15rem] sm:tracking-[0.18em]">
@@ -381,8 +399,8 @@ export default async function HomePage() {
         <div className="mx-auto max-w-[1360px] px-5 py-14 sm:px-8 sm:py-24">
           <div className="flex items-end justify-between gap-6">
             <div>
-              <Eyebrow>Around the yard</Eyebrow>
-              <H2 className="mt-3 sm:mt-4">A slice of the floor.</H2>
+              <H2>A slice of the floor.</H2>
+              <Sub>Warehouse aisles, finished installs, and the work in between.</Sub>
             </div>
             <Link
               href="/shop"
@@ -410,10 +428,10 @@ export default async function HomePage() {
       <section className="mx-auto max-w-[1240px] px-5 py-14 sm:px-8 sm:py-24">
         <div className="flex items-end justify-between gap-6">
           <div>
-            <Eyebrow>In the local news</Eyebrow>
-            <H2 className="mt-3 sm:mt-4">
+            <H2>
               Wausau keeps <span className="font-normal italic">talking.</span>
             </H2>
+            <Sub>Local coverage from WSAW and The Business News.</Sub>
           </div>
           <Link
             href="/press"
@@ -451,14 +469,13 @@ export default async function HomePage() {
       <section className="border-t border-[var(--line)] bg-[var(--cream)]">
         <div className="mx-auto grid max-w-[1240px] items-center gap-8 px-5 py-14 sm:gap-14 sm:px-8 sm:py-24 md:grid-cols-2">
           <div className="order-2 md:order-1">
-            <Eyebrow>Around the store lately</Eyebrow>
-            <H2 className="mt-3 sm:mt-4">
+            <H2>
               Follow along on <span className="font-normal italic">Facebook.</span>
             </H2>
-            <p className="mt-3 hidden max-w-[46ch] text-[1rem] font-light leading-[1.75] text-[var(--soft)] sm:mt-5 sm:block">
+            <Sub className="hidden sm:block">
               New stock, holiday hours, paint days, and community events — we post a few times a
               week. It&rsquo;s the most current look at what&rsquo;s on the floor between visits.
-            </p>
+            </Sub>
             <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 sm:mt-8">
               <a
                 href={PRICELESS.socials.facebook}
@@ -498,8 +515,7 @@ export default async function HomePage() {
       <section className="border-t border-[var(--line)] bg-white">
         <div className="mx-auto grid max-w-[1360px] md:grid-cols-2">
           <div className="flex flex-col justify-center px-5 py-12 sm:px-8 sm:py-20 md:px-14 md:py-24 lg:px-20">
-            <Eyebrow>Visit the yard</Eyebrow>
-            <H2 className="mt-3 max-w-[16ch] sm:mt-4">
+            <H2 className="max-w-[16ch]">
               Come see it. You&rsquo;re in{" "}
               <span className="font-normal italic">Wausau.</span>
             </H2>
