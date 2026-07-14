@@ -39,7 +39,7 @@ const SERVICES = [
     logo: `${P}/logo-4squared.jpg`,
     logoW: 140,
     logoH: 140,
-    body: "Top-rated remodel crew. Top 5 in Marathon County. Kitchens, baths, and full interiors.",
+    body: "Professional remodel install. Kitchens, baths, and full interiors.",
     cta: "Start a remodel",
     href: "/four-squared",
     img: `${P}/foursquared/kitchen-white-island-shiplap.jpg`,
@@ -273,7 +273,7 @@ export default async function HomePage() {
             Shop it, design it, build it.
           </H2>
           <Sub className="mx-auto">
-            Building supply center, custom cabinetry, and a top-rated remodel crew. One place for the whole interior.
+            Building supply center, top-rated custom cabinetry, and a remodel crew. One place for the whole interior.
           </Sub>
           <div className="mt-10 grid gap-3 sm:mt-12 md:mt-14 md:grid-cols-3 md:gap-4">
             {SERVICES.map((s) => (
