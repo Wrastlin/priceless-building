@@ -273,7 +273,7 @@ export default async function HomePage() {
             Shop it, design it, build it.
           </H2>
           <Sub className="mx-auto">
-            Building supply center, custom cabinetry, and a remodel crew. One place for the whole interior.
+            Building supply center, custom cabinetry, and a top-rated remodel crew. One place for the whole interior.
           </Sub>
           <div className="mt-10 grid gap-3 sm:mt-12 md:mt-14 md:grid-cols-3 md:gap-4">
             {SERVICES.map((s) => (
