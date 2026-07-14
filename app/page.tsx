@@ -29,7 +29,7 @@ const SERVICES = [
     logo: `${P}/logo-builders-corner@2x.webp`,
     logoW: 446,
     logoH: 320,
-    body: "High-end custom kitchens and baths, built in our Wausau shop.",
+    body: "Top-rated custom kitchens and baths, built in our Wausau shop.",
     cta: "Design a kitchen",
     href: "/builders-corner",
     img: `${P}/builders-corner-hero.jpg`,
