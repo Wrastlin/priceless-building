@@ -277,7 +277,7 @@ export default async function HomePage() {
             with 4 Squared. Same address.
           </Sub>
           <div className="mt-10 grid gap-3 sm:mt-12 md:mt-14 md:grid-cols-3 md:gap-4">
-            {SERVICES.map((s, i) => (
+            {SERVICES.map((s) => (
               <Link
                 key={s.name}
                 href={s.href}
