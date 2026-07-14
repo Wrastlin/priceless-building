@@ -26,9 +26,9 @@ const SERVICES = [
   },
   {
     name: "Builders Corner",
-    logo: `${P}/logo-builders-corner-real.jpg`,
-    logoW: 180,
-    logoH: 120,
+    logo: `${P}/logo-builders-corner@2x.webp`,
+    logoW: 446,
+    logoH: 320,
     body: "Custom cabinetry and full kitchen & bath design, built in our own Wausau shop.",
     cta: "Design a kitchen",
     href: "/builders-corner",
@@ -280,13 +280,15 @@ export default async function HomePage() {
                 </div>
                 <div className="absolute inset-x-0 bottom-0 p-5 text-left text-white sm:p-6">
                   <div className="flex items-center gap-3">
-                    <Image
-                      src={s.logo}
-                      alt=""
-                      width={s.logoW}
-                      height={s.logoH}
-                      className="h-9 w-auto max-w-[2.75rem] shrink-0 object-contain brightness-0 invert sm:h-10 sm:max-w-[3rem]"
-                    />
+                    <span className="grid size-10 shrink-0 place-items-center bg-white p-1 sm:size-11">
+                      <Image
+                        src={s.logo}
+                        alt=""
+                        width={s.logoW}
+                        height={s.logoH}
+                        className="h-full w-full object-contain"
+                      />
+                    </span>
                     <h3 className="font-display text-[1.3rem] leading-tight sm:text-[1.45rem]">{s.name}</h3>
                   </div>
                   <p className="mt-2 line-clamp-2 text-[0.85rem] font-light leading-[1.5] text-white/80 sm:text-[0.9rem]">
