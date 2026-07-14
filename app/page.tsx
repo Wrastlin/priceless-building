@@ -50,7 +50,7 @@ const BEFORE_AFTER = [
   {
     label: "Kitchen remodel",
     img: `${B}/kitchen-remodel-before-after.jpg`,
-    body: "Dated oak galley to a bright white-cabinet kitchen with stone counters — designed, supplied, and installed under one roof.",
+    body: "Dated oak galley to a bright white-cabinet kitchen with stone counters. Designed, supplied, and installed under one roof.",
   },
   {
     label: "Kitchen & bath",
