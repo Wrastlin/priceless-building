@@ -272,11 +272,8 @@ export default async function HomePage() {
           <H2 className="mx-auto max-w-[22ch]">
             Shop it, design it, build it.
           </H2>
-          <Sub className="mx-auto max-w-[48ch]">
-            An interior design company with a warehouse behind it — premium brands and one-of-a-kind
-            finds, liquidation when you need it affordable, custom cabinetry from Builders Corner,
-            and a remodel crew that does the finish work. DIY pull-and-go or a full custom room.
-            It&rsquo;s all here.
+          <Sub className="mx-auto">
+            Warehouse, custom cabinetry, and a remodel crew. One place for the whole interior.
           </Sub>
           <div className="mt-10 grid gap-3 sm:mt-12 md:mt-14 md:grid-cols-3 md:gap-4">
             {SERVICES.map((s) => (
@@ -307,7 +304,7 @@ export default async function HomePage() {
                     </span>
                     <h3 className="font-display text-[1.3rem] leading-tight sm:text-[1.45rem]">{s.name}</h3>
                   </div>
-                  <p className="mt-2 line-clamp-3 text-[0.85rem] font-light leading-[1.5] text-white/80 sm:text-[0.9rem]">
+                  <p className="mt-2 line-clamp-2 text-[0.85rem] font-light leading-[1.5] text-white/80 sm:text-[0.9rem]">
                     {s.body}
                   </p>
                   <span className="mt-4 inline-block text-[0.68rem] font-medium uppercase tracking-[0.2em]">
