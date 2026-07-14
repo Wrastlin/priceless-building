@@ -70,8 +70,7 @@ export function HeroSlideshow() {
               className="font-display max-w-[16ch] text-[clamp(2.6rem,1rem+5.4vw,5.6rem)] leading-[1.02] text-white"
               style={{ textShadow: "0 2px 26px rgba(0,0,0,.45)" }}
             >
-              <span className="font-semibold">The whole home,</span>{" "}
-              <span className="font-normal italic">priced for less.</span>
+              The whole home, priced for less.
             </h1>
             <Link
               href="/shop"
@@ -83,8 +82,8 @@ export function HeroSlideshow() {
         </div>
       </div>
 
-      <p className="font-display mx-auto max-w-[60ch] px-6 pb-4 pt-8 text-center text-[1.1rem] font-normal italic leading-[1.45] text-[var(--ink)] sm:px-8 sm:pb-6 sm:pt-16 sm:text-[1.3rem] sm:leading-[1.5]">
-        From a bin find to a finished kitchen — Wausau&rsquo;s discount and surplus
+      <p className="font-display mx-auto max-w-[60ch] px-6 pb-4 pt-8 text-center text-[1.1rem] font-normal leading-[1.45] text-[var(--ink)] sm:px-8 sm:pb-6 sm:pt-16 sm:text-[1.3rem] sm:leading-[1.5]">
+        From a bin find to a finished kitchen. Wausau&rsquo;s discount and surplus
         building yard since 1978.
       </p>
 

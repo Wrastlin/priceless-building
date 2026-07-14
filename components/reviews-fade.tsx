@@ -97,9 +97,8 @@ export function ReviewsFade({ reviews }: { reviews: Review[] }) {
 
   return (
     <section className="mx-auto max-w-[1240px] px-5 py-14 text-center sm:px-8 sm:py-24">
-      <p className="eyebrow">Since 1978</p>
-      <h2 className="font-display mx-auto mt-3 max-w-[24ch] text-[clamp(2rem,1rem+2.9vw,3.3rem)] leading-[1.05] sm:mt-4">
-        Trusted across <span className="font-normal italic">central Wisconsin.</span>
+      <h2 className="font-display mx-auto max-w-[24ch] text-[clamp(2rem,1rem+2.9vw,3.3rem)] leading-[1.05]">
+        Trusted across central Wisconsin.
       </h2>
       <div className="mt-3 flex items-center justify-center gap-3 sm:mt-5">
         <span className="text-sm tracking-[0.2em] text-[var(--rust)]" aria-hidden>
