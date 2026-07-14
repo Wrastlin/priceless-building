@@ -39,7 +39,7 @@ const SERVICES = [
     logo: `${P}/logo-4squared.jpg`,
     logoW: 140,
     logoH: 140,
-    body: "Professional remodel install. Kitchens, baths, and full interiors.",
+    body: "Top-rated remodel crew. Top 5 in Marathon County. Kitchens, baths, and full interiors.",
     cta: "Start a remodel",
     href: "/four-squared",
     img: `${P}/foursquared/kitchen-white-island-shiplap.jpg`,
