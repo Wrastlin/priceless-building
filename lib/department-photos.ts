@@ -1,8 +1,9 @@
 /**
  * Maps each walkthrough product type to a real, clean store photo so the
  * department inventory can be shown image-first (a Menards-style product
- * grid) instead of a wall of text. Photos are the studio-clean test-images
- * where one exists, otherwise a real warehouse shot from the FB/IG archive.
+ * grid) instead of a wall of text. Photos prefer the July 2026 floor
+ * inventory shoot (`floor-*`) where one fits, then older warehouse shots
+ * and studio-clean test-images.
  *
  * Any type without an explicit photo falls back to the department hero, so
  * every inventory card is guaranteed to render an image. Type names must
@@ -12,48 +13,48 @@ import { CATEGORIES, type Category } from "@/lib/catalog-meta";
 
 const TYPE_PHOTOS: Partial<Record<Category, Record<string, string>>> = {
   doors: {
-    "Interior door": "/test-images/01-interior-door-shaker.jpg",
-    "Exterior door": "/test-images/02-exterior-door-black-steel.jpg",
+    "Interior door": "/real-photos/business/floor-six-panel-oak-door-aisle.jpg",
+    "Exterior door": "/real-photos/business/floor-arched-eight-panel-door.jpg",
     "Bifold door": "/test-images/11-reclaimed-pine-door.jpg",
-    "Door slab (unfinished)": "/real-photos/business/knotty-pine-6-panel-door.jpg",
-    "Glass-panel door": "/real-photos/business/wood-look-exterior-door-glass-insert.jpg",
-    "Prehung door": "/real-photos/business/craftsman-door-warehouse.jpg",
+    "Door slab (unfinished)": "/real-photos/business/floor-door-inventory-ten-lite-rows.jpg",
+    "Glass-panel door": "/real-photos/business/floor-dark-espresso-four-lite-doors.jpg",
+    "Prehung door": "/real-photos/business/floor-door-aisle-light-and-dark.jpg",
     "Door frame / jamb": "/real-photos/business/unfinished-wood-doors-stock.jpg",
-    "Patio / sliding door": "/real-photos/business/wrapped-wood-glass-door.jpg",
+    "Patio / sliding door": "/real-photos/business/floor-barn-door-diamond-glass.jpg",
   },
   windows: {
-    "Double-hung window": "/test-images/06-double-hung-window.jpg",
-    "Casement / vinyl window": "/test-images/12-black-casement-window.jpg",
-    "Window unit": "/real-photos/business/warehouse-assorted-windows.jpg",
-    "Wood-framed window": "/real-photos/business/warehouse-assorted-windows.jpg",
-    "Window (wrapped/new)": "/real-photos/business/black-framed-windows-warehouse.jpg",
-    "Arched / round window": "/real-photos/business/warehouse-assorted-windows.jpg",
+    "Double-hung window": "/real-photos/business/floor-wood-doublehung-arched-windows.jpg",
+    "Casement / vinyl window": "/real-photos/business/floor-thermotech-tan-grid-windows.jpg",
+    "Window unit": "/real-photos/business/floor-window-aisle-warehouse.jpg",
+    "Wood-framed window": "/real-photos/business/floor-wood-doublehung-arched-windows.jpg",
+    "Window (wrapped/new)": "/real-photos/business/floor-jeldwen-boxed-windows.jpg",
+    "Arched / round window": "/real-photos/business/floor-windows-stacked-blue-rack.jpg",
   },
   cabinets: {
-    "Base cabinet": "/test-images/03-base-cabinet-white-shaker.jpg",
+    "Base cabinet": "/real-photos/business/floor-white-and-wood-cabinet-displays.jpg",
     "Wall cabinet": "/test-images/13-espresso-wall-cabinet.jpg",
     "Pantry / tall cabinet": "/test-images/04-pantry-cabinet-walnut.jpg",
-    "Cabinet (assorted)": "/real-photos/business/warehouse-cabinet-display.jpg",
-    "Cabinet door / part": "/real-photos/business/dark-wood-cabinets-glass-knobs.jpg",
+    "Cabinet (assorted)": "/real-photos/business/floor-cabinet-door-sample-rack.jpg",
+    "Cabinet door / part": "/real-photos/business/floor-cabinet-door-sample-rack.jpg",
   },
   vanities: {
-    "Vanity base cabinet": "/test-images/05-vanity-single-marble-top.jpg",
-    "Vanity top w/ sink": "/real-photos/business/vanity-tops-inventory.jpg",
+    "Vanity base cabinet": "/real-photos/business/floor-vanity-floor-models-row.jpg",
+    "Vanity top w/ sink": "/real-photos/business/floor-vanity-tops-aisle.jpg",
   },
   countertops: {
     "Quartz countertop / sample": "/test-images/19-calacatta-quartz-slab.jpg",
-    "Granite / stone countertop": "/real-photos/business/discount-countertop-slabs.jpg",
-    "Laminate countertop": "/real-photos/business/countertop-blanks-inventory.jpg",
-    "Countertop (assorted)": "/real-photos/business/warehouse-countertop-slabs.jpg",
-    "Butcher block / wood top": "/real-photos/business/wood-countertop-edge-detail.jpg",
+    "Granite / stone countertop": "/real-photos/business/floor-countertop-remnant-panels.jpg",
+    "Laminate countertop": "/real-photos/business/floor-laminate-countertop-slabs.jpg",
+    "Countertop (assorted)": "/real-photos/business/floor-cultured-marble-vanity-tops.jpg",
+    "Butcher block / wood top": "/real-photos/business/floor-butcher-block-rack-stacks.jpg",
   },
   hardware: {
-    "Hardware (assorted)": "/test-images/07-cabinet-hardware-brushed-brass.jpg",
+    "Hardware (assorted)": "/real-photos/business/floor-fasteners-grk-simpson-display.jpg",
     "Cabinet pulls / knobs": "/test-images/15-matte-black-pulls.jpg",
-    "Lockset / door hardware": "/test-images/07-cabinet-hardware-brushed-brass.jpg",
+    "Lockset / door hardware": "/real-photos/business/floor-door-hardware-lock-shelves.jpg",
   },
   lighting: {
-    Chandelier: "/real-photos/business/red-sputnik-chandelier.jpg",
+    Chandelier: "/real-photos/business/floor-globe-crystal-chandelier.jpg",
     "Light fixture (assorted)": "/real-photos/business/warehouse-lighting-inventory.jpg",
     "Pendant light": "/real-photos/business/pendant-light-fixture-warehouse.jpg",
     "Ceiling fan": "/real-photos/business/ceiling-fan-warehouse-display.jpg",
@@ -61,10 +62,12 @@ const TYPE_PHOTOS: Partial<Record<Category, Record<string, string>>> = {
     "Ceiling / hanging fixture": "/real-photos/business/hanging-light-fixture-textured-shade.jpg",
   },
   trim: {
-    "Trim / molding profile": "/test-images/08-painted-trim-stack.jpg",
-    "Molding (assorted)": "/test-images/08-painted-trim-stack.jpg",
-    "Crown / profile molding": "/test-images/08-painted-trim-stack.jpg",
+    "Trim / molding profile": "/real-photos/business/floor-trim-molding-extrusions-rack.jpg",
+    "Molding (assorted)": "/real-photos/business/floor-dowels-closet-rods-rack.jpg",
+    "Crown / profile molding": "/real-photos/business/floor-lumber-millwork-room.jpg",
     "Base shoe molding": "/test-images/08-painted-trim-stack.jpg",
+    "Baluster / spindle": "/real-photos/business/floor-stair-newels-and-balusters.jpg",
+    "Newel post": "/real-photos/business/floor-stair-newel-posts-closeup.jpg",
   },
 };
 
@@ -86,31 +89,52 @@ export function typePhoto(category: string, typeName: string): string {
  */
 const DEPT_EXTRA: Partial<Record<Category, string[]>> = {
   doors: [
+    "/real-photos/business/floor-arched-iron-studded-doors.jpg",
+    "/real-photos/business/floor-door-aisle-light-and-dark.jpg",
+    "/real-photos/business/floor-door-inventory-ten-lite-rows.jpg",
     "/real-photos/business/brown-exterior-door-decorative-glass.jpg",
-    "/real-photos/business/dark-wood-exterior-door-glass.jpg",
-    "/real-photos/business/warehouse-unfinished-wood-doors.jpg",
-    "/real-photos/business/door-inventory-collage.webp",
   ],
-  windows: [],
+  windows: [
+    "/real-photos/business/floor-windows-stacked-blue-rack.jpg",
+    "/real-photos/business/floor-jeldwen-boxed-windows.jpg",
+    "/real-photos/business/floor-thermotech-tan-grid-windows.jpg",
+    "/real-photos/business/black-framed-windows-warehouse.jpg",
+  ],
   cabinets: [
+    "/real-photos/business/floor-white-and-wood-cabinet-displays.jpg",
     "/real-photos/business/white-base-cabinets-warehouse.jpg",
     "/real-photos/business/grey-cabinets-warehouse.jpg",
-    "/real-photos/business/light-wood-cabinet-display.jpg",
     "/real-photos/business/dark-base-cabinets-warehouse-row.jpg",
   ],
   vanities: [
-    "/real-photos/business/oak-double-vanity-warehouse.jpg",
-    "/real-photos/business/dark-wood-vanities-warehouse.jpg",
-    "/real-photos/business/marble-vanity-black-legs.jpg",
-    "/real-photos/business/trough-sink-vanity-display.jpg",
+    "/real-photos/business/floor-double-vanity-top-on-barrels.jpg",
+    "/real-photos/business/floor-vanity-row-high-angle.jpg",
+    "/real-photos/business/floor-white-vessel-sink-black-table.jpg",
+    "/real-photos/business/floor-vanity-tops-and-oak-cabinets.jpg",
+    "/real-photos/business/floor-vanity-tops-underside-aisle.jpg",
   ],
-  countertops: ["/real-photos/business/warehouse-countertop-slabs.jpg"],
-  hardware: ["/real-photos/business/dark-wood-cabinets-glass-knobs.jpg"],
+  countertops: [
+    "/real-photos/business/floor-live-edge-wood-slabs.jpg",
+    "/real-photos/business/floor-countertop-remnant-panels.jpg",
+    "/real-photos/business/intake-butcher-block-stacks.jpg",
+    "/real-photos/business/warehouse-countertop-slabs.jpg",
+  ],
+  hardware: [
+    "/real-photos/business/floor-fasteners-grk-simpson-display.jpg",
+    "/real-photos/business/intake-brushed-gold-cabinet-pulls.jpg",
+  ],
   lighting: [
+    "/real-photos/business/red-sputnik-chandelier.jpg",
     "/real-photos/business/crystal-ceiling-fan-warehouse.jpg",
     "/real-photos/business/decorative-light-fixture-warehouse.jpg",
+    "/real-photos/business/intake-crystal-candelabra-chandelier.jpg",
   ],
-  trim: [],
+  trim: [
+    "/real-photos/business/floor-dowels-closet-rods-rack.jpg",
+    "/real-photos/business/floor-stair-newels-and-balusters.jpg",
+    "/real-photos/business/floor-stair-newel-posts-closeup.jpg",
+    "/real-photos/business/floor-trim-molding-extrusions-rack.jpg",
+  ],
 };
 
 /**
