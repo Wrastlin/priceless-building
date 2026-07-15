@@ -16,13 +16,13 @@ export const CATEGORIES: Record<Category, { label: string; image: string; blurb:
     label: "Doors",
     image: "/real-photos/business/floor-barn-door-diamond-glass.jpg",
     blurb:
-      "Nearly 1,000 on the floor — interior slabs from about $25, pre-hungs, exterior & patio, bifolds, and one-of-a-kind glass finds.",
+      "Interior slabs, pre-hungs, exterior & patio, bifolds, and one-of-a-kind glass finds — everyday pieces through premium.",
   },
   windows: {
     label: "Windows",
     image: "/real-photos/business/floor-window-aisle-warehouse.jpg",
     blurb:
-      "Hundreds in stock — double-hung, casement, wood-framed, and specialty shapes. New-in-box JELD-WEN, Andersen, Thermo-Tech and more.",
+      "Double-hung, casement, wood-framed, and specialty shapes. New-in-box JELD-WEN, Andersen, Thermo-Tech and more.",
   },
   cabinets: {
     label: "Cabinets",
@@ -35,19 +35,19 @@ export const CATEGORIES: Record<Category, { label: string; image: string; blurb:
     label: "Vanities",
     image: "/real-photos/business/floor-vanity-row-mirrors-lights.jpg",
     blurb:
-      "18\" and 21\" baths up through 72\" doubles — floor models, cultured-marble tops, and vessel sinks ready to install.",
+      "18\" and 21\" baths up through doubles — floor models, cultured-marble tops, and vessel sinks ready to install.",
   },
   countertops: {
     label: "Countertops",
     image: "/real-photos/business/floor-butcher-block-rack-stacks.jpg",
     blurb:
-      "Butcher block by the stack, laminate remnants, quartz and granite — the deal shoppers rave about (yes, even $25 tops).",
+      "Butcher block by the stack, laminate remnants, quartz and granite — the deals shoppers rave about.",
   },
   hardware: {
     label: "Hardware",
     image: "/real-photos/business/floor-door-hardware-lock-shelves.jpg",
     blurb:
-      "Hundreds of locksets, pulls, hinges, and fasteners — Schlage, Kwikset, Amerock, GRK, new-in-box overstock.",
+      "Locksets, pulls, hinges, and fasteners — Schlage, Kwikset, Amerock, GRK, new-in-box overstock.",
   },
   lighting: {
     label: "Lighting",
@@ -59,6 +59,6 @@ export const CATEGORIES: Record<Category, { label: string; image: string; blurb:
     label: "Trim & Millwork",
     image: "/real-photos/business/floor-lumber-millwork-room.jpg",
     blurb:
-      "Casing, base, crown, dowels, newels, and balusters — thousands of feet and pieces, primed and ready.",
+      "Casing, base, crown, dowels, newels, and balusters — primed and ready for the job.",
   },
 };
