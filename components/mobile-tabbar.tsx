@@ -3,15 +3,15 @@ import Link from "next/link";
 /**
  * Sticky bottom tab bar for storefront (mobile). Renders inside the
  * Price-Less storefront only. Builders Corner keeps a single-column
- * footer and doesn't need this. Five slots: Shop, Map, Tour, Cart, Help.
+ * footer and doesn't need this. Five slots: Shop, Reviews, Cabinetry, Call, Visit.
  */
 export function MobileTabbar() {
   const tabs = [
     { href: "/shop", label: "Shop", icon: "🛒" },
     { href: "/reviews", label: "Reviews", icon: "★" },
-    { href: "/builders-corner", label: "Premier", icon: "✦" },
-    { href: "/cart", label: "Cart", icon: "🧾" },
-    { href: "/contact", label: "Help", icon: "📞" },
+    { href: "/builders-corner", label: "Cabinetry", icon: "✦" },
+    { href: "tel:7158483855", label: "Call", icon: "📞" },
+    { href: "/contact", label: "Visit", icon: "📍" },
   ];
   return (
     <div className="pointer-events-none sticky bottom-0 z-30 mt-12 md:hidden">

@@ -68,8 +68,10 @@ export default async function ShopIndex({ searchParams }: { searchParams: Promis
                 The whole warehouse, <span className="font-normal italic">by department.</span>
               </h1>
               <p className="mt-5 max-w-[42ch] text-[0.95rem] font-light leading-[1.65] text-white/85">
-                Hundreds of doors, windows, cabinets, and more — surplus that
-                moves weekly. Call (715) 848-3855 to hold something for pickup.
+                Nearly 1,000 doors. Kitchen cabinets including 12&quot; uppers and
+                24&quot; lowers. 18&quot; and 21&quot; vanities. Lighting, hardware,
+                flooring depth that reviews keep calling out — walk it in person
+                or call (715) 848-3855 to hold something.
               </p>
               <Link
                 href="tel:7158483855"
@@ -110,13 +112,14 @@ export default async function ShopIndex({ searchParams }: { searchParams: Promis
         <section className="border-t border-[var(--line)] bg-[var(--cream)]">
           <div className="mx-auto max-w-[1360px] px-6 py-16 md:px-8 md:py-20">
             <div className="mx-auto max-w-[40ch] text-center">
-              <p className="eyebrow">From the inventory pass</p>
+              <p className="eyebrow">Featured from the floor</p>
               <h2 className="font-display mt-4 text-[clamp(1.8rem,1rem+2vw,2.6rem)] leading-[1.05]">
-                A sample of three from the <span className="font-normal italic">floor.</span>
+                Three real pieces from the <span className="font-normal italic">warehouse.</span>
               </h2>
               <p className="mt-3 text-[0.95rem] font-light leading-[1.65] text-[var(--soft)]">
-                Real photos from last week&rsquo;s intake. Call for price and
-                availability — most of the warehouse still walks in person.
+                Real promotional photos from our inventory pass — a craftsman
+                door, gold cabinet pulls, and a crystal chandelier. Call for
+                price; we&rsquo;ll hold it for pickup.
               </p>
             </div>
             <div className="mx-auto mt-12 grid max-w-4xl grid-cols-1 gap-5 sm:grid-cols-3">

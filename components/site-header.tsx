@@ -3,8 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { AccountButton } from "./account-button";
-import { CartButton } from "./cart-button";
 import { HeaderSearch } from "./header-search";
 import { MainMenu } from "./main-menu";
 import { CATEGORIES } from "@/lib/catalog-meta";
@@ -106,8 +104,6 @@ export function SiteHeader({ brand }: { brand: "priceless" | "builders" | "four-
               </svg>
               {PHONE_DISPLAY}
             </a>
-            <AccountButton />
-            <CartButton />
             <MainMenu current={brand} phone={PHONE_DISPLAY} />
           </div>
         </div>

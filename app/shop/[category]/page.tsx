@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { ProductCard } from "@/components/product-card";
 import { Pagination } from "@/components/pagination";
 import { DepartmentInventory } from "@/components/department-inventory";
-import { CATEGORIES, listPublishedPage, type Category } from "@/lib/catalog";
+import { CATEGORIES, listPublishedPage, FLOOR_SAMPLES, type Category } from "@/lib/catalog";
 import { DEPARTMENT_DEPTH, depthCollections } from "@/lib/department-depth";
 import { isCatalogLive } from "@/lib/catalog-live";
 import { parsePage } from "@/lib/utils";
@@ -63,6 +63,7 @@ export default async function CategoryPage({
   const { items, total, page: current, totalPages } = catalog;
   if (live && current > 1 && items.length === 0) notFound();
   const allKeys = Object.keys(CATEGORIES) as Category[];
+  const categorySamples = FLOOR_SAMPLES.filter((it) => it.category === category);
 
   return (
     <>
@@ -173,6 +174,26 @@ export default async function CategoryPage({
             <Pagination basePath={`/shop/${category}`} page={current} totalPages={totalPages} />
           </div>
         </section>
+      ) : categorySamples.length > 0 ? (
+        <section className="bg-[var(--cream)]">
+          <div className="mx-auto max-w-[1360px] px-6 py-16 md:px-8 md:py-20">
+            <div className="mx-auto max-w-[40ch] text-center">
+              <p className="eyebrow">Featured from the floor</p>
+              <h2 className="font-display mt-4 text-[clamp(1.8rem,1rem+2vw,2.6rem)] leading-[1.05]">
+                Real {cat.label.toLowerCase()} on the{" "}
+                <span className="font-normal italic">warehouse floor.</span>
+              </h2>
+              <p className="mt-3 text-[0.95rem] font-light leading-[1.65] text-[var(--soft)]">
+                {cat.blurb} Call (715) 848-3855 to hold a piece for pickup.
+              </p>
+            </div>
+            <div className="mx-auto mt-12 grid max-w-4xl grid-cols-1 gap-5 sm:grid-cols-3">
+              {categorySamples.map((it, i) => (
+                <ProductCard key={it.id} item={it} priority={i < 3} />
+              ))}
+            </div>
+          </div>
+        </section>
       ) : (
         <section className="bg-[var(--cream)]">
           <div className="mx-auto max-w-[640px] px-6 py-16 text-center md:py-20">
@@ -181,9 +202,9 @@ export default async function CategoryPage({
               See the {cat.label.toLowerCase()} in person.
             </h2>
             <p className="mt-4 text-[1rem] font-light leading-[1.7] text-[var(--soft)]">
-              Individual tags aren&rsquo;t all online yet. Walk the aisle at 825
-              Washington Street, or call (715) 848-3855 with a size and we&rsquo;ll
-              check what&rsquo;s on the floor.
+              {cat.blurb} Walk the aisle at 825 Washington Street, or call
+              (715) 848-3855 with a size and we&rsquo;ll check what&rsquo;s on the
+              floor.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
               <Link

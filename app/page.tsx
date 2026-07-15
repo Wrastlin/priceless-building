@@ -21,7 +21,7 @@ const SERVICES = [
     logo: `${P}/logo-priceless-clean.webp`,
     logoW: 120,
     logoH: 120,
-    body: "Discount and surplus doors, windows, cabinets, and lighting — tagged and ready to take home.",
+    body: "Discount and surplus doors, windows, cabinets, and lighting — nearly 1,000 doors, kitchen & bath depth, and deals that reviews keep calling out.",
     cta: "Shop the warehouse",
     href: "/shop",
     img: `${B}/white-kitchen-marble-island.jpg`,
@@ -317,7 +317,7 @@ export default async function HomePage() {
         <section className="mx-auto max-w-[1360px] px-5 pt-14 pb-8 sm:px-8 sm:pt-20 sm:pb-10">
           <div className="flex items-end justify-between gap-6">
             <div>
-              <Eyebrow>{live ? "On the floor now" : "From the inventory pass"}</Eyebrow>
+              <Eyebrow>{live ? "On the floor now" : "Featured from the floor"}</Eyebrow>
               <H2 className="mt-3 sm:mt-4">
                 {live ? (
                   <>
@@ -325,7 +325,7 @@ export default async function HomePage() {
                   </>
                 ) : (
                   <>
-                    A sample of what&rsquo;s on the <span className="font-normal italic">floor.</span>
+                    Three real pieces from the <span className="font-normal italic">warehouse.</span>
                   </>
                 )}
               </H2>
