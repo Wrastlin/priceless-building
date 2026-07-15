@@ -1,127 +1,105 @@
 /**
- * Conservative floor-depth headlines for each shop department.
+ * Selection copy for shop departments — qualitative, not quantity chips.
  *
- * Numbers come from `STORE_SHOWCASE` (walkthrough emit — de-overlapped and
- * rounded down). These advertise real warehouse depth, not fake SKU counts.
- * Selection is approximate: surplus moves weekly.
+ * Walkthrough / showcase numbers inform the prose (types we know we carry)
+ * but are not shown as inventory counts on the storefront.
  */
-import { STORE_SHOWCASE, type Collection } from "@/lib/store-showcase";
 import type { Category } from "@/lib/items/types";
 
 export type DepartmentDepth = {
-  /** Short punchy line for mosaic tiles / heroes — e.g. "800+ doors" */
+  /** Short mosaic / eyebrow line — no numeric counts */
   headline: string;
-  /** Longer supporting line under the headline */
+  /** Supporting sentence for heroes and category pages */
   detail: string;
-  /** Sum of showcase approx integers for this department, or null */
-  approxTotal: number | null;
 };
 
-/** Map shop category keys → STORE_SHOWCASE department names. */
-const SHOWCASE_KEYS: Record<Category, string[]> = {
-  doors: ["Doors"],
-  windows: ["Windows"],
-  cabinets: ["Cabinets"],
-  vanities: ["Vanities"],
-  countertops: ["Countertops"],
-  hardware: ["Hardware"],
-  lighting: ["Lighting"],
-  // Stair parts live under Railing in the showcase; shop folds them into trim.
-  trim: ["Trim & Molding", "Railing"],
+const DEPTH: Record<Category, DepartmentDepth> = {
+  doors: {
+    headline: "Wide selection",
+    detail:
+      "Interior slabs, pre-hungs, exterior & patio, bifolds, and one-of-a-kind glass finds — everyday pieces through premium.",
+  },
+  windows: {
+    headline: "Aisles of options",
+    detail:
+      "Double-hung, casement, wood-framed, and specialty shapes — new-in-box brands like JELD-WEN, Andersen, and Thermo-Tech.",
+  },
+  cabinets: {
+    headline: "Kitchen & bath depth",
+    detail:
+      "12\" uppers, 24\" bases, door parts, and full kitchen runs — surplus stock through Builders Corner custom.",
+  },
+  vanities: {
+    headline: "Floor models & tops",
+    detail:
+      "18\" and 21\" baths up through doubles — floor models, cultured-marble tops, and vessel sinks ready to install.",
+  },
+  countertops: {
+    headline: "Slabs & remnants",
+    detail:
+      "Butcher block by the stack, laminate remnants, quartz and granite — the deals shoppers keep talking about.",
+  },
+  hardware: {
+    headline: "Finishing pieces",
+    detail:
+      "Locksets, pulls, hinges, and fasteners — Schlage, Kwikset, Amerock, GRK, and new-in-box overstock.",
+  },
+  lighting: {
+    headline: "Fixtures on display",
+    detail:
+      "Chandeliers, pendants, vanity bars, and ceiling fans hanging across the warehouse — statement pieces to workhorse fixtures.",
+  },
+  trim: {
+    headline: "Millwork & moldings",
+    detail:
+      "Casing, base, crown, dowels, newels, and balusters — primed stock ready for the job.",
+  },
 };
 
-function parseApprox(approx: string): number {
-  const m = approx.replace(/,/g, "").match(/(\d+)/);
-  return m ? Number(m[1]) : 0;
-}
+export const DEPARTMENT_DEPTH: Record<Category, DepartmentDepth> = DEPTH;
 
-function collectionsFor(category: Category): Collection[] {
-  return SHOWCASE_KEYS[category].flatMap((k) => STORE_SHOWCASE[k] ?? []);
-}
-
-function sumApprox(cols: Collection[]): number {
-  return cols.reduce((n, c) => n + parseApprox(c.approx), 0);
-}
-
-function formatCount(n: number): string {
-  if (n >= 1000) return `${Math.floor(n / 100) * 100}+`.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  if (n >= 100) return `${Math.floor(n / 50) * 50}+`;
-  if (n >= 20) return `${Math.floor(n / 10) * 10}+`;
-  return n > 0 ? `${n}+` : "";
-}
-
-/** Curated marketing nouns that read well after a count. */
-const NOUN: Record<Category, string> = {
-  doors: "doors",
-  windows: "windows",
-  cabinets: "cabinets",
-  vanities: "vanities",
-  countertops: "slabs",
-  hardware: "hardware pieces",
-  lighting: "fixtures",
-  trim: "trim & millwork pieces",
-};
-
-const DETAIL: Record<Category, string> = {
-  doors:
-    "Nearly a thousand on the floor — interior slabs from about $25–$50, pre-hungs, exterior & patio, bifolds, and premium one-of-a-kind glass finds.",
-  windows:
-    "Casement, double-hung, wood-framed & specialty shapes — new-in-box JELD-WEN, Andersen, Thermo-Tech and more.",
-  cabinets:
-    "12\" uppers, 24\" bases, pantry & door parts — surplus stock through Builders Corner custom kitchen runs.",
-  vanities:
-    "18\" and 21\" baths up through 72\" doubles — floor models, cultured-marble tops, and vessel sinks ready to install.",
-  countertops:
-    "Butcher block by the stack, laminate remnants, quartz and granite — the deals shoppers rave about.",
-  hardware:
-    "Hundreds of locksets, pulls, hinges, and fasteners — Schlage, Kwikset, Amerock, GRK, new-in-box overstock.",
-  lighting:
-    "Chandeliers, pendants, vanity bars, and ceiling fans hanging across the warehouse — statement pieces to workhorse fixtures.",
-  trim:
-    "Casing, base, crown, dowels, newels & balusters — thousands of feet and pieces, primed and ready.",
-};
-
-function buildDepth(category: Category): DepartmentDepth {
-  const cols = collectionsFor(category);
-  const total = sumApprox(cols);
-  const count = formatCount(total);
-  // Curated punch lines where the walkthrough math supports big depth claims.
-  const curated: Partial<Record<Category, string>> = {
-    doors: "Nearly 1,000 doors",
-    windows: "600+ windows",
-    trim: "2,000+ trim & millwork pieces",
-    hardware: "800+ hardware pieces",
+/** Real floor photos that feature a department (hero first, then extras). */
+export function departmentFeaturePhotos(category: Category): string[] {
+  const extras: Partial<Record<Category, string[]>> = {
+    doors: [
+      "/real-photos/business/floor-door-aisle-light-and-dark.jpg",
+      "/real-photos/business/floor-six-panel-oak-door-aisle.jpg",
+      "/real-photos/business/floor-barn-door-diamond-glass.jpg",
+    ],
+    windows: [
+      "/real-photos/business/floor-window-aisle-warehouse.jpg",
+      "/real-photos/business/floor-wood-doublehung-arched-windows.jpg",
+      "/real-photos/business/floor-windows-stacked-blue-rack.jpg",
+    ],
+    cabinets: [
+      "/real-photos/business/white-base-cabinets-warehouse.jpg",
+      "/real-photos/business/floor-white-and-wood-cabinet-displays.jpg",
+      "/real-photos/business/dark-base-cabinets-warehouse-row.jpg",
+    ],
+    vanities: [
+      "/real-photos/business/floor-vanity-row-mirrors-lights.jpg",
+      "/real-photos/business/floor-vanity-floor-models-row.jpg",
+      "/real-photos/business/floor-vessel-and-drop-in-sinks.jpg",
+    ],
+    countertops: [
+      "/real-photos/business/floor-butcher-block-rack-stacks.jpg",
+      "/real-photos/business/floor-live-edge-wood-slabs.jpg",
+      "/real-photos/business/floor-countertop-remnant-panels.jpg",
+    ],
+    hardware: [
+      "/real-photos/business/floor-door-hardware-lock-shelves.jpg",
+      "/real-photos/business/floor-fasteners-grk-simpson-display.jpg",
+    ],
+    lighting: [
+      "/real-photos/business/floor-globe-crystal-chandelier.jpg",
+      "/real-photos/business/warehouse-lighting-inventory.jpg",
+      "/real-photos/business/floor-vanity-row-mirrors-lights.jpg",
+    ],
+    trim: [
+      "/real-photos/business/floor-lumber-millwork-room.jpg",
+      "/real-photos/business/floor-trim-molding-extrusions-rack.jpg",
+      "/real-photos/business/floor-stair-newels-and-balusters.jpg",
+    ],
   };
-  return {
-    headline: curated[category] ?? (count ? `${count} ${NOUN[category]}` : CATEGORY_FALLBACK[category]),
-    detail: DETAIL[category],
-    approxTotal: total > 0 ? total : null,
-  };
-}
-
-const CATEGORY_FALLBACK: Record<Category, string> = {
-  doors: "Doors on the floor",
-  windows: "Windows on the floor",
-  cabinets: "Cabinets on the floor",
-  vanities: "Vanities on the floor",
-  countertops: "Countertops on the floor",
-  hardware: "Hardware on the floor",
-  lighting: "Lighting on the floor",
-  trim: "Trim on the floor",
-};
-
-export const DEPARTMENT_DEPTH: Record<Category, DepartmentDepth> = {
-  doors: buildDepth("doors"),
-  windows: buildDepth("windows"),
-  cabinets: buildDepth("cabinets"),
-  vanities: buildDepth("vanities"),
-  countertops: buildDepth("countertops"),
-  hardware: buildDepth("hardware"),
-  lighting: buildDepth("lighting"),
-  trim: buildDepth("trim"),
-};
-
-/** Showcase collections for a shop category (for type-level depth chips). */
-export function depthCollections(category: Category): Collection[] {
-  return collectionsFor(category);
+  return extras[category] ?? [];
 }

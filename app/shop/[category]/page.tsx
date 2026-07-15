@@ -6,9 +6,9 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ProductCard } from "@/components/product-card";
 import { Pagination } from "@/components/pagination";
-import { DepartmentInventory } from "@/components/department-inventory";
+import { DepartmentFeature } from "@/components/department-feature";
 import { CATEGORIES, listPublishedPage, FLOOR_SAMPLES, type Category } from "@/lib/catalog";
-import { DEPARTMENT_DEPTH, depthCollections } from "@/lib/department-depth";
+import { DEPARTMENT_DEPTH } from "@/lib/department-depth";
 import { isCatalogLive } from "@/lib/catalog-live";
 import { parsePage } from "@/lib/utils";
 
@@ -50,7 +50,6 @@ export default async function CategoryPage({
   if (!(category in CATEGORIES)) notFound();
   const cat = CATEGORIES[category as Category];
   const depth = DEPARTMENT_DEPTH[category as Category];
-  const collections = depthCollections(category as Category);
   const live = isCatalogLive();
   const { page: pageParam } = await searchParams;
   const catalog = live
@@ -91,7 +90,7 @@ export default async function CategoryPage({
             />
             <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center text-white">
               <p className="text-[0.68rem] font-medium uppercase tracking-[0.24em] text-white/85">
-                Floor · {depth.headline}
+                {depth.headline}
               </p>
               <h1 className="font-display mt-4 text-[clamp(2.8rem,1rem+5vw,5.5rem)] leading-[1.02]">
                 {cat.label}.
@@ -128,33 +127,7 @@ export default async function CategoryPage({
         </div>
       </nav>
 
-      {collections.length > 0 && (
-        <section className="border-b border-[var(--line)] bg-[var(--cream)]">
-          <div className="mx-auto max-w-[1360px] px-6 py-10 md:px-8">
-            <p className="eyebrow">Depth on the floor</p>
-            <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {collections.map((c) => (
-                <li key={c.name} className="border border-[var(--line)] bg-white px-5 py-4">
-                  <div className="flex items-baseline justify-between gap-3">
-                    <h3 className="font-display text-xl leading-tight">{c.name}</h3>
-                    {c.approx ? (
-                      <span className="font-mono shrink-0 text-sm text-[var(--brand-priceless)]">
-                        {c.approx}
-                      </span>
-                    ) : null}
-                  </div>
-                  <p className="mt-1 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-[var(--soft)]">
-                    {c.tier}
-                    {c.kind ? ` · ${c.kind}` : ""}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      )}
-
-      <DepartmentInventory category={category} />
+      <DepartmentFeature category={category as Category} />
 
       {live && total > 0 ? (
         <section className="bg-[var(--cream)]">
@@ -180,11 +153,11 @@ export default async function CategoryPage({
             <div className="mx-auto max-w-[40ch] text-center">
               <p className="eyebrow">Featured from the floor</p>
               <h2 className="font-display mt-4 text-[clamp(1.8rem,1rem+2vw,2.6rem)] leading-[1.05]">
-                Real {cat.label.toLowerCase()} on the{" "}
+                From this aisle on the{" "}
                 <span className="font-normal italic">warehouse floor.</span>
               </h2>
               <p className="mt-3 text-[0.95rem] font-light leading-[1.65] text-[var(--soft)]">
-                {cat.blurb} Call (715) 848-3855 to hold a piece for pickup.
+                Real intake photos. Call (715) 848-3855 to hold a piece for pickup.
               </p>
             </div>
             <div className="mx-auto mt-12 grid max-w-4xl grid-cols-1 gap-5 sm:grid-cols-3">
@@ -202,9 +175,8 @@ export default async function CategoryPage({
               See the {cat.label.toLowerCase()} in person.
             </h2>
             <p className="mt-4 text-[1rem] font-light leading-[1.7] text-[var(--soft)]">
-              {cat.blurb} Walk the aisle at 825 Washington Street, or call
-              (715) 848-3855 with a size and we&rsquo;ll check what&rsquo;s on the
-              floor.
+              Walk the aisle at 825 Washington Street, or call (715) 848-3855
+              with a size and we&rsquo;ll check what&rsquo;s on the floor.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
               <Link

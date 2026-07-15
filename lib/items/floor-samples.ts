@@ -3,8 +3,7 @@
  *
  * These are the demo items photographed while building the capture/barcode
  * inventory system. Each has a real intake hero plus related warehouse
- * angles so the PDP can show a gallery (same pattern as future tagged items
- * with AI scene variants). Call for price — no digital checkout yet.
+ * angles so the PDP can show a gallery. Call for price — no digital checkout.
  */
 import type { CatalogItem } from "@/lib/items/types";
 
@@ -16,7 +15,7 @@ export const FLOOR_SAMPLES: CatalogItem[] = [
     category: "doors",
     status: "published",
     title: "Black Craftsman Entry Door",
-    subtitle: "Solid wood · glass lite · one of nearly 1,000 doors on the floor",
+    subtitle: "Solid wood · glass lite · one of many on the door wall",
     price: 0,
     image: "/real-photos/business/intake-black-craftsman-door.jpg",
     gallery: [
@@ -34,25 +33,25 @@ export const FLOOR_SAMPLES: CatalogItem[] = [
     fulfillment: { pickup: true, localDelivery: true, ships: false },
   },
   {
-    id: "floor-sample-hardware-pulls",
+    id: "floor-sample-kohler-vessel-sink",
     sku: "PL-FLOOR-002",
     brand: "priceless",
-    category: "hardware",
+    category: "vanities",
     status: "published",
-    title: "Brushed Gold Cabinet Pulls",
-    subtitle: "New-in-box contractor overstock · pulls, knobs & locksets deep in stock",
+    title: "Kohler Floral Vessel Sink",
+    subtitle: "Decorative ceramic vessel · vanities, tops & sinks ready to install",
     price: 0,
-    image: "/real-photos/business/intake-brushed-gold-cabinet-pulls.jpg",
+    image: "/real-photos/business/intake-kohler-floral-vessel-sink.jpg",
     gallery: [
-      "/real-photos/business/floor-door-hardware-lock-shelves.jpg",
-      "/real-photos/business/floor-fasteners-grk-simpson-display.jpg",
-      "/real-photos/business/dark-wood-cabinets-glass-knobs.jpg",
+      "/real-photos/business/floor-vessel-and-drop-in-sinks.jpg",
+      "/real-photos/business/floor-vanity-tops-aisle.jpg",
+      "/real-photos/business/floor-vanity-row-mirrors-lights.jpg",
     ],
     badges: ["On the floor"],
     featured: true,
-    location: "Hardware aisle",
+    location: "Vanity aisle",
     inStock: 1,
-    manufacturer: "On the floor",
+    manufacturer: "Kohler",
     inventoriedAt: "2026-07-08",
     captureNote: "Inventory intake demo — real warehouse photos",
     fulfillment: { pickup: true, localDelivery: true, ships: false },
@@ -69,8 +68,8 @@ export const FLOOR_SAMPLES: CatalogItem[] = [
     image: "/real-photos/business/intake-crystal-candelabra-chandelier.jpg",
     gallery: [
       "/real-photos/business/floor-globe-crystal-chandelier.jpg",
-      "/real-photos/business/red-sputnik-chandelier.jpg",
       "/real-photos/business/warehouse-lighting-inventory.jpg",
+      "/real-photos/business/floor-vanity-row-mirrors-lights.jpg",
     ],
     badges: ["On the floor"],
     featured: true,

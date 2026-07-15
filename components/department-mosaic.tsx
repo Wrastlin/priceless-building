@@ -18,8 +18,8 @@ export function DepartmentMosaic() {
           What&rsquo;s on the <span className="font-normal italic">floor.</span>
         </h2>
         <p className="mx-auto mt-4 max-w-[46ch] text-center text-[0.95rem] font-light leading-[1.65] text-[var(--soft)]">
-          Conservative counts from our last warehouse walk. Surplus moves
-          weekly — come dig, or call and we&rsquo;ll check exact sizes.
+          Real floor photos from the warehouse. Come dig, or call and we&rsquo;ll
+          check exact sizes.
         </p>
 
         <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">

@@ -121,7 +121,7 @@ const DEPT_EXTRA: Partial<Record<Category, string[]>> = {
   ],
   hardware: [
     "/real-photos/business/floor-fasteners-grk-simpson-display.jpg",
-    "/real-photos/business/intake-brushed-gold-cabinet-pulls.jpg",
+    "/real-photos/business/floor-door-hardware-lock-shelves.jpg",
   ],
   lighting: [
     "/real-photos/business/red-sputnik-chandelier.jpg",

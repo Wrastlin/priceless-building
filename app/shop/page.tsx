@@ -68,10 +68,9 @@ export default async function ShopIndex({ searchParams }: { searchParams: Promis
                 The whole warehouse, <span className="font-normal italic">by department.</span>
               </h1>
               <p className="mt-5 max-w-[42ch] text-[0.95rem] font-light leading-[1.65] text-white/85">
-                Nearly 1,000 doors. Kitchen cabinets including 12&quot; uppers and
-                24&quot; lowers. 18&quot; and 21&quot; vanities. Lighting, hardware,
-                flooring depth that reviews keep calling out — walk it in person
-                or call (715) 848-3855 to hold something.
+                Doors, windows, cabinets — including 12&quot; uppers and 24&quot;
+                lowers — vanities, lighting, hardware, and more. Walk it in
+                person or call (715) 848-3855 to hold something.
               </p>
               <Link
                 href="tel:7158483855"
@@ -117,9 +116,9 @@ export default async function ShopIndex({ searchParams }: { searchParams: Promis
                 Three real pieces from the <span className="font-normal italic">warehouse.</span>
               </h2>
               <p className="mt-3 text-[0.95rem] font-light leading-[1.65] text-[var(--soft)]">
-                Real promotional photos from our inventory pass — a craftsman
-                door, gold cabinet pulls, and a crystal chandelier. Call for
-                price; we&rsquo;ll hold it for pickup.
+                Real photos from our inventory pass — a craftsman door, a Kohler
+                vessel sink, and a crystal chandelier. Call for price; we&rsquo;ll
+                hold it for pickup.
               </p>
             </div>
             <div className="mx-auto mt-12 grid max-w-4xl grid-cols-1 gap-5 sm:grid-cols-3">
@@ -130,7 +129,7 @@ export default async function ShopIndex({ searchParams }: { searchParams: Promis
             <div className="mx-auto mt-14 max-w-[640px] text-center">
               <p className="eyebrow">Come dig</p>
               <p className="mt-3 text-[1rem] font-light leading-[1.7] text-[var(--soft)]">
-                Nearly 1,000 doors, window aisles, vanity rows, trim by the foot.
+                Door walls, window aisles, vanity rows, trim by the foot.
                 Stop by 825 Washington Street or call and we&rsquo;ll check stock
                 for your size.
               </p>
