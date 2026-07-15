@@ -7,7 +7,7 @@ import { ProductCard } from "@/components/product-card";
 import { ReviewsFade } from "@/components/reviews-fade";
 import { SwipeCard, SwipeRail } from "@/components/swipe-rail";
 import { ADDRESS, PRICELESS } from "@/lib/brands";
-import { CATEGORIES, byCategory, listFeatured } from "@/lib/catalog";
+import { CATEGORIES, byCategory, listFeatured, FLOOR_SAMPLES } from "@/lib/catalog";
 import { isCatalogLive } from "@/lib/catalog-live";
 import { DepartmentMosaic } from "@/components/department-mosaic";
 import { fetchReviews, GOOGLE_RATING } from "@/lib/google-reviews";
@@ -216,6 +216,9 @@ export default async function HomePage() {
       );
       items = perCategory.flatMap((list) => list.slice(0, 2)).slice(0, 8);
     }
+  } else {
+    // Real intake photos from last week's inventory pass — sample of 3.
+    items = FLOOR_SAMPLES;
   }
 
   const reviews = await fetchReviews();
@@ -309,32 +312,40 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Featured inventory — only when live tagged catalog is on */}
+      {/* Featured inventory — live catalog, or the 3 floor-sample intake shots */}
       {items.length > 0 ? (
         <section className="mx-auto max-w-[1360px] px-5 pt-14 pb-8 sm:px-8 sm:pt-20 sm:pb-10">
           <div className="flex items-end justify-between gap-6">
             <div>
-              <Eyebrow>On the floor now</Eyebrow>
+              <Eyebrow>{live ? "On the floor now" : "From the inventory pass"}</Eyebrow>
               <H2 className="mt-3 sm:mt-4">
-                Fresh finds from the <span className="font-normal italic">warehouse.</span>
+                {live ? (
+                  <>
+                    Fresh finds from the <span className="font-normal italic">warehouse.</span>
+                  </>
+                ) : (
+                  <>
+                    A sample of what&rsquo;s on the <span className="font-normal italic">floor.</span>
+                  </>
+                )}
               </H2>
             </div>
             <Link
               href="/shop"
               className="hidden border-b border-[var(--ink)] pb-1 text-[0.72rem] font-medium uppercase tracking-[0.18em] sm:inline-block"
             >
-              Shop everything ›
+              Shop departments ›
             </Link>
           </div>
-          <div className="mt-8 grid grid-cols-2 gap-x-3 gap-y-5 md:mt-10 md:grid-cols-4 md:gap-x-6 md:gap-y-8">
+          <div className="mt-8 grid grid-cols-2 gap-x-3 gap-y-5 md:mt-10 md:grid-cols-3 md:gap-x-6 md:gap-y-8">
             {items.map((item, i) => (
-              <ProductCard key={item.sku} item={item} priority={i < 4} />
+              <ProductCard key={item.sku} item={item} priority={i < 3} />
             ))}
           </div>
         </section>
-      ) : (
-        <DepartmentMosaic />
-      )}
+      ) : null}
+
+      {!live ? <DepartmentMosaic /> : null}
 
       {/* Before / after */}
       <section className="mx-auto max-w-[1360px] px-5 pt-8 pb-14 sm:px-8 sm:pt-10 sm:pb-20">

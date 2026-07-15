@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { ProductCard } from "@/components/product-card";
 import { Pagination } from "@/components/pagination";
 import { DepartmentMosaic } from "@/components/department-mosaic";
-import { listPublishedPage } from "@/lib/catalog";
+import { listPublishedPage, FLOOR_SAMPLES } from "@/lib/catalog";
 import { isCatalogLive } from "@/lib/catalog-live";
 import { parsePage } from "@/lib/utils";
 
@@ -108,30 +108,43 @@ export default async function ShopIndex({ searchParams }: { searchParams: Promis
         </section>
       ) : (
         <section className="border-t border-[var(--line)] bg-[var(--cream)]">
-          <div className="mx-auto max-w-[720px] px-6 py-16 text-center md:py-20">
-            <p className="eyebrow">Come dig</p>
-            <h2 className="font-display mt-4 text-[clamp(1.8rem,1rem+2vw,2.6rem)] leading-[1.05]">
-              Most of the warehouse isn&rsquo;t online yet.
-            </h2>
-            <p className="mt-4 text-[1rem] font-light leading-[1.7] text-[var(--soft)]">
-              The departments above are what you&rsquo;ll find when you walk in —
-              doors stacked to the rafters, window aisles, vanity rows, trim by
-              the foot. Stop by 825 Washington Street or call and we&rsquo;ll
-              check stock for your size.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-              <Link
-                href="tel:7158483855"
-                className="bg-[var(--ink)] px-6 py-3 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-white"
-              >
-                (715) 848-3855
-              </Link>
-              <Link
-                href="/contact"
-                className="border border-[var(--ink)] px-6 py-3 text-[0.7rem] font-medium uppercase tracking-[0.2em]"
-              >
-                Ask about a size ›
-              </Link>
+          <div className="mx-auto max-w-[1360px] px-6 py-16 md:px-8 md:py-20">
+            <div className="mx-auto max-w-[40ch] text-center">
+              <p className="eyebrow">From the inventory pass</p>
+              <h2 className="font-display mt-4 text-[clamp(1.8rem,1rem+2vw,2.6rem)] leading-[1.05]">
+                A sample of three from the <span className="font-normal italic">floor.</span>
+              </h2>
+              <p className="mt-3 text-[0.95rem] font-light leading-[1.65] text-[var(--soft)]">
+                Real photos from last week&rsquo;s intake. Call for price and
+                availability — most of the warehouse still walks in person.
+              </p>
+            </div>
+            <div className="mx-auto mt-12 grid max-w-4xl grid-cols-1 gap-5 sm:grid-cols-3">
+              {FLOOR_SAMPLES.map((it, i) => (
+                <ProductCard key={it.id} item={it} priority={i < 3} />
+              ))}
+            </div>
+            <div className="mx-auto mt-14 max-w-[640px] text-center">
+              <p className="eyebrow">Come dig</p>
+              <p className="mt-3 text-[1rem] font-light leading-[1.7] text-[var(--soft)]">
+                Nearly 1,000 doors, window aisles, vanity rows, trim by the foot.
+                Stop by 825 Washington Street or call and we&rsquo;ll check stock
+                for your size.
+              </p>
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+                <Link
+                  href="tel:7158483855"
+                  className="bg-[var(--ink)] px-6 py-3 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-white"
+                >
+                  (715) 848-3855
+                </Link>
+                <Link
+                  href="/contact"
+                  className="border border-[var(--ink)] px-6 py-3 text-[0.7rem] font-medium uppercase tracking-[0.2em]"
+                >
+                  Ask about a size ›
+                </Link>
+              </div>
             </div>
           </div>
         </section>

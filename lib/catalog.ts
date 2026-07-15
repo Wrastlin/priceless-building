@@ -52,6 +52,9 @@ export function findItem(sku: string) {
   return findPublished(sku);
 }
 
+/** Three real intake-photo samples shown while the full catalog is gated. */
+export { FLOOR_SAMPLES, findFloorSample } from "@/lib/items/floor-samples";
+
 // Paginated, cached storefront reads (the big-box-style grid loaders).
 export { listPublishedPage, countPublished, DEFAULT_PAGE_SIZE } from "@/lib/items/store";
 export type { Page } from "@/lib/items/store";
