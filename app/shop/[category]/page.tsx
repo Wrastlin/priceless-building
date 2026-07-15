@@ -7,7 +7,9 @@ import { SiteFooter } from "@/components/site-footer";
 import { ProductCard } from "@/components/product-card";
 import { Pagination } from "@/components/pagination";
 import { DepartmentInventory } from "@/components/department-inventory";
-import { CATEGORIES, listPublishedPage, countPublished, type Category } from "@/lib/catalog";
+import { CATEGORIES, listPublishedPage, type Category } from "@/lib/catalog";
+import { DEPARTMENT_DEPTH, depthCollections } from "@/lib/department-depth";
+import { isCatalogLive } from "@/lib/catalog-live";
 import { parsePage } from "@/lib/utils";
 
 const SITE_URL = "https://pricelessbuilding.com";
@@ -20,9 +22,9 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
   const { category } = await params;
   if (!(category in CATEGORIES)) return { title: "Category not found" };
   const cat = CATEGORIES[category as Category];
-  const count = await countPublished({ brand: "priceless", category: category as Category });
-  const title = `${cat.label} · ${count} in stock at Price-Less Building Center Wausau, WI`;
-  const description = `${cat.label}: ${cat.blurb} ${count} in stock at Price-Less Building Center in Wausau, Wisconsin. New-in-box from cancelled contractor orders. Ships nationally; pickup or local delivery in central WI.`;
+  const depth = DEPARTMENT_DEPTH[category as Category];
+  const title = `${cat.label} · ${depth.headline} at Price-Less Building Center Wausau, WI`;
+  const description = `${cat.label}: ${depth.detail} ${cat.blurb} At Price-Less Building Center in Wausau, Wisconsin.`;
   return {
     title,
     description,
@@ -47,20 +49,25 @@ export default async function CategoryPage({
   const { category } = await params;
   if (!(category in CATEGORIES)) notFound();
   const cat = CATEGORIES[category as Category];
+  const depth = DEPARTMENT_DEPTH[category as Category];
+  const collections = depthCollections(category as Category);
+  const live = isCatalogLive();
   const { page: pageParam } = await searchParams;
-  const { items, total, page: current, totalPages } = await listPublishedPage({
-    brand: "priceless",
-    category: category as Category,
-    page: parsePage(pageParam),
-  });
-  if (current > 1 && items.length === 0) notFound();
+  const catalog = live
+    ? await listPublishedPage({
+        brand: "priceless",
+        category: category as Category,
+        page: parsePage(pageParam),
+      })
+    : { items: [], total: 0, page: 1, totalPages: 1 };
+  const { items, total, page: current, totalPages } = catalog;
+  if (live && current > 1 && items.length === 0) notFound();
   const allKeys = Object.keys(CATEGORIES) as Category[];
 
   return (
     <>
       <SiteHeader brand="priceless" />
 
-      {/* Full-bleed category hero — image first, type centered */}
       <section className="bg-white">
         <div className="px-0 md:px-5 md:pt-5">
           <div className="relative h-[48svh] w-full overflow-hidden md:h-[58svh]">
@@ -83,13 +90,13 @@ export default async function CategoryPage({
             />
             <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center text-white">
               <p className="text-[0.68rem] font-medium uppercase tracking-[0.24em] text-white/85">
-                Floor · {total} {total === 1 ? "item" : "items"} in stock
+                Floor · {depth.headline}
               </p>
               <h1 className="font-display mt-4 text-[clamp(2.8rem,1rem+5vw,5.5rem)] leading-[1.02]">
                 {cat.label}.
               </h1>
               <p className="mt-5 max-w-[42ch] text-[0.95rem] font-light leading-[1.65] text-white/85">
-                {cat.blurb}
+                {depth.detail}
               </p>
               <Link
                 href="/shop"
@@ -102,7 +109,6 @@ export default async function CategoryPage({
         </div>
       </section>
 
-      {/* Sibling department strip */}
       <nav className="border-b border-[var(--line)] bg-white">
         <div className="mx-auto flex max-w-[1360px] gap-1 overflow-x-auto px-4 py-3 md:justify-center md:px-8">
           {allKeys.map((key) => (
@@ -121,37 +127,81 @@ export default async function CategoryPage({
         </div>
       </nav>
 
+      {collections.length > 0 && (
+        <section className="border-b border-[var(--line)] bg-[var(--cream)]">
+          <div className="mx-auto max-w-[1360px] px-6 py-10 md:px-8">
+            <p className="eyebrow">Depth on the floor</p>
+            <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {collections.map((c) => (
+                <li key={c.name} className="border border-[var(--line)] bg-white px-5 py-4">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <h3 className="font-display text-xl leading-tight">{c.name}</h3>
+                    {c.approx ? (
+                      <span className="font-mono shrink-0 text-sm text-[var(--brand-priceless)]">
+                        {c.approx}
+                      </span>
+                    ) : null}
+                  </div>
+                  <p className="mt-1 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-[var(--soft)]">
+                    {c.tier}
+                    {c.kind ? ` · ${c.kind}` : ""}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+
       <DepartmentInventory category={category} />
 
-      <section className="bg-[var(--cream)]">
-        <div className="mx-auto max-w-[1360px] px-6 py-16 md:px-8 md:py-20">
-          <div className="mx-auto max-w-[36ch] text-center">
-            <p className="eyebrow">On the floor</p>
-            <h2 className="font-display mt-4 text-[clamp(1.8rem,1rem+2vw,2.6rem)] leading-[1.05]">
-              {total}{" "}
-              <span className="font-normal italic">{total === 1 ? "item." : "items."}</span>
-            </h2>
-          </div>
-
-          {total === 0 ? (
-            <div className="mx-auto mt-12 max-w-xl border border-[var(--line)] bg-white p-14 text-center">
-              <p className="eyebrow">Nothing here yet</p>
-              <p className="font-display mt-4 text-2xl italic">
-                Check back Wednesday. Fresh tags every week.
-              </p>
+      {live && total > 0 ? (
+        <section className="bg-[var(--cream)]">
+          <div className="mx-auto max-w-[1360px] px-6 py-16 md:px-8 md:py-20">
+            <div className="mx-auto max-w-[36ch] text-center">
+              <p className="eyebrow">Tagged items</p>
+              <h2 className="font-display mt-4 text-[clamp(1.8rem,1rem+2vw,2.6rem)] leading-[1.05]">
+                {total}{" "}
+                <span className="font-normal italic">{total === 1 ? "with a tag." : "with tags."}</span>
+              </h2>
             </div>
-          ) : (
-            <>
-              <div className="mt-12 grid grid-cols-2 gap-x-3 gap-y-5 md:grid-cols-3 md:gap-x-6 md:gap-y-10">
-                {items.map((it, i) => (
-                  <ProductCard key={it.id} item={it} priority={i < 4} />
-                ))}
-              </div>
-              <Pagination basePath={`/shop/${category}`} page={current} totalPages={totalPages} />
-            </>
-          )}
-        </div>
-      </section>
+            <div className="mt-12 grid grid-cols-2 gap-x-3 gap-y-5 md:grid-cols-3 md:gap-x-6 md:gap-y-10">
+              {items.map((it, i) => (
+                <ProductCard key={it.id} item={it} priority={i < 4} />
+              ))}
+            </div>
+            <Pagination basePath={`/shop/${category}`} page={current} totalPages={totalPages} />
+          </div>
+        </section>
+      ) : (
+        <section className="bg-[var(--cream)]">
+          <div className="mx-auto max-w-[640px] px-6 py-16 text-center md:py-20">
+            <p className="eyebrow">Visit or call</p>
+            <h2 className="font-display mt-4 text-[clamp(1.8rem,1rem+2vw,2.4rem)] leading-[1.05]">
+              See the {cat.label.toLowerCase()} in person.
+            </h2>
+            <p className="mt-4 text-[1rem] font-light leading-[1.7] text-[var(--soft)]">
+              Individual tags aren&rsquo;t all online yet. Walk the aisle at 825
+              Washington Street, or call (715) 848-3855 with a size and we&rsquo;ll
+              check what&rsquo;s on the floor.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+              <Link
+                href="tel:7158483855"
+                className="bg-[var(--ink)] px-6 py-3 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-white"
+              >
+                (715) 848-3855
+              </Link>
+              <Link
+                href="/contact"
+                className="border border-[var(--ink)] px-6 py-3 text-[0.7rem] font-medium uppercase tracking-[0.2em]"
+              >
+                Ask about a size ›
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       <SiteFooter brand="priceless" />
     </>

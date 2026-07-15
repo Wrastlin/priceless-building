@@ -8,6 +8,8 @@ import { ReviewsFade } from "@/components/reviews-fade";
 import { SwipeCard, SwipeRail } from "@/components/swipe-rail";
 import { ADDRESS, PRICELESS } from "@/lib/brands";
 import { CATEGORIES, byCategory, listFeatured } from "@/lib/catalog";
+import { isCatalogLive } from "@/lib/catalog-live";
+import { DepartmentMosaic } from "@/components/department-mosaic";
 import { fetchReviews, GOOGLE_RATING } from "@/lib/google-reviews";
 
 const P = "/real-photos";
@@ -200,17 +202,20 @@ function H2({ children, className = "" }: { children: React.ReactNode; className
 
 export default async function HomePage() {
   const categoryKeys = Object.keys(CATEGORIES) as (keyof typeof CATEGORIES)[];
-  const featuredPool = await listFeatured();
-  let items;
-  if (featuredPool.length >= 8) {
-    const day = Math.floor(Date.now() / 86_400_000);
-    const start = (day * 12) % featuredPool.length;
-    items = [...featuredPool.slice(start), ...featuredPool.slice(0, start)].slice(0, 8);
-  } else {
-    const perCategory = await Promise.all(
-      categoryKeys.map((cat) => byCategory("priceless", cat)),
-    );
-    items = perCategory.flatMap((list) => list.slice(0, 2)).slice(0, 8);
+  const live = isCatalogLive();
+  let items: Awaited<ReturnType<typeof listFeatured>> = [];
+  if (live) {
+    const featuredPool = await listFeatured();
+    if (featuredPool.length >= 8) {
+      const day = Math.floor(Date.now() / 86_400_000);
+      const start = (day * 12) % featuredPool.length;
+      items = [...featuredPool.slice(start), ...featuredPool.slice(0, start)].slice(0, 8);
+    } else {
+      const perCategory = await Promise.all(
+        categoryKeys.map((cat) => byCategory("priceless", cat)),
+      );
+      items = perCategory.flatMap((list) => list.slice(0, 2)).slice(0, 8);
+    }
   }
 
   const reviews = await fetchReviews();
@@ -304,7 +309,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Featured inventory */}
+      {/* Featured inventory — only when live tagged catalog is on */}
       {items.length > 0 ? (
         <section className="mx-auto max-w-[1360px] px-5 pt-14 pb-8 sm:px-8 sm:pt-20 sm:pb-10">
           <div className="flex items-end justify-between gap-6">
@@ -327,7 +332,9 @@ export default async function HomePage() {
             ))}
           </div>
         </section>
-      ) : null}
+      ) : (
+        <DepartmentMosaic />
+      )}
 
       {/* Before / after */}
       <section className="mx-auto max-w-[1360px] px-5 pt-8 pb-14 sm:px-8 sm:pt-10 sm:pb-20">
