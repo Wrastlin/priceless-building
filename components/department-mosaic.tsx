@@ -6,8 +6,8 @@ import { DEPARTMENT_DEPTH } from "@/lib/department-depth";
 const DEPTS = Object.keys(CATEGORIES) as Category[];
 
 /**
- * Department mosaic — big floor photos with real warehouse-depth headlines
- * (e.g. "800+ doors") instead of fake SKU counts.
+ * Department mosaic — even 2×4 grid of floor photos with warehouse-depth
+ * headlines. Uniform tile aspect so mobile doesn't stagger / zigzag.
  */
 export function DepartmentMosaic() {
   return (
@@ -23,23 +23,20 @@ export function DepartmentMosaic() {
         </p>
 
         <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
-          {DEPTS.map((key, i) => {
+          {DEPTS.map((key) => {
             const cat = CATEGORIES[key];
             const depth = DEPARTMENT_DEPTH[key];
-            const wide = i === 0 || i === 5;
             return (
               <Link
                 key={key}
                 href={`/shop/${key}`}
-                className={`group relative block overflow-hidden bg-[var(--taupe)] ${
-                  wide ? "aspect-[4/3] md:col-span-2 md:aspect-[16/10]" : "aspect-[3/4] md:aspect-[4/5]"
-                }`}
+                className="group relative block aspect-[4/5] overflow-hidden bg-[var(--taupe)] sm:aspect-[3/4] md:aspect-[4/5]"
               >
                 <Image
                   src={cat.image}
                   alt={cat.label}
                   fill
-                  sizes={wide ? "(min-width:768px) 50vw, 100vw" : "(min-width:768px) 25vw, 50vw"}
+                  sizes="(min-width:768px) 25vw, 50vw"
                   quality={78}
                   className="object-cover transition duration-700 group-hover:scale-[1.04]"
                 />
@@ -47,9 +44,9 @@ export function DepartmentMosaic() {
                   aria-hidden
                   className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent"
                 />
-                <div className="absolute inset-x-0 bottom-0 p-4 text-white md:p-6">
-                  <h3 className="font-display text-2xl leading-none md:text-3xl">{cat.label}</h3>
-                  <p className="mt-2 text-[0.68rem] font-medium uppercase tracking-[0.18em] text-white/85">
+                <div className="absolute inset-x-0 bottom-0 p-4 text-white md:p-5">
+                  <h3 className="font-display text-xl leading-none md:text-2xl">{cat.label}</h3>
+                  <p className="mt-2 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-white/85 md:text-[0.68rem] md:tracking-[0.18em]">
                     {depth.headline} ›
                   </p>
                 </div>

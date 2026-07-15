@@ -31,11 +31,11 @@ const TYPE_PHOTOS: Partial<Record<Category, Record<string, string>>> = {
     "Arched / round window": "/real-photos/business/floor-windows-stacked-blue-rack.jpg",
   },
   cabinets: {
-    "Base cabinet": "/real-photos/business/floor-white-and-wood-cabinet-displays.jpg",
-    "Wall cabinet": "/test-images/13-espresso-wall-cabinet.jpg",
-    "Pantry / tall cabinet": "/test-images/04-pantry-cabinet-walnut.jpg",
-    "Cabinet (assorted)": "/real-photos/business/floor-cabinet-door-sample-rack.jpg",
-    "Cabinet door / part": "/real-photos/business/floor-cabinet-door-sample-rack.jpg",
+    "Base cabinet": "/real-photos/business/white-base-cabinets-warehouse.jpg",
+    "Wall cabinet": "/real-photos/business/floor-white-and-wood-cabinet-displays.jpg",
+    "Pantry / tall cabinet": "/real-photos/business/dark-base-cabinets-warehouse-row.jpg",
+    "Cabinet (assorted)": "/real-photos/business/grey-cabinets-warehouse.jpg",
+    "Cabinet door / part": "/real-photos/business/floor-white-and-wood-cabinet-displays.jpg",
   },
   vanities: {
     "Vanity base cabinet": "/real-photos/business/floor-vanity-floor-models-row.jpg",
