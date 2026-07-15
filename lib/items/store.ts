@@ -278,6 +278,12 @@ export async function findPublished(sku: string): Promise<CatalogItem | undefine
     const it = sandboxFind(sku);
     return it && it.status === "published" ? it : undefined;
   }
+  // Floor samples are always findable so their PDP links work even when
+  // the full catalog grid is gated off.
+  const { findFloorSample } = await import("@/lib/items/floor-samples");
+  const sample = findFloorSample(sku);
+  if (sample) return sample;
+
   if (!CONFIGURED) {
     return ALLOW_SEED
       ? SEED_ITEMS.find((it) => it.sku === sku && it.status === "published")

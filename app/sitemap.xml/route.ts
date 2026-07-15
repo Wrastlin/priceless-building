@@ -25,6 +25,9 @@ export async function GET() {
   for (const cat of Object.keys(CATEGORIES)) urls.push(`${BASE}/shop/${cat}`);
   if (isCatalogLive()) {
     for (const item of await listCatalog()) urls.push(`${BASE}/shop/item/${item.sku}`);
+  } else {
+    const { FLOOR_SAMPLES } = await import("@/lib/items/floor-samples");
+    for (const item of FLOOR_SAMPLES) urls.push(`${BASE}/shop/item/${item.sku}`);
   }
   for (const s of BLOG_SLUGS) urls.push(`${BASE}/blog/${s}`);
 
