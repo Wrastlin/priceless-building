@@ -111,8 +111,26 @@ captures. Use this instead of guessing — reach for ★★★ first.
 - **All "hours / closed" flyers** — `hours-*`, `memorial-day-hours`, `saturday-special`, `thanksgiving`, `labor-day`, `july-4`, `letter-new-year-2023`, `hiring-flyer` — utility graphics, not marketing photography.
 - **Weak/utility captures** — `storefront-bg-poster.jpg` (portrait phone still), `blank-wall-planning.webp`, `vanity-top-plastic-wrap.jpg`, `door-inventory-collage.webp` (collage), and the raw tag-heavy/blurry intake originals (kept only the 5 good copies above).
 
+## JULY 2026 FLOOR INVENTORY SHOOT (`business/floor-*`)
+Fresh warehouse photos (43 shots) used as department heroes + type tiles.
+Prefer these over older FB/IG warehouse frames when both fit.
+
+| Dept | Hero (`floor-…`) |
+|------|------------------|
+| Doors | `barn-door-diamond-glass` |
+| Windows | `window-aisle-warehouse` |
+| Cabinets | `cabinet-door-sample-rack` |
+| Vanities | `vanity-row-mirrors-lights` |
+| Countertops | `butcher-block-rack-stacks` |
+| Hardware | `door-hardware-lock-shelves` |
+| Lighting | `globe-crystal-chandelier` |
+| Trim | `lumber-millwork-room` |
+
+Also in the set (gallery / secondary): Fusion Mineral Paint, Hallman Lindsay paint stock, barrel glass table, faucets, sinks, Duravit toilets, stair newels/balusters, live-edge slabs, remnant panels. Wired via `lib/catalog-meta.ts` + `lib/department-photos.ts`.
+
 ## NOTES
 - 5 best intake-app captures were copied into `business/` with descriptive `intake-*` names so they're servable + reusable here.
+- July 2026 floor shoot (`floor-*`) is the preferred source for shop department heroes and walkthrough type tiles.
 - No owner/staff portraits in marketing — lead with the work, the warehouse, the mural, and the community.
 - Biggest asset gap: a couple of **professional wide** finished-room shots (our library is mostly casual phone photos — good, but a short pro shoot of the floor + 2–3 finished rooms would lift every hero to rejuvenation level). Josh reportedly has thousands more — worth a pass to add ★★★ frames.
 - **Legacy archive promoted** (2026-07-10) → `legacy/` (45 webp). Strong finished kitchens/baths + store-interior door aisles. Prefer these for before/after, gallery, and Builders Corner / 4 Squared.
