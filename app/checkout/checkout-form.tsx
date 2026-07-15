@@ -13,7 +13,6 @@ const TAX_RATE = 0.055;
 export function CheckoutForm({ catalog }: { catalog: CatalogItem[] }) {
   const { lines, clear } = useCart();
   const [fulfillment, setFulfillment] = useState<"pickup" | "delivery">("pickup");
-  const [pay, setPay] = useState<"hold" | "card">("hold");
   const [confirmed, setConfirmed] = useState<string | null>(null);
 
   const rows = useMemo(() => lines.map((l) => {
@@ -104,20 +103,27 @@ export function CheckoutForm({ catalog }: { catalog: CatalogItem[] }) {
 
         <Section index="03" title="Payment">
           <div className="grid gap-px bg-[var(--border)] md:grid-cols-2">
-            {(["hold", "card"] as const).map((p) => {
-              const active = pay === p;
-              return (
-                <label key={p} className={"flex cursor-pointer items-start gap-4 bg-white p-5 " + (active ? "ring-2 ring-inset ring-[var(--brand-priceless)]" : "")}>
-                  <input type="radio" checked={active} onChange={() => setPay(p)} className="mt-1" />
-                  <div>
-                    <div className="font-display text-xl leading-tight">{p === "hold" ? "Hold + pay in store" : "Card · Stripe"}</div>
-                    <div className="font-sans font-semibold mt-2 text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
-                      {p === "hold" ? "No card needed · reserved 48 hours" : "Charged when we confirm stock"}
-                    </div>
-                  </div>
-                </label>
-              );
-            })}
+            <div className="flex items-start gap-4 bg-white p-5 ring-2 ring-inset ring-[var(--brand-priceless)]">
+              <div>
+                <div className="font-display text-xl leading-tight">Hold + pay in store</div>
+                <div className="font-sans font-semibold mt-2 text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+                  No card needed · reserved 48 hours
+                </div>
+              </div>
+            </div>
+            <div className="flex items-start gap-4 bg-white p-5 opacity-70">
+              <div>
+                <div className="flex flex-wrap items-baseline gap-2">
+                  <span className="font-display text-xl leading-tight">Card · Stripe</span>
+                  <span className="text-[0.65rem] font-medium uppercase tracking-[0.16em] text-[var(--brand-gold-deep)]">
+                    Coming soon
+                  </span>
+                </div>
+                <div className="font-sans font-semibold mt-2 text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+                  Online card pay isn&rsquo;t live yet — call to hold
+                </div>
+              </div>
+            </div>
           </div>
         </Section>
       </div>

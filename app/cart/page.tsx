@@ -5,6 +5,11 @@ import { listCatalog } from "@/lib/catalog";
 
 export default async function CartPage() {
   const catalog = await listCatalog();
+  // Floor samples stay visible in cart even when the full catalog is gated.
+  const { FLOOR_SAMPLES } = await import("@/lib/items/floor-samples");
+  const bySku = new Map([...catalog, ...FLOOR_SAMPLES].map((it) => [it.sku, it]));
+  const merged = [...bySku.values()];
+
   return (
     <>
       <SiteHeader brand="priceless" />
@@ -20,7 +25,18 @@ export default async function CartPage() {
             Pickup is free at the back load-bay. Local delivery within Marathon County starts at $79.
           </p>
         </div>
-        <CartView catalog={catalog} />
+
+        <div className="mt-8 border border-dashed border-[var(--border)] bg-[var(--cream)] px-5 py-4 md:px-6">
+          <p className="text-[0.68rem] font-medium uppercase tracking-[0.18em] text-[var(--brand-gold-deep)]">
+            Coming soon
+          </p>
+          <p className="mt-2 text-[0.95rem] font-light leading-[1.65] text-[var(--soft)]">
+            Online checkout and card pay aren&rsquo;t live yet. Call (715) 848-3855 and
+            we&rsquo;ll hold what&rsquo;s in your cart for warehouse pickup.
+          </p>
+        </div>
+
+        <CartView catalog={merged} />
       </section>
       <SiteFooter brand="priceless" />
     </>
