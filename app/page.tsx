@@ -3,14 +3,18 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { HeroSlideshow } from "@/components/hero-slideshow";
-import { ProductCard } from "@/components/product-card";
 import { ReviewsFade } from "@/components/reviews-fade";
 import { SwipeCard, SwipeRail } from "@/components/swipe-rail";
+import { FeaturedItemsFade } from "@/components/featured-items-fade";
+import { BuildersPromo } from "@/components/builders-promo";
+import { VendorWall } from "@/components/vendor-wall";
 import { ADDRESS, PRICELESS } from "@/lib/brands";
-import { CATEGORIES, byCategory, listFeatured, FLOOR_SAMPLES } from "@/lib/catalog";
+import { CATEGORIES, byCategory, listFeatured } from "@/lib/catalog";
+import { FLOOR_FEATURES } from "@/lib/items/floor-features";
 import { isCatalogLive } from "@/lib/catalog-live";
 import { DepartmentMosaic } from "@/components/department-mosaic";
 import { fetchReviews, GOOGLE_RATING } from "@/lib/google-reviews";
+import { ProductCard } from "@/components/product-card";
 
 const P = "/real-photos";
 const B = "/real-photos/business";
@@ -59,11 +63,6 @@ const BEFORE_AFTER = [
     img: `${B}/kitchen-and-bath-remodel-split.jpg`,
     body: "A whole-home refresh: cabinetry from Builders Corner, fixtures off the Price-Less floor, installed by the 4 Squared crew.",
   },
-];
-
-const BRANDS = [
-  "Andersen", "Marvin", "JELD-WEN", "Masonite", "Pella", "Kohler",
-  "Delta", "Schlage", "Kwikset", "Therma-Tru", "Cambria", "Blum",
 ];
 
 const NEWS = [
@@ -216,9 +215,6 @@ export default async function HomePage() {
       );
       items = perCategory.flatMap((list) => list.slice(0, 2)).slice(0, 8);
     }
-  } else {
-    // Real intake photos from last week's inventory pass — sample of 3.
-    items = FLOOR_SAMPLES;
   }
 
   const reviews = await fetchReviews();
@@ -312,22 +308,14 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Featured inventory — live catalog, or the 3 floor-sample intake shots */}
-      {items.length > 0 ? (
+      {/* Featured floor finds — 2-up fade, or live tagged grid when catalog is on */}
+      {live && items.length > 0 ? (
         <section className="mx-auto max-w-[1360px] px-5 pt-14 pb-8 sm:px-8 sm:pt-20 sm:pb-10">
           <div className="flex items-end justify-between gap-6">
             <div>
-              <Eyebrow>{live ? "On the floor now" : "Featured from the floor"}</Eyebrow>
+              <Eyebrow>On the floor now</Eyebrow>
               <H2 className="mt-3 sm:mt-4">
-                {live ? (
-                  <>
-                    Fresh finds from the <span className="font-normal italic">warehouse.</span>
-                  </>
-                ) : (
-                  <>
-                    Three real pieces from the <span className="font-normal italic">warehouse.</span>
-                  </>
-                )}
+                Fresh finds from the <span className="font-normal italic">warehouse.</span>
               </H2>
             </div>
             <Link
@@ -343,9 +331,13 @@ export default async function HomePage() {
             ))}
           </div>
         </section>
-      ) : null}
+      ) : (
+        <FeaturedItemsFade items={FLOOR_FEATURES} />
+      )}
 
       {!live ? <DepartmentMosaic /> : null}
+
+      <BuildersPromo />
 
       {/* Before / after */}
       <section className="mx-auto max-w-[1360px] px-5 pt-8 pb-14 sm:px-8 sm:pt-10 sm:pb-20">
@@ -376,20 +368,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Brands */}
-      <section className="bg-[var(--ink)] text-white">
-        <div className="mx-auto max-w-[1360px] px-5 py-12 text-center sm:px-8 sm:py-20">
-          <Eyebrow onDark>Read straight off the boxes in our aisles</Eyebrow>
-          <H2 className="mt-3 text-white sm:mt-4">Brands on the floor.</H2>
-          <div className="mx-auto mt-8 flex max-w-[1100px] flex-wrap items-center justify-center gap-x-6 gap-y-3 sm:mt-12 sm:gap-x-12 sm:gap-y-6">
-            {BRANDS.map((b) => (
-              <span key={b} className="text-[0.85rem] font-medium uppercase tracking-[0.16em] text-white/70 sm:text-[1.15rem] sm:tracking-[0.18em]">
-                {b}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
+      <VendorWall
+        heading="Brands on the floor."
+        blurb="Read straight off the boxes and signage in our aisles — surplus from names contractors already trust."
+      />
 
       {/* Reviews — slow crossfade through the pool (Rejuvenation "living" feel) */}
       <ReviewsFade reviews={reviews} />
