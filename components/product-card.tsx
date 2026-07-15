@@ -4,8 +4,8 @@ import type { CatalogItem } from "@/lib/catalog";
 import { formatCurrency } from "@/lib/utils";
 
 /**
- * Rejuvenation-style product card: flat, no radius, no glow.
- * Price block is a fixed two-line stack so cards with/without MSRP align.
+ * Product card — links to the department aisle (no individual product pages
+ * while digital catalog checkout is deferred).
  */
 export function ProductCard({
   item,
@@ -18,10 +18,11 @@ export function ProductCard({
 }) {
   const hasMsrp = Boolean(item.msrp && item.msrp > item.price);
   const savings = hasMsrp ? Math.round((1 - item.price / item.msrp!) * 100) : 0;
+  const to = href ?? `/shop/${item.category}`;
 
   return (
     <Link
-      href={href ?? `/shop/item/${item.sku}`}
+      href={to}
       className="group relative block overflow-hidden bg-white"
     >
       <div className="relative aspect-[5/4] w-full overflow-hidden bg-[var(--taupe)] sm:aspect-[4/3]">
@@ -76,7 +77,6 @@ export function ProductCard({
           </div>
           <div className="hidden max-w-[42%] shrink-0 text-right text-[0.62rem] font-medium uppercase leading-snug tracking-[0.1em] text-[var(--soft)] sm:block">
             <div className="line-clamp-2">{item.location || "On the floor"}</div>
-            <div className="mt-0.5 tabular-nums">SKU {item.sku}</div>
           </div>
         </div>
       </div>

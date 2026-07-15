@@ -7,7 +7,9 @@ import { SiteFooter } from "@/components/site-footer";
 import { ProductCard } from "@/components/product-card";
 import { Pagination } from "@/components/pagination";
 import { DepartmentMosaic } from "@/components/department-mosaic";
-import { listPublishedPage, FLOOR_SAMPLES } from "@/lib/catalog";
+import { listPublishedPage } from "@/lib/catalog";
+import { FLOOR_FEATURES } from "@/lib/items/floor-features";
+import { FeaturedItemsFade } from "@/components/featured-items-fade";
 import { isCatalogLive } from "@/lib/catalog-live";
 import { parsePage } from "@/lib/utils";
 
@@ -108,25 +110,20 @@ export default async function ShopIndex({ searchParams }: { searchParams: Promis
           </div>
         </section>
       ) : (
-        <section className="border-t border-[var(--line)] bg-[var(--cream)]">
-          <div className="mx-auto max-w-[1360px] px-6 py-16 md:px-8 md:py-20">
-            <div className="mx-auto max-w-[40ch] text-center">
-              <p className="eyebrow">Featured from the floor</p>
-              <h2 className="font-display mt-4 text-[clamp(1.8rem,1rem+2vw,2.6rem)] leading-[1.05]">
-                Three real pieces from the <span className="font-normal italic">warehouse.</span>
-              </h2>
-              <p className="mt-3 text-[0.95rem] font-light leading-[1.65] text-[var(--soft)]">
-                Real photos from our inventory pass — a craftsman door, a Kohler
-                vessel sink, and a crystal chandelier. Call for price; we&rsquo;ll
-                hold it for pickup.
-              </p>
-            </div>
-            <div className="mx-auto mt-12 grid max-w-4xl grid-cols-1 gap-5 sm:grid-cols-3">
-              {FLOOR_SAMPLES.map((it, i) => (
-                <ProductCard key={it.id} item={it} priority={i < 3} />
-              ))}
-            </div>
-            <div className="mx-auto mt-14 max-w-[640px] text-center">
+        <>
+          <div className="border-t border-[var(--line)] bg-white">
+            <FeaturedItemsFade
+              items={FLOOR_FEATURES}
+              eyebrow="Featured from the floor"
+              title={
+                <>
+                  Finds from the <span className="font-normal italic">warehouse.</span>
+                </>
+              }
+            />
+          </div>
+          <section className="border-t border-[var(--line)] bg-[var(--cream)]">
+            <div className="mx-auto max-w-[640px] px-6 py-14 text-center md:py-16">
               <p className="eyebrow">Come dig</p>
               <p className="mt-3 text-[1rem] font-light leading-[1.7] text-[var(--soft)]">
                 Door walls, window aisles, vanity rows, trim by the foot.
@@ -148,8 +145,8 @@ export default async function ShopIndex({ searchParams }: { searchParams: Promis
                 </Link>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </>
       )}
 
       <SiteFooter brand="priceless" />

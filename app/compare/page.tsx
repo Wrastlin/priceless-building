@@ -110,10 +110,10 @@ export default async function ComparePage() {
                     </div>
 
                     <Link
-                      href={`/shop/item/${it.sku}`}
+                      href={`/shop/${it.category}`}
                       className="btn btn-outline mt-4 w-full justify-center"
                     >
-                      See this one in the warehouse →
+                      See this aisle in the warehouse →
                     </Link>
                   </div>
                 </div>

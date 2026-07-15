@@ -27,7 +27,7 @@ export default async function EditItem({ params }: { params: Promise<{ sku: stri
         <>
           <Link href={`/admin/marketing?sku=${item.sku}`} className="admin-btn admin-btn-outline">Generate post</Link>
           <Link href={`/admin/tags?sku=${item.sku}`} className="admin-btn admin-btn-outline">Print tag</Link>
-          <Link href={`/shop/item/${item.sku}`} className="admin-btn admin-btn-outline">Storefront</Link>
+          <Link href={`/shop/${item.category}`} className="admin-btn admin-btn-outline">Storefront</Link>
           <MarkSoldButton sku={item.sku} price={item.price} status={item.status} />
         </>
       }
