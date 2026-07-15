@@ -25,23 +25,21 @@ export function ProductCard({
       className="group relative block overflow-hidden bg-white"
     >
       <div className="relative aspect-[5/4] w-full overflow-hidden bg-[var(--taupe)] sm:aspect-[4/3]">
-        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-1.5 text-[var(--soft)]/55">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-            <circle cx="8.5" cy="8.5" r="1.5" />
-            <polyline points="21 15 16 10 5 21" />
-          </svg>
-          <span className="text-xs uppercase tracking-wider">Photo coming soon</span>
-        </div>
-        <Image
-          src={item.image}
-          alt={item.title}
-          fill
-          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 100vw"
-          className="object-cover transition duration-500 group-hover:scale-[1.03]"
-          quality={75}
-          priority={priority}
-        />
+        {item.image ? (
+          <Image
+            src={item.image}
+            alt={item.title}
+            fill
+            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 100vw"
+            className="object-cover transition duration-500 group-hover:scale-[1.03]"
+            quality={75}
+            priority={priority}
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center text-[var(--soft)]/50">
+            <span className="text-xs uppercase tracking-wider">No photo</span>
+          </div>
+        )}
         {savings > 0 ? (
           <span className="absolute left-2 top-2 z-20 bg-[var(--rust)] px-2 py-0.5 text-[0.6rem] font-medium uppercase tracking-[0.12em] text-white sm:left-3 sm:top-3 sm:px-2.5 sm:py-1 sm:text-[0.65rem]">
             {savings}% off

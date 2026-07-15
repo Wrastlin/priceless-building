@@ -47,10 +47,27 @@ export default async function AccountPage() {
             <AccountTile href="/shop" title="Keep shopping" desc="Browse doors, windows, cabinets, and more." />
             <AccountTile href="/track" title="Track an order" desc="See the status of a pickup or delivery." />
             <div className="rounded-md border border-dashed border-[var(--border)] p-4">
-              <div className="font-semibold">Payment methods</div>
+              <div className="flex items-baseline justify-between gap-3">
+                <div className="font-semibold">Payment methods</div>
+                <span className="text-[0.65rem] font-medium uppercase tracking-[0.16em] text-[var(--brand-gold-deep)]">
+                  Coming soon
+                </span>
+              </div>
               <p className="mt-1 text-sm text-[var(--muted-foreground)]">
-                Securely save a card for faster checkout. Card details are handled by our
-                payment provider, never stored by Price-Less. (Coming soon.)
+                Securely save a card for faster checkout. Card details will be
+                handled by our payment provider, never stored by Price-Less.
+              </p>
+            </div>
+            <div className="rounded-md border border-dashed border-[var(--border)] p-4">
+              <div className="flex items-baseline justify-between gap-3">
+                <div className="font-semibold">Order history</div>
+                <span className="text-[0.65rem] font-medium uppercase tracking-[0.16em] text-[var(--brand-gold-deep)]">
+                  Coming soon
+                </span>
+              </div>
+              <p className="mt-1 text-sm text-[var(--muted-foreground)]">
+                Past pickups and deliveries in one place. For now, call the floor
+                with your order number.
               </p>
             </div>
           </div>
@@ -70,9 +87,18 @@ export default async function AccountPage() {
             Your <span className="text-[var(--brand-priceless)]">account.</span>
           </h1>
           <p className="mt-3 text-[var(--muted-foreground)]">
-            Create an account to check out faster, save your details, and track orders. We use a
-            secure provider for sign-in, so we never see your password.
+            Create an account to save your details and track orders once online
+            checkout is live. We use a secure provider for sign-in, so we never
+            see your password.
           </p>
+          <div className="mt-4 border border-dashed border-[var(--border)] bg-[var(--cream)] px-4 py-3">
+            <p className="text-[0.68rem] font-medium uppercase tracking-[0.18em] text-[var(--brand-gold-deep)]">
+              Coming soon
+            </p>
+            <p className="mt-1.5 text-sm text-[var(--muted-foreground)]">
+              Saved payment methods, order history, and one-tap checkout.
+            </p>
+          </div>
           <div className="mt-6">
             <CustomerAuth />
           </div>
