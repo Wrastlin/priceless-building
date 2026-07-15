@@ -28,7 +28,7 @@ const SERVICES = [
     body: "Discount and surplus doors, windows, cabinets, and lighting — kitchen & bath depth, and deals that reviews keep calling out.",
     cta: "Shop the warehouse",
     href: "/shop",
-    img: `${B}/white-kitchen-marble-island.jpg`,
+    img: `${B}/floor-door-aisle-light-and-dark.jpg`,
   },
   {
     name: "Builders Corner",
