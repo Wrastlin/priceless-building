@@ -34,7 +34,7 @@ export const FLOOR_FEATURES: FloorFeature[] = [
   {
     id: "feat-crystal-candelabra",
     title: "Crystal Candelabra Chandelier",
-    subtitle: "Statement lighting on the floor",
+    subtitle: "Statement lighting",
     image: "/real-photos/business/intake-crystal-candelabra-chandelier.jpg",
     category: "lighting",
     categoryLabel: "Lighting",
@@ -98,7 +98,7 @@ export const FLOOR_FEATURES: FloorFeature[] = [
   {
     id: "feat-white-vanity-copper",
     title: "White Vanity with Copper Sink",
-    subtitle: "Bath display on the floor",
+    subtitle: "Bath display piece",
     image: "/real-photos/business/white-vanity-copper-sink.jpg",
     category: "vanities",
     categoryLabel: "Vanities",
