@@ -26,7 +26,8 @@ export const CATEGORIES: Record<Category, { label: string; image: string; blurb:
   },
   cabinets: {
     label: "Cabinets",
-    image: "/real-photos/business/floor-cabinet-door-sample-rack.jpg",
+    // Real base-cabinet row — not the sample rack (that shot leads with end-grain slabs).
+    image: "/real-photos/business/white-base-cabinets-warehouse.jpg",
     blurb:
       "12\" uppers, 24\" bases, door parts, and full kitchen runs — stock surplus through Builders Corner custom.",
   },
