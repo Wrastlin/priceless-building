@@ -22,16 +22,11 @@ function safeNext(raw: string | null): string {
 }
 
 /**
- * Where to send the browser when the exchange fails. Customer flows
- * (anything under /account, e.g. password recovery) bounce back to that
- * page, which detects the missing session and shows a friendly message —
- * never the staff /login screen. Everything else is a staff flow and
- * lands on /login with the error surfaced as a toast.
+ * Where to send the browser when the exchange fails. Staff flows land on
+ * /login with the error surfaced as a toast. (Customer /account auth is
+ * archived under `_archive/commerce-deferred-*` until digital checkout returns.)
  */
-function errorDestination(next: string, origin: string, message: string): URL {
-  if (next.startsWith("/account")) {
-    return new URL(next, origin);
-  }
+function errorDestination(_next: string, origin: string, message: string): URL {
   const loginUrl = new URL("/login", origin);
   loginUrl.searchParams.set("error", message);
   return loginUrl;

@@ -140,10 +140,9 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
             </ul>
 
             <div className="mt-6 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-[var(--rust)]">
-              Account
+              Staff
             </div>
             <ul className="mt-4 space-y-2 text-sm font-light">
-              <li><FooterLink href="/account">My account</FooterLink></li>
               <li><FooterLink href="/login">Employee sign in</FooterLink></li>
             </ul>
           </div>

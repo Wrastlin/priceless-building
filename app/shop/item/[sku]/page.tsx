@@ -8,15 +8,16 @@ import { ProductCard } from "@/components/product-card";
 import { listCatalog, findItem, byCategory } from "@/lib/catalog";
 import { formatCurrency } from "@/lib/utils";
 import { ADDRESS } from "@/lib/brands";
-import { AddToCartButton } from "@/components/add-to-cart-button";
 import { ProductGallery } from "@/components/product-gallery";
 
 const SITE_URL = "https://pricelessbuilding.com";
 
 export async function generateStaticParams() {
+  const { FLOOR_SAMPLES } = await import("@/lib/items/floor-samples");
   const all = await listCatalog();
+  const pool = [...FLOOR_SAMPLES, ...all.filter((c) => c.featured), ...all.slice(0, 60)];
   const seen = new Set<string>();
-  return [...all.filter((c) => c.featured), ...all.slice(0, 60)]
+  return pool
     .filter((c) => (seen.has(c.sku) ? false : (seen.add(c.sku), true)))
     .slice(0, 100)
     .map((c) => ({ sku: c.sku }));
@@ -26,19 +27,22 @@ export async function generateMetadata({ params }: { params: Promise<{ sku: stri
   const { sku } = await params;
   const item = await findItem(sku);
   if (!item) return { title: "Item not found" };
-  const savings = item.msrp && item.msrp > item.price
+  const callForPrice = !(item.price > 0);
+  const savings = !callForPrice && item.msrp && item.msrp > item.price
     ? Math.round((1 - item.price / item.msrp) * 100)
     : 0;
-  const priceText = formatCurrency(item.price);
-  const titleSuffix = savings > 0 ? ` · ${priceText} (${savings}% off retail) · Wausau, WI` : ` · ${priceText} · Wausau, WI`;
+  const priceText = callForPrice ? "Call for price" : formatCurrency(item.price);
+  const titleSuffix = savings > 0
+    ? ` · ${priceText} (${savings}% off retail) · Wausau, WI`
+    : ` · ${priceText} · Wausau, WI`;
   const titleBase = item.title.length > 60 ? `${item.title.slice(0, 57)}…` : item.title;
   const fullTitle = `${titleBase}${titleSuffix}`;
   const heroAbs = item.image.startsWith("http") ? item.image : `${SITE_URL}${item.image}`;
   const description =
     `${item.title}. ${item.subtitle ?? ""} ` +
-    `${priceText}${item.msrp ? ` (retail ${formatCurrency(item.msrp)})` : ""}. ` +
-    `In stock at Price-Less Building Center, ${ADDRESS.street}, ${ADDRESS.city}, ${ADDRESS.state}. ` +
-    `New in box from cancelled contractor orders. SKU ${item.sku}.`;
+    `${priceText}${!callForPrice && item.msrp ? ` (retail ${formatCurrency(item.msrp)})` : ""}. ` +
+    `On the floor at Price-Less Building Center, ${ADDRESS.street}, ${ADDRESS.city}, ${ADDRESS.state}. ` +
+    `Call to hold · SKU ${item.sku}.`;
   const canonical = `${SITE_URL}/shop/item/${item.sku}`;
   return {
     title: fullTitle,
@@ -62,6 +66,33 @@ function productJsonLd(item: NonNullable<Awaited<ReturnType<typeof findItem>>>):
   const galleryAbs = (item.gallery ?? []).map((g) =>
     g.startsWith("http") ? g : `${SITE_URL}${g}`,
   );
+  const offerBase = {
+    "@type": "Offer" as const,
+    url: `${SITE_URL}/shop/item/${item.sku}`,
+    priceCurrency: "USD",
+    availability: item.inStock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+    itemCondition: "https://schema.org/NewCondition",
+    seller: {
+      "@type": "LocalBusiness",
+      name: "Price-Less Building Center",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: ADDRESS.street,
+        addressLocality: ADDRESS.city,
+        addressRegion: ADDRESS.state,
+        postalCode: ADDRESS.zip,
+        addressCountry: "US",
+      },
+    },
+  };
+  const offers =
+    item.price > 0
+      ? {
+          ...offerBase,
+          price: item.price,
+          priceValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30).toISOString().slice(0, 10),
+        }
+      : offerBase;
   return JSON.stringify({
     "@context": "https://schema.org/",
     "@type": "Product",
@@ -72,27 +103,7 @@ function productJsonLd(item: NonNullable<Awaited<ReturnType<typeof findItem>>>):
     brand: item.manufacturer
       ? { "@type": "Brand", name: item.manufacturer }
       : { "@type": "Brand", name: item.brand === "builders" ? "Builders Corner" : "Price-Less Building Center" },
-    offers: {
-      "@type": "Offer",
-      url: `${SITE_URL}/shop/item/${item.sku}`,
-      priceCurrency: "USD",
-      price: item.price,
-      priceValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30).toISOString().slice(0, 10),
-      availability: item.inStock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-      itemCondition: "https://schema.org/NewCondition",
-      seller: {
-        "@type": "LocalBusiness",
-        name: "Price-Less Building Center",
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: ADDRESS.street,
-          addressLocality: ADDRESS.city,
-          addressRegion: ADDRESS.state,
-          postalCode: ADDRESS.zip,
-          addressCountry: "US",
-        },
-      },
-    },
+    offers,
   });
 }
 
@@ -144,12 +155,14 @@ export default async function ItemPage({ params }: { params: Promise<{ sku: stri
           <div className="mt-8 border-t border-[var(--line)] pt-6">
             <div className="flex items-end gap-6">
               <div>
-                <div className="text-[0.7rem] font-medium uppercase tracking-[0.16em] text-[var(--soft)]">Our price</div>
+                <div className="text-[0.7rem] font-medium uppercase tracking-[0.16em] text-[var(--soft)]">
+                  {item.price > 0 ? "Our price" : "On the floor"}
+                </div>
                 <div className="mt-1 text-4xl font-medium tracking-tight md:text-5xl">
-                  {formatCurrency(item.price)}
+                  {item.price > 0 ? formatCurrency(item.price) : "Call for price"}
                 </div>
               </div>
-              {item.msrp && item.msrp > item.price ? (
+              {item.price > 0 && item.msrp && item.msrp > item.price ? (
                 <div className="pb-1">
                   <div className="text-[0.7rem] font-medium uppercase tracking-[0.16em] text-[var(--soft)]">
                     Est. retail
@@ -161,18 +174,27 @@ export default async function ItemPage({ params }: { params: Promise<{ sku: stri
               ) : null}
             </div>
             <p className="mt-4 text-sm font-light text-[var(--ink)]">
-              {item.inStock > 0 ? `In stock · ${item.inStock} available` : "Call to confirm availability"}
+              {item.inStock > 0
+                ? item.price > 0
+                  ? `In stock · ${item.inStock} available`
+                  : "In stock on the floor · call to hold"
+                : "Call to confirm availability"}
             </p>
           </div>
 
           <div className="mt-6 space-y-4">
-            <AddToCartButton sku={item.sku} title={item.title} className="btn btn-priceless w-full" />
+            <a
+              href={`tel:${ADDRESS.phone.replace(/[^0-9+]/g, "")}`}
+              className="btn btn-priceless flex w-full items-center justify-center"
+            >
+              Call to hold · {ADDRESS.phone}
+            </a>
             <div className="flex flex-wrap gap-x-4 gap-y-2 text-[0.72rem] font-medium uppercase tracking-[0.14em]">
-              <a href="tel:+17158483855" className="text-[var(--rust)] underline-offset-4 hover:underline">
-                Call {ADDRESS.phone} to hold
-              </a>
               <Link href="/contact" className="text-[var(--soft)] underline-offset-4 hover:underline">
-                Ask a question
+                Ask about size or finish
+              </Link>
+              <Link href={`/shop/${item.category}`} className="text-[var(--soft)] underline-offset-4 hover:underline">
+                More in {item.category}
               </Link>
             </div>
           </div>
@@ -200,29 +222,42 @@ export default async function ItemPage({ params }: { params: Promise<{ sku: stri
             <Row label="In store" value={item.location ?? "Front floor"} />
           </dl>
 
-          <div className="mt-8 bg-[var(--cream)] p-6">
-            <p className="text-[0.7rem] font-medium uppercase tracking-[0.18em] text-[var(--rust)]">
-              Why is it cheaper?
-            </p>
-            <p className="mt-3 text-sm font-light leading-[1.7] text-[var(--soft)]">
-              Brand-new in its original packaging. Our estimated retail
-              {item.comparable?.url ? (
-                <>
-                  {" "}
-                  (based on a similar item{" "}
-                  <a href={item.comparable.url} target="_blank" rel="noreferrer" className="underline">
-                    at a major retailer
-                  </a>{" "}
-                  this week)
-                </>
-              ) : null}{" "}
-              runs around {item.msrp ? formatCurrency(item.msrp) : "2× our tag"}.{" "}
-              <Link href="/policies/pricing" className="underline">
-                Methodology
-              </Link>
-              .
-            </p>
-          </div>
+          {item.price > 0 ? (
+            <div className="mt-8 bg-[var(--cream)] p-6">
+              <p className="text-[0.7rem] font-medium uppercase tracking-[0.18em] text-[var(--rust)]">
+                Why is it cheaper?
+              </p>
+              <p className="mt-3 text-sm font-light leading-[1.7] text-[var(--soft)]">
+                Brand-new in its original packaging. Our estimated retail
+                {item.comparable?.url ? (
+                  <>
+                    {" "}
+                    (based on a similar item{" "}
+                    <a href={item.comparable.url} target="_blank" rel="noreferrer" className="underline">
+                      at a major retailer
+                    </a>{" "}
+                    this week)
+                  </>
+                ) : null}{" "}
+                runs around {item.msrp ? formatCurrency(item.msrp) : "2× our tag"}.{" "}
+                <Link href="/policies/pricing" className="underline">
+                  Methodology
+                </Link>
+                .
+              </p>
+            </div>
+          ) : (
+            <div className="mt-8 bg-[var(--cream)] p-6">
+              <p className="text-[0.7rem] font-medium uppercase tracking-[0.18em] text-[var(--rust)]">
+                How to buy
+              </p>
+              <p className="mt-3 text-sm font-light leading-[1.7] text-[var(--soft)]">
+                We&apos;re tagging inventory for the floor as we go — prices stay
+                in the warehouse for now. Call {ADDRESS.phone} and we&apos;ll hold
+                it for pickup at {ADDRESS.street}.
+              </p>
+            </div>
+          )}
         </div>
       </section>
 

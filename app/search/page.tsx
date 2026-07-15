@@ -3,7 +3,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ProductCard } from "@/components/product-card";
 import { Pagination } from "@/components/pagination";
-import { listCatalog, CATEGORIES, DEFAULT_PAGE_SIZE } from "@/lib/catalog";
+import { listCatalog, CATEGORIES, DEFAULT_PAGE_SIZE, FLOOR_SAMPLES } from "@/lib/catalog";
 import { DEPARTMENT_DEPTH } from "@/lib/department-depth";
 import { isCatalogLive } from "@/lib/catalog-live";
 import { parsePage } from "@/lib/utils";
@@ -11,23 +11,22 @@ import { parsePage } from "@/lib/utils";
 export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string; page?: string }> }) {
   const sp = await searchParams;
   const q = (sp.q ?? "").trim();
-  const live = isCatalogLive();
-  const matches =
-    live && q
-      ? (await listCatalog()).filter(
-          (c) =>
-            c.title.toLowerCase().includes(q.toLowerCase()) ||
-            c.subtitle.toLowerCase().includes(q.toLowerCase()) ||
-            c.sku.toLowerCase().includes(q.toLowerCase()) ||
-            c.category.toLowerCase().includes(q.toLowerCase()),
-        )
-      : [];
+  const pool = isCatalogLive() ? await listCatalog() : FLOOR_SAMPLES;
+  const matches = q
+    ? pool.filter(
+        (c) =>
+          c.title.toLowerCase().includes(q.toLowerCase()) ||
+          (c.subtitle ?? "").toLowerCase().includes(q.toLowerCase()) ||
+          c.sku.toLowerCase().includes(q.toLowerCase()) ||
+          c.category.toLowerCase().includes(q.toLowerCase()),
+      )
+    : [];
   const totalPages = Math.max(1, Math.ceil(matches.length / DEFAULT_PAGE_SIZE));
   const current = Math.min(parsePage(sp.page), totalPages);
   const results = matches.slice((current - 1) * DEFAULT_PAGE_SIZE, current * DEFAULT_PAGE_SIZE);
 
-  // When catalog isn't live, map search terms to departments.
-  const deptHits = !live && q
+  // Also map search terms to departments for browse shortcuts.
+  const deptHits = q
     ? (Object.keys(CATEGORIES) as (keyof typeof CATEGORIES)[]).filter((key) => {
         const cat = CATEGORIES[key];
         const depth = DEPARTMENT_DEPTH[key];
@@ -74,57 +73,57 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
               ))}
             </div>
           </div>
-        ) : live ? (
-          <div className="mt-10">
-            <div className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
-              {matches.length} result{matches.length === 1 ? "" : "s"} · &ldquo;{q}&rdquo;
-            </div>
-            {results.length === 0 ? (
-              <p className="font-display mt-8 text-2xl italic text-[var(--muted-foreground)]">
-                No match — try a department name (doors, windows, cabinets) or a SKU.
-              </p>
-            ) : (
-              <>
+        ) : (
+          <div className="mt-10 space-y-12">
+            {results.length > 0 ? (
+              <div>
+                <div className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+                  {matches.length} result{matches.length === 1 ? "" : "s"} · &ldquo;{q}&rdquo;
+                </div>
                 <div className="mt-8 grid grid-cols-2 gap-x-3 gap-y-5 md:grid-cols-3 md:gap-x-6 md:gap-y-10 lg:grid-cols-4">
                   {results.map((it) => (
                     <ProductCard key={it.id} item={it} />
                   ))}
                 </div>
                 <Pagination basePath="/search" page={current} totalPages={totalPages} query={{ q }} />
-              </>
-            )}
-          </div>
-        ) : (
-          <div className="mt-10">
-            <div className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
-              Departments matching &ldquo;{q}&rdquo;
-            </div>
-            {deptHits.length === 0 ? (
+              </div>
+            ) : null}
+
+            {deptHits.length > 0 ? (
+              <div>
+                <div className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+                  Departments matching &ldquo;{q}&rdquo;
+                </div>
+                <div className="mt-6 grid grid-cols-1 gap-px bg-[var(--border)] sm:grid-cols-2 md:grid-cols-3">
+                  {deptHits.map((key, i) => {
+                    const cat = CATEGORIES[key];
+                    return (
+                      <Link key={key} href={`/shop/${key}`} className="group block bg-white p-5">
+                        <div className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+                          No. {String(i + 1).padStart(2, "0")}
+                        </div>
+                        <div className="font-display mt-2 text-2xl">{cat.label}.</div>
+                        <div className="mt-1 text-[0.68rem] font-medium uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
+                          {DEPARTMENT_DEPTH[key].headline}
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : null}
+
+            {results.length === 0 && deptHits.length === 0 ? (
               <p className="font-display mt-8 text-2xl italic text-[var(--muted-foreground)]">
                 No match — try doors, windows, cabinets, vanities, hardware, lighting, or trim.
+                Or call (715) 848-3855 and we&rsquo;ll check the floor.
               </p>
             ) : (
-              <div className="mt-6 grid grid-cols-1 gap-px bg-[var(--border)] sm:grid-cols-2 md:grid-cols-3">
-                {deptHits.map((key, i) => {
-                  const cat = CATEGORIES[key];
-                  return (
-                    <Link key={key} href={`/shop/${key}`} className="group block bg-white p-5">
-                      <div className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
-                        No. {String(i + 1).padStart(2, "0")}
-                      </div>
-                      <div className="font-display mt-2 text-2xl">{cat.label}.</div>
-                      <div className="mt-1 text-[0.68rem] font-medium uppercase tracking-[0.14em] text-[var(--brand-priceless)]">
-                        {DEPARTMENT_DEPTH[key].headline}
-                      </div>
-                    </Link>
-                  );
-                })}
-              </div>
+              <p className="text-[0.95rem] font-light leading-[1.65] text-[var(--soft)]">
+                Wide selection on the floor every week. Call (715) 848-3855 with a
+                size and we&rsquo;ll hold what fits.
+              </p>
             )}
-            <p className="mt-10 text-[0.95rem] font-light leading-[1.65] text-[var(--soft)]">
-              Individual tags aren&rsquo;t all searchable online yet. Call (715) 848-3855
-              with a size and we&rsquo;ll check the floor.
-            </p>
           </div>
         )}
       </section>

@@ -28,13 +28,9 @@ const SECTIONS: Section[] = [
       { href: "/search", label: "Search" },
       { href: "/about", label: "About" },
       { href: "/contact", label: "Contact + hours" },
-      { href: "/cart", label: "Cart" },
-      { href: "/checkout", label: "Checkout" },
-      { href: "/track", label: "Track an order" },
       { href: "/compare", label: "Compare vs. big box" },
       { href: "/reviews", label: "Reviews" },
       { href: "/blog", label: "Blog" },
-      { href: "/gift-cards", label: "Gift cards" },
     ],
   },
   {

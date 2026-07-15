@@ -63,14 +63,22 @@ const NOUN: Record<Category, string> = {
 };
 
 const DETAIL: Record<Category, string> = {
-  doors: "Interior slabs, pre-hungs, exterior, patio & bifolds — a full wall of doors.",
-  windows: "Casement, double-hung, wood-framed & specialty shapes. New and surplus.",
-  cabinets: "Base, wall, pantry & door parts. Stock runs to Builders Corner custom.",
-  vanities: "Floor models and vanity tops with sinks, ready to install.",
-  countertops: "Butcher block, laminate, quartz & granite remnants.",
-  hardware: "Locksets, hinges, pulls, fasteners — contractor overstock, new-in-box.",
-  lighting: "Chandeliers, pendants, vanity bars & ceiling fans on the floor.",
-  trim: "Casing, base, crown, dowels, newels & balusters. Primed and ready.",
+  doors:
+    "Nearly a thousand on the floor — interior slabs from about $25–$50, pre-hungs, exterior & patio, bifolds, and premium one-of-a-kind glass finds.",
+  windows:
+    "Casement, double-hung, wood-framed & specialty shapes — new-in-box JELD-WEN, Andersen, Thermo-Tech and more.",
+  cabinets:
+    "12\" uppers, 24\" bases, pantry & door parts — surplus stock through Builders Corner custom kitchen runs.",
+  vanities:
+    "18\" and 21\" baths up through 72\" doubles — floor models, cultured-marble tops, and vessel sinks ready to install.",
+  countertops:
+    "Butcher block by the stack, laminate remnants, quartz and granite — the deals shoppers rave about.",
+  hardware:
+    "Hundreds of locksets, pulls, hinges, and fasteners — Schlage, Kwikset, Amerock, GRK, new-in-box overstock.",
+  lighting:
+    "Chandeliers, pendants, vanity bars, and ceiling fans hanging across the warehouse — statement pieces to workhorse fixtures.",
+  trim:
+    "Casing, base, crown, dowels, newels & balusters — thousands of feet and pieces, primed and ready.",
 };
 
 function buildDepth(category: Category): DepartmentDepth {

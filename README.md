@@ -92,8 +92,8 @@ redirect allowlist.
 
 ### Price-Less storefront — public
 `/` `/shop` `/shop/[category]` `/shop/item/[sku]` `/tour` `/aisle-map`
-`/search` `/cart` `/checkout` `/about` `/contact` `/track` `/financing`
-`/contractors` `/reviews` `/compare` `/gift-cards` `/blog` `/blog/[slug]`
+`/search` `/about` `/contact` `/financing`
+`/contractors` `/reviews` `/compare` `/blog` `/blog/[slug]`
 `/policies/returns` `/sitemap.xml` `/robots.txt`
 
 ### Builders Corner — custom cabinetry brand

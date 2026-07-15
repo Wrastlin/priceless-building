@@ -3,15 +3,9 @@
  * imports. Safe to import from client components, server components, or
  * edge.
  *
- * The department definitions (label, hero image, blurb) and the shared
- * item types live here so a client component (e.g. the main menu) can use
- * them WITHOUT pulling in `lib/items/store` and its server-only Supabase
- * client (which imports `next/headers` and cannot exist in a client
- * bundle).
- *
- * Department hero images prefer the July 2026 floor inventory shoot
- * (`floor-*` in `public/real-photos/business/`) so shop tiles show what
- * is actually on the warehouse floor right now.
+ * Blurbs lean on the 2026-06-11 floor walkthrough (real types, brands, and
+ * tag price bands) plus July 2026 floor photography. Depth claims are
+ * conservative showcase estimates — surplus moves weekly.
  */
 import type { Category } from "@/lib/items/types";
 
@@ -21,41 +15,49 @@ export const CATEGORIES: Record<Category, { label: string; image: string; blurb:
   doors: {
     label: "Doors",
     image: "/real-photos/business/floor-barn-door-diamond-glass.jpg",
-    blurb: "Interior, exterior, slabs, pre-hung. Solid-core and reclaimed.",
+    blurb:
+      "Nearly 1,000 on the floor — interior slabs from about $25, pre-hungs, exterior & patio, bifolds, and one-of-a-kind glass finds.",
   },
   windows: {
     label: "Windows",
     image: "/real-photos/business/floor-window-aisle-warehouse.jpg",
-    blurb: "Double-hung, casement, picture, sliders. New and surplus.",
+    blurb:
+      "Hundreds in stock — double-hung, casement, wood-framed, and specialty shapes. New-in-box JELD-WEN, Andersen, Thermo-Tech and more.",
   },
   cabinets: {
     label: "Cabinets",
     image: "/real-photos/business/floor-cabinet-door-sample-rack.jpg",
-    blurb: "Stock kitchen runs to full-overlay custom Builders Corner sets.",
+    blurb:
+      "12\" uppers, 24\" bases, door parts, and full kitchen runs — stock surplus through Builders Corner custom.",
   },
   vanities: {
     label: "Vanities",
     image: "/real-photos/business/floor-vanity-row-mirrors-lights.jpg",
-    blurb: "30\" to 72\". Quartz tops, soft-close, ready to install.",
+    blurb:
+      "18\" and 21\" baths up through 72\" doubles — floor models, cultured-marble tops, and vessel sinks ready to install.",
   },
   countertops: {
     label: "Countertops",
     image: "/real-photos/business/floor-butcher-block-rack-stacks.jpg",
-    blurb: "Quartz, granite and butcher block. Remnants and full slabs.",
+    blurb:
+      "Butcher block by the stack, laminate remnants, quartz and granite — the deal shoppers rave about (yes, even $25 tops).",
   },
   hardware: {
     label: "Hardware",
     image: "/real-photos/business/floor-door-hardware-lock-shelves.jpg",
-    blurb: "Pulls, hinges, latches, casters. New-in-box from contractor overstock.",
+    blurb:
+      "Hundreds of locksets, pulls, hinges, and fasteners — Schlage, Kwikset, Amerock, GRK, new-in-box overstock.",
   },
   lighting: {
     label: "Lighting",
     image: "/real-photos/business/floor-globe-crystal-chandelier.jpg",
-    blurb: "Pendants, sconces, vanity bars, recessed cans.",
+    blurb:
+      "Chandeliers, pendants, vanity bars, and ceiling fans hanging across the warehouse — statement pieces to workhorse fixtures.",
   },
   trim: {
     label: "Trim & Millwork",
     image: "/real-photos/business/floor-lumber-millwork-room.jpg",
-    blurb: "Casing, base, crown. Primed and ready.",
+    blurb:
+      "Casing, base, crown, dowels, newels, and balusters — thousands of feet and pieces, primed and ready.",
   },
 };
