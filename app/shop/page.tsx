@@ -114,10 +114,10 @@ export default async function ShopIndex({ searchParams }: { searchParams: Promis
           <div className="border-t border-[var(--line)] bg-white">
             <FeaturedItemsFade
               items={FLOOR_FEATURES}
-              eyebrow="Featured from the floor"
+              eyebrow="Featured finds"
               title={
                 <>
-                  Finds from the <span className="font-normal italic">warehouse.</span>
+                  Pieces from the <span className="font-normal italic">warehouse.</span>
                 </>
               }
             />
