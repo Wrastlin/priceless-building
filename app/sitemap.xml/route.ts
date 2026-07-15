@@ -4,6 +4,7 @@
 // Admin paths are intentionally excluded.
 
 import { CATEGORIES, listCatalog } from "@/lib/catalog";
+import { isCatalogLive } from "@/lib/catalog-live";
 
 const BASE = "https://pricelessbuilding.com";
 
@@ -22,7 +23,9 @@ export async function GET() {
   const urls: string[] = [];
   for (const p of STATIC) urls.push(`${BASE}${p}`);
   for (const cat of Object.keys(CATEGORIES)) urls.push(`${BASE}/shop/${cat}`);
-  for (const item of await listCatalog()) urls.push(`${BASE}/shop/item/${item.sku}`);
+  if (isCatalogLive()) {
+    for (const item of await listCatalog()) urls.push(`${BASE}/shop/item/${item.sku}`);
+  }
   for (const s of BLOG_SLUGS) urls.push(`${BASE}/blog/${s}`);
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls

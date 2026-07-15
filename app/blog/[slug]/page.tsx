@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ProductCard } from "@/components/product-card";
 import { findItem } from "@/lib/catalog";
+import { isCatalogLive } from "@/lib/catalog-live";
 
 const SITE_URL = "https://pricelessbuilding.com";
 
@@ -171,8 +172,11 @@ export default async function BlogPostPage({
   const post = POSTS[slug];
   if (!post) notFound();
 
-  const shopItems = (await Promise.all(post.shopSkus.map((sku) => findItem(sku))))
-    .filter((it): it is NonNullable<Awaited<ReturnType<typeof findItem>>> => Boolean(it));
+  const shopItems = isCatalogLive()
+    ? (await Promise.all(post.shopSkus.map((sku) => findItem(sku)))).filter(
+        (it): it is NonNullable<Awaited<ReturnType<typeof findItem>>> => Boolean(it),
+      )
+    : [];
 
   const otherPosts = Object.values(POSTS).filter((p) => p.slug !== slug).slice(0, 3);
 

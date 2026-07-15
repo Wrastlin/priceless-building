@@ -19,9 +19,11 @@
  * sku/status/brand/category are mirrored as columns only so queries can
  * filter without scanning jsonb. Every write updates both.
  *
- * When Supabase env vars are absent (e.g. CI, or a designer with no
- * secrets) reads fall back to the in-memory SEED_ITEMS and writes throw a
- * clear "not configured" error rather than corrupting anything.
+ * When Supabase env vars are absent, PUBLIC storefront reads return an
+ * empty catalog (so we never advertise the 40 fake seed SKUs). Opt back
+ * into seed with ALLOW_SEED_CATALOG=1 for local design work. Admin reads
+ * still fall back to SEED_ITEMS so the back-office is usable without
+ * secrets. Writes throw a clear "not configured" error.
  */
 import { unstable_cache } from "next/cache";
 import type { CatalogItem, Brand, Category, ItemStatus } from "@/lib/items/types";
@@ -41,6 +43,9 @@ const CONFIGURED =
  * WITHOUT touching the real database or any payment path. Off by default.
  */
 const SANDBOX = process.env.NEXT_PUBLIC_SANDBOX === "1";
+
+/** Local-only: allow the demo seed catalog on the public storefront. */
+const ALLOW_SEED = process.env.ALLOW_SEED_CATALOG === "1";
 
 /** Per-request cookie client (authenticated staff session) for admin reads + writes. */
 async function sessionClient() {
@@ -91,6 +96,15 @@ function bustPaths() {
 
 type PublishedFilter = { brand?: Brand; category?: Category };
 
+function seedPublished(filter: PublishedFilter = {}): CatalogItem[] {
+  return SEED_ITEMS.filter(
+    (it) =>
+      it.status === "published" &&
+      (filter.brand === undefined || it.brand === filter.brand) &&
+      (filter.category === undefined || it.category === filter.category),
+  );
+}
+
 async function queryPublished(filter: PublishedFilter = {}): Promise<CatalogItem[]> {
   if (SANDBOX) {
     const { getSandboxItems } = await import("@/lib/items/sandbox-data");
@@ -102,12 +116,7 @@ async function queryPublished(filter: PublishedFilter = {}): Promise<CatalogItem
     );
   }
   if (!CONFIGURED) {
-    return SEED_ITEMS.filter(
-      (it) =>
-        it.status === "published" &&
-        (filter.brand === undefined || it.brand === filter.brand) &&
-        (filter.category === undefined || it.category === filter.category),
-    );
+    return ALLOW_SEED ? seedPublished(filter) : [];
   }
   let q = publicClient().from("items").select("data").eq("status", "published");
   if (filter.brand !== undefined) q = q.eq("brand", filter.brand);
@@ -183,7 +192,7 @@ async function queryPublishedPage(
     return paginateArray(getSandboxItems().filter(matchesFilter(filter)), page, pageSize);
   }
   if (!CONFIGURED) {
-    return paginateArray(SEED_ITEMS.filter(matchesFilter(filter)), page, pageSize);
+    return paginateArray(ALLOW_SEED ? seedPublished(filter) : [], page, pageSize);
   }
   const safePage = Math.max(1, page);
   const from = (safePage - 1) * pageSize;
@@ -208,7 +217,7 @@ async function queryCount(filter: PublishedFilter): Promise<number> {
     const { getSandboxItems } = await import("@/lib/items/sandbox-data");
     return getSandboxItems().filter(matchesFilter(filter)).length;
   }
-  if (!CONFIGURED) return SEED_ITEMS.filter(matchesFilter(filter)).length;
+  if (!CONFIGURED) return ALLOW_SEED ? seedPublished(filter).length : 0;
   let q = publicClient()
     .from("items")
     .select("sku", { count: "exact", head: true })
@@ -269,7 +278,11 @@ export async function findPublished(sku: string): Promise<CatalogItem | undefine
     const it = sandboxFind(sku);
     return it && it.status === "published" ? it : undefined;
   }
-  if (!CONFIGURED) return SEED_ITEMS.find((it) => it.sku === sku && it.status === "published");
+  if (!CONFIGURED) {
+    return ALLOW_SEED
+      ? SEED_ITEMS.find((it) => it.sku === sku && it.status === "published")
+      : undefined;
+  }
   const { data, error } = await publicClient()
     .from("items")
     .select("data")
