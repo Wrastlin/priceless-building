@@ -7,7 +7,6 @@ import { ReviewsFade } from "@/components/reviews-fade";
 import { SwipeCard, SwipeRail } from "@/components/swipe-rail";
 import { FeaturedItemsFade } from "@/components/featured-items-fade";
 import { BuildersPromo } from "@/components/builders-promo";
-import { VendorWall } from "@/components/vendor-wall";
 import { ADDRESS, PRICELESS } from "@/lib/brands";
 import { CATEGORIES, byCategory, listFeatured } from "@/lib/catalog";
 import { FLOOR_FEATURES } from "@/lib/items/floor-features";
@@ -368,12 +367,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <VendorWall
-        heading="Brands on the floor."
-        blurb="Read straight off the boxes and signage in our aisles. Surplus from names contractors already trust."
-      />
-
-      {/* Reviews — slow crossfade through the pool (Rejuvenation "living" feel) */}
       <ReviewsFade reviews={reviews} />
 
       {/* Gallery */}

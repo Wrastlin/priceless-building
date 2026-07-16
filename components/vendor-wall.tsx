@@ -11,15 +11,13 @@ function fillRow(logos: Logo[], minCount = 18): Logo[] {
 }
 
 /**
- * One large continuous logo thumbnail river.
- * Fixed-width tiles + two identical units + -50% translate = seamless loop, no snap.
+ * Bare continuous logo thumbnail river — no heading, no section chrome.
+ * Fixed-width tiles + two identical units + -50% translate = seamless loop.
  */
-export function VendorWall({
-  heading = "Brands on the floor",
-  blurb = "Read straight off the boxes and signage in our aisles. Surplus from names contractors already trust.",
+export function VendorLogoBar({
+  fadeFrom = "white",
 }: {
-  heading?: string;
-  blurb?: string;
+  fadeFrom?: "white" | "cream";
 }) {
   const logos = VENDORS.map((v) => ({ name: v.name, src: vendorLogo(v.name) })).filter(
     (v): v is Logo => v.src !== null,
@@ -27,25 +25,14 @@ export function VendorWall({
   if (logos.length === 0) return null;
 
   const track = fillRow(logos, 20);
+  const from = fadeFrom === "cream" ? "from-[var(--cream)]" : "from-white";
 
   return (
-    <section className="border-b border-[var(--line)] bg-[var(--cream)] py-10 sm:py-14">
-      <div className="mx-auto max-w-[1360px] px-5 sm:px-8">
-        <p className="eyebrow">{logos.length} brands from the walkthrough</p>
-        <h2 className="font-display mt-2 text-[clamp(2rem,1rem+2.6vw,3.2rem)] leading-[1.05]">
-          {heading}
-        </h2>
-        <p className="mt-3 max-w-[46ch] text-[1.05rem] font-light leading-[1.65] text-[var(--soft)]">
-          {blurb}
-        </p>
-      </div>
-
-      <div className="vendor-marquee relative mt-8 sm:mt-10">
-        <LogoRiver logos={track} />
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-[var(--cream)] to-transparent sm:w-12" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-[var(--cream)] to-transparent sm:w-12" />
-      </div>
-    </section>
+    <div className="vendor-marquee relative" aria-label="Brands from the walkthrough">
+      <LogoRiver logos={track} />
+      <div className={`pointer-events-none absolute inset-y-0 left-0 w-5 bg-gradient-to-r ${from} to-transparent sm:w-10`} />
+      <div className={`pointer-events-none absolute inset-y-0 right-0 w-5 bg-gradient-to-l ${from} to-transparent sm:w-10`} />
+    </div>
   );
 }
 
@@ -53,7 +40,7 @@ function LogoRiver({ logos }: { logos: Logo[] }) {
   const tile = (v: Logo, key: string, labeled: boolean) => (
     <div
       key={key}
-      className="mr-5 flex h-[4.5rem] w-[7.5rem] shrink-0 items-center justify-center sm:mr-7 sm:h-20 sm:w-[9rem] md:mr-8 md:h-24 md:w-[10.5rem]"
+      className="mr-2.5 flex h-20 w-28 shrink-0 items-center justify-center sm:mr-3 sm:h-24 sm:w-36 md:mr-3.5 md:h-28 md:w-40"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -61,7 +48,7 @@ function LogoRiver({ logos }: { logos: Logo[] }) {
         alt={labeled ? v.name : ""}
         aria-hidden={!labeled}
         loading="lazy"
-        className="max-h-[70%] max-w-[85%] object-contain opacity-90"
+        className="max-h-[88%] max-w-[92%] object-contain opacity-95"
       />
     </div>
   );
