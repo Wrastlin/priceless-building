@@ -34,15 +34,13 @@ export function BuildersPromo() {
     <section className="border-y border-[var(--line)] bg-white">
       <div className="mx-auto max-w-[1360px] px-5 pt-10 sm:px-8 sm:pt-14">
         <div className="max-w-[40ch]">
-          <p className="eyebrow">Builders Corner</p>
-          <h2 className="font-display mt-2 text-[clamp(2rem,1rem+2.6vw,3.2rem)] leading-[1.05]">
-            High-end brands. Built in{" "}
-            <span className="font-normal italic">Wausau.</span>
+          <h2 className="font-display text-[clamp(2rem,1rem+2.6vw,3.2rem)] leading-[1.05]">
+            Builders <span className="font-normal italic">Corner.</span>
           </h2>
           <p className="mt-3 text-[1.05rem] font-light leading-[1.65] text-[var(--soft)]">
-            Custom kitchens and baths designed in our showroom, built in our
-            shop, and installed by the 4 Squared crew. Come see the real
-            samples in the showroom.
+            High-end brands, built in Wausau. Custom kitchens and baths designed
+            in our showroom, built in our shop, and installed by the 4 Squared
+            crew. Come see the real samples in the showroom.
           </p>
         </div>
 

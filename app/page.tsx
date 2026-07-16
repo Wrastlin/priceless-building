@@ -184,12 +184,6 @@ const HOME_JSON_LD = {
   ],
 };
 
-function Eyebrow({ children, onDark = false }: { children: React.ReactNode; onDark?: boolean }) {
-  return (
-    <p className={`eyebrow ${onDark ? "eyebrow-on-dark" : ""}`}>{children}</p>
-  );
-}
-
 function H2({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
     <h2 className={`font-display text-[clamp(2rem,1rem+2.9vw,3.3rem)] leading-[1.05] ${className}`}>
@@ -258,8 +252,7 @@ export default async function HomePage() {
       {/* Three businesses — photo captions */}
       <section className="bg-[var(--taupe)]">
         <div className="mx-auto max-w-[1360px] px-5 py-10 text-center sm:px-8 sm:py-12 md:py-14">
-          <Eyebrow>One yard · three ways to build</Eyebrow>
-          <H2 className="mx-auto mt-2 max-w-[22ch] sm:mt-3">
+          <H2 className="mx-auto max-w-[22ch]">
             Shop it, design it, <span className="font-normal italic">build it.</span>
           </H2>
           <div className="mt-7 grid gap-2.5 sm:mt-8 md:mt-10 md:grid-cols-3 md:gap-3">
@@ -312,9 +305,8 @@ export default async function HomePage() {
         <section className="mx-auto max-w-[1360px] px-5 pt-10 pb-6 sm:px-8 sm:pt-14 sm:pb-8">
           <div className="flex items-end justify-between gap-6">
             <div>
-              <Eyebrow>On the floor now</Eyebrow>
-              <H2 className="mt-2 sm:mt-3">
-                Fresh finds from the <span className="font-normal italic">warehouse.</span>
+              <H2>
+                Featured <span className="font-normal italic">finds.</span>
               </H2>
             </div>
             <Link
@@ -338,11 +330,10 @@ export default async function HomePage() {
 
       <BuildersPromo />
 
-      {/* Before / after */}
+      {/* Before / after — show full composite photos (no crop) */}
       <section className="mx-auto max-w-[1360px] px-5 pt-6 pb-10 sm:px-8 sm:pt-8 sm:pb-14">
         <div className="max-w-[46ch]">
-          <Eyebrow>The remodeling journey</Eyebrow>
-          <H2 className="mt-2">
+          <H2>
             Before, and <span className="font-normal italic">after.</span>
           </H2>
           <p className="mt-3 hidden text-[1.05rem] font-light leading-[1.65] text-[var(--soft)] sm:block">
@@ -353,8 +344,13 @@ export default async function HomePage() {
         <div className="mt-5 grid gap-5 sm:mt-6 sm:gap-6 md:grid-cols-2">
           {BEFORE_AFTER.map((ba) => (
             <figure key={ba.label}>
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-[var(--line)]">
-                <Image src={ba.img} alt={ba.label} fill sizes="(max-width:768px) 90vw, 45vw" className="object-cover" />
+              <div className="relative w-full overflow-hidden bg-[var(--line)]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={ba.img}
+                  alt={ba.label}
+                  className="h-auto w-full object-contain"
+                />
               </div>
               <figcaption className="mt-3 sm:mt-5">
                 <h3 className="font-display text-[1.2rem] font-semibold sm:text-[1.4rem]">{ba.label}</h3>
@@ -369,28 +365,31 @@ export default async function HomePage() {
 
       <ReviewsFade reviews={reviews} />
 
-      {/* Gallery */}
+      {/* Builders Corner finished work */}
       <section className="border-t border-[var(--line)] bg-[var(--cream)]">
         <div className="mx-auto max-w-[1360px] px-5 py-10 sm:px-8 sm:py-14">
           <div className="flex items-end justify-between gap-6">
             <div>
-              <Eyebrow>Around the yard</Eyebrow>
-              <H2 className="mt-2 sm:mt-3">A slice of the floor.</H2>
+              <H2 className="max-w-[20ch]">
+                Built by <span className="font-normal italic">Builders Corner.</span>
+              </H2>
+              <p className="mt-3 max-w-[46ch] text-[1.05rem] font-light leading-[1.65] text-[var(--soft)]">
+                Finished kitchens, baths, and outdoor work from the showroom and shop
+                on Washington Street.
+              </p>
             </div>
             <Link
-              href="/shop"
-              className="hidden border-b border-[var(--ink)] pb-1 text-[0.8rem] font-medium uppercase tracking-[0.16em] sm:inline-block"
+              href="/builders-corner"
+              className="hidden shrink-0 border-b border-[var(--ink)] pb-1 text-[0.8rem] font-medium uppercase tracking-[0.16em] sm:inline-block"
             >
-              See the full gallery ›
+              See more work ›
             </Link>
           </div>
           <div className="mt-6 grid grid-cols-2 gap-2.5 sm:mt-8 sm:gap-3 md:grid-cols-3">
-            {GALLERY.map((src, i) => (
+            {GALLERY.map((src) => (
               <div
                 key={src}
-                className={`relative overflow-hidden bg-[var(--line)] ${
-                  i === 0 ? "aspect-[16/10] md:col-span-2 md:row-span-2 md:aspect-auto" : "aspect-square"
-                }`}
+                className="relative aspect-[4/5] min-w-0 overflow-hidden bg-[var(--line)]"
               >
                 <Image src={src} alt="" fill sizes="(max-width:768px) 45vw, 30vw" className="object-cover" />
               </div>
@@ -403,8 +402,7 @@ export default async function HomePage() {
       <section className="mx-auto max-w-[1240px] px-5 py-10 sm:px-8 sm:py-14">
         <div className="flex items-end justify-between gap-6">
           <div>
-            <Eyebrow>In the local news</Eyebrow>
-            <H2 className="mt-2 sm:mt-3">
+            <H2 className="mt-0 sm:mt-0">
               Wausau keeps <span className="font-normal italic">talking.</span>
             </H2>
           </div>
@@ -444,8 +442,7 @@ export default async function HomePage() {
       <section className="border-t border-[var(--line)] bg-[var(--cream)]">
         <div className="mx-auto grid max-w-[1240px] items-center gap-6 px-5 py-10 sm:gap-10 sm:px-8 sm:py-14 md:grid-cols-2">
           <div className="order-2 md:order-1">
-            <Eyebrow>Around the store lately</Eyebrow>
-            <H2 className="mt-2 sm:mt-3">
+            <H2 className="mt-0 sm:mt-0">
               Follow along on <span className="font-normal italic">Facebook.</span>
             </H2>
             <p className="mt-3 hidden max-w-[46ch] text-[1.05rem] font-light leading-[1.65] text-[var(--soft)] sm:block">
@@ -491,8 +488,7 @@ export default async function HomePage() {
       <section className="border-t border-[var(--line)] bg-white">
         <div className="mx-auto grid max-w-[1360px] md:grid-cols-2">
           <div className="flex flex-col justify-center px-5 py-10 sm:px-8 sm:py-14 md:px-14 md:py-16 lg:px-20">
-            <Eyebrow>Visit the yard</Eyebrow>
-            <H2 className="mt-2 max-w-[16ch] sm:mt-3">
+            <H2 className="mt-0 max-w-[16ch] sm:mt-0">
               Come see it. You&rsquo;re in{" "}
               <span className="font-normal italic">Wausau.</span>
             </H2>

@@ -114,9 +114,8 @@ export function ReviewsFade({ reviews }: { reviews: Review[] }) {
 
   return (
     <section className="mx-auto max-w-[1240px] px-5 py-10 text-center sm:px-8 sm:py-14">
-      <p className="eyebrow">Since 1978</p>
-      <h2 className="font-display mx-auto mt-2 max-w-[24ch] text-[clamp(2rem,1rem+2.9vw,3.3rem)] leading-[1.05] sm:mt-3">
-        Trusted across <span className="font-normal italic">central Wisconsin.</span>
+      <h2 className="font-display mx-auto max-w-[24ch] text-[clamp(2rem,1rem+2.9vw,3.3rem)] leading-[1.05]">
+        Trusted across <span className="font-normal italic">central Wisconsin</span> since 1978.
       </h2>
       <div className="mt-3 flex items-center justify-center gap-3 sm:mt-4">
         <span className="text-base tracking-[0.18em] text-[var(--rust)]" aria-hidden>
@@ -124,7 +123,7 @@ export function ReviewsFade({ reviews }: { reviews: Review[] }) {
         </span>
         <span className="text-[0.8rem] font-medium uppercase tracking-[0.14em] text-[var(--soft)] sm:text-[0.85rem]">
           {GOOGLE_RATING.average} on Google
-          <span className="hidden sm:inline"> · Family-run since 1978</span>
+          <span className="hidden sm:inline"> · Family-run</span>
         </span>
       </div>
 

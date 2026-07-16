@@ -16,15 +16,13 @@ const SLOT_COUNT = 2;
  */
 export function FeaturedItemsFade({
   items,
-  eyebrow = "Featured finds",
   title = (
     <>
-      Pieces worth a closer <span className="font-normal italic">look.</span>
+      Featured <span className="font-normal italic">finds.</span>
     </>
   ),
 }: {
   items: FloorFeature[];
-  eyebrow?: string;
   title?: React.ReactNode;
 }) {
   const [slotIdx, setSlotIdx] = useState<[number, number]>([0, 1]);
@@ -106,8 +104,7 @@ export function FeaturedItemsFade({
     <section className="mx-auto max-w-[1360px] px-8 py-10 sm:px-10 sm:py-14 md:px-12">
       <div className="flex items-end justify-between gap-6">
         <div>
-          <p className="eyebrow">{eyebrow}</p>
-          <h2 className="font-display mt-2 max-w-[22ch] text-[clamp(1.9rem,1rem+2.4vw,3rem)] leading-[1.05] sm:mt-3">
+          <h2 className="font-display max-w-[22ch] text-[clamp(1.9rem,1rem+2.4vw,3rem)] leading-[1.05]">
             {title}
           </h2>
           <p className="mt-3 max-w-[42ch] text-[1.05rem] font-light leading-[1.65] text-[var(--soft)]">

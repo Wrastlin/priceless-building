@@ -112,9 +112,9 @@ export function SiteHeader({ brand }: { brand: "priceless" | "builders" | "four-
           aria-label="Shop by category"
           className="border-t border-[var(--line)]"
         >
-          <ul className="mx-auto flex max-w-[1360px] items-center gap-5 overflow-x-auto px-4 py-3 text-[0.8rem] font-medium uppercase tracking-[0.12em] text-[var(--ink)] [-ms-overflow-style:none] [scrollbar-width:none] md:justify-center md:gap-7 md:px-8 md:py-3.5 md:text-[0.85rem] [&::-webkit-scrollbar]:hidden">
+          <ul className="mx-auto flex max-w-[1360px] items-center gap-5 overflow-x-auto px-4 py-3 pe-8 text-[0.8rem] font-medium uppercase tracking-[0.12em] text-[var(--ink)] [-ms-overflow-style:none] [scrollbar-width:none] md:justify-center md:gap-7 md:px-8 md:py-3.5 md:text-[0.85rem] [&::-webkit-scrollbar]:hidden">
             {CATEGORY_LINKS.map((link) => (
-              <li key={link.href + link.label} className="shrink-0">
+              <li key={link.href + link.label} className="shrink-0 last:mr-2">
                 <Link
                   href={link.href}
                   className={`whitespace-nowrap transition hover:opacity-55 ${
