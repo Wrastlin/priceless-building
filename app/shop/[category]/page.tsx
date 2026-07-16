@@ -68,7 +68,8 @@ export default async function CategoryPage({
       <SiteHeader brand="priceless" />
 
       <section className="bg-white">
-        <div className="relative h-[44svh] w-full overflow-hidden md:h-[54svh]">
+        {/* Flex + in-flow copy so the headline never clips on short phones */}
+        <div className="relative flex min-h-[52svh] w-full flex-col justify-end overflow-hidden md:min-h-[58svh]">
           <Image
             src={cat.image}
             alt={cat.label}
@@ -80,16 +81,16 @@ export default async function CategoryPage({
           />
           <div
             aria-hidden
-            className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/45 to-black/25"
+            className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30"
           />
-          <div className="absolute inset-x-0 bottom-0 px-5 pb-8 pt-20 text-center text-white sm:px-8 sm:pb-10 md:pb-12">
+          <div className="relative z-10 px-5 pb-8 pt-10 text-center text-white sm:px-8 sm:pb-10 sm:pt-12 md:pb-12">
             <p className="text-[0.8rem] font-medium uppercase tracking-[0.18em] text-white/85">
               {depth.headline}
             </p>
-            <h1 className="font-display mt-2 text-[clamp(2.6rem,1rem+5vw,5rem)] leading-[1.02]">
+            <h1 className="font-display mt-2 text-[clamp(2.4rem,1rem+4.5vw,4.8rem)] leading-[1.02]">
               {cat.label}.
             </h1>
-            <p className="mx-auto mt-3 max-w-[40ch] text-[1.05rem] font-normal leading-[1.55] text-white/95">
+            <p className="mx-auto mt-3 max-w-[40ch] text-[1rem] font-normal leading-[1.55] text-white/95 sm:text-[1.05rem]">
               {depth.detail}
             </p>
             <Link
@@ -103,7 +104,7 @@ export default async function CategoryPage({
       </section>
 
       <nav className="border-b border-[var(--line)] bg-white">
-        <div className="mx-auto flex max-w-[1360px] gap-1 overflow-x-auto px-4 py-3 pe-8 md:justify-center md:px-8">
+        <div className="mx-auto flex max-w-[1360px] gap-1 overflow-x-auto px-4 py-3 pe-10 md:justify-center md:px-8 md:pe-8">
           {allKeys.map((key) => (
             <Link
               key={key}
@@ -117,6 +118,7 @@ export default async function CategoryPage({
               {CATEGORIES[key].label}
             </Link>
           ))}
+          <span aria-hidden className="w-2 shrink-0 md:hidden" />
         </div>
       </nav>
 
