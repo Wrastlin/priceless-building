@@ -2,9 +2,18 @@ import { VENDORS, vendorLogo } from "@/lib/vendor-logos";
 
 type Logo = { name: string; src: string };
 
+/** Repeat until one unit always spills past a phone viewport. */
+function fillRow(logos: Logo[], minCount = 14): Logo[] {
+  if (logos.length === 0) return logos;
+  const out: Logo[] = [];
+  while (out.length < minCount) out.push(...logos);
+  return out;
+}
+
 /**
- * Two stacked infinite scroll rows of verified brand logos.
+ * Two stacked continuous scroll rows of verified brand logos.
  * No white card/box — open banner on the page background.
+ * Two equal units + -50% translate = seamless loop.
  */
 export function VendorWall({
   heading = "Brands on the floor",
@@ -19,8 +28,8 @@ export function VendorWall({
   if (logos.length === 0) return null;
 
   const mid = Math.ceil(logos.length / 2);
-  const rowA = logos.slice(0, mid);
-  const rowB = logos.slice(mid);
+  const rowA = fillRow(logos.slice(0, mid), 16);
+  const rowB = fillRow(logos.slice(mid).length >= 4 ? logos.slice(mid) : logos, 16);
 
   return (
     <section className="border-b border-[var(--line)] bg-[var(--cream)] py-14 sm:py-20">
@@ -34,11 +43,11 @@ export function VendorWall({
         </p>
       </div>
 
-      <div className="vendor-marquee relative mt-10 space-y-6 sm:mt-12 sm:space-y-8">
+      <div className="vendor-marquee relative mt-10 space-y-8 sm:mt-12 sm:space-y-10">
         <LogoRow logos={rowA} direction="left" />
-        <LogoRow logos={rowB.length >= 4 ? rowB : logos} direction="right" />
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[var(--cream)] to-transparent sm:w-24" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[var(--cream)] to-transparent sm:w-24" />
+        <LogoRow logos={rowB} direction="right" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-[var(--cream)] to-transparent sm:w-16" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-[var(--cream)] to-transparent sm:w-16" />
       </div>
     </section>
   );
@@ -51,8 +60,18 @@ function LogoRow({
   logos: Logo[];
   direction: "left" | "right";
 }) {
-  // Triple the set so -33.333% / +33.333% loops stay seamless at any width.
-  const track = [...logos, ...logos, ...logos];
+  const mark = (v: Logo, key: string, labeled: boolean) => (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      key={key}
+      src={v.src}
+      alt={labeled ? v.name : ""}
+      aria-hidden={!labeled}
+      loading="lazy"
+      className="mr-12 h-12 w-auto max-w-[180px] shrink-0 object-contain opacity-90 sm:mr-16 sm:h-14 sm:max-w-[200px] md:mr-20 md:h-16"
+    />
+  );
+
   return (
     <div className="overflow-hidden">
       <div
@@ -60,17 +79,12 @@ function LogoRow({
           direction === "right" ? "vendor-marquee__track--reverse" : ""
         }`}
       >
-        {track.map((v, i) => (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            key={`${direction}-${v.name}-${i}`}
-            src={v.src}
-            alt={i < logos.length ? v.name : ""}
-            aria-hidden={i >= logos.length}
-            loading="lazy"
-            className="mr-12 h-9 w-auto max-w-[140px] shrink-0 object-contain opacity-75 sm:mr-16 sm:h-11 sm:max-w-[160px] md:mr-20 md:h-12"
-          />
-        ))}
+        <div className="flex shrink-0 items-center">
+          {logos.map((v, i) => mark(v, `${direction}-a-${v.name}-${i}`, true))}
+        </div>
+        <div className="flex shrink-0 items-center" aria-hidden>
+          {logos.map((v, i) => mark(v, `${direction}-b-${v.name}-${i}`, false))}
+        </div>
       </div>
     </div>
   );

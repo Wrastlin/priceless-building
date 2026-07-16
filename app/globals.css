@@ -323,23 +323,24 @@ img, video, iframe {
   .admin-table tbody td { padding-left: 0.5rem; padding-right: 0.5rem; }
 }
 
-/* Vendor logo marquee — two open scroll rows (vendor-wall.tsx). */
+/* Vendor logo marquee — two open scroll rows (vendor-wall.tsx).
+   Track is two equal units; -50% lands exactly on the seam. */
 .vendor-marquee__track {
-  animation: vendor-scroll 50s linear infinite;
+  animation: vendor-scroll 48s linear infinite;
 }
 .vendor-marquee__track--reverse {
   animation-name: vendor-scroll-reverse;
-  animation-duration: 58s;
+  animation-duration: 56s;
 }
 .vendor-marquee:hover .vendor-marquee__track {
   animation-play-state: paused;
 }
 @keyframes vendor-scroll {
   from { transform: translateX(0); }
-  to   { transform: translateX(-33.333%); }
+  to   { transform: translateX(-50%); }
 }
 @keyframes vendor-scroll-reverse {
-  from { transform: translateX(-33.333%); }
+  from { transform: translateX(-50%); }
   to   { transform: translateX(0); }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -353,7 +354,7 @@ img, video, iframe {
   }
 }
 
-/* Logo banner examples (/logo-banners) */
+/* Logo banner examples (/logo-banners) — same -50% seam trick. */
 .logo-ex__fwd {
   animation: logo-ex-fwd linear infinite;
 }
@@ -370,18 +371,18 @@ img, video, iframe {
 }
 @keyframes logo-ex-fwd {
   from { transform: translateX(0); }
-  to { transform: translateX(-33.333%); }
+  to { transform: translateX(-50%); }
 }
 @keyframes logo-ex-rev {
-  from { transform: translateX(-33.333%); }
+  from { transform: translateX(-50%); }
   to { transform: translateX(0); }
 }
 @keyframes logo-ex-pulse {
   0% { transform: translateX(0); }
-  20% { transform: translateX(-8%); }
-  50% { transform: translateX(-16.666%); }
-  70% { transform: translateX(-25%); }
-  100% { transform: translateX(-33.333%); }
+  20% { transform: translateX(-12%); }
+  50% { transform: translateX(-25%); }
+  70% { transform: translateX(-38%); }
+  100% { transform: translateX(-50%); }
 }
 @media (prefers-reduced-motion: reduce) {
   .logo-ex__fwd,
