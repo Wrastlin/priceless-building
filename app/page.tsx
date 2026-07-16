@@ -249,7 +249,8 @@ export default async function HomePage() {
       <section className="bg-[var(--taupe)]">
         <div className="mx-auto max-w-[1360px] px-5 py-10 text-center sm:px-8 sm:py-12 md:py-14">
           <H2 className="mx-auto max-w-[22ch]">
-            Shop it, design it, <span className="font-normal italic">build it.</span>
+            Three award-winning businesses{" "}
+            <span className="font-normal italic">under one roof.</span>
           </H2>
           <div className="mt-7 grid gap-2.5 sm:mt-8 md:mt-10 md:grid-cols-3 md:gap-3">
             {SERVICES.map((s, i) => (
