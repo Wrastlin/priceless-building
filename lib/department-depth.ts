@@ -1,13 +1,11 @@
 /**
- * Selection copy for shop departments — qualitative, not quantity chips.
- *
- * Walkthrough / showcase numbers inform the prose (types we know we carry)
- * but are not shown as inventory counts on the storefront.
+ * Selection copy for shop departments. Qualitative prose informed by the
+ * walkthrough; no quantity chips on the storefront.
  */
 import type { Category } from "@/lib/items/types";
 
 export type DepartmentDepth = {
-  /** Short mosaic / eyebrow line — no numeric counts */
+  /** Short mosaic / eyebrow line */
   headline: string;
   /** Supporting sentence for heroes and category pages */
   detail: string;
@@ -17,42 +15,42 @@ const DEPTH: Record<Category, DepartmentDepth> = {
   doors: {
     headline: "Wide selection",
     detail:
-      "Interior slabs, pre-hungs, exterior & patio, bifolds, and one-of-a-kind glass finds — everyday pieces through premium.",
+      "Interior slabs, pre-hungs, exterior and patio, bifolds, and one-of-a-kind glass finds, from everyday pieces through premium.",
   },
   windows: {
     headline: "Aisles of options",
     detail:
-      "Double-hung, casement, wood-framed, and specialty shapes — new-in-box brands like JELD-WEN, Andersen, and Thermo-Tech.",
+      "Double-hung, casement, wood-framed, and specialty shapes. New-in-box brands like JELD-WEN, Andersen, and Thermo-Tech.",
   },
   cabinets: {
     headline: "Kitchen & bath depth",
     detail:
-      "12\" uppers, 24\" bases, door parts, and full kitchen runs — surplus stock through Builders Corner custom.",
+      "12\" uppers, 24\" bases, door parts, and full kitchen runs, from surplus stock through Builders Corner custom.",
   },
   vanities: {
     headline: "Floor models & tops",
     detail:
-      "18\" and 21\" baths up through doubles — floor models, cultured-marble tops, and vessel sinks ready to install.",
+      "18\" and 21\" baths up through doubles: floor models, cultured-marble tops, and vessel sinks ready to install.",
   },
   countertops: {
     headline: "Slabs & remnants",
     detail:
-      "Butcher block by the stack, laminate remnants, quartz and granite — the deals shoppers keep talking about.",
+      "Butcher block by the stack, laminate remnants, quartz and granite. The deals shoppers keep talking about.",
   },
   hardware: {
     headline: "Finishing pieces",
     detail:
-      "Locksets, pulls, hinges, and fasteners — Schlage, Kwikset, Amerock, GRK, and new-in-box overstock.",
+      "Locksets, pulls, hinges, and fasteners: Schlage, Kwikset, Amerock, GRK, and new-in-box overstock.",
   },
   lighting: {
     headline: "Fixtures on display",
     detail:
-      "Chandeliers, pendants, vanity bars, and ceiling fans hanging across the warehouse — statement pieces to workhorse fixtures.",
+      "Chandeliers, pendants, vanity bars, and ceiling fans hanging across the warehouse, from statement pieces to workhorse fixtures.",
   },
   trim: {
     headline: "Millwork & moldings",
     detail:
-      "Casing, base, crown, dowels, newels, and balusters — primed stock ready for the job.",
+      "Casing, base, crown, dowels, newels, and balusters, primed stock ready for the job.",
   },
 };
 

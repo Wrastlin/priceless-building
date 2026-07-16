@@ -37,7 +37,7 @@ export const metadata: Metadata = {
 const HERO_DECK: HeroPhotoSource[] = [
   {
     src: "/real-photos/builders-corner-hero.jpg",
-    alt: "Dark charcoal shaker kitchen with marble island — Builders Corner.",
+    alt: "Dark charcoal shaker kitchen with marble island at Builders Corner.",
   },
   {
     src: "/real-photos/foursquared/kitchen-wood-island-black-pendants.jpg",
@@ -338,7 +338,7 @@ export default function BuildersCornerPage() {
               <span className="font-normal italic">New everything.</span>
             </H2>
             <p className="mt-4 hidden max-w-[36ch] text-[1rem] font-light leading-[1.7] text-[var(--soft)] sm:block">
-              Custom cabinetry, stone, and lighting — designed to fit the footprint you already have.
+              Custom cabinetry, stone, and lighting, designed to fit the footprint you already have.
             </p>
             <Link
               href="#consult"

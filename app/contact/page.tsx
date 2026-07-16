@@ -36,7 +36,7 @@ export default async function ContactPage({
       {sp.sent ? (
         <div className="bg-emerald-50 border-b border-emerald-200">
           <div className="mx-auto max-w-7xl px-6 py-3 text-sm text-emerald-900">
-            <strong>Thanks — message sent.</strong> We&apos;ll get back to you within one business day. For anything urgent please call <a href={`tel:${ADDRESS.phone.replace(/[^0-9+]/g, "")}`} className="underline">{ADDRESS.phone}</a>.
+            <strong>Thanks. Message sent.</strong> We&apos;ll get back to you within one business day. For anything urgent please call <a href={`tel:${ADDRESS.phone.replace(/[^0-9+]/g, "")}`} className="underline">{ADDRESS.phone}</a>.
           </div>
         </div>
       ) : null}
