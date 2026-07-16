@@ -5,14 +5,14 @@ import { useEffect, useMemo, useState } from "react";
 import type { Review } from "@/lib/google-reviews";
 import { GOOGLE_RATING } from "@/lib/google-reviews";
 
-const DWELL_MS = 14000;
-const FADE_MS = 1400;
-const SLOT_COUNT = 3;
-const PLAYLIST_SIZE = 9; // multiple of 3 — three distinct triplets
+const DWELL_MS = 10000;
+const FADE_MS = 1000;
+const STAGGER_MS = 500;
+const SLOT_COUNT = 2;
+const PLAYLIST_SIZE = 10;
 
 /**
- * Pick the strongest reviews once, then play them in fixed triplets so
- * the three desktop cards never show the same quote at the same time.
+ * Strongest unique quotes for the living reviews pair.
  */
 function curatePlaylist(reviews: Review[]): Review[] {
   const seen = new Set<string>();
@@ -26,74 +26,91 @@ function curatePlaylist(reviews: Review[]): Review[] {
   const ranked = [...unique].sort((a, b) => {
     const ratingDiff = (b.rating ?? 0) - (a.rating ?? 0);
     if (ratingDiff !== 0) return ratingDiff;
-    // Prefer substantive quotes over one-liners
     return (b.quote?.length ?? 0) - (a.quote?.length ?? 0);
   });
 
-  // Prefer longer 5★ quotes; drop thin one-liners when we have enough depth
   const strong = ranked.filter((r) => (r.rating ?? 0) >= 5 && (r.quote?.length ?? 0) >= 60);
-  const pool = (strong.length >= SLOT_COUNT ? strong : ranked).slice(0, PLAYLIST_SIZE);
-
-  // Pad to a multiple of 3 so every frame is a clean triplet
-  while (pool.length >= SLOT_COUNT && pool.length % SLOT_COUNT !== 0) {
-    pool.pop();
-  }
-  return pool;
+  return (strong.length >= SLOT_COUNT ? strong : ranked).slice(0, PLAYLIST_SIZE);
 }
 
 /**
- * Rejuvenation-style "living" reviews with a pre-assigned playlist.
- * Desktop: three cards advance together through non-overlapping triplets.
- * Mobile: one card walks the same playlist in order.
+ * Two reviews at a time. Only one slot crossfades at a time (staggered),
+ * so readers always have a steady quote while the other swaps.
  */
 export function ReviewsFade({ reviews }: { reviews: Review[] }) {
   const playlist = useMemo(() => curatePlaylist(reviews), [reviews]);
-  const tripletCount = Math.max(1, Math.floor(playlist.length / SLOT_COUNT));
-  const [frame, setFrame] = useState(0);
-  const [visible, setVisible] = useState(true);
+  const [slotIdx, setSlotIdx] = useState<[number, number]>([0, 1]);
+  const [slotVisible, setSlotVisible] = useState<[boolean, boolean]>([true, true]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (playlist.length < 2) return;
+    if (playlist.length < SLOT_COUNT) return;
 
     let cancelled = false;
-    let fadeTimer: ReturnType<typeof setTimeout> | undefined;
-    let tickTimer: ReturnType<typeof setTimeout> | undefined;
+    const timers: ReturnType<typeof setTimeout>[] = [];
 
-    const schedule = (delay: number) => {
-      tickTimer = setTimeout(() => {
-        if (cancelled) return;
-        setVisible(false);
-        fadeTimer = setTimeout(() => {
-          if (cancelled) return;
-          setFrame((f) => f + 1);
-          setVisible(true);
-          schedule(DWELL_MS);
-        }, FADE_MS);
-      }, delay);
+    const later = (ms: number, fn: () => void) => {
+      timers.push(setTimeout(fn, ms));
     };
 
-    schedule(DWELL_MS);
+    const nextIndex = (current: number, other: number) => {
+      let n = (current + 1) % playlist.length;
+      if (n === other && playlist.length > 1) n = (n + 1) % playlist.length;
+      return n;
+    };
+
+    const advanceSlot = (slot: 0 | 1, then: () => void) => {
+      setSlotVisible((v) => {
+        const next: [boolean, boolean] = [...v];
+        next[slot] = false;
+        return next;
+      });
+      later(FADE_MS, () => {
+        if (cancelled) return;
+        setSlotIdx((idx) => {
+          const next: [number, number] = [...idx];
+          const other = slot === 0 ? idx[1] : idx[0];
+          next[slot] = nextIndex(idx[slot], other);
+          return next;
+        });
+        setSlotVisible((v) => {
+          const next: [boolean, boolean] = [...v];
+          next[slot] = true;
+          return next;
+        });
+        later(FADE_MS, () => {
+          if (!cancelled) then();
+        });
+      });
+    };
+
+    const cycle = () => {
+      later(DWELL_MS, () => {
+        if (cancelled) return;
+        advanceSlot(0, () => {
+          later(STAGGER_MS, () => {
+            if (cancelled) return;
+            advanceSlot(1, () => {
+              if (!cancelled) cycle();
+            });
+          });
+        });
+      });
+    };
+
+    cycle();
 
     return () => {
       cancelled = true;
-      clearTimeout(tickTimer);
-      clearTimeout(fadeTimer);
+      timers.forEach(clearTimeout);
     };
-  }, [playlist.length]);
+  }, [playlist]);
 
   if (playlist.length === 0) return null;
 
-  // Desktop triplets: frame 0 → [0,1,2], frame 1 → [3,4,5], …
-  const triplet = frame % tripletCount;
-  const desktopReviews = Array.from({ length: Math.min(SLOT_COUNT, playlist.length) }, (_, slot) => {
-    const idx = triplet * SLOT_COUNT + slot;
-    return playlist[idx % playlist.length]!;
-  });
-
-  // Mobile: walk every review in playlist order
-  const mobileReview = playlist[frame % playlist.length]!;
+  const left = playlist[slotIdx[0] % playlist.length]!;
+  const right = playlist[slotIdx[1] % playlist.length]!;
 
   return (
     <section className="mx-auto max-w-[1240px] px-5 py-14 text-center sm:px-8 sm:py-24">
@@ -111,14 +128,9 @@ export function ReviewsFade({ reviews }: { reviews: Review[] }) {
         </span>
       </div>
 
-      <div className="mt-8 md:hidden">
-        <ReviewCard review={mobileReview} visible={visible} />
-      </div>
-
-      <div className="mt-16 hidden gap-8 text-left md:grid md:grid-cols-3">
-        {desktopReviews.map((review, i) => (
-          <ReviewCard key={i} review={review} visible={visible} />
-        ))}
+      <div className="mt-10 grid grid-cols-1 overflow-hidden border border-[var(--line)] text-left sm:mt-14 sm:grid-cols-2">
+        <ReviewCard review={left} visible={slotVisible[0]} />
+        <ReviewCard review={right} visible={slotVisible[1]} connected />
       </div>
 
       <Link
@@ -131,9 +143,21 @@ export function ReviewsFade({ reviews }: { reviews: Review[] }) {
   );
 }
 
-function ReviewCard({ review, visible }: { review: Review; visible: boolean }) {
+function ReviewCard({
+  review,
+  visible,
+  connected = false,
+}: {
+  review: Review;
+  visible: boolean;
+  connected?: boolean;
+}) {
   return (
-    <figure className="relative flex min-h-[14rem] flex-col border border-[var(--line)] p-5 text-left sm:min-h-[18rem] sm:p-8">
+    <figure
+      className={`relative flex min-h-[16rem] flex-col bg-white p-5 sm:min-h-[20rem] sm:p-8 ${
+        connected ? "border-t border-[var(--line)] sm:border-t-0 sm:border-l" : ""
+      }`}
+    >
       <div
         className="flex flex-1 flex-col transition-opacity ease-in-out"
         style={{
@@ -144,7 +168,7 @@ function ReviewCard({ review, visible }: { review: Review; visible: boolean }) {
         <div className="text-sm tracking-[0.2em] text-[var(--rust)]" aria-hidden>
           {"★".repeat(review.rating ?? 5)}
         </div>
-        <blockquote className="font-display mt-4 flex-1 text-[1.05rem] font-normal italic leading-[1.5] line-clamp-6 sm:mt-5 sm:text-[1.12rem] sm:leading-[1.55] sm:line-clamp-7">
+        <blockquote className="font-display mt-4 flex-1 text-[1.05rem] font-normal italic leading-[1.5] sm:mt-5 sm:text-[1.15rem] sm:leading-[1.55]">
           &ldquo;{review.quote}&rdquo;
         </blockquote>
         <figcaption className="mt-4 text-[0.7rem] font-medium uppercase tracking-[0.12em] text-[var(--soft)] sm:mt-6 sm:text-[0.74rem]">
