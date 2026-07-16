@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import type { Review } from "@/lib/google-reviews";
-import { GOOGLE_RATING } from "@/lib/google-reviews";
+import { GOOGLE_RATING, isStorefrontSafeReview } from "@/lib/google-reviews";
 
 const DWELL_MS = 10000;
 const FADE_MS = 1000;
@@ -13,10 +13,12 @@ const PLAYLIST_SIZE = 10;
 
 /**
  * Strongest unique quotes for the living reviews pair.
+ * Drops low stars and any backhanded/negative copy (even at 5★).
  */
 function curatePlaylist(reviews: Review[]): Review[] {
   const seen = new Set<string>();
   const unique = reviews.filter((r) => {
+    if (!isStorefrontSafeReview(r)) return false;
     const key = (r.quote || "").trim().toLowerCase();
     if (!key || seen.has(key)) return false;
     seen.add(key);
@@ -29,7 +31,7 @@ function curatePlaylist(reviews: Review[]): Review[] {
     return (b.quote?.length ?? 0) - (a.quote?.length ?? 0);
   });
 
-  const strong = ranked.filter((r) => (r.rating ?? 0) >= 5 && (r.quote?.length ?? 0) >= 60);
+  const strong = ranked.filter((r) => (r.quote?.length ?? 0) >= 60);
   return (strong.length >= SLOT_COUNT ? strong : ranked).slice(0, PLAYLIST_SIZE);
 }
 

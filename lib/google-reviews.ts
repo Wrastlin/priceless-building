@@ -77,14 +77,6 @@ const FALLBACK_REVIEWS: Review[] = [
   },
   {
     quote:
-      "The best. The building was a bit creepy but the stuff inside it more than made up for it and the customer service was great!",
-    source: "Google",
-    author: "Brady D.",
-    rating: 5,
-    relative: "9 months ago",
-  },
-  {
-    quote:
       "Great customer service and very helpful, knowing exactly what is available in inventory. Great products to choose from. I needed a new door. I got a new door and a new bathroom vanity!",
     source: "Google",
     author: "Robin B.",
@@ -109,6 +101,53 @@ const FALLBACK_REVIEWS: Review[] = [
 
 export const GOOGLE_RATING = { average: 4.8, count: 10 } as const;
 
+/**
+ * Block backhanded or negative copy even when the star rating is high
+ * (e.g. “5 stars but the building was creepy”). Also require 5 stars
+ * for anything we put on the storefront.
+ */
+const STOREFRONT_BLOCKLIST: RegExp[] = [
+  /\bcreepy\b/i,
+  /\bsketchy\b/i,
+  /\brundown\b/i,
+  /\brun-?down\b/i,
+  /\bdilapidated\b/i,
+  /\bdump\b/i,
+  /\bfilthy\b/i,
+  /\bdirty\b/i,
+  /\bmold(y)?\b/i,
+  /\bunsafe\b/i,
+  /\bscary\b/i,
+  /\brude\b/i,
+  /\bterrible\b/i,
+  /\bhorrible\b/i,
+  /\bawful\b/i,
+  /\bscam\b/i,
+  /\bripoffs?\b/i,
+  /\brip-?offs?\b/i,
+  /\bnever again\b/i,
+  /\bdisappoint/i,
+  /\bwaste of\b/i,
+  /\bdon'?t (go|bother|recommend)\b/i,
+  /\bdo not (go|bother|recommend)\b/i,
+  /\bwouldn'?t recommend\b/i,
+  /\bwould not recommend\b/i,
+  /\boverpriced\b/i,
+  /\bhole in the wall\b/i,
+];
+
+/** True when a review is clean enough to show on the public site. */
+export function isStorefrontSafeReview(r: Review): boolean {
+  if ((r.rating ?? 0) < 5) return false;
+  const quote = (r.quote || "").trim();
+  if (quote.length < 40) return false;
+  return !STOREFRONT_BLOCKLIST.some((re) => re.test(quote));
+}
+
+export function forStorefront(reviews: Review[]): Review[] {
+  return reviews.filter(isStorefrontSafeReview);
+}
+
 type CacheEntry = { fetched: number; reviews: Review[] };
 const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
 let cache: CacheEntry | null = null;
@@ -116,10 +155,10 @@ let cache: CacheEntry | null = null;
 export async function fetchReviews(): Promise<Review[]> {
   const key = process.env.GOOGLE_PLACES_API_KEY;
   const placeId = process.env.GOOGLE_PLACES_ID;
-  if (!key || !placeId) return FALLBACK_REVIEWS;
+  if (!key || !placeId) return forStorefront(FALLBACK_REVIEWS);
 
   const now = Date.now();
-  if (cache && now - cache.fetched < CACHE_TTL_MS) return cache.reviews;
+  if (cache && now - cache.fetched < CACHE_TTL_MS) return forStorefront(cache.reviews);
 
   try {
     const url = new URL(
@@ -157,8 +196,8 @@ export async function fetchReviews(): Promise<Review[]> {
 
     const reviews = live.length > 0 ? live : FALLBACK_REVIEWS;
     cache = { fetched: now, reviews };
-    return reviews;
+    return forStorefront(reviews);
   } catch {
-    return FALLBACK_REVIEWS;
+    return forStorefront(FALLBACK_REVIEWS);
   }
 }
