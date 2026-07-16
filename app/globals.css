@@ -352,3 +352,41 @@ img, video, iframe {
     row-gap: 1.5rem;
   }
 }
+
+/* Logo banner examples (/logo-banners) */
+.logo-ex__fwd {
+  animation: logo-ex-fwd linear infinite;
+}
+.logo-ex__rev {
+  animation: logo-ex-rev linear infinite;
+}
+.logo-ex__pulse {
+  animation: logo-ex-pulse linear infinite;
+}
+.logo-ex:hover .logo-ex__fwd,
+.logo-ex:hover .logo-ex__rev,
+.logo-ex:hover .logo-ex__pulse {
+  animation-play-state: paused;
+}
+@keyframes logo-ex-fwd {
+  from { transform: translateX(0); }
+  to { transform: translateX(-33.333%); }
+}
+@keyframes logo-ex-rev {
+  from { transform: translateX(-33.333%); }
+  to { transform: translateX(0); }
+}
+@keyframes logo-ex-pulse {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-8%); }
+  50% { transform: translateX(-16.666%); }
+  70% { transform: translateX(-25%); }
+  100% { transform: translateX(-33.333%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-ex__fwd,
+  .logo-ex__rev,
+  .logo-ex__pulse {
+    animation: none;
+  }
+}
