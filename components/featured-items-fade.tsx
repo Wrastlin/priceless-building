@@ -107,10 +107,6 @@ export function FeaturedItemsFade({
           <h2 className="font-display max-w-[22ch] text-[clamp(1.9rem,1rem+2.4vw,3rem)] leading-[1.05]">
             {title}
           </h2>
-          <p className="mt-3 max-w-[42ch] text-[1.05rem] font-light leading-[1.65] text-[var(--soft)]">
-            Liquidation finds from names like Kohler, Andersen, and JELD-WEN.
-            Call (715) 848-3855 to hold one for pickup.
-          </p>
         </div>
         <Link
           href="/shop"

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { VendorLogoBar } from "@/components/vendor-wall";
 
 const B = "/real-photos/business";
 const F = "/real-photos/foursquared";
@@ -26,13 +25,13 @@ const WORK = [
 ];
 
 /**
- * Homepage Builders Corner promo: finished work, CTAs, then brand logo river
- * as a trust strip under the buttons.
+ * Homepage Builders Corner promo: finished work first, then CTAs.
+ * Brand logos live higher on the home page (after the three businesses).
  */
 export function BuildersPromo() {
   return (
     <section className="border-y border-[var(--line)] bg-white">
-      <div className="mx-auto max-w-[1360px] px-5 pt-10 sm:px-8 sm:pt-14">
+      <div className="mx-auto max-w-[1360px] px-5 py-10 sm:px-8 sm:py-14">
         <div className="max-w-[40ch]">
           <h2 className="font-display text-[clamp(2rem,1rem+2.6vw,3.2rem)] leading-[1.05]">
             Builders <span className="font-normal italic">Corner.</span>
@@ -76,10 +75,6 @@ export function BuildersPromo() {
             Start a remodel
           </Link>
         </div>
-      </div>
-
-      <div className="mt-8 pb-10 sm:mt-10 sm:pb-14">
-        <VendorLogoBar fadeFrom="white" />
       </div>
     </section>
   );

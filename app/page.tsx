@@ -7,6 +7,7 @@ import { ReviewsFade } from "@/components/reviews-fade";
 import { SwipeCard, SwipeRail } from "@/components/swipe-rail";
 import { FeaturedItemsFade } from "@/components/featured-items-fade";
 import { BuildersPromo } from "@/components/builders-promo";
+import { VendorLogoBar } from "@/components/vendor-wall";
 import { ADDRESS, PRICELESS } from "@/lib/brands";
 import { CATEGORIES, byCategory, listFeatured } from "@/lib/catalog";
 import { FLOOR_FEATURES } from "@/lib/items/floor-features";
@@ -296,6 +297,11 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Brand trust strip — right under the three businesses, above Featured finds */}
+      <div className="border-b border-[var(--line)] bg-white py-8 sm:py-10">
+        <VendorLogoBar fadeFrom="white" />
+      </div>
 
       {/* Featured floor finds — 2-up fade, or live tagged grid when catalog is on */}
       {live && items.length > 0 ? (
