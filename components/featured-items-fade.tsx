@@ -108,8 +108,8 @@ export function FeaturedItemsFade({
             {title}
           </h2>
           <p className="mt-3 max-w-[42ch] text-[1.05rem] font-light leading-[1.65] text-[var(--soft)]">
-            Real pieces from our warehouse. Call (715) 848-3855 to hold one for
-            pickup.
+            Liquidation finds from names like Kohler, Andersen, and JELD-WEN.
+            Call (715) 848-3855 to hold one for pickup.
           </p>
         </div>
         <Link

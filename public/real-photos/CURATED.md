@@ -10,7 +10,7 @@ captures. Use this instead of guessing — reach for ★★★ first.
 
 ---
 
-## HERO slideshow (mix surplus + finished, tells the "bin find → finished kitchen" story)
+## HERO slideshow (mix surplus + finished, tells the "liquidation find → finished kitchen" story)
 1. `business/dark-base-cabinets-warehouse-row.jpg` ★★★ — dramatic surplus aisle, deep perspective. THE signature shot.
 2. `business/white-kitchen-marble-island.jpg` ★★★ — bright finished white kitchen, marble island.
 3. `business/black-framed-windows-warehouse.jpg` ★★ — surplus windows on the floor.
