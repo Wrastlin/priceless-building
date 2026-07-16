@@ -1,26 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { vendorLogo } from "@/lib/vendor-logos";
 
 const B = "/real-photos/business";
 const F = "/real-photos/foursquared";
 const P = "/real-photos";
-
-/** Premium cabinetry / fixture brands from the Builders Corner walkthrough. */
-const BUILDERS_BRANDS = [
-  "Showplace Cabinetry",
-  "Koch Cabinets",
-  "Blum",
-  "Kohler",
-  "Delta",
-  "Amerock",
-  "Schlage",
-  "JELD-WEN",
-  "Andersen",
-  "Marvin",
-  "Duravit",
-  "Newport Brass",
-];
 
 const WORK = [
   {
@@ -42,17 +25,12 @@ const WORK = [
 ];
 
 /**
- * Homepage Builders Corner promo — finished high-end rooms + walkthrough
- * brand logos, encouraging premium remodel inquiries.
+ * Homepage Builders Corner promo: finished high-end rooms + CTA.
+ * Brand logos live in the VendorWall scroll banner below (one place only).
  */
 export function BuildersPromo() {
-  const logos = BUILDERS_BRANDS.map((name) => ({
-    name,
-    src: vendorLogo(name),
-  })).filter((v): v is { name: string; src: string } => v.src !== null);
-
   return (
-    <section className="border-y border-[var(--line)] bg-[var(--cream)]">
+    <section className="border-y border-[var(--line)] bg-white">
       <div className="mx-auto max-w-[1360px] px-5 py-14 sm:px-8 sm:py-20">
         <div className="grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-12">
           <div className="lg:col-span-5">
@@ -63,9 +41,8 @@ export function BuildersPromo() {
             </h2>
             <p className="mt-4 max-w-[40ch] text-[1rem] font-light leading-[1.7] text-[var(--soft)]">
               Custom kitchens and baths designed in our showroom, built in our
-              shop, and installed by the 4 Squared crew. The brands on our
-              boards are the ones we specify for premium remodels. Come see
-              the real samples in the showroom.
+              shop, and installed by the 4 Squared crew. Come see the real
+              samples in the showroom.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -84,12 +61,10 @@ export function BuildersPromo() {
           </div>
 
           <div className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:col-span-7">
-            {WORK.map((w, i) => (
+            {WORK.map((w) => (
               <div
                 key={w.src}
-                className={`relative overflow-hidden bg-[var(--line)] ${
-                  i === 0 ? "aspect-[4/5] sm:aspect-[3/4]" : "aspect-[4/5] sm:aspect-[3/4]"
-                }`}
+                className="relative aspect-[4/5] overflow-hidden bg-[var(--line)] sm:aspect-[3/4]"
               >
                 <Image
                   src={w.src}
@@ -103,26 +78,6 @@ export function BuildersPromo() {
             ))}
           </div>
         </div>
-
-        {logos.length > 0 ? (
-          <div className="mt-12 border-t border-[var(--line)] pt-10 sm:mt-14 sm:pt-12">
-            <p className="text-center text-[0.68rem] font-medium uppercase tracking-[0.2em] text-[var(--rust)]">
-              Brands we specify · from the Builders Corner showroom
-            </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-8 sm:gap-x-14">
-              {logos.map((v) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  key={v.name}
-                  src={v.src}
-                  alt={v.name}
-                  loading="lazy"
-                  className="h-10 w-auto max-w-[140px] object-contain opacity-80 sm:h-12 sm:max-w-[160px]"
-                />
-              ))}
-            </div>
-          </div>
-        ) : null}
       </div>
     </section>
   );

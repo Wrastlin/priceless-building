@@ -323,17 +323,32 @@ img, video, iframe {
   .admin-table tbody td { padding-left: 0.5rem; padding-right: 0.5rem; }
 }
 
-/* Vendor logo marquee — seamless infinite scroll (vendor-wall.tsx). */
+/* Vendor logo marquee — two open scroll rows (vendor-wall.tsx). */
 .vendor-marquee__track {
-  animation: vendor-scroll 55s linear infinite;
+  animation: vendor-scroll 50s linear infinite;
+}
+.vendor-marquee__track--reverse {
+  animation-name: vendor-scroll-reverse;
+  animation-duration: 58s;
 }
 .vendor-marquee:hover .vendor-marquee__track {
   animation-play-state: paused;
 }
 @keyframes vendor-scroll {
   from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  to   { transform: translateX(-33.333%); }
+}
+@keyframes vendor-scroll-reverse {
+  from { transform: translateX(-33.333%); }
+  to   { transform: translateX(0); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .vendor-marquee__track { animation: none; flex-wrap: wrap; justify-content: center; }
+  .vendor-marquee__track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+    width: 100% !important;
+    row-gap: 1.5rem;
+  }
 }
