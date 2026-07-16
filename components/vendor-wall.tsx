@@ -68,7 +68,7 @@ function LogoRow({
       alt={labeled ? v.name : ""}
       aria-hidden={!labeled}
       loading="lazy"
-      className="mr-8 h-14 w-auto max-w-[200px] shrink-0 object-contain opacity-90 sm:mr-10 sm:h-16 sm:max-w-[240px] md:mr-12 md:h-[4.5rem] md:max-w-[280px]"
+      className="mr-12 h-12 w-auto max-w-[180px] shrink-0 object-contain opacity-90 sm:mr-16 sm:h-14 sm:max-w-[200px] md:mr-20 md:h-16"
     />
   );
 

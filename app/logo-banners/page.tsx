@@ -58,8 +58,8 @@ export default function LogoBannerExamplesPage() {
           note="Two rows, opposite directions. Larger marks, denser pack, loop that never jumps. Closest to a real storefront ticker."
         >
           <div className="logo-ex relative space-y-8 py-4 sm:space-y-10">
-            <SeamlessRow logos={rowA} speed="48s" dir="left" size="xl" />
-            <SeamlessRow logos={rowB} speed="56s" dir="right" size="xl" />
+            <SeamlessRow logos={rowA} speed="48s" dir="left" size="lg" gap="wide" />
+            <SeamlessRow logos={rowB} speed="56s" dir="right" size="lg" gap="wide" />
             <EdgeFades tone="cream" soft />
           </div>
         </Example>
