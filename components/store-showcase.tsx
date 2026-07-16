@@ -60,7 +60,7 @@ export function StoreShowcase() {
         <p className="font-serif mt-4 max-w-2xl text-base italic leading-relaxed text-[var(--muted-foreground)] md:text-lg">
           A whole-store walkthrough, department by department. Surplus moves
           weekly, so treat this as a depth guide for what you&rsquo;ll find when
-          you walk in. Come dig.
+          you walk in.
         </p>
 
         {/* MOBILE: one compact horizontal strip instead of eight stacked
