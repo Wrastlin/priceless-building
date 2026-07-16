@@ -103,7 +103,7 @@ export function FeaturedItemsFade({
   const right = items[slotIdx[1] % items.length]!;
 
   return (
-    <section className="mx-auto max-w-[1360px] px-5 py-10 sm:px-8 sm:py-14">
+    <section className="mx-auto max-w-[1360px] px-8 py-10 sm:px-10 sm:py-14 md:px-12">
       <div className="flex items-end justify-between gap-6">
         <div>
           <p className="eyebrow">{eyebrow}</p>
