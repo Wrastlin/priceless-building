@@ -26,7 +26,7 @@ const WORK = [
 
 /**
  * Homepage Builders Corner promo: finished work first, then CTAs.
- * Brand logos live in the VendorWall scroll banner below (one place only).
+ * Brand logos live in the reviews section logo bar (one place only).
  */
 export function BuildersPromo() {
   return (

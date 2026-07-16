@@ -325,7 +325,7 @@ img, video, iframe {
    Two equal-width units; -50% lands exactly on the seam. Fixed tile
    widths keep the loop seamless (no snap when it wraps). */
 .vendor-marquee__track {
-  animation: vendor-scroll 80s linear infinite;
+  animation: vendor-scroll 70s linear infinite;
   will-change: transform;
   backface-visibility: hidden;
 }
