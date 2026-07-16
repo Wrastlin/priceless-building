@@ -115,7 +115,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
 
             {results.length === 0 && deptHits.length === 0 ? (
               <p className="font-display mt-8 text-2xl italic text-[var(--muted-foreground)]">
-                No match — try doors, windows, cabinets, vanities, hardware, lighting, or trim.
+                No match. Try doors, windows, cabinets, vanities, hardware, lighting, or trim.
                 Or call (715) 848-3855 and we&rsquo;ll check the floor.
               </p>
             ) : (

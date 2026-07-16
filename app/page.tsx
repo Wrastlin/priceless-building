@@ -25,7 +25,7 @@ const SERVICES = [
     logo: `${P}/logo-priceless-clean.webp`,
     logoW: 120,
     logoH: 120,
-    body: "Discount and surplus doors, windows, cabinets, and lighting — kitchen & bath depth, and deals that reviews keep calling out.",
+    body: "Discount and surplus doors, windows, cabinets, and lighting, with kitchen and bath depth and the deals reviewers keep calling out.",
     cta: "Shop the warehouse",
     href: "/shop",
     img: `${B}/floor-door-aisle-light-and-dark.jpg`,
@@ -45,7 +45,7 @@ const SERVICES = [
     logo: `${P}/logo-4squared.jpg`,
     logoW: 140,
     logoH: 140,
-    body: "Our own crew handles the whole remodel — from demo to the final walkthrough.",
+    body: "Our own crew handles the whole remodel, from demo to the final walkthrough.",
     cta: "Start a remodel",
     href: "/four-squared",
     img: `${P}/foursquared/kitchen-white-island-shiplap.jpg`,
@@ -56,7 +56,7 @@ const BEFORE_AFTER = [
   {
     label: "Kitchen remodel",
     img: `${B}/kitchen-remodel-before-after.jpg`,
-    body: "Dated oak galley to a bright white-cabinet kitchen with stone counters — designed, supplied, and installed under one roof.",
+    body: "Dated oak galley to a bright white-cabinet kitchen with stone counters, designed, supplied, and installed under one roof.",
   },
   {
     label: "Kitchen & bath",
@@ -347,8 +347,8 @@ export default async function HomePage() {
             Before, and <span className="font-normal italic">after.</span>
           </H2>
           <p className="mt-3 hidden text-[1rem] font-light leading-[1.7] text-[var(--soft)] sm:mt-4 sm:block">
-            Real rooms the in-house crew has finished — shopped, designed, and installed without
-            leaving the lot.
+            Real rooms the in-house crew has finished: shopped, designed, and installed
+            on the same lot.
           </p>
         </div>
         <div className="mt-6 grid gap-6 sm:mt-8 sm:gap-8 md:grid-cols-2">
@@ -370,7 +370,7 @@ export default async function HomePage() {
 
       <VendorWall
         heading="Brands on the floor."
-        blurb="Read straight off the boxes and signage in our aisles — surplus from names contractors already trust."
+        blurb="Read straight off the boxes and signage in our aisles. Surplus from names contractors already trust."
       />
 
       {/* Reviews — slow crossfade through the pool (Rejuvenation "living" feel) */}
@@ -456,7 +456,7 @@ export default async function HomePage() {
               Follow along on <span className="font-normal italic">Facebook.</span>
             </H2>
             <p className="mt-3 hidden max-w-[46ch] text-[1rem] font-light leading-[1.75] text-[var(--soft)] sm:mt-5 sm:block">
-              New stock, holiday hours, paint days, and community events — we post a few times a
+              New stock, holiday hours, paint days, and community events. We post a few times a
               week. It&rsquo;s the most current look at what&rsquo;s on the floor between visits.
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 sm:mt-8">

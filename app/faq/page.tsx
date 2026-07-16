@@ -34,7 +34,7 @@ const SECTIONS: Section[] = [
       },
       {
         q: "Why don't I see prices on your Facebook listings?",
-        a: "Facebook Marketplace requires us to message back-and-forth for pricing on certain categories, and honestly, half our Facebook posts are crew snapshots, not formal listings. Anything for sale has a live price tag on the warehouse floor. Call (715) 848-3855 and we'll read the tag to you.",
+        a: "Facebook Marketplace requires us to message back-and-forth for pricing on certain categories, and honestly, half our Facebook posts are crew snapshots more often than formal listings. Anything for sale has a live price tag on the warehouse floor. Call (715) 848-3855 and we'll read the tag to you.",
       },
       {
         q: "Do you accept trade-ins?",
@@ -42,7 +42,7 @@ const SECTIONS: Section[] = [
       },
       {
         q: "Can I see what's coming in next Wednesday?",
-        a: "We don't publish a public drop calendar — half the inventory sells before it ever gets a shelf tag. What's on the floor when you walk in is what we've got. Call the counter and we can tell you what landed this week.",
+        a: "We don't publish a public drop calendar. Half the inventory sells before it ever gets a shelf tag. What's on the floor when you walk in is what we've got. Call the counter and we can tell you what landed this week.",
       },
       {
         q: "Do you price match?",
@@ -92,7 +92,7 @@ const SECTIONS: Section[] = [
       },
       {
         q: "Do your products carry a warranty?",
-        a: "Most do. The same factory warranty that comes with the SKU at the big-box store. We're a discount channel, not a refurbisher. Bring us your receipt and we'll point you at the manufacturer's claim process.",
+        a: "Most do. The same factory warranty that comes with the SKU at the big-box store. We're a discount channel for factory-new product. Bring us your receipt and we'll point you at the manufacturer's claim process.",
       },
       {
         q: "Can I return Builders Corner custom work?",

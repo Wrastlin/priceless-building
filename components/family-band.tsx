@@ -89,7 +89,7 @@ function FamilyCard({ card }: { card: FamilyCardSpec }) {
         />
         <div className="absolute left-4 top-4 inline-flex items-center rounded-[8px] bg-white px-3 py-2 shadow-sm">
           {card.logoBrand === "four-squared" ? (
-            <Image src="/real-photos/logo-4squared.jpg" alt="4 Squared — New Construction, Restoration, Remodeling" width={180} height={180} className="h-9 w-auto object-contain" />
+            <Image src="/real-photos/logo-4squared.jpg" alt="4 Squared: New Construction, Restoration, Remodeling" width={180} height={180} className="h-9 w-auto object-contain" />
           ) : card.logoBrand === "builders" ? (
             <Image src="/real-photos/logo-builders-corner-real.jpg" alt="Builders Corner Cabinetry & Design" width={180} height={180} className="h-9 w-auto object-contain" />
           ) : (

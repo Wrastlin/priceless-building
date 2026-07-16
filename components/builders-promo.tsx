@@ -25,7 +25,7 @@ const BUILDERS_BRANDS = [
 const WORK = [
   {
     src: `${P}/builders-corner-hero.jpg`,
-    alt: "Dark shaker kitchen with marble island — Builders Corner.",
+    alt: "Dark shaker kitchen with marble island at Builders Corner.",
   },
   {
     src: `${F}/kitchen-white-island-shiplap.jpg`,
@@ -64,8 +64,8 @@ export function BuildersPromo() {
             <p className="mt-4 max-w-[40ch] text-[1rem] font-light leading-[1.7] text-[var(--soft)]">
               Custom kitchens and baths designed in our showroom, built in our
               shop, and installed by the 4 Squared crew. The brands on our
-              boards are the ones we specify for premium remodels — come see
-              real samples, not just catalogs.
+              boards are the ones we specify for premium remodels. Come see
+              the real samples in the showroom.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link

@@ -35,7 +35,7 @@ export function FourSquaredHero() {
           <div className="inline-flex w-fit items-center rounded-xl bg-white px-5 py-3 shadow-lg ring-1 ring-black/5">
             <Image
               src="/real-photos/logo-4squared.jpg"
-              alt="4 Squared — New Construction · Restoration · Remodeling"
+              alt="4 Squared: New Construction · Restoration · Remodeling"
               width={320}
               height={320}
               priority

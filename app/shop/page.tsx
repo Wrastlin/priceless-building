@@ -18,7 +18,7 @@ const SITE_URL = "https://pricelessbuilding.com";
 export const metadata: Metadata = {
   title: "Shop discount + surplus building materials in Wausau, WI · Price-Less Building Center",
   description:
-    "Browse hundreds of doors, windows, cabinets, vanities, countertops, hardware, lighting, and trim at Price-Less Building Center in Wausau, Wisconsin. Real warehouse depth — new-in-box from cancelled contractor orders.",
+    "Browse hundreds of doors, windows, cabinets, vanities, countertops, hardware, lighting, and trim at Price-Less Building Center in Wausau, Wisconsin. Real warehouse depth: new-in-box from cancelled contractor orders.",
   alternates: { canonical: `${SITE_URL}/shop` },
   openGraph: {
     type: "website",
@@ -70,8 +70,8 @@ export default async function ShopIndex({ searchParams }: { searchParams: Promis
                 The whole warehouse, <span className="font-normal italic">by department.</span>
               </h1>
               <p className="mt-5 max-w-[42ch] text-[0.95rem] font-light leading-[1.65] text-white/85">
-                Doors, windows, cabinets — including 12&quot; uppers and 24&quot;
-                lowers — vanities, lighting, hardware, and more. Walk it in
+                Doors, windows, cabinets (including 12&quot; uppers and 24&quot;
+                lowers), vanities, lighting, hardware, and more. Walk it in
                 person or call (715) 848-3855 to hold something.
               </p>
               <Link

@@ -42,7 +42,7 @@ export function ClosureNotices({ initial }: { initial: StoreNotice[] }) {
                 <span className="relative block size-14 shrink-0 overflow-hidden rounded-md bg-[var(--muted)]">
                   <Image
                     src={n.image}
-                    alt={n.imageAlt ?? `${n.title} — ${n.status}`}
+                    alt={n.imageAlt ?? `${n.title}: ${n.status}`}
                     fill
                     sizes="56px"
                     quality={70}
@@ -68,7 +68,7 @@ export function ClosureNotices({ initial }: { initial: StoreNotice[] }) {
         </ul>
       ) : (
         <p className="mt-4 text-base leading-relaxed text-[var(--foreground)]">
-          Open regular hours — no holiday closures scheduled. When a holiday changes our
+          Open regular hours. No holiday closures on the calendar right now. When a holiday changes our
           hours, it shows up here and on our Facebook page.
         </p>
       )}

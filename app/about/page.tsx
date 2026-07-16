@@ -170,7 +170,7 @@ export default function AboutPage() {
             <div className="eyebrow">Today</div>
             <h2 className="font-display mt-3 text-3xl md:text-4xl">Who runs it.</h2>
             <p className="mt-4 text-[var(--muted-foreground)]">
-              Price-Less Building Center, Builders Corner Cabinetry &amp; Design, and 4 Squared all share the building at 825 Washington. Josh Nickel is behind all three. On the install side, 4 Squared is Josh and Ty. Most customers meet whoever&apos;s on the floor that day, not the same person every time.
+              Price-Less Building Center, Builders Corner Cabinetry &amp; Design, and 4 Squared all share the building at 825 Washington. Josh Nickel is behind all three. On the install side, 4 Squared is Josh and Ty. Most customers meet whoever&apos;s on the floor that day; faces rotate with the shift.
             </p>
             <blockquote className="mt-8 border-l border-[var(--brand-gold)] pl-5">
               <p className="font-serif text-lg italic leading-snug text-[var(--foreground)] md:text-xl">
