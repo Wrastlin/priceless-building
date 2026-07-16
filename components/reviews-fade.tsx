@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import type { Review } from "@/lib/google-reviews";
 import { GOOGLE_RATING } from "@/lib/google-reviews";
-import { VendorLogoBar } from "@/components/vendor-wall";
 
 const DWELL_MS = 10000;
 const FADE_MS = 1000;
@@ -114,38 +113,32 @@ export function ReviewsFade({ reviews }: { reviews: Review[] }) {
   const right = playlist[slotIdx[1] % playlist.length]!;
 
   return (
-    <section className="border-t border-[var(--line)] bg-white">
-      <div className="pt-8 sm:pt-10">
-        <VendorLogoBar fadeFrom="white" />
+    <section className="mx-auto max-w-[1240px] px-5 py-10 text-center sm:px-8 sm:py-14">
+      <p className="eyebrow">Since 1978</p>
+      <h2 className="font-display mx-auto mt-2 max-w-[24ch] text-[clamp(2rem,1rem+2.9vw,3.3rem)] leading-[1.05] sm:mt-3">
+        Trusted across <span className="font-normal italic">central Wisconsin.</span>
+      </h2>
+      <div className="mt-3 flex items-center justify-center gap-3 sm:mt-4">
+        <span className="text-base tracking-[0.18em] text-[var(--rust)]" aria-hidden>
+          ★★★★★
+        </span>
+        <span className="text-[0.8rem] font-medium uppercase tracking-[0.14em] text-[var(--soft)] sm:text-[0.85rem]">
+          {GOOGLE_RATING.average} on Google
+          <span className="hidden sm:inline"> · Family-run since 1978</span>
+        </span>
       </div>
 
-      <div className="mx-auto max-w-[1240px] px-5 py-8 text-center sm:px-8 sm:py-10">
-        <p className="eyebrow">Since 1978</p>
-        <h2 className="font-display mx-auto mt-2 max-w-[24ch] text-[clamp(2rem,1rem+2.9vw,3.3rem)] leading-[1.05] sm:mt-3">
-          Trusted across <span className="font-normal italic">central Wisconsin.</span>
-        </h2>
-        <div className="mt-3 flex items-center justify-center gap-3 sm:mt-4">
-          <span className="text-base tracking-[0.18em] text-[var(--rust)]" aria-hidden>
-            ★★★★★
-          </span>
-          <span className="text-[0.8rem] font-medium uppercase tracking-[0.14em] text-[var(--soft)] sm:text-[0.85rem]">
-            {GOOGLE_RATING.average} on Google
-            <span className="hidden sm:inline"> · Family-run since 1978</span>
-          </span>
-        </div>
-
-        <div className="mt-7 grid grid-cols-1 overflow-hidden border border-[var(--line)] text-left sm:mt-9 sm:grid-cols-2">
-          <ReviewCard review={left} visible={slotVisible[0]} />
-          <ReviewCard review={right} visible={slotVisible[1]} connected />
-        </div>
-
-        <Link
-          href="/reviews"
-          className="mt-6 inline-block text-[0.8rem] font-medium uppercase tracking-[0.16em] underline-offset-[6px] hover:underline sm:mt-8"
-        >
-          More reviews ›
-        </Link>
+      <div className="mt-7 grid grid-cols-1 overflow-hidden border border-[var(--line)] text-left sm:mt-9 sm:grid-cols-2">
+        <ReviewCard review={left} visible={slotVisible[0]} />
+        <ReviewCard review={right} visible={slotVisible[1]} connected />
       </div>
+
+      <Link
+        href="/reviews"
+        className="mt-6 inline-block text-[0.8rem] font-medium uppercase tracking-[0.16em] underline-offset-[6px] hover:underline sm:mt-8"
+      >
+        More reviews ›
+      </Link>
     </section>
   );
 }
