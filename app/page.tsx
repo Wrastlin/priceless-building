@@ -233,18 +233,14 @@ export default async function HomePage() {
             className="block h-auto w-full"
           />
         </div>
-        <figcaption className="mx-auto flex max-w-[1360px] flex-wrap items-baseline justify-between gap-3 px-8 py-4 text-[0.8rem] text-[var(--soft)]">
-          <span>
-            &ldquo;Build Your Future&rdquo; mural · designed by Stephanie Kohli · painted by fifty
-            Wausau volunteers · June 2023
-          </span>
+        <figcaption className="mx-auto flex max-w-[1360px] items-baseline justify-center px-8 py-4 text-center">
           <a
             href="https://www.wsaw.com/2023/06/18/new-mural-coming-downtown-wausau/"
             target="_blank"
             rel="noreferrer"
-            className="font-medium uppercase tracking-[0.16em] text-[var(--rust)]"
+            className="text-[0.9rem] font-medium text-[var(--ink)] underline-offset-[5px] hover:underline"
           >
-            WSAW story ›
+            Read the story behind the mural ›
           </a>
         </figcaption>
       </figure>
