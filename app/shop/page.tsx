@@ -123,7 +123,9 @@ export default async function ShopIndex({ searchParams }: { searchParams: Promis
           </div>
           <section className="border-t border-[var(--line)] bg-[var(--cream)]">
             <div className="mx-auto max-w-[640px] px-6 py-14 text-center md:py-16">
-              <p className="eyebrow">Come dig</p>
+              <h2 className="font-display text-[clamp(1.8rem,1rem+2vw,2.4rem)] leading-[1.05]">
+                Walk the aisles.
+              </h2>
               <p className="mt-3 text-[1rem] font-light leading-[1.7] text-[var(--soft)]">
                 Door walls, window aisles, vanity rows, trim by the foot.
                 Stop by 825 Washington Street or call and we&rsquo;ll check stock
