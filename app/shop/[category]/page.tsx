@@ -68,45 +68,36 @@ export default async function CategoryPage({
       <SiteHeader brand="priceless" />
 
       <section className="bg-white">
-        <div className="px-0 md:px-5 md:pt-5">
-          <div className="relative h-[48svh] w-full overflow-hidden md:h-[58svh]">
-            <Image
-              src={cat.image}
-              alt={cat.label}
-              fill
-              className="object-cover"
-              priority
-              quality={80}
-              sizes="100vw"
-            />
-            {/* Stronger bottom-weighted scrim so body copy stays readable on busy aisles */}
-            <div
-              aria-hidden
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(to bottom, rgba(20,18,18,0.45) 0%, rgba(20,18,18,0.55) 40%, rgba(20,18,18,0.78) 100%)",
-              }}
-            />
-            <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center text-white">
-              <div className="max-w-[36rem] rounded-sm bg-black/25 px-5 py-6 backdrop-blur-[2px] sm:px-8 sm:py-8">
-                <p className="text-[0.8rem] font-medium uppercase tracking-[0.2em] text-white/90">
-                  {depth.headline}
-                </p>
-                <h1 className="font-display mt-3 text-[clamp(2.6rem,1rem+5vw,5.2rem)] leading-[1.02] drop-shadow-sm">
-                  {cat.label}.
-                </h1>
-                <p className="mt-4 max-w-[42ch] text-[1.05rem] font-normal leading-[1.6] text-white/95">
-                  {depth.detail}
-                </p>
-                <Link
-                  href="/shop"
-                  className="mt-6 inline-block text-[0.8rem] font-medium uppercase tracking-[0.18em] text-white underline-offset-[6px] hover:underline"
-                >
-                  ← All departments
-                </Link>
-              </div>
-            </div>
+        <div className="relative h-[44svh] w-full overflow-hidden md:h-[54svh]">
+          <Image
+            src={cat.image}
+            alt={cat.label}
+            fill
+            className="object-cover"
+            priority
+            quality={80}
+            sizes="100vw"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/45 to-black/25"
+          />
+          <div className="absolute inset-x-0 bottom-0 px-5 pb-8 pt-20 text-center text-white sm:px-8 sm:pb-10 md:pb-12">
+            <p className="text-[0.8rem] font-medium uppercase tracking-[0.18em] text-white/85">
+              {depth.headline}
+            </p>
+            <h1 className="font-display mt-2 text-[clamp(2.6rem,1rem+5vw,5rem)] leading-[1.02]">
+              {cat.label}.
+            </h1>
+            <p className="mx-auto mt-3 max-w-[40ch] text-[1.05rem] font-normal leading-[1.55] text-white/95">
+              {depth.detail}
+            </p>
+            <Link
+              href="/shop"
+              className="mt-5 inline-block text-[0.8rem] font-medium uppercase tracking-[0.16em] text-white underline-offset-[6px] hover:underline"
+            >
+              ← All departments
+            </Link>
           </div>
         </div>
       </section>
