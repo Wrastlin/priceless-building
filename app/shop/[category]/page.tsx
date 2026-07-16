@@ -79,42 +79,45 @@ export default async function CategoryPage({
               quality={80}
               sizes="100vw"
             />
+            {/* Stronger bottom-weighted scrim so body copy stays readable on busy aisles */}
             <div
               aria-hidden
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(to bottom, rgba(20,18,18,0.30), rgba(20,18,18,0.38) 55%, rgba(20,18,18,0.55))",
+                  "linear-gradient(to bottom, rgba(20,18,18,0.45) 0%, rgba(20,18,18,0.55) 40%, rgba(20,18,18,0.78) 100%)",
               }}
             />
             <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center text-white">
-              <p className="text-[0.68rem] font-medium uppercase tracking-[0.24em] text-white/85">
-                {depth.headline}
-              </p>
-              <h1 className="font-display mt-4 text-[clamp(2.8rem,1rem+5vw,5.5rem)] leading-[1.02]">
-                {cat.label}.
-              </h1>
-              <p className="mt-5 max-w-[42ch] text-[0.95rem] font-light leading-[1.65] text-white/85">
-                {depth.detail}
-              </p>
-              <Link
-                href="/shop"
-                className="mt-8 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-white/90 underline-offset-[6px] hover:underline"
-              >
-                ← All departments
-              </Link>
+              <div className="max-w-[36rem] rounded-sm bg-black/25 px-5 py-6 backdrop-blur-[2px] sm:px-8 sm:py-8">
+                <p className="text-[0.8rem] font-medium uppercase tracking-[0.2em] text-white/90">
+                  {depth.headline}
+                </p>
+                <h1 className="font-display mt-3 text-[clamp(2.6rem,1rem+5vw,5.2rem)] leading-[1.02] drop-shadow-sm">
+                  {cat.label}.
+                </h1>
+                <p className="mt-4 max-w-[42ch] text-[1.05rem] font-normal leading-[1.6] text-white/95">
+                  {depth.detail}
+                </p>
+                <Link
+                  href="/shop"
+                  className="mt-6 inline-block text-[0.8rem] font-medium uppercase tracking-[0.18em] text-white underline-offset-[6px] hover:underline"
+                >
+                  ← All departments
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       <nav className="border-b border-[var(--line)] bg-white">
-        <div className="mx-auto flex max-w-[1360px] gap-1 overflow-x-auto px-4 py-3 md:justify-center md:px-8">
+        <div className="mx-auto flex max-w-[1360px] gap-1 overflow-x-auto px-4 py-3 pe-8 md:justify-center md:px-8">
           {allKeys.map((key) => (
             <Link
               key={key}
               href={`/shop/${key}`}
-              className={`shrink-0 px-4 py-2 text-[0.68rem] font-medium uppercase tracking-[0.16em] transition ${
+              className={`min-w-0 shrink-0 px-4 py-2 text-[0.75rem] font-medium uppercase tracking-[0.14em] transition ${
                 key === category
                   ? "bg-[var(--ink)] text-white"
                   : "text-[var(--ink)] hover:bg-[var(--cream)]"
