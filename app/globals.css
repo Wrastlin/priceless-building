@@ -34,27 +34,25 @@
   --brand-builders: var(--ink);
   --brand-builders-gold: var(--rust);
 
-  /* Utopia FYI fluid type scale.
-     Min: 320px viewport, body 16px (1rem), minor third (1.2).
-     Max: 1240px viewport, body 19px (1.1875rem), major third (1.25).
+  /* Utopia FYI fluid type scale — raised floor for older-reader legibility.
+     Min: 320px viewport, body 18px (1.125rem), minor third (1.2).
+     Max: 1240px viewport, body 20px (1.25rem), major third (1.25).
      Steps -2..8 cover everything Tailwind exposes (text-xs through
      text-8xl). Every value is a real clamp() with a slope in vw and an
-     intercept in rem, so every size scales fluidly between 320px and
-     1240px and clamps cleanly outside that range. Generated using the
-     utopia.fyi formula. */
-  --text-2xs: clamp(0.6944rem, 0.6716rem + 0.1141vw, 0.76rem);     /* step -2 */
-  --text-xs:  clamp(0.8333rem, 0.7927rem + 0.2029vw, 0.95rem);     /* step -1 */
-  --text-sm:  clamp(0.8333rem, 0.7927rem + 0.2029vw, 0.95rem);     /* step -1, alias */
-  --text-base: clamp(1rem, 0.9348rem + 0.3261vw, 1.1875rem);       /* step 0 */
-  --text-lg:  clamp(1.2rem, 1.0011rem + 0.4946vw, 1.4844rem);      /* step 1 */
-  --text-xl:  clamp(1.44rem, 0.9955rem + 0.7226vw, 1.8555rem);     /* step 2 */
-  --text-2xl: clamp(1.728rem, 0.7212rem + 1.0285vw, 2.3193rem);    /* step 3 */
-  --text-3xl: clamp(2.0736rem, 0.2069rem + 1.4316vw, 2.8992rem);   /* step 4 */
-  --text-4xl: clamp(2.4883rem, -0.5419rem + 1.975vw, 3.624rem);    /* step 5 */
-  --text-5xl: clamp(2.986rem, -1.3884rem + 2.6852vw, 4.5299rem);   /* step 6 */
-  --text-6xl: clamp(3.5832rem, -2.6478rem + 3.616vw, 5.6624rem);   /* step 7 */
-  --text-7xl: clamp(4.2998rem, -4.3635rem + 4.8317vw, 7.0781rem);  /* step 8 */
-  --text-8xl: clamp(4.2998rem, -4.3635rem + 4.8317vw, 7.0781rem);  /* step 8, alias */
+     intercept in rem. */
+  --text-2xs: clamp(0.8125rem, 0.7918rem + 0.1033vw, 0.875rem);   /* step -2 */
+  --text-xs:  clamp(0.9375rem, 0.9035rem + 0.1696vw, 1.0352rem);  /* step -1 */
+  --text-sm:  clamp(0.9375rem, 0.9035rem + 0.1696vw, 1.0352rem);  /* step -1, alias */
+  --text-base: clamp(1.125rem, 1.0815rem + 0.2174vw, 1.25rem);     /* step 0 */
+  --text-lg:  clamp(1.35rem, 1.2196rem + 0.3261vw, 1.5625rem);     /* step 1 */
+  --text-xl:  clamp(1.62rem, 1.312rem + 0.4891vw, 1.9531rem);      /* step 2 */
+  --text-2xl: clamp(1.944rem, 1.2861rem + 0.7337vw, 2.4414rem);    /* step 3 */
+  --text-3xl: clamp(2.3328rem, 1.0901rem + 1.1006vw, 3.0518rem);   /* step 4 */
+  --text-4xl: clamp(2.7994rem, 0.6396rem + 1.6508vw, 3.8147rem);   /* step 5 */
+  --text-5xl: clamp(3.3592rem, -0.0894rem + 2.4763vw, 4.7684rem);  /* step 6 */
+  --text-6xl: clamp(4.0311rem, -1.1798rem + 3.7144vw, 5.9605rem);  /* step 7 */
+  --text-7xl: clamp(4.8373rem, -2.6707rem + 5.5717vw, 7.4506rem);  /* step 8 */
+  --text-8xl: clamp(4.8373rem, -2.6707rem + 5.5717vw, 7.4506rem);  /* step 8, alias */
 
   /* Line-heights paired to the scale. Body breathes, display tightens. */
   --leading-tight: 1.05;
@@ -62,16 +60,16 @@
   --leading-base: 1.6;
   --leading-relaxed: 1.75;
 
-  /* Vertical rhythm. Fluid spacing on the same scale as type. */
+  /* Vertical rhythm — slightly tighter than before to cut dead white space. */
   --space-3xs: clamp(0.25rem, 0.2283rem + 0.1087vw, 0.3125rem);
   --space-2xs: clamp(0.5rem, 0.4783rem + 0.1087vw, 0.5625rem);
   --space-xs: clamp(0.75rem, 0.7065rem + 0.2174vw, 0.875rem);
   --space-s: clamp(1rem, 0.9348rem + 0.3261vw, 1.1875rem);
-  --space-m: clamp(1.5rem, 1.413rem + 0.4348vw, 1.75rem);
-  --space-l: clamp(2rem, 1.8696rem + 0.6522vw, 2.375rem);
-  --space-xl: clamp(3rem, 2.7826rem + 1.087vw, 3.625rem);
-  --space-2xl: clamp(4rem, 3.6304rem + 1.8478vw, 5.0625rem);
-  --space-3xl: clamp(6rem, 5.4391rem + 2.8043vw, 7.6125rem);
+  --space-m: clamp(1.25rem, 1.163rem + 0.4348vw, 1.5rem);
+  --space-l: clamp(1.75rem, 1.6196rem + 0.6522vw, 2.125rem);
+  --space-xl: clamp(2.25rem, 2.0326rem + 1.087vw, 2.875rem);
+  --space-2xl: clamp(3rem, 2.6304rem + 1.8478vw, 4.0625rem);
+  --space-3xl: clamp(4.5rem, 3.9391rem + 2.8043vw, 6.1125rem);
 }
 
 @theme inline {
@@ -125,7 +123,7 @@ html, body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: var(--text-base);
   line-height: var(--leading-base);
   /* Defensive: stop any rogue child (iframe, image with intrinsic width,
@@ -192,9 +190,9 @@ img, video, iframe {
 /* Eyebrow labels — Gotham medium, rust accent (rejuvenation). */
 .eyebrow {
   font-family: var(--font-sans);
-  font-size: 0.72rem;
+  font-size: var(--text-xs);
   font-weight: 500;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--rust);
 }
@@ -212,8 +210,8 @@ img, video, iframe {
   padding: 1rem 2.25rem;
   font-family: var(--font-sans);
   font-weight: 500;
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   border-radius: 0;
   transition: background .2s, color .2s, border-color .2s;
@@ -323,25 +321,17 @@ img, video, iframe {
   .admin-table tbody td { padding-left: 0.5rem; padding-right: 0.5rem; }
 }
 
-/* Vendor logo marquee — two open scroll rows (vendor-wall.tsx).
-   Track is two equal units; -50% lands exactly on the seam. */
+/* Vendor logo marquee — one large thumbnail river (vendor-wall.tsx).
+   Two equal-width units; -50% lands exactly on the seam. Fixed tile
+   widths keep the loop seamless (no snap when it wraps). */
 .vendor-marquee__track {
-  animation: vendor-scroll 48s linear infinite;
-}
-.vendor-marquee__track--reverse {
-  animation-name: vendor-scroll-reverse;
-  animation-duration: 56s;
-}
-.vendor-marquee:hover .vendor-marquee__track {
-  animation-play-state: paused;
+  animation: vendor-scroll 80s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 @keyframes vendor-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-@keyframes vendor-scroll-reverse {
-  from { transform: translateX(-50%); }
-  to   { transform: translateX(0); }
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
 }
 @media (prefers-reduced-motion: reduce) {
   .vendor-marquee__track {
@@ -350,7 +340,7 @@ img, video, iframe {
     justify-content: center;
     max-width: 100%;
     width: 100% !important;
-    row-gap: 1.5rem;
+    row-gap: 1.25rem;
   }
 }
 
