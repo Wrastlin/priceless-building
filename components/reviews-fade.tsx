@@ -113,29 +113,29 @@ export function ReviewsFade({ reviews }: { reviews: Review[] }) {
   const right = playlist[slotIdx[1] % playlist.length]!;
 
   return (
-    <section className="mx-auto max-w-[1240px] px-5 py-14 text-center sm:px-8 sm:py-24">
+    <section className="mx-auto max-w-[1240px] px-5 py-10 text-center sm:px-8 sm:py-14">
       <p className="eyebrow">Since 1978</p>
-      <h2 className="font-display mx-auto mt-3 max-w-[24ch] text-[clamp(2rem,1rem+2.9vw,3.3rem)] leading-[1.05] sm:mt-4">
+      <h2 className="font-display mx-auto mt-2 max-w-[24ch] text-[clamp(2rem,1rem+2.9vw,3.3rem)] leading-[1.05] sm:mt-3">
         Trusted across <span className="font-normal italic">central Wisconsin.</span>
       </h2>
-      <div className="mt-3 flex items-center justify-center gap-3 sm:mt-5">
-        <span className="text-sm tracking-[0.2em] text-[var(--rust)]" aria-hidden>
+      <div className="mt-3 flex items-center justify-center gap-3 sm:mt-4">
+        <span className="text-base tracking-[0.18em] text-[var(--rust)]" aria-hidden>
           ★★★★★
         </span>
-        <span className="text-[0.7rem] font-medium uppercase tracking-[0.16em] text-[var(--soft)] sm:text-[0.76rem] sm:tracking-[0.18em]">
+        <span className="text-[0.8rem] font-medium uppercase tracking-[0.14em] text-[var(--soft)] sm:text-[0.85rem]">
           {GOOGLE_RATING.average} on Google
           <span className="hidden sm:inline"> · Family-run since 1978</span>
         </span>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 overflow-hidden border border-[var(--line)] text-left sm:mt-14 sm:grid-cols-2">
+      <div className="mt-7 grid grid-cols-1 overflow-hidden border border-[var(--line)] text-left sm:mt-9 sm:grid-cols-2">
         <ReviewCard review={left} visible={slotVisible[0]} />
         <ReviewCard review={right} visible={slotVisible[1]} connected />
       </div>
 
       <Link
         href="/reviews"
-        className="mt-8 inline-block text-[0.72rem] font-medium uppercase tracking-[0.18em] underline-offset-[6px] hover:underline sm:mt-12"
+        className="mt-6 inline-block text-[0.8rem] font-medium uppercase tracking-[0.16em] underline-offset-[6px] hover:underline sm:mt-8"
       >
         More reviews ›
       </Link>
@@ -168,10 +168,10 @@ function ReviewCard({
         <div className="text-sm tracking-[0.2em] text-[var(--rust)]" aria-hidden>
           {"★".repeat(review.rating ?? 5)}
         </div>
-        <blockquote className="font-display mt-4 flex-1 text-[1.05rem] font-normal italic leading-[1.5] sm:mt-5 sm:text-[1.15rem] sm:leading-[1.55]">
+        <blockquote className="font-display mt-4 flex-1 text-[1.15rem] font-normal italic leading-[1.5] sm:mt-5 sm:text-[1.25rem] sm:leading-[1.55]">
           &ldquo;{review.quote}&rdquo;
         </blockquote>
-        <figcaption className="mt-4 text-[0.7rem] font-medium uppercase tracking-[0.12em] text-[var(--soft)] sm:mt-6 sm:text-[0.74rem]">
+        <figcaption className="mt-4 text-[0.8rem] font-medium uppercase tracking-[0.12em] text-[var(--soft)] sm:mt-6 sm:text-[0.85rem]">
           {review.author ?? "Customer"}
           <span className="hidden sm:inline">
             {" "}

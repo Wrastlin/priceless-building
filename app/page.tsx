@@ -258,12 +258,12 @@ export default async function HomePage() {
 
       {/* Three businesses — photo captions */}
       <section className="bg-[var(--taupe)]">
-        <div className="mx-auto max-w-[1360px] px-5 py-14 text-center sm:px-8 sm:py-16 md:py-20">
+        <div className="mx-auto max-w-[1360px] px-5 py-10 text-center sm:px-8 sm:py-12 md:py-14">
           <Eyebrow>One yard · three ways to build</Eyebrow>
-          <H2 className="mx-auto mt-3 max-w-[22ch] sm:mt-4">
+          <H2 className="mx-auto mt-2 max-w-[22ch] sm:mt-3">
             Shop it, design it, <span className="font-normal italic">build it.</span>
           </H2>
-          <div className="mt-10 grid gap-3 sm:mt-12 md:mt-14 md:grid-cols-3 md:gap-4">
+          <div className="mt-7 grid gap-2.5 sm:mt-8 md:mt-10 md:grid-cols-3 md:gap-3">
             {SERVICES.map((s, i) => (
               <Link
                 key={s.name}
@@ -279,7 +279,7 @@ export default async function HomePage() {
                   className="object-cover transition duration-700 group-hover:scale-[1.04]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/5" />
-                <div className="absolute left-5 top-5 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-white/70">
+                <div className="absolute left-5 top-5 text-[0.75rem] font-medium uppercase tracking-[0.18em] text-white/75">
                   0{i + 1}
                 </div>
                 <div className="absolute inset-x-0 bottom-0 p-5 text-left text-white sm:p-6">
@@ -293,12 +293,12 @@ export default async function HomePage() {
                         className="h-full w-full object-contain"
                       />
                     </span>
-                    <h3 className="font-display text-[1.3rem] leading-tight sm:text-[1.45rem]">{s.name}</h3>
+                    <h3 className="font-display text-[1.35rem] leading-tight sm:text-[1.5rem]">{s.name}</h3>
                   </div>
-                  <p className="mt-2 line-clamp-2 text-[0.85rem] font-light leading-[1.5] text-white/80 sm:text-[0.9rem]">
+                  <p className="mt-2 line-clamp-2 text-[0.95rem] font-light leading-[1.5] text-white/85 sm:text-[1rem]">
                     {s.body}
                   </p>
-                  <span className="mt-4 inline-block text-[0.68rem] font-medium uppercase tracking-[0.2em]">
+                  <span className="mt-4 inline-block text-[0.8rem] font-medium uppercase tracking-[0.16em]">
                     {s.cta} ›
                   </span>
                 </div>
@@ -310,22 +310,22 @@ export default async function HomePage() {
 
       {/* Featured floor finds — 2-up fade, or live tagged grid when catalog is on */}
       {live && items.length > 0 ? (
-        <section className="mx-auto max-w-[1360px] px-5 pt-14 pb-8 sm:px-8 sm:pt-20 sm:pb-10">
+        <section className="mx-auto max-w-[1360px] px-5 pt-10 pb-6 sm:px-8 sm:pt-14 sm:pb-8">
           <div className="flex items-end justify-between gap-6">
             <div>
               <Eyebrow>On the floor now</Eyebrow>
-              <H2 className="mt-3 sm:mt-4">
+              <H2 className="mt-2 sm:mt-3">
                 Fresh finds from the <span className="font-normal italic">warehouse.</span>
               </H2>
             </div>
             <Link
               href="/shop"
-              className="hidden border-b border-[var(--ink)] pb-1 text-[0.72rem] font-medium uppercase tracking-[0.18em] sm:inline-block"
+              className="hidden border-b border-[var(--ink)] pb-1 text-[0.8rem] font-medium uppercase tracking-[0.16em] sm:inline-block"
             >
               Shop departments ›
             </Link>
           </div>
-          <div className="mt-8 grid grid-cols-2 gap-x-3 gap-y-5 md:mt-10 md:grid-cols-3 md:gap-x-6 md:gap-y-8">
+          <div className="mt-6 grid grid-cols-2 gap-x-3 gap-y-5 md:mt-8 md:grid-cols-3 md:gap-x-6 md:gap-y-8">
             {items.map((item, i) => (
               <ProductCard key={item.sku} item={item} priority={i < 3} />
             ))}
@@ -340,18 +340,18 @@ export default async function HomePage() {
       <BuildersPromo />
 
       {/* Before / after */}
-      <section className="mx-auto max-w-[1360px] px-5 pt-8 pb-14 sm:px-8 sm:pt-10 sm:pb-20">
+      <section className="mx-auto max-w-[1360px] px-5 pt-6 pb-10 sm:px-8 sm:pt-8 sm:pb-14">
         <div className="max-w-[46ch]">
           <Eyebrow>The remodeling journey</Eyebrow>
-          <H2 className="mt-3">
+          <H2 className="mt-2">
             Before, and <span className="font-normal italic">after.</span>
           </H2>
-          <p className="mt-3 hidden text-[1rem] font-light leading-[1.7] text-[var(--soft)] sm:mt-4 sm:block">
+          <p className="mt-3 hidden text-[1.05rem] font-light leading-[1.65] text-[var(--soft)] sm:block">
             Real rooms the in-house crew has finished: shopped, designed, and installed
             on the same lot.
           </p>
         </div>
-        <div className="mt-6 grid gap-6 sm:mt-8 sm:gap-8 md:grid-cols-2">
+        <div className="mt-5 grid gap-5 sm:mt-6 sm:gap-6 md:grid-cols-2">
           {BEFORE_AFTER.map((ba) => (
             <figure key={ba.label}>
               <div className="relative aspect-[16/10] w-full overflow-hidden bg-[var(--line)]">
@@ -378,20 +378,20 @@ export default async function HomePage() {
 
       {/* Gallery */}
       <section className="border-t border-[var(--line)] bg-[var(--cream)]">
-        <div className="mx-auto max-w-[1360px] px-5 py-14 sm:px-8 sm:py-24">
+        <div className="mx-auto max-w-[1360px] px-5 py-10 sm:px-8 sm:py-14">
           <div className="flex items-end justify-between gap-6">
             <div>
               <Eyebrow>Around the yard</Eyebrow>
-              <H2 className="mt-3 sm:mt-4">A slice of the floor.</H2>
+              <H2 className="mt-2 sm:mt-3">A slice of the floor.</H2>
             </div>
             <Link
               href="/shop"
-              className="hidden border-b border-[var(--ink)] pb-1 text-[0.72rem] font-medium uppercase tracking-[0.18em] sm:inline-block"
+              className="hidden border-b border-[var(--ink)] pb-1 text-[0.8rem] font-medium uppercase tracking-[0.16em] sm:inline-block"
             >
               See the full gallery ›
             </Link>
           </div>
-          <div className="mt-8 grid grid-cols-2 gap-2.5 sm:mt-12 sm:gap-4 md:grid-cols-3">
+          <div className="mt-6 grid grid-cols-2 gap-2.5 sm:mt-8 sm:gap-3 md:grid-cols-3">
             {GALLERY.map((src, i) => (
               <div
                 key={src}
@@ -407,22 +407,22 @@ export default async function HomePage() {
       </section>
 
       {/* Press */}
-      <section className="mx-auto max-w-[1240px] px-5 py-14 sm:px-8 sm:py-24">
+      <section className="mx-auto max-w-[1240px] px-5 py-10 sm:px-8 sm:py-14">
         <div className="flex items-end justify-between gap-6">
           <div>
             <Eyebrow>In the local news</Eyebrow>
-            <H2 className="mt-3 sm:mt-4">
+            <H2 className="mt-2 sm:mt-3">
               Wausau keeps <span className="font-normal italic">talking.</span>
             </H2>
           </div>
           <Link
             href="/press"
-            className="hidden shrink-0 text-[0.72rem] font-medium uppercase tracking-[0.18em] underline-offset-[6px] hover:underline sm:inline-block"
+            className="hidden shrink-0 text-[0.8rem] font-medium uppercase tracking-[0.16em] underline-offset-[6px] hover:underline sm:inline-block"
           >
             All press ›
           </Link>
         </div>
-        <SwipeRail className="mt-8 md:mt-12 md:grid-cols-3">
+        <SwipeRail className="mt-6 md:mt-8 md:grid-cols-3">
           {NEWS.map((n) => (
             <SwipeCard key={n.title}>
               <a
@@ -431,14 +431,14 @@ export default async function HomePage() {
                 rel="noreferrer"
                 className="group flex h-full flex-col border-t border-[var(--ink)] pt-5 sm:pt-6"
               >
-                <div className="flex items-baseline justify-between gap-3 text-[0.65rem] font-medium uppercase tracking-[0.14em] text-[var(--soft)] sm:text-[0.7rem]">
+                <div className="flex items-baseline justify-between gap-3 text-[0.75rem] font-medium uppercase tracking-[0.12em] text-[var(--soft)] sm:text-[0.8rem]">
                   <span className="truncate">{n.source}</span>
                   <span className="shrink-0">{n.date}</span>
                 </div>
-                <h3 className="font-display mt-3 line-clamp-3 text-[1.1rem] font-semibold leading-[1.3] transition group-hover:opacity-70 sm:mt-4 sm:line-clamp-none sm:text-[1.25rem]">
+                <h3 className="font-display mt-3 line-clamp-3 text-[1.15rem] font-semibold leading-[1.3] transition group-hover:opacity-70 sm:mt-4 sm:line-clamp-none sm:text-[1.3rem]">
                   {n.title}
                 </h3>
-                <span className="mt-4 inline-block text-[0.7rem] font-medium uppercase tracking-[0.18em] text-[var(--rust)] sm:mt-5">
+                <span className="mt-4 inline-block text-[0.8rem] font-medium uppercase tracking-[0.16em] text-[var(--rust)] sm:mt-5">
                   Read the story ›
                 </span>
               </a>
@@ -449,22 +449,22 @@ export default async function HomePage() {
 
       {/* Facebook — photos lead on mobile */}
       <section className="border-t border-[var(--line)] bg-[var(--cream)]">
-        <div className="mx-auto grid max-w-[1240px] items-center gap-8 px-5 py-14 sm:gap-14 sm:px-8 sm:py-24 md:grid-cols-2">
+        <div className="mx-auto grid max-w-[1240px] items-center gap-6 px-5 py-10 sm:gap-10 sm:px-8 sm:py-14 md:grid-cols-2">
           <div className="order-2 md:order-1">
             <Eyebrow>Around the store lately</Eyebrow>
-            <H2 className="mt-3 sm:mt-4">
+            <H2 className="mt-2 sm:mt-3">
               Follow along on <span className="font-normal italic">Facebook.</span>
             </H2>
-            <p className="mt-3 hidden max-w-[46ch] text-[1rem] font-light leading-[1.75] text-[var(--soft)] sm:mt-5 sm:block">
+            <p className="mt-3 hidden max-w-[46ch] text-[1.05rem] font-light leading-[1.65] text-[var(--soft)] sm:block">
               New stock, holiday hours, paint days, and community events. We post a few times a
               week. It&rsquo;s the most current look at what&rsquo;s on the floor between visits.
             </p>
-            <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 sm:mt-8">
+            <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 sm:mt-6">
               <a
                 href={PRICELESS.socials.facebook}
                 target="_blank"
                 rel="noreferrer"
-                className="border border-[var(--ink)] px-6 py-3 text-[0.72rem] font-medium uppercase tracking-[0.2em] transition hover:bg-[var(--ink)] hover:text-white sm:px-8 sm:py-4"
+                className="border border-[var(--ink)] px-6 py-3.5 text-[0.8rem] font-medium uppercase tracking-[0.16em] transition hover:bg-[var(--ink)] hover:text-white sm:px-8"
               >
                 Follow on Facebook ›
               </a>
@@ -472,7 +472,7 @@ export default async function HomePage() {
                 href={PRICELESS.socials.instagram}
                 target="_blank"
                 rel="noreferrer"
-                className="text-[0.72rem] font-medium uppercase tracking-[0.2em] underline-offset-[6px] hover:underline"
+                className="text-[0.8rem] font-medium uppercase tracking-[0.16em] underline-offset-[6px] hover:underline"
               >
                 Instagram ›
               </a>
@@ -497,18 +497,18 @@ export default async function HomePage() {
       {/* Closing CTA + map */}
       <section className="border-t border-[var(--line)] bg-white">
         <div className="mx-auto grid max-w-[1360px] md:grid-cols-2">
-          <div className="flex flex-col justify-center px-5 py-12 sm:px-8 sm:py-20 md:px-14 md:py-24 lg:px-20">
+          <div className="flex flex-col justify-center px-5 py-10 sm:px-8 sm:py-14 md:px-14 md:py-16 lg:px-20">
             <Eyebrow>Visit the yard</Eyebrow>
-            <H2 className="mt-3 max-w-[16ch] sm:mt-4">
+            <H2 className="mt-2 max-w-[16ch] sm:mt-3">
               Come see it. You&rsquo;re in{" "}
               <span className="font-normal italic">Wausau.</span>
             </H2>
-            <p className="mt-4 max-w-[42ch] text-[0.95rem] font-light leading-[1.65] text-[var(--soft)] sm:mt-5 sm:text-[1rem] sm:leading-[1.7]">
+            <p className="mt-4 max-w-[42ch] text-[1.05rem] font-light leading-[1.65] text-[var(--soft)]">
               {ADDRESS.street}
               <br />
               {ADDRESS.city}, {ADDRESS.state} {ADDRESS.zip}
             </p>
-            <ul className="mt-5 hidden space-y-1.5 text-[0.85rem] font-light leading-relaxed text-[var(--soft)] sm:mt-6 sm:block">
+            <ul className="mt-5 hidden space-y-1.5 text-[0.95rem] font-light leading-relaxed text-[var(--soft)] sm:mt-6 sm:block">
               {PRICELESS.hours
                 .filter((h) => h.hours !== "Closed")
                 .map((h) => (
@@ -524,13 +524,13 @@ export default async function HomePage() {
                 <span>Closed</span>
               </li>
             </ul>
-            <p className="mt-3 text-[0.85rem] font-light text-[var(--soft)] sm:hidden">
+            <p className="mt-3 text-[0.95rem] font-light text-[var(--soft)] sm:hidden">
               Mon–Thu 8:30–5:30 · Fri 8:30–4:30 · Sat 8:30–12:30
             </p>
-            <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3 sm:mt-10">
+            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 sm:mt-8">
               <Link
                 href="/shop"
-                className="border border-[var(--ink)] px-6 py-3 text-[0.72rem] font-medium uppercase tracking-[0.2em] transition hover:bg-[var(--ink)] hover:text-white sm:px-8 sm:py-4"
+                className="border border-[var(--ink)] px-6 py-3.5 text-[0.8rem] font-medium uppercase tracking-[0.16em] transition hover:bg-[var(--ink)] hover:text-white sm:px-8"
               >
                 Shop the warehouse ›
               </Link>
@@ -538,7 +538,7 @@ export default async function HomePage() {
                 href={PRICELESS.socials.googleMaps}
                 target="_blank"
                 rel="noreferrer"
-                className="text-[0.72rem] font-medium uppercase tracking-[0.2em] underline-offset-[6px] hover:underline"
+                className="text-[0.8rem] font-medium uppercase tracking-[0.16em] underline-offset-[6px] hover:underline"
               >
                 Open in Google Maps ›
               </a>

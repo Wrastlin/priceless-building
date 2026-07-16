@@ -12,17 +12,17 @@ const DEPTS = Object.keys(CATEGORIES) as Category[];
 export function DepartmentMosaic() {
   return (
     <section className="bg-white">
-      <div className="mx-auto max-w-[1360px] px-6 py-16 md:px-8 md:py-24">
+      <div className="mx-auto max-w-[1360px] px-5 py-10 md:px-8 md:py-14">
         <p className="eyebrow text-center">Shop by department</p>
-        <h2 className="font-display mx-auto mt-4 max-w-[18ch] text-center text-[clamp(2rem,1rem+2.8vw,3.2rem)] leading-[1.05]">
+        <h2 className="font-display mx-auto mt-2 max-w-[18ch] text-center text-[clamp(2rem,1rem+2.8vw,3.2rem)] leading-[1.05]">
           What&rsquo;s on the <span className="font-normal italic">floor.</span>
         </h2>
-        <p className="mx-auto mt-4 max-w-[46ch] text-center text-[0.95rem] font-light leading-[1.65] text-[var(--soft)]">
+        <p className="mx-auto mt-3 max-w-[46ch] text-center text-[1.05rem] font-light leading-[1.65] text-[var(--soft)]">
           Real floor photos from the warehouse. Come dig, or call and we&rsquo;ll
           check exact sizes.
         </p>
 
-        <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+        <div className="mt-8 grid grid-cols-2 gap-2.5 md:mt-10 md:grid-cols-4 md:gap-3">
           {DEPTS.map((key) => {
             const cat = CATEGORIES[key];
             const depth = DEPARTMENT_DEPTH[key];
@@ -46,7 +46,7 @@ export function DepartmentMosaic() {
                 />
                 <div className="absolute inset-x-0 bottom-0 p-4 text-white md:p-5">
                   <h3 className="font-display text-xl leading-none md:text-2xl">{cat.label}</h3>
-                  <p className="mt-2 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-white/85 md:text-[0.68rem] md:tracking-[0.18em]">
+                  <p className="mt-2 text-[0.75rem] font-medium uppercase tracking-[0.14em] text-white/90 md:text-[0.8rem]">
                     {depth.headline} ›
                   </p>
                 </div>

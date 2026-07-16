@@ -103,27 +103,27 @@ export function FeaturedItemsFade({
   const right = items[slotIdx[1] % items.length]!;
 
   return (
-    <section className="mx-auto max-w-[1360px] px-5 py-14 sm:px-8 sm:py-20">
+    <section className="mx-auto max-w-[1360px] px-5 py-10 sm:px-8 sm:py-14">
       <div className="flex items-end justify-between gap-6">
         <div>
           <p className="eyebrow">{eyebrow}</p>
-          <h2 className="font-display mt-3 max-w-[22ch] text-[clamp(1.9rem,1rem+2.4vw,3rem)] leading-[1.05] sm:mt-4">
+          <h2 className="font-display mt-2 max-w-[22ch] text-[clamp(1.9rem,1rem+2.4vw,3rem)] leading-[1.05] sm:mt-3">
             {title}
           </h2>
-          <p className="mt-3 max-w-[42ch] text-[0.95rem] font-light leading-[1.65] text-[var(--soft)]">
+          <p className="mt-3 max-w-[42ch] text-[1.05rem] font-light leading-[1.65] text-[var(--soft)]">
             Real pieces from our warehouse. Call (715) 848-3855 to hold one for
             pickup.
           </p>
         </div>
         <Link
           href="/shop"
-          className="hidden shrink-0 border-b border-[var(--ink)] pb-1 text-[0.72rem] font-medium uppercase tracking-[0.18em] sm:inline-block"
+          className="hidden shrink-0 border-b border-[var(--ink)] pb-1 text-[0.8rem] font-medium uppercase tracking-[0.16em] sm:inline-block"
         >
           Shop departments ›
         </Link>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 overflow-hidden border border-[var(--line)] sm:grid-cols-2">
+      <div className="mt-6 grid grid-cols-1 overflow-hidden border border-[var(--line)] sm:mt-8 sm:grid-cols-2">
         <FeatureCard item={left} visible={slotVisible[0]} />
         <FeatureCard item={right} visible={slotVisible[1]} connected />
       </div>
@@ -166,14 +166,14 @@ function FeatureCard({
           className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent"
         />
         <div className="absolute inset-x-0 bottom-0 p-5 text-white sm:p-6 md:p-7">
-          <p className="text-[0.62rem] font-medium uppercase tracking-[0.18em] text-white/75">
+          <p className="text-[0.75rem] font-medium uppercase tracking-[0.16em] text-white/80">
             {item.categoryLabel}
           </p>
           <h3 className="font-display mt-2 text-2xl leading-tight sm:text-[1.7rem] md:text-3xl">
             {item.title}
           </h3>
-          <p className="mt-1.5 text-sm font-light text-white/80">{item.subtitle}</p>
-          <p className="mt-4 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-white/90">
+          <p className="mt-1.5 text-[1rem] font-light text-white/85">{item.subtitle}</p>
+          <p className="mt-4 text-[0.8rem] font-medium uppercase tracking-[0.14em] text-white/90">
             Call for price
           </p>
         </div>
