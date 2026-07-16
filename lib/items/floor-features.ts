@@ -58,7 +58,7 @@ export const FLOOR_FEATURES: FloorFeature[] = [
   {
     id: "feat-copper-sink",
     title: "Copper Sink on Wood Counter",
-    subtitle: "One-of-a-kind floor find",
+    subtitle: "Liquidation find · one of a kind",
     image: "/real-photos/business/copper-sink-wood-counter-display.jpg",
     category: "vanities",
     categoryLabel: "Vanities",
