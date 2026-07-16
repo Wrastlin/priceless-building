@@ -14,11 +14,11 @@ export function DepartmentMosaic() {
     <section className="bg-white">
       <div className="mx-auto max-w-[1360px] px-5 py-10 md:px-8 md:py-14">
         <h2 className="font-display mx-auto max-w-[18ch] text-center text-[clamp(2rem,1rem+2.8vw,3.2rem)] leading-[1.05]">
-          Shop by <span className="font-normal italic">department.</span>
+          Shop by department.
         </h2>
         <p className="mx-auto mt-3 max-w-[46ch] text-center text-[1.05rem] font-light leading-[1.65] text-[var(--soft)]">
-          Real floor photos from the warehouse. Come dig, or call and we&rsquo;ll
-          check exact sizes.
+          Real floor photos from the warehouse. Call and we&rsquo;ll check exact
+          sizes, or stop by and walk the aisles.
         </p>
 
         <div className="mt-8 grid grid-cols-2 gap-2.5 md:mt-10 md:grid-cols-4 md:gap-3">
