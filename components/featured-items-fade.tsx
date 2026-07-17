@@ -166,9 +166,6 @@ function FeatureCard({
             {item.title}
           </h3>
           <p className="mt-1.5 text-[1rem] font-light text-white/85">{item.subtitle}</p>
-          <p className="mt-4 text-[0.8rem] font-medium uppercase tracking-[0.14em] text-white/90">
-            Call for price
-          </p>
         </div>
       </div>
     </article>
