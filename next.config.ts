@@ -1,10 +1,10 @@
 import type { NextConfig } from "next";
 
-// Image optimization is ON by default. The optimizer draws on the Vercel image
-// quota; if that's exhausted, /_next/image returns 402 and grids break. Set
-// IMAGE_OPTIMIZATION=off in the environment (then redeploy) to instantly fall
-// back to serving originals — no code change needed.
-const optimizeImages = process.env.IMAGE_OPTIMIZATION !== "off";
+// Image optimization is OFF by default. Vercel’s Image Optimization quota
+// returns 402 once exhausted, which blanks category heroes and floor grids
+// while still-cached variants keep working — so “some” pages look broken.
+// Serve originals unless IMAGE_OPTIMIZATION=on is set after quota is healthy.
+const optimizeImages = process.env.IMAGE_OPTIMIZATION === "on";
 
 const config: NextConfig = {
   // Force a single canonical host. Both apex and www currently serve 200,
@@ -22,10 +22,9 @@ const config: NextConfig = {
     ];
   },
   images: {
-    // When optimization is off (IMAGE_OPTIMIZATION=off) we serve originals so
-    // an exhausted Vercel quota can't 402 the whole grid. When on (default),
-    // the optimizer makes small responsive WebP thumbnails (~300px) driven by
-    // each <Image>'s `sizes` prop — the biggest weight win on the listings.
+    // Default: serve originals (unoptimized) so an exhausted Vercel quota
+    // can't 402 category/hero photos. Set IMAGE_OPTIMIZATION=on to re-enable
+    // responsive WebP thumbnails via /_next/image once quota is available.
     // Pagination caps each grid to 24 images, so far fewer transforms run.
     unoptimized: !optimizeImages,
     minimumCacheTTL: 2678400, // 31 days — keep optimized variants cached, minimize re-transforms

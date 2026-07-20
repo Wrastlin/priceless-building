@@ -27,7 +27,7 @@ export function DepartmentFeature({ category }: { category: Category }) {
           check what&rsquo;s here.
         </p>
 
-        <div className="mt-8 grid gap-2.5 md:mt-10 md:grid-cols-12 md:gap-3">
+        <div className="mt-8 grid gap-2.5 md:mt-10 md:grid-cols-12 md:items-stretch md:gap-3">
           <div className="relative aspect-[4/3] min-w-0 overflow-hidden bg-[var(--taupe)] md:col-span-7 md:aspect-[16/11]">
             <Image
               src={lead}
@@ -38,11 +38,11 @@ export function DepartmentFeature({ category }: { category: Category }) {
               className="object-cover"
             />
           </div>
-          <div className="grid min-w-0 gap-2.5 sm:grid-cols-2 md:col-span-5 md:grid-cols-1 md:gap-3">
+          <div className="grid min-w-0 gap-2.5 sm:grid-cols-2 md:col-span-5 md:flex md:h-full md:flex-col md:gap-3">
             {rest.map((src) => (
               <div
                 key={src}
-                className="relative aspect-[4/3] min-w-0 overflow-hidden bg-[var(--taupe)] md:aspect-auto md:min-h-[calc(50%-0.375rem)]"
+                className="relative aspect-[4/3] min-w-0 overflow-hidden bg-[var(--taupe)] md:aspect-auto md:min-h-[10rem] md:flex-1"
               >
                 <Image
                   src={src}
