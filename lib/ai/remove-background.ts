@@ -31,22 +31,18 @@ const GEMINI_MODEL = "gemini-3.1-flash-image-preview";
  * Segmentation APIs treat glass as a hole; we need generative fill behind
  * the panes so the product looks like a clean e-commerce shot.
  */
-const GEMINI_STUDIO_PROMPT = `You are producing a clean e-commerce catalog photo of ONE building-product item (door, window, vanity, cabinet, etc.).
+const GEMINI_STUDIO_PROMPT = `Place this EXACT building-product into a professional product photography studio for an e-commerce catalog.
 
-CRITICAL — GLASS / LITES
-Doors and windows often have glass. The glass panes MUST remain as real glass — do NOT punch holes, do NOT delete the glass, do NOT leave empty cutouts.
-- Keep muntins, grilles, and the glass sheets themselves.
-- Remove ONLY the old scene visible THROUGH the glass (warehouse, lumber, other doors, labels, clutter).
-- Behind each pane, put a soft white studio wall so the glass still looks like glass: subtle reflections, slight specular highlights, and faint refraction are required so shoppers can tell there is glass in the openings.
-- Frosted or patterned glass: keep the frost/pattern; only replace the junk behind it.
+Keep the product identical: same materials, colors, proportions, angle, hardware holes, muntins, and panel layout. Do not redesign it.
 
-EVERYTHING ELSE
-1. Keep the product unchanged: same shape, angle, colors, wood grain, hardware, panels, proportions. Do not redraw or invent details.
-2. Replace everything outside the product silhouette with seamless pure white #FFFFFF.
-3. Soft natural contact shadow on the floor is OK. No props, text, logos, or watermarks.
-4. Leave a modest white margin around the product. Do not crop tightly.
+Studio setup:
+- Seamless white cyclorama backdrop and floor
+- Soft even catalog lighting
+- If the product has glass / lites / clear inserts: the glass MUST remain as real glass (not empty holes). Behind the glass show the soft white studio wall. On the glass, include natural softbox reflections and slight specular highlights so panes read as glazed.
+- Subtle contact shadow under the product is OK
+- No warehouse clutter, other products, text, logos, or watermarks
 
-Output one photoreal catalog image. Glass must read as glass on white — never as empty holes.`;
+Premium manufacturer-catalog quality.`;
 
 function photoroomKey(): string | undefined {
   const key = process.env.PHOTOROOM_API_KEY?.trim() || undefined;
