@@ -1,13 +1,12 @@
 /**
- * Product background removal for intake → value → marketing.
+ * Catalog background cleanup for intake → marketing.
  *
- * Preference order (best cutout quality first):
- *   1. Photoroom Remove Background API  (PHOTOROOM_API_KEY)
- *   2. remove.bg                        (REMOVE_BG_API_KEY)
- *   3. Gemini flash-image               (GEMINI_API_KEY) — generative fallback
+ * Default: Gemini flash-image (generative). Cutout APIs (Photoroom /
+ * remove.bg) punch through glass and leave warehouse junk in door/window
+ * panes — wrong for our hard-goods catalog. Use `mode: "cutout"` only for
+ * solid opaque products when you want a pure matte.
  *
- * Photoroom is the paid production path: crisp subject edges, white studio
- * fill, HD size. Gemini is kept so local/dev still works before the key lands.
+ * Photoroom sandbox keys watermark and are ignored.
  */
 
 import {
@@ -18,19 +17,34 @@ import {
   type ParsedImage,
 } from "@/lib/ai/gemini";
 
-export type RemoveBgProvider = "photoroom" | "remove.bg" | "gemini";
+export type RemoveBgProvider = "gemini" | "photoroom" | "remove.bg";
+export type RemoveBgMode = "studio" | "cutout";
 
 export type RemoveBgResult =
   | { ok: true; image: string; provider: RemoveBgProvider }
   | { ok: false; reason: string; status?: number };
 
 const GEMINI_MODEL = "gemini-3.1-flash-image-preview";
-const GEMINI_PROMPT = `Remove the entire background from this product photo and replace it with a pure white #FFFFFF background. Keep the product perfectly intact with crisp natural edges. Preserve the original colors, materials, and shadows on the product itself. Do not crop, resize, add text, change the angle, or stylize. The output should look like a clean e-commerce catalog photo of the same item against a seamless white backdrop.`;
+
+/**
+ * Studio catalog prompt — critical for doors/windows with glass.
+ * Segmentation APIs treat glass as a hole; we need generative fill behind
+ * the panes so the product looks like a clean e-commerce shot.
+ */
+const GEMINI_STUDIO_PROMPT = `You are producing a clean e-commerce catalog photo of ONE building-product item (door, window, vanity, cabinet, etc.).
+
+TASK
+1. Keep the product itself unchanged: same shape, angle, colors, wood grain, hardware, muntins, panels, and proportions. Do not redraw, restyle, or invent new details.
+2. Replace EVERYTHING outside the product silhouette with a seamless pure white #FFFFFF studio backdrop.
+3. If the product has glass, clear inserts, or frosted panes: remove whatever is currently visible THROUGH the glass (warehouse, other doors, lumber, labels, people, clutter). Fill behind those panes with the same clean white studio so the glass reads as real glass over white — NOT as cut-out holes, NOT as transparent windows into the old room.
+4. Keep muntins, grilles, caming, and frame members fully intact and opaque.
+5. Soft natural contact shadow on the floor under the product is OK; no other props, text, logos, or watermarks.
+6. Do not crop tightly — leave a modest white margin around the product.
+
+Output a single photoreal catalog image on white.`;
 
 function photoroomKey(): string | undefined {
   const key = process.env.PHOTOROOM_API_KEY?.trim() || undefined;
-  // Sandbox keys watermark every cutout — unusable for catalog/marketing.
-  // Prefer Gemini (or remove.bg) until a production Photoroom key is set.
   if (key?.startsWith("sandbox_")) return undefined;
   return key;
 }
@@ -39,13 +53,12 @@ function removeBgKey(): string | undefined {
   return process.env.REMOVE_BG_API_KEY?.trim() || undefined;
 }
 
-/** True when a Photoroom key exists but is sandbox-only (watermarked). */
 export function photoroomIsSandbox(): boolean {
   const key = process.env.PHOTOROOM_API_KEY?.trim() || "";
   return key.startsWith("sandbox_");
 }
 
-/** Which provider will run given current env (for admin / diagnostics). */
+/** Which provider will run for the default studio mode. */
 export function removeBgConfigured(): {
   provider: RemoveBgProvider | null;
   photoroom: boolean;
@@ -56,12 +69,13 @@ export function removeBgConfigured(): {
   const photoroom = Boolean(photoroomKey());
   const removeBg = Boolean(removeBgKey());
   const gemini = Boolean(geminiKey());
-  const provider: RemoveBgProvider | null = photoroom
-    ? "photoroom"
-    : removeBg
-      ? "remove.bg"
-      : gemini
-        ? "gemini"
+  // Studio default is always Gemini when available.
+  const provider: RemoveBgProvider | null = gemini
+    ? "gemini"
+    : photoroom
+      ? "photoroom"
+      : removeBg
+        ? "remove.bg"
         : null;
   return { provider, photoroom, removeBg, gemini, sandboxPhotoroom: photoroomIsSandbox() };
 }
@@ -80,7 +94,6 @@ function bufferToDataUrl(buf: Buffer, mime: string): string {
   return `data:${mime};base64,${buf.toString("base64")}`;
 }
 
-/** Photoroom Basic segment API — best dedicated cutout for hard-goods. */
 async function viaPhotoroom(img: ParsedImage): Promise<RemoveBgResult> {
   const key = photoroomKey();
   if (!key) return { ok: false, reason: "PHOTOROOM_API_KEY not configured" };
@@ -124,7 +137,6 @@ async function viaPhotoroom(img: ParsedImage): Promise<RemoveBgResult> {
   }
 }
 
-/** remove.bg — strong alternate if Photoroom isn't keyed yet. */
 async function viaRemoveBg(img: ParsedImage): Promise<RemoveBgResult> {
   const key = removeBgKey();
   if (!key) return { ok: false, reason: "REMOVE_BG_API_KEY not configured" };
@@ -166,17 +178,16 @@ async function viaRemoveBg(img: ParsedImage): Promise<RemoveBgResult> {
   }
 }
 
-/** Generative fallback — already keyed via GEMINI_API_KEY. */
 async function viaGemini(img: ParsedImage): Promise<RemoveBgResult> {
   if (!geminiKey()) return { ok: false, reason: "GEMINI_API_KEY not configured" };
 
   const result = await callGemini({
     model: GEMINI_MODEL,
     parts: [
-      { text: GEMINI_PROMPT },
+      { text: GEMINI_STUDIO_PROMPT },
       { inline_data: { mime_type: img.mimeType, data: img.data } },
     ],
-    timeoutMs: 60_000,
+    timeoutMs: 90_000,
   });
   if (!result.ok) {
     return { ok: false, reason: result.error, status: result.status || 502 };
@@ -187,32 +198,50 @@ async function viaGemini(img: ParsedImage): Promise<RemoveBgResult> {
 }
 
 /**
- * Remove the background from a product photo (parsed data-URL image).
- * Tries Photoroom → remove.bg → Gemini in order.
+ * Studio cleanup (default): Gemini fills white behind glass.
+ * Cutout mode: Photoroom → remove.bg → Gemini (opaque products only).
  */
-export async function removeBackground(img: ParsedImage): Promise<RemoveBgResult> {
+export async function removeBackground(
+  img: ParsedImage,
+  opts: { mode?: RemoveBgMode } = {},
+): Promise<RemoveBgResult> {
   if (imageTooLarge(img)) {
     return { ok: false, reason: "Image exceeds the 8MB size limit", status: 413 };
   }
 
+  const mode: RemoveBgMode = opts.mode ?? "studio";
+
+  if (mode === "studio") {
+    if (geminiKey()) return viaGemini(img);
+    // No Gemini — last resort cutouts (will mishandle glass).
+    if (photoroomKey()) {
+      const r = await viaPhotoroom(img);
+      if (r.ok) return r;
+    }
+    if (removeBgKey()) {
+      const r = await viaRemoveBg(img);
+      if (r.ok) return r;
+    }
+    return {
+      ok: false,
+      reason: "GEMINI_API_KEY required for studio catalog cleanup (glass-safe).",
+    };
+  }
+
+  // Explicit hard cutout path
   if (photoroomKey()) {
     const r = await viaPhotoroom(img);
     if (r.ok) return r;
-    // Fall through only on upstream failure so a bad key doesn't soft-lock intake.
   }
-
   if (removeBgKey()) {
     const r = await viaRemoveBg(img);
     if (r.ok) return r;
   }
-
-  if (geminiKey()) {
-    return viaGemini(img);
-  }
+  if (geminiKey()) return viaGemini(img);
 
   return {
     ok: false,
     reason:
-      "No background-removal key configured. Set PHOTOROOM_API_KEY (recommended) or REMOVE_BG_API_KEY / GEMINI_API_KEY.",
+      "No background-removal key configured. Set GEMINI_API_KEY (recommended for doors/windows).",
   };
 }

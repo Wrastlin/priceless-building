@@ -1,17 +1,22 @@
-// POST /api/clean-background  { image: dataURL }
-//   → 200 { image: dataURL, provider }  ← cleaned photo
-//   → 200 { image: null, reason: "..." } ← bg removal couldn't run
+// POST /api/clean-background
+//   { image: dataURL, mode?: "studio" | "cutout" }
+//   → 200 { image, provider }
 //
-// Production path: Photoroom Remove Background API (PHOTOROOM_API_KEY).
-// Fallbacks: remove.bg → Gemini flash-image. Auth + rate limit via guardAiRoute.
+// Default mode is "studio" (Gemini) — fills white BEHIND glass so doors/
+// windows don't show warehouse junk through the panes. Pass mode:"cutout"
+// only for opaque products when you want a hard matte.
 
 import { NextResponse } from "next/server";
 import { guardAiRoute } from "@/lib/ai/guard";
 import { parseDataUrl } from "@/lib/ai/gemini";
-import { removeBackground, removeBgConfigured } from "@/lib/ai/remove-background";
+import {
+  removeBackground,
+  removeBgConfigured,
+  type RemoveBgMode,
+} from "@/lib/ai/remove-background";
 
 export const runtime = "nodejs";
-export const maxDuration = 60;
+export const maxDuration = 90;
 
 export async function POST(req: Request) {
   const guard = await guardAiRoute({ bucket: "clean-bg" });
@@ -20,14 +25,13 @@ export async function POST(req: Request) {
   if (!removeBgConfigured().provider) {
     return NextResponse.json({
       image: null,
-      reason:
-        "No background-removal key configured. Set PHOTOROOM_API_KEY (recommended).",
+      reason: "GEMINI_API_KEY not configured (required for studio catalog cleanup).",
     });
   }
 
-  let body: { image?: string };
+  let body: { image?: string; mode?: string };
   try {
-    body = (await req.json()) as { image?: string };
+    body = (await req.json()) as { image?: string; mode?: string };
   } catch {
     return NextResponse.json({ image: null, reason: "Invalid JSON body" }, { status: 400 });
   }
@@ -36,10 +40,11 @@ export async function POST(req: Request) {
     return NextResponse.json({ image: null, reason: "Not a base64 data URL" }, { status: 400 });
   }
 
-  const result = await removeBackground(img);
+  const mode: RemoveBgMode = body.mode === "cutout" ? "cutout" : "studio";
+  const result = await removeBackground(img, { mode });
   if (!result.ok) {
     const status = result.status && result.status >= 400 ? result.status : 502;
     return NextResponse.json({ image: null, reason: result.reason }, { status });
   }
-  return NextResponse.json({ image: result.image, provider: result.provider });
+  return NextResponse.json({ image: result.image, provider: result.provider, mode });
 }

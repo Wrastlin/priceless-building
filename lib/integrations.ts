@@ -208,7 +208,7 @@ export const INTEGRATION_GROUPS: IntegrationGroup[] = [
         name: "Photoroom (background removal)",
         status: "optional",
         blurb:
-          "Best-in-class product cutouts for intake → marketing. White studio backdrop, HD edges. Falls back to Gemini without it.",
+          "Optional hard cutout for opaque products. Catalog default is Gemini studio cleanup (glass-safe for doors/windows).",
         dashboardUrl: "https://app.photoroom.com/api-dashboard",
         dashboardLabel: "Photoroom API key",
         fields: [{ env: "PHOTOROOM_API_KEY", label: "API key", secret: true }],
