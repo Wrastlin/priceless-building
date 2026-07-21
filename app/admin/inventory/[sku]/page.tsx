@@ -141,15 +141,26 @@ export default async function EditItem({
           <Panel title={`Comparables${item.comparables?.length ? ` (${item.comparables.length})` : ""}`}>
             <RefreshComparables sku={item.sku} title={item.title} />
             {item.comparables && item.comparables.length > 0 ? (
-              <ul className="mt-3 divide-y divide-[var(--border)] text-sm">
+              <ul className="mt-3 divide-y divide-[var(--border)]">
                 {item.comparables.map((c, i) => (
-                  <li key={i} className="flex items-center justify-between gap-3 py-2.5">
+                  <li
+                    key={i}
+                    className="grid grid-cols-[48px_1fr_auto] items-center gap-3 py-2.5 text-sm"
+                  >
+                    <div className="relative aspect-square overflow-hidden rounded bg-[var(--surface)]">
+                      {c.image ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={c.image} alt="" className="h-full w-full object-cover" />
+                      ) : null}
+                    </div>
                     <div className="min-w-0">
                       <div className="text-xs font-medium text-[var(--brand-navy)]">{c.source}</div>
                       <div className="truncate text-[var(--muted-foreground)]">{c.title}</div>
                     </div>
                     <div className="text-right">
-                      <div className="font-mono font-semibold tabular-nums">{formatCurrency(c.price)}</div>
+                      <div className="font-mono font-semibold tabular-nums">
+                        {formatCurrency(c.price)}
+                      </div>
                       {c.url ? (
                         <a
                           href={c.url}
@@ -157,12 +168,23 @@ export default async function EditItem({
                           rel="noreferrer"
                           className="text-xs text-[var(--brand-navy)] underline"
                         >
-                          view
+                          view →
                         </a>
                       ) : null}
                     </div>
                   </li>
                 ))}
+                {(() => {
+                  const prices = item.comparables!.map((c) => c.price).filter((p) => p > 0);
+                  if (prices.length === 0) return null;
+                  const avg = Math.round(prices.reduce((a, b) => a + b, 0) / prices.length);
+                  return (
+                    <li className="flex items-center justify-between py-2.5 text-sm">
+                      <span className="font-medium text-[var(--muted-foreground)]">Retail average</span>
+                      <span className="font-mono font-semibold tabular-nums">{formatCurrency(avg)}</span>
+                    </li>
+                  );
+                })()}
               </ul>
             ) : (
               <p className="mt-2 text-[13px] text-[var(--muted-foreground)]">
