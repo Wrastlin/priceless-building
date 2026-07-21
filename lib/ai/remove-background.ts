@@ -33,15 +33,20 @@ const GEMINI_MODEL = "gemini-3.1-flash-image-preview";
  */
 const GEMINI_STUDIO_PROMPT = `You are producing a clean e-commerce catalog photo of ONE building-product item (door, window, vanity, cabinet, etc.).
 
-TASK
-1. Keep the product itself unchanged: same shape, angle, colors, wood grain, hardware, muntins, panels, and proportions. Do not redraw, restyle, or invent new details.
-2. Replace EVERYTHING outside the product silhouette with a seamless pure white #FFFFFF studio backdrop.
-3. If the product has glass, clear inserts, or frosted panes: remove whatever is currently visible THROUGH the glass (warehouse, other doors, lumber, labels, people, clutter). Fill behind those panes with the same clean white studio so the glass reads as real glass over white — NOT as cut-out holes, NOT as transparent windows into the old room.
-4. Keep muntins, grilles, caming, and frame members fully intact and opaque.
-5. Soft natural contact shadow on the floor under the product is OK; no other props, text, logos, or watermarks.
-6. Do not crop tightly — leave a modest white margin around the product.
+CRITICAL — GLASS / LITES
+Doors and windows often have glass. The glass panes MUST remain as real glass — do NOT punch holes, do NOT delete the glass, do NOT leave empty cutouts.
+- Keep muntins, grilles, and the glass sheets themselves.
+- Remove ONLY the old scene visible THROUGH the glass (warehouse, lumber, other doors, labels, clutter).
+- Behind each pane, put a soft white studio wall so the glass still looks like glass: subtle reflections, slight specular highlights, and faint refraction are required so shoppers can tell there is glass in the openings.
+- Frosted or patterned glass: keep the frost/pattern; only replace the junk behind it.
 
-Output a single photoreal catalog image on white.`;
+EVERYTHING ELSE
+1. Keep the product unchanged: same shape, angle, colors, wood grain, hardware, panels, proportions. Do not redraw or invent details.
+2. Replace everything outside the product silhouette with seamless pure white #FFFFFF.
+3. Soft natural contact shadow on the floor is OK. No props, text, logos, or watermarks.
+4. Leave a modest white margin around the product. Do not crop tightly.
+
+Output one photoreal catalog image. Glass must read as glass on white — never as empty holes.`;
 
 function photoroomKey(): string | undefined {
   const key = process.env.PHOTOROOM_API_KEY?.trim() || undefined;
