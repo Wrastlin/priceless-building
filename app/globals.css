@@ -381,3 +381,147 @@ img, video, iframe {
     animation: none;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Inventory app shell — Showroom Warmth product UI (/admin/inventory/*).
+   Pill controls, cream/navy/gold, phone-first. Not the legacy .admin-* chrome.
+   --------------------------------------------------------------------------- */
+.inv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.15rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  transition: background 0.15s, color 0.15s, border-color 0.15s, opacity 0.15s;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.inv-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.inv-btn:focus-visible {
+  outline: 2px solid color-mix(in oklch, var(--brand-navy) 40%, transparent);
+  outline-offset: 2px;
+}
+.inv-btn-primary {
+  background: var(--brand-gold);
+  color: var(--foreground);
+}
+.inv-btn-primary:hover:not(:disabled) { background: var(--brand-gold-deep); color: oklch(0.96 0.01 85); }
+.inv-btn-secondary {
+  background: var(--brand-navy);
+  color: oklch(0.96 0.01 85);
+}
+.inv-btn-secondary:hover:not(:disabled) { background: var(--brand-navy-deep); }
+.inv-btn-outline {
+  border-color: color-mix(in oklch, var(--foreground) 22%, transparent);
+  background: transparent;
+  color: var(--foreground);
+}
+.inv-btn-outline:hover:not(:disabled) {
+  background: var(--surface);
+}
+.inv-btn-ghost {
+  background: transparent;
+  color: var(--muted-foreground);
+}
+.inv-btn-ghost:hover:not(:disabled) { color: var(--foreground); background: var(--surface); }
+
+.inv-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  color: var(--foreground);
+  transition: background 0.15s;
+}
+.inv-icon-btn:hover { background: var(--surface); }
+
+.inv-nav-pill {
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  transition: background 0.15s, color 0.15s;
+}
+.inv-nav-pill:hover { color: var(--foreground); background: var(--surface); }
+.inv-nav-pill-active {
+  background: color-mix(in oklch, var(--brand-navy) 10%, transparent);
+  color: var(--brand-navy);
+  font-weight: 600;
+}
+
+.inv-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 1rem;
+  border-radius: 14px;
+  background: var(--surface);
+  border: 1px solid color-mix(in oklch, var(--border) 80%, transparent);
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.inv-tile:hover {
+  border-color: color-mix(in oklch, var(--brand-navy) 25%, var(--border));
+  box-shadow: 0 8px 24px -12px color-mix(in oklch, var(--brand-navy) 28%, transparent);
+}
+.inv-tile-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 10px;
+  background: color-mix(in oklch, var(--brand-navy) 8%, transparent);
+  color: var(--brand-navy);
+}
+
+.inv-row {
+  display: flex;
+  gap: 0.85rem;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.12s;
+}
+.inv-row:last-child { border-bottom: 0; }
+.inv-row:hover { background: color-mix(in oklch, var(--surface) 70%, transparent); }
+
+.inv-thumb {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 10px;
+  object-fit: cover;
+  background: var(--surface);
+  flex-shrink: 0;
+}
+
+.inv-input {
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+  padding: 0.7rem 0.9rem;
+  font-size: 1rem;
+  color: var(--foreground);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.inv-input:focus {
+  outline: none;
+  border-color: color-mix(in oklch, var(--brand-navy) 45%, var(--border));
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--brand-navy) 12%, transparent);
+}
+
+.inv-eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brand-gold-deep);
+}

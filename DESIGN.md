@@ -108,10 +108,14 @@ marketing page gets at least one photographic moment.
 Keep the existing [data-reveal] IntersectionObserver system and Lenis. Ease
 out only. No bounce.
 
-## Admin (product register)
+## Admin / Inventory app (product register)
 
-Utilitarian, dense, sans-only (Hanken Grotesk), 8px radius, warm paper
-background `#f7f5f1`. Accent = `--brand-navy` (active nav = navy tinted-bg
-pill, NEVER a left border stripe). Primary buttons navy, danger red kept for
-destructive actions. Focus rings navy at 15% alpha. Same table vocabulary as
-before, retinted warm.
+Inventory under `/admin/inventory` is a **product-register app** designed with
+Impeccable + this Showroom Warmth system — not the old dense utilitarian
+admin chrome.
+
+- Warm cream grounds, navy ink, gold primary actions (pill buttons).
+- Hanken Grotesk for UI; Besley sparingly for section titles / empty states.
+- Phone-first capture, large tap targets, 14px radii on media tiles.
+- Accent = gold for primary CTAs; navy for secondary; sale red only for savings.
+- Legacy `/admin/*` pages may still use `.admin-*` primitives until migrated.

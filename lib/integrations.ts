@@ -204,6 +204,16 @@ export const INTEGRATION_GROUPS: IntegrationGroup[] = [
         fields: [{ env: "SERPAPI_KEY", label: "API key", secret: true }],
       },
       {
+        key: "photoroom",
+        name: "Photoroom (background removal)",
+        status: "optional",
+        blurb:
+          "Best-in-class product cutouts for intake → marketing. White studio backdrop, HD edges. Falls back to Gemini without it.",
+        dashboardUrl: "https://app.photoroom.com/api-dashboard",
+        dashboardLabel: "Photoroom API key",
+        fields: [{ env: "PHOTOROOM_API_KEY", label: "API key", secret: true }],
+      },
+      {
         key: "google-places",
         name: "Google Places (live reviews)",
         status: "optional",

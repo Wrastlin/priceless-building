@@ -29,6 +29,7 @@ import { unstable_cache } from "next/cache";
 import type { CatalogItem, Brand, Category, ItemStatus } from "@/lib/items/types";
 import { SEED_ITEMS } from "@/lib/items/seed";
 import { publicClient } from "@/lib/supabase/public";
+import { adminClient, hasServiceRole } from "@/lib/supabase/admin";
 
 export type { CatalogItem, Brand, Category, ItemStatus } from "@/lib/items/types";
 
@@ -51,6 +52,17 @@ const ALLOW_SEED = process.env.ALLOW_SEED_CATALOG === "1";
 async function sessionClient() {
   const { createClient } = await import("@/lib/supabase/server");
   return createClient();
+}
+
+/**
+ * Prefer the service-role client for staff catalog ops when configured.
+ * Routes/pages must already gate with hasAdminSession / requireAuth — this
+ * only chooses the DB client so local DEV_ADMIN_BYPASS and service-role
+ * deploys can read/write without an interactive Google JWT on every call.
+ */
+async function staffClient() {
+  if (hasServiceRole()) return adminClient();
+  return sessionClient();
 }
 
 function rowsToItems(rows: Array<{ data: unknown }> | null): CatalogItem[] {
@@ -307,7 +319,7 @@ async function listByStatus(status: ItemStatus): Promise<CatalogItem[]> {
     return getSandboxItems().filter((it) => it.status === status);
   }
   if (!CONFIGURED) return SEED_ITEMS.filter((it) => it.status === status);
-  const supabase = await sessionClient();
+  const supabase = await staffClient();
   const { data, error } = await supabase
     .from("items")
     .select("data")
@@ -334,7 +346,7 @@ export async function listAdminAll(): Promise<CatalogItem[]> {
     return getSandboxItems().filter((it) => FLOOR.includes(it.status));
   }
   if (!CONFIGURED) return SEED_ITEMS.filter((it) => FLOOR.includes(it.status));
-  const supabase = await sessionClient();
+  const supabase = await staffClient();
   // PostgREST caps a single select at 1000 rows; the floor is already past
   // that, so page through in chunks until a short page signals the end.
   const PAGE = 1000;
@@ -370,7 +382,7 @@ export async function findBySku(sku: string): Promise<CatalogItem | undefined> {
     return sandboxFind(sku);
   }
   if (!CONFIGURED) return SEED_ITEMS.find((it) => it.sku === sku);
-  const supabase = await sessionClient();
+  const supabase = await staffClient();
   const { data, error } = await supabase
     .from("items")
     .select("data")
@@ -399,7 +411,7 @@ export async function createDraft(input: CreateDraftInput): Promise<CatalogItem>
     return item;
   }
   mustBeConfigured("createDraft");
-  const supabase = await sessionClient();
+  const supabase = await staffClient();
   const { error } = await supabase.from("items").insert({
     sku: item.sku,
     status: item.status,
@@ -429,7 +441,7 @@ export async function setStatus(sku: string, status: ItemStatus): Promise<Catalo
   const existing = await findBySku(sku);
   if (!existing) throw new Error(`setStatus: no item with sku "${sku}"`);
   const next: CatalogItem = { ...existing, status };
-  const supabase = await sessionClient();
+  const supabase = await staffClient();
   const { error } = await supabase.from("items").update({ status, data: next }).eq("sku", sku);
   if (error) throw new Error(`setStatus: ${error.message}`);
   bustPaths();
@@ -451,7 +463,7 @@ export async function updateItem(sku: string, partial: Partial<CatalogItem>): Pr
   if (!existing) throw new Error(`updateItem: no item with sku "${sku}"`);
   // sku is immutable; merge everything else into the canonical jsonb.
   const next: CatalogItem = { ...existing, ...partial, sku: existing.sku };
-  const supabase = await sessionClient();
+  const supabase = await staffClient();
   const { error } = await supabase
     .from("items")
     .update({
@@ -474,7 +486,7 @@ export async function deleteItem(sku: string): Promise<void> {
     return;
   }
   mustBeConfigured("deleteItem");
-  const supabase = await sessionClient();
+  const supabase = await staffClient();
   const { error } = await supabase.from("items").delete().eq("sku", sku);
   if (error) throw new Error(`deleteItem: ${error.message}`);
   bustPaths();

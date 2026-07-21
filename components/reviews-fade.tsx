@@ -1,20 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Review } from "@/lib/google-reviews";
 import { GOOGLE_RATING, isStorefrontSafeReview } from "@/lib/google-reviews";
 
 const DWELL_MS = 10000;
-const FADE_MS = 1000;
-const STAGGER_MS = 500;
+const WIPE_MS = 480;
+const STAGGER_MS = 420;
 const SLOT_COUNT = 2;
 const PLAYLIST_SIZE = 10;
 
-/**
- * Strongest unique quotes for the living reviews pair.
- * Drops low stars and any backhanded/negative copy (even at 5★).
- */
 function curatePlaylist(reviews: Review[]): Review[] {
   const seen = new Set<string>();
   const unique = reviews.filter((r) => {
@@ -36,13 +32,16 @@ function curatePlaylist(reviews: Review[]): Review[] {
 }
 
 /**
- * Two reviews at a time. Only one slot crossfades at a time (staggered),
- * so readers always have a steady quote while the other swaps.
+ * Two reviews at a time. One slot swaps with a crisp upward wipe —
+ * no opacity fade / blank flash.
  */
 export function ReviewsFade({ reviews }: { reviews: Review[] }) {
   const playlist = useMemo(() => curatePlaylist(reviews), [reviews]);
   const [slotIdx, setSlotIdx] = useState<[number, number]>([0, 1]);
-  const [slotVisible, setSlotVisible] = useState<[boolean, boolean]>([true, true]);
+  const [incomingIdx, setIncomingIdx] = useState<[number | null, number | null]>([null, null]);
+  const [wiping, setWiping] = useState<[boolean, boolean]>([false, false]);
+  const slotRef = useRef(slotIdx);
+  slotRef.current = slotIdx;
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -51,7 +50,6 @@ export function ReviewsFade({ reviews }: { reviews: Review[] }) {
 
     let cancelled = false;
     const timers: ReturnType<typeof setTimeout>[] = [];
-
     const later = (ms: number, fn: () => void) => {
       timers.push(setTimeout(fn, ms));
     };
@@ -63,25 +61,48 @@ export function ReviewsFade({ reviews }: { reviews: Review[] }) {
     };
 
     const advanceSlot = (slot: 0 | 1, then: () => void) => {
-      setSlotVisible((v) => {
-        const next: [boolean, boolean] = [...v];
-        next[slot] = false;
-        return next;
+      const idx = slotRef.current;
+      const other = slot === 0 ? idx[1] : idx[0];
+      const next = nextIndex(idx[slot], other);
+
+      setIncomingIdx((inc) => {
+        const copy: [number | null, number | null] = [...inc];
+        copy[slot] = next;
+        return copy;
       });
-      later(FADE_MS, () => {
+      setWiping((w) => {
+        const copy: [boolean, boolean] = [...w];
+        copy[slot] = false;
+        return copy;
+      });
+
+      later(20, () => {
         if (cancelled) return;
-        setSlotIdx((idx) => {
-          const next: [number, number] = [...idx];
-          const other = slot === 0 ? idx[1] : idx[0];
-          next[slot] = nextIndex(idx[slot], other);
-          return next;
+        setWiping((w) => {
+          const copy: [boolean, boolean] = [...w];
+          copy[slot] = true;
+          return copy;
         });
-        setSlotVisible((v) => {
-          const next: [boolean, boolean] = [...v];
-          next[slot] = true;
-          return next;
+      });
+
+      later(WIPE_MS + 40, () => {
+        if (cancelled) return;
+        setSlotIdx((cur) => {
+          const copy: [number, number] = [...cur];
+          copy[slot] = next;
+          return copy;
         });
-        later(FADE_MS, () => {
+        setIncomingIdx((inc) => {
+          const copy: [number | null, number | null] = [...inc];
+          copy[slot] = null;
+          return copy;
+        });
+        setWiping((w) => {
+          const copy: [boolean, boolean] = [...w];
+          copy[slot] = false;
+          return copy;
+        });
+        later(30, () => {
           if (!cancelled) then();
         });
       });
@@ -102,7 +123,6 @@ export function ReviewsFade({ reviews }: { reviews: Review[] }) {
     };
 
     cycle();
-
     return () => {
       cancelled = true;
       timers.forEach(clearTimeout);
@@ -113,6 +133,10 @@ export function ReviewsFade({ reviews }: { reviews: Review[] }) {
 
   const left = playlist[slotIdx[0] % playlist.length]!;
   const right = playlist[slotIdx[1] % playlist.length]!;
+  const leftIn =
+    incomingIdx[0] != null ? playlist[incomingIdx[0] % playlist.length]! : null;
+  const rightIn =
+    incomingIdx[1] != null ? playlist[incomingIdx[1] % playlist.length]! : null;
 
   return (
     <section className="mx-auto max-w-[1240px] px-5 py-10 text-center sm:px-8 sm:py-14">
@@ -130,8 +154,8 @@ export function ReviewsFade({ reviews }: { reviews: Review[] }) {
       </div>
 
       <div className="mt-7 grid grid-cols-1 overflow-hidden border border-[var(--line)] text-left sm:mt-9 sm:grid-cols-2">
-        <ReviewCard review={left} visible={slotVisible[0]} />
-        <ReviewCard review={right} visible={slotVisible[1]} connected />
+        <ReviewCard review={left} incoming={leftIn} wiping={wiping[0]} />
+        <ReviewCard review={right} incoming={rightIn} wiping={wiping[1]} connected />
       </div>
 
       <Link
@@ -146,41 +170,55 @@ export function ReviewsFade({ reviews }: { reviews: Review[] }) {
 
 function ReviewCard({
   review,
-  visible,
+  incoming,
+  wiping,
   connected = false,
 }: {
   review: Review;
-  visible: boolean;
+  incoming: Review | null;
+  wiping: boolean;
   connected?: boolean;
 }) {
   return (
     <figure
-      className={`relative flex min-h-[16rem] flex-col bg-white p-5 sm:min-h-[20rem] sm:p-8 ${
+      className={`relative min-h-[16rem] overflow-hidden bg-white sm:min-h-[20rem] ${
         connected ? "border-t border-[var(--line)] sm:border-t-0 sm:border-l" : ""
       }`}
     >
-      <div
-        className="flex flex-1 flex-col transition-opacity ease-in-out"
-        style={{
-          opacity: visible ? 1 : 0,
-          transitionDuration: `${FADE_MS}ms`,
-        }}
-      >
-        <div className="text-sm tracking-[0.2em] text-[var(--rust)]" aria-hidden>
-          {"★".repeat(review.rating ?? 5)}
+      <ReviewLayer review={review} />
+      {incoming ? (
+        <div
+          aria-hidden={!wiping}
+          className="absolute inset-0 z-[1] bg-white will-change-[clip-path]"
+          style={{
+            clipPath: wiping ? "inset(0 0 0 0)" : "inset(100% 0 0 0)",
+            transition: `clip-path ${WIPE_MS}ms cubic-bezier(0.2, 0.8, 0.2, 1)`,
+          }}
+        >
+          <ReviewLayer review={incoming} />
         </div>
-        <blockquote className="font-display mt-4 flex-1 text-[1.15rem] font-normal italic leading-[1.5] sm:mt-5 sm:text-[1.25rem] sm:leading-[1.55]">
-          &ldquo;{review.quote}&rdquo;
-        </blockquote>
-        <figcaption className="mt-4 text-[0.8rem] font-medium uppercase tracking-[0.12em] text-[var(--soft)] sm:mt-6 sm:text-[0.85rem]">
-          {review.author ?? "Customer"}
-          <span className="hidden sm:inline">
-            {" "}
-            · {review.source}
-            {review.relative ? ` · ${review.relative}` : ""}
-          </span>
-        </figcaption>
-      </div>
+      ) : null}
     </figure>
+  );
+}
+
+function ReviewLayer({ review }: { review: Review }) {
+  return (
+    <div className="relative flex h-full min-h-[16rem] flex-col p-5 sm:min-h-[20rem] sm:p-8">
+      <div className="text-sm tracking-[0.2em] text-[var(--rust)]" aria-hidden>
+        {"★".repeat(review.rating ?? 5)}
+      </div>
+      <blockquote className="font-display mt-4 flex-1 text-[1.15rem] font-normal italic leading-[1.5] sm:mt-5 sm:text-[1.25rem] sm:leading-[1.55]">
+        &ldquo;{review.quote}&rdquo;
+      </blockquote>
+      <figcaption className="mt-4 text-[0.8rem] font-medium uppercase tracking-[0.12em] text-[var(--soft)] sm:mt-6 sm:text-[0.85rem]">
+        {review.author ?? "Customer"}
+        <span className="hidden sm:inline">
+          {" "}
+          · {review.source}
+          {review.relative ? ` · ${review.relative}` : ""}
+        </span>
+      </figcaption>
+    </div>
   );
 }

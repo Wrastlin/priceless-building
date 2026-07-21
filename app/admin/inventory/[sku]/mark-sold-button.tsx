@@ -44,11 +44,11 @@ export function MarkSoldButton({ sku, price, status }: { sku: string; price: num
   }
 
   return isSold ? (
-    <button type="button" onClick={restore} disabled={pending} className="admin-btn admin-btn-outline">
-      Sold · restore to floor
+    <button type="button" onClick={restore} disabled={pending} className="inv-btn inv-btn-outline">
+      Sold · restore
     </button>
   ) : (
-    <button type="button" onClick={markSold} disabled={pending} className="admin-btn admin-btn-danger">
+    <button type="button" onClick={markSold} disabled={pending} className="inv-btn inv-btn-outline text-[var(--sale-red)]">
       Mark sold
     </button>
   );

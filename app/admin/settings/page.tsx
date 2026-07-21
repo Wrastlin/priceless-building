@@ -26,9 +26,18 @@ export default function SettingsPage() {
             <li>Amazon (national)</li>
           </ul>
         </Card>
+        <Card title="Sales channels">
+          <p className="text-sm text-muted-foreground">
+            Social selling setup lives under{" "}
+            <a href="/admin/connections" className="text-[var(--brand-navy)] hover:underline">
+              Connections
+            </a>
+            . Generate posts from inventory, paste into Marketplace / Instagram / eBay, then check the channel off on the item. Website feeds stay off for now.
+          </p>
+        </Card>
         <Card title="Floor printer">
           <p className="text-sm text-muted-foreground">
-            Brother QL-820NWB · 4×3&quot; continuous · Bluetooth, paired.
+            Brother QL-800 via CUPS on the store Mac (`PRINTER_QUEUE`). Permanent QR + reprintable price tags from intake / item detail.
           </p>
         </Card>
       </div>

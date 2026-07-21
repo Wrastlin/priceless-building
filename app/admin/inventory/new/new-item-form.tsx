@@ -107,14 +107,19 @@ export function NewItemForm() {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ image: src }),
       });
-      const parsed = await readJsonSafe<{ image?: string | null; reason?: string }>(res);
+      const parsed = await readJsonSafe<{
+        image?: string | null;
+        reason?: string;
+        provider?: string;
+      }>(res);
       if (!parsed.ok || !parsed.data?.image) {
         toast.error(`Cleanup failed: ${parsed.error ?? parsed.data?.reason ?? "unknown"}`);
         return;
       }
       const data = parsed.data;
       setPhotos((p) => [...p, { url: data.image!, source: "ai-cleaned" }]);
-      toast.success("Background cleaned. Original kept.");
+      const via = data.provider ? ` via ${data.provider}` : "";
+      toast.success(`Background cleaned${via}. Original kept.`);
     } catch (err) {
       toast.error(`Cleanup failed: ${err instanceof Error ? err.message : "unknown"}`);
     } finally {

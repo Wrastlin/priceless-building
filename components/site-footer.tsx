@@ -143,7 +143,9 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
               Staff
             </div>
             <ul className="mt-4 space-y-2 text-sm font-light">
-              <li><FooterLink href="/login">Employee sign in</FooterLink></li>
+              <li>
+                <FooterLink href="/login?next=/admin/inventory">Staff login</FooterLink>
+              </li>
             </ul>
           </div>
         </div>
@@ -154,9 +156,17 @@ export function SiteFooter({ brand }: { brand: "priceless" | "builders" }) {
           <span className="text-[0.7rem] uppercase tracking-[0.14em] text-[var(--soft)]">
             © {new Date().getFullYear()} Price-Less Building · Builders Corner · 4 Squared
           </span>
-          <span className="text-[0.7rem] uppercase tracking-[0.14em] text-[var(--soft)]">
-            {ADDRESS.city}, {ADDRESS.state} · Same building since 1978
-          </span>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[0.7rem] uppercase tracking-[0.14em] text-[var(--soft)]">
+            <span>
+              {ADDRESS.city}, {ADDRESS.state} · Same building since 1978
+            </span>
+            <Link
+              href="/login?next=/admin/inventory"
+              className="opacity-50 transition hover:opacity-100"
+            >
+              Staff
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

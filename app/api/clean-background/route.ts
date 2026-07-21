@@ -1,38 +1,28 @@
 // POST /api/clean-background  { image: dataURL }
-//   → 200 { image: dataURL }            ← cleaned photo
+//   → 200 { image: dataURL, provider }  ← cleaned photo
 //   → 200 { image: null, reason: "..." } ← bg removal couldn't run
 //
-// Pipes a warehouse-floor product photo through Gemini Nano Banana
-// (gemini-3.1-flash-image-preview) with an instruction to remove the
-// background and replace it with pure white. Returns the same photo,
-// cleaned, as a data URL the form can swap in place.
-//
-// Auth + rate limiting via guardAiRoute(); the Gemini call (key header,
-// timeout, retry, error mapping) goes through lib/ai/gemini.ts.
+// Production path: Photoroom Remove Background API (PHOTOROOM_API_KEY).
+// Fallbacks: remove.bg → Gemini flash-image. Auth + rate limit via guardAiRoute.
 
 import { NextResponse } from "next/server";
 import { guardAiRoute } from "@/lib/ai/guard";
-import {
-  callGemini,
-  extractInlineImage,
-  geminiKey,
-  imageTooLarge,
-  parseDataUrl,
-} from "@/lib/ai/gemini";
+import { parseDataUrl } from "@/lib/ai/gemini";
+import { removeBackground, removeBgConfigured } from "@/lib/ai/remove-background";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
-
-const MODEL = "gemini-3.1-flash-image-preview";
-
-const PROMPT = `Remove the entire background from this product photo and replace it with a pure white #FFFFFF background. Keep the product perfectly intact with crisp natural edges. Preserve the original colors, materials, and shadows on the product itself. Do not crop, resize, add text, change the angle, or stylize. The output should look like a clean e-commerce catalog photo of the same item against a seamless white backdrop.`;
 
 export async function POST(req: Request) {
   const guard = await guardAiRoute({ bucket: "clean-bg" });
   if (!guard.ok) return guard.response;
 
-  if (!geminiKey()) {
-    return NextResponse.json({ image: null, reason: "GEMINI_API_KEY not configured" });
+  if (!removeBgConfigured().provider) {
+    return NextResponse.json({
+      image: null,
+      reason:
+        "No background-removal key configured. Set PHOTOROOM_API_KEY (recommended).",
+    });
   }
 
   let body: { image?: string };
@@ -45,26 +35,11 @@ export async function POST(req: Request) {
   if (!img) {
     return NextResponse.json({ image: null, reason: "Not a base64 data URL" }, { status: 400 });
   }
-  if (imageTooLarge(img)) {
-    return NextResponse.json(
-      { image: null, reason: "Image exceeds the 8MB size limit" },
-      { status: 413 },
-    );
-  }
 
-  const result = await callGemini({
-    model: MODEL,
-    parts: [
-      { text: PROMPT },
-      { inline_data: { mime_type: img.mimeType, data: img.data } },
-    ],
-  });
+  const result = await removeBackground(img);
   if (!result.ok) {
-    return NextResponse.json({ image: null, reason: result.error }, { status: 502 });
+    const status = result.status && result.status >= 400 ? result.status : 502;
+    return NextResponse.json({ image: null, reason: result.reason }, { status });
   }
-  const out = extractInlineImage(result.json);
-  if (!out) {
-    return NextResponse.json({ image: null, reason: "No image in Gemini response" });
-  }
-  return NextResponse.json({ image: out });
+  return NextResponse.json({ image: result.image, provider: result.provider });
 }

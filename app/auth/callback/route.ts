@@ -15,9 +15,9 @@ export const dynamic = "force-dynamic";
  * off-origin URLs). Anything else falls back to /admin.
  */
 function safeNext(raw: string | null): string {
-  if (!raw) return "/admin";
-  if (!raw.startsWith("/")) return "/admin";
-  if (raw.startsWith("//") || raw.startsWith("/\\")) return "/admin";
+  if (!raw) return "/admin/inventory";
+  if (!raw.startsWith("/")) return "/admin/inventory";
+  if (raw.startsWith("//") || raw.startsWith("/\\")) return "/admin/inventory";
   return raw;
 }
 

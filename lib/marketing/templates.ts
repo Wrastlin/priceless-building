@@ -29,7 +29,7 @@ function priceTag(price: number) {
 
 function categoryNoun(cat: CatalogItem["category"]) {
   // Singular for headlines.
-  return {
+  const map: Record<string, string> = {
     doors: "door",
     windows: "window",
     cabinets: "cabinet",
@@ -38,7 +38,8 @@ function categoryNoun(cat: CatalogItem["category"]) {
     hardware: "hardware",
     lighting: "light fixture",
     trim: "trim run",
-  }[cat];
+  };
+  return map[cat] ?? (String(cat).replace(/s$/, "") || "item");
 }
 
 export function facebookPost(item: CatalogItem) {
