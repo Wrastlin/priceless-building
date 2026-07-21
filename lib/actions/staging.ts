@@ -218,6 +218,17 @@ export async function createDraftFromFormAction(formData: FormData): Promise<voi
     throw new Error("Couldn't generate a unique SKU after several tries — please save again.");
   }
 
+  await logCaptureEvent({
+    source: "action",
+    action: "intake.form_save",
+    sku: createdSku,
+    actorId: stamp.actorId,
+    actorName: stamp.actorName,
+    loginEmail: stamp.loginEmail,
+    loginRole: stamp.loginRole,
+    payload: { title, category, price },
+  });
+
   // Private (never-public) cost + source lot, stored in item_private. Best
   // effort: the draft is already saved, so if this fails (e.g. the migration
   // hasn't run yet) don't lose the item — cost can be re-entered on the item

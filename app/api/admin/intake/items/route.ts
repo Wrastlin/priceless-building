@@ -42,10 +42,26 @@ export async function POST(req: NextRequest) {
       action: "intake.save_rejected",
       requestId,
       path: "/api/admin/intake/items",
-      ...stamp,
+      actorId: stamp.actorId,
+      actorName: stamp.actorName,
+      loginEmail: stamp.loginEmail,
+      loginRole: stamp.loginRole,
       error: "title required",
     });
     return NextResponse.json({ error: "title required" }, { status: 400 });
+  }
+
+  // Soft nudge: if no Who-is-working selected on employee login, still save
+  // but log it so we can see unattributed volume.
+  if (stamp.loginRole === "floor" && !stamp.actorId) {
+    await logCaptureEvent({
+      source: "api",
+      action: "intake.missing_actor",
+      requestId,
+      path: "/api/admin/intake/items",
+      loginEmail: stamp.loginEmail,
+      loginRole: stamp.loginRole,
+    });
   }
 
   const category = typeof body.category === "string" ? body.category : "other";
