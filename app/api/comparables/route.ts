@@ -6,7 +6,7 @@
 
 import { NextResponse } from "next/server";
 import { guardAiRoute } from "@/lib/ai/guard";
-import { averagePrice, findComparables, suggestTagPrice } from "@/lib/comparable-search";
+import { marketAnchor, findComparables, suggestTagPrice, MIN_COMPS_FOR_VALUE } from "@/lib/comparable-search";
 
 export async function GET(req: Request) {
   const guard = await guardAiRoute({ bucket: "comparables" });
@@ -21,10 +21,16 @@ export async function GET(req: Request) {
 
   try {
     const comparables = await findComparables(q, { broaden });
-    const avg = averagePrice(comparables);
+    const avg = marketAnchor(comparables);
     const suggested = suggestTagPrice(avg);
     return NextResponse.json(
-      { comparables, average: avg, suggested },
+      {
+        comparables,
+        average: avg,
+        suggested,
+        sampleSize: comparables.length,
+        thinSample: comparables.length > 0 && comparables.length < MIN_COMPS_FOR_VALUE,
+      },
       { headers: { "Cache-Control": "private, max-age=300" } },
     );
   } catch (err) {

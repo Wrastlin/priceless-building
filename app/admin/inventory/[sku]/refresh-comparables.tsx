@@ -16,9 +16,15 @@ export function RefreshComparables({ sku, title }: { sku: string; title: string 
       try {
         const result = await refreshComparablesAction(sku, title);
         setLastCount(result.count);
+        const avg =
+          result.retailAverage > 0
+            ? ` · market ≈ $${Math.round(result.retailAverage).toLocaleString()}`
+            : "";
         toast.success(
           result.count
-            ? `Found ${result.count} comparable${result.count === 1 ? "" : "s"}`
+            ? `Found ${result.count} comparable${result.count === 1 ? "" : "s"}${avg}${
+                result.thinSample ? " (thin sample — try broaden)" : ""
+              }`
             : "No comparables found",
         );
         router.refresh();

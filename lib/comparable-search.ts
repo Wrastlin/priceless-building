@@ -5,6 +5,10 @@
  *
  * Used by /admin/inventory/new and /admin/inventory/[sku] to populate
  * the "live retail comparable" panel that drives our tag pricing.
+ *
+ * Valuation needs a real sample — not 4–6 Home Depot hits. We pull a deep
+ * Google Shopping page, prefer big-box retailers, then backfill from the
+ * rest of the market until we have enough prices for a trimmed mean.
  */
 
 export type Comparable = {
@@ -24,20 +28,110 @@ const FALLBACK: Comparable[] = [
   { source: "Amazon", title: "JELD-WEN 6-Panel Hollow-Core Primed Pre-Hung", price: 152, url: "https://www.amazon.com/", image: "/test-images/02-exterior-door-black-steel.jpg" },
 ];
 
-const RETAILERS = ["The Home Depot", "Menards", "Lowe's", "Amazon"];
+/** Preferred retailers for building materials (order = display preference). */
+const PREFERRED_RETAILERS = [
+  "home depot",
+  "menards",
+  "lowe",
+  "amazon",
+  "ace hardware",
+  "floor & decor",
+  "build.com",
+  "wayfair",
+  "ferguson",
+  "supply house",
+];
+
+/** Minimum comps before we treat a valuation sample as usable. */
+export const MIN_COMPS_FOR_VALUE = 12;
+/** Cap stored/shown comps so the panel stays usable. */
+export const MAX_COMPS = 24;
 
 export interface FindOptions {
   /**
-   * Broaden the reach. Off (default): results are restricted to the four
-   * mainstream big-box retailers and capped tight — best for common
-   * building materials where those four set the real market price.
+   * Broaden the reach. Off (default): still pulls a deep page, prefers
+   * known building retailers, then backfills other sellers until we have
+   * enough prices for a real trimmed-mean estimate.
    *
-   * On: drop the retailer whitelist so specialty stores, manufacturers,
-   * and online sellers come through, and pull a deeper result set. Use
-   * this for unique / special-value items (antique hardware, designer
-   * fixtures, discontinued lines) that the big four simply don't carry.
+   * On: skip the preferred-first pass and take the full shopping mix
+   * (specialty / manufacturer / online) up to MAX_COMPS.
    */
   broaden?: boolean;
+}
+
+type RawHit = {
+  source?: string;
+  title: string;
+  price?: string;
+  extracted_price?: number;
+  product_link?: string;
+  link?: string;
+  thumbnail?: string;
+};
+
+function isPreferred(source: string): boolean {
+  const s = source.toLowerCase();
+  return PREFERRED_RETAILERS.some((r) => s.includes(r));
+}
+
+function mapHit(r: RawHit, capturedAt: string): Comparable | null {
+  const price = r.extracted_price ?? Number((r.price ?? "0").replace(/[^0-9.]/g, ""));
+  if (!Number.isFinite(price) || price <= 0) return null;
+  return {
+    source: r.source?.trim() || "Online",
+    title: r.title,
+    price,
+    url: r.product_link ?? r.link ?? "#",
+    image: r.thumbnail ?? "",
+    capturedAt,
+  };
+}
+
+function dedupeKey(c: Comparable): string {
+  // Collapse near-identical listings (same retailer + rounded price + title stem).
+  const stem = c.title.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim().slice(0, 48);
+  return `${c.source.toLowerCase()}|${Math.round(c.price)}|${stem}`;
+}
+
+async function serpShopping(query: string, apiKey: string, num: number): Promise<RawHit[]> {
+  const url = new URL("https://serpapi.com/search.json");
+  url.searchParams.set("engine", "google_shopping");
+  url.searchParams.set("q", query);
+  url.searchParams.set("location", "Wausau, Wisconsin, United States");
+  url.searchParams.set("hl", "en");
+  url.searchParams.set("gl", "us");
+  url.searchParams.set("num", String(num));
+  url.searchParams.set("api_key", apiKey);
+
+  let res: Response;
+  try {
+    res = await fetch(url.toString(), {
+      next: { revalidate: 60 * 60 * 6 },
+      signal: AbortSignal.timeout(15_000),
+    });
+  } catch (err) {
+    throw new Error(
+      `Comparable search timed out or failed to reach SerpApi: ${err instanceof Error ? err.message : "unknown"}`,
+    );
+  }
+  if (!res.ok) {
+    throw new Error(`Comparable search failed: SerpApi returned HTTP ${res.status}`);
+  }
+  const json = (await res.json()) as { shopping_results?: RawHit[] };
+  return json.shopping_results ?? [];
+}
+
+function mergeRanked(preferred: Comparable[], rest: Comparable[], limit: number): Comparable[] {
+  const out: Comparable[] = [];
+  const seen = new Set<string>();
+  for (const c of [...preferred, ...rest]) {
+    const k = dedupeKey(c);
+    if (seen.has(k)) continue;
+    seen.add(k);
+    out.push(c);
+    if (out.length >= limit) break;
+  }
+  return out;
 }
 
 export async function findComparables(
@@ -53,50 +147,45 @@ export async function findComparables(
   if (!key) return FALLBACK;
 
   const broaden = opts.broaden === true;
+  const q = query.trim();
+  if (q.length < 3) return [];
 
-  const url = new URL("https://serpapi.com/search.json");
-  url.searchParams.set("engine", "google_shopping");
-  url.searchParams.set("q", query);
-  url.searchParams.set("location", "Wausau, Wisconsin, United States");
-  // Pull a deeper page when broadening so there's enough to surface
-  // specialty sellers; the narrow path only needs enough to fill the
-  // four-retailer whitelist.
-  url.searchParams.set("num", broaden ? "60" : "40");
-  url.searchParams.set("api_key", key);
+  const capturedAt = new Date().toISOString();
+  const raw = await serpShopping(q, key, 60);
+  const mapped = raw
+    .map((r) => mapHit(r, capturedAt))
+    .filter((c): c is Comparable => c !== null);
 
-  let res: Response;
-  try {
-    res = await fetch(url.toString(), {
-      next: { revalidate: 60 * 60 * 24 },
-      signal: AbortSignal.timeout(8_000),
-    });
-  } catch (err) {
-    throw new Error(
-      `Comparable search timed out or failed to reach SerpApi: ${err instanceof Error ? err.message : "unknown"}`,
-    );
-  }
-  if (!res.ok) {
-    throw new Error(`Comparable search failed: SerpApi returned HTTP ${res.status}`);
+  let comps: Comparable[];
+  if (broaden) {
+    comps = mergeRanked([], mapped, MAX_COMPS);
+  } else {
+    const preferred = mapped.filter((c) => isPreferred(c.source));
+    const others = mapped.filter((c) => !isPreferred(c.source));
+    comps = mergeRanked(preferred, others, MAX_COMPS);
   }
 
-  const json = (await res.json()) as { shopping_results?: { source?: string; title: string; price?: string; extracted_price?: number; product_link?: string; link?: string; thumbnail?: string }[] };
-  const raw = json.shopping_results ?? [];
-  const scoped = broaden
-    ? raw.filter((r) => r.source) // any source with a name
-    : raw.filter((r) => r.source && RETAILERS.some((retailer) => r.source!.toLowerCase().includes(retailer.toLowerCase().split(" ").pop()!)));
-  // Real results, or an honest empty array (no comparables found) — never
-  // the fixtures, which would misrepresent the market price.
-  return scoped
-    .slice(0, broaden ? 15 : 6)
-    .map((r) => ({
-      source: r.source ?? "Online",
-      title: r.title,
-      price: r.extracted_price ?? Number((r.price ?? "0").replace(/[^0-9.]/g, "")),
-      url: r.product_link ?? r.link ?? "#",
-      image: r.thumbnail ?? "",
-      capturedAt: new Date().toISOString(),
-    }))
-    .filter((r) => r.price > 0);
+  // Second pass: if the sample is still thin, try a broader shopping query
+  // (drop model noise, keep category nouns) and merge.
+  if (comps.length < MIN_COMPS_FOR_VALUE) {
+    const loose = q
+      .replace(/\b(sku|model|#)\b/gi, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    if (loose.length >= 3 && loose.toLowerCase() !== q.toLowerCase()) {
+      try {
+        const extraRaw = await serpShopping(loose, key, 40);
+        const extra = extraRaw
+          .map((r) => mapHit(r, capturedAt))
+          .filter((c): c is Comparable => c !== null);
+        comps = mergeRanked(comps, extra, MAX_COMPS);
+      } catch {
+        // Keep the first-pass sample; thin is better than failing the save.
+      }
+    }
+  }
+
+  return comps;
 }
 
 /**
@@ -122,6 +211,31 @@ export function averagePrice(comparables: Comparable[]): number {
   const set = middle.length > 0 ? middle : prices;
 
   return Math.round(set.reduce((s, p) => s + p, 0) / set.length);
+}
+
+/** Median of comparable prices — robust check alongside the trimmed mean. */
+export function medianPrice(comparables: Comparable[]): number {
+  const prices = comparables
+    .map((c) => c.price)
+    .filter((p) => p > 0)
+    .sort((a, b) => a - b);
+  if (prices.length === 0) return 0;
+  const mid = Math.floor(prices.length / 2);
+  if (prices.length % 2 === 1) return Math.round(prices[mid]!);
+  return Math.round((prices[mid - 1]! + prices[mid]!) / 2);
+}
+
+/**
+ * Market anchor for compare-at: blend trimmed mean with median so a
+ * cluster of identical HD SKUs can't fully dominate, and a thin sample
+ * still has a usable number.
+ */
+export function marketAnchor(comparables: Comparable[]): number {
+  const avg = averagePrice(comparables);
+  const med = medianPrice(comparables);
+  if (avg <= 0) return med;
+  if (med <= 0) return avg;
+  return Math.round(avg * 0.6 + med * 0.4);
 }
 
 /**

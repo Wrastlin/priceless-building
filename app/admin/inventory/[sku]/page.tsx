@@ -141,7 +141,7 @@ export default async function EditItem({
           <Panel title={`Comparables${item.comparables?.length ? ` (${item.comparables.length})` : ""}`}>
             <RefreshComparables sku={item.sku} title={item.title} />
             {item.comparables && item.comparables.length > 0 ? (
-              <ul className="mt-3 divide-y divide-[var(--border)]">
+              <ul className="mt-3 max-h-[28rem] divide-y divide-[var(--border)] overflow-y-auto">
                 {item.comparables.map((c, i) => (
                   <li
                     key={i}

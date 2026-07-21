@@ -33,9 +33,10 @@ import {
   type ParsedImage,
 } from "@/lib/ai/gemini";
 import {
-  averagePrice,
+  marketAnchor,
   findComparables,
   suggestTagPrice,
+  MIN_COMPS_FOR_VALUE,
 } from "@/lib/comparable-search";
 
 export const runtime = "nodejs";
@@ -203,7 +204,7 @@ export async function POST(req: Request) {
     comparablesReason = "Not enough info to search comparables";
   }
 
-  const retailAverage = averagePrice(comparables);
+  const retailAverage = marketAnchor(comparables);
   const suggestedTagPrice = retailAverage > 0 ? suggestTagPrice(retailAverage) : 0;
 
   return NextResponse.json({
@@ -211,6 +212,8 @@ export async function POST(req: Request) {
     comparables,
     retailAverage,
     suggestedTagPrice,
+    sampleSize: comparables.length,
+    thinSample: comparables.length > 0 && comparables.length < MIN_COMPS_FOR_VALUE,
     reason: visionReason || comparablesReason,
   });
 }

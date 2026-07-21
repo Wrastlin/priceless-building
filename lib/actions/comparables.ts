@@ -1,11 +1,16 @@
 "use server";
 
 import { requireAdminSession } from "@/lib/auth/session";
-import { findComparables, averagePrice, suggestTagPrice } from "@/lib/comparable-search";
+import {
+  findComparables,
+  marketAnchor,
+  suggestTagPrice,
+  MIN_COMPS_FOR_VALUE,
+} from "@/lib/comparable-search";
 import { findBySku, updateItem } from "@/lib/items/store";
 
 /** Re-run SerpAPI comparables for a floor item and optionally nudge compare-at. */
-export async function refreshComparablesAction(sku: string, query?: string) {
+export async function refreshComparablesAction(sku: string, query?: string, broaden = false) {
   await requireAdminSession();
   const item = await findBySku(sku);
   if (!item) throw new Error(`No item ${sku}`);
@@ -13,7 +18,7 @@ export async function refreshComparablesAction(sku: string, query?: string) {
   const q = (query || item.title || "").trim();
   if (q.length < 3) throw new Error("Need a title to search comparables");
 
-  const comps = await findComparables(q);
+  const comps = await findComparables(q, { broaden });
   const now = new Date().toISOString();
   const comparables = comps.map((c) => ({
     source: c.source,
@@ -24,7 +29,7 @@ export async function refreshComparablesAction(sku: string, query?: string) {
     capturedAt: now,
   }));
 
-  const retailAverage = averagePrice(comps);
+  const retailAverage = marketAnchor(comps);
   const patch: Parameters<typeof updateItem>[1] = { comparables };
   if (retailAverage > 0) {
     patch.compareAt = Math.round(retailAverage);
@@ -40,5 +45,9 @@ export async function refreshComparablesAction(sku: string, query?: string) {
   }
 
   await updateItem(sku, patch);
-  return { count: comparables.length, retailAverage };
+  return {
+    count: comparables.length,
+    retailAverage,
+    thinSample: comparables.length < MIN_COMPS_FOR_VALUE,
+  };
 }
