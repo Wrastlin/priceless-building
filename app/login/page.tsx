@@ -70,14 +70,14 @@ export default async function LoginPage({
       <section className="relative z-10 mx-auto flex min-h-[calc(100vh-160px)] max-w-md flex-col items-stretch justify-center px-6 pb-16">
         <div className="inline-flex w-fit items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-[11px] uppercase tracking-[0.18em] backdrop-blur">
           <span className="inline-block size-1.5 rounded-full bg-[#ff8b85]" />
-          Staff only
+          Owner or employee
         </div>
         <h1 className="font-display mt-5 text-5xl leading-[1.02] md:text-6xl">
-          Sign in to <span className="text-[#ff8b85]">admin.</span>
+          Sign in to <span className="text-[#ff8b85]">Floor.</span>
         </h1>
         <p className="mt-4 text-base text-white/75">
-          Document items, approve drafts, generate marketing. Access is restricted to
-          invited Price-Less team members.
+          Owners use their admin Google. Floor phones use the shared employee Google — then pick
+          Who is working so every item is under the right name.
         </p>
 
         <div className="mt-8 rounded-md border border-white/15 bg-white/[0.06] p-6 backdrop-blur">

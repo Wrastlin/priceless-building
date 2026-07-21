@@ -4,23 +4,29 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 
-const MORE_LINKS = [
+const OWNER_LINKS = [
   { href: "/admin/connections", label: "Connections" },
   { href: "/admin/staging", label: "Staging" },
   { href: "/admin/aging", label: "Aging" },
   { href: "/admin/featured", label: "Featured" },
   { href: "/admin/team", label: "Team" },
   { href: "/admin/settings", label: "Settings" },
-  { href: "/admin/capture", label: "Quick capture (legacy)" },
-  { href: "/admin/labels", label: "Print stickers (legacy)" },
-  { href: "/admin/tags", label: "Print tags (legacy)" },
 ] as const;
 
-/** Compact “More” menu for secondary / legacy admin tools. */
-export function InventoryMoreMenu({ activeHref }: { activeHref?: string }) {
+const FLOOR_LINKS = [{ href: "/admin/aging", label: "Aging" }] as const;
+
+/** Compact More menu — owners see management tools; floor stays light. */
+export function InventoryMoreMenu({
+  activeHref,
+  isOwner = false,
+}: {
+  activeHref?: string;
+  isOwner?: boolean;
+}) {
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
-  const anyActive = MORE_LINKS.some((l) => l.href === activeHref);
+  const links = isOwner ? OWNER_LINKS : FLOOR_LINKS;
+  const anyActive = links.some((l) => l.href === activeHref);
 
   useEffect(() => {
     if (!open) return;
@@ -37,6 +43,8 @@ export function InventoryMoreMenu({ activeHref }: { activeHref?: string }) {
       document.removeEventListener("keydown", onKey);
     };
   }, [open]);
+
+  if (!links.length) return null;
 
   return (
     <div ref={root} className="relative">
@@ -58,10 +66,7 @@ export function InventoryMoreMenu({ activeHref }: { activeHref?: string }) {
           role="menu"
           className="absolute left-0 top-[calc(100%+6px)] z-40 min-w-[14rem] rounded-[12px] border border-[var(--border)] bg-white py-1.5 shadow-lg"
         >
-          <p className="px-3 pb-1 pt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
-            Still available
-          </p>
-          {MORE_LINKS.map((l) => (
+          {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}

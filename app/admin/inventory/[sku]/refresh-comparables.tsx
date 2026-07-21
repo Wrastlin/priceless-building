@@ -22,9 +22,9 @@ export function RefreshComparables({ sku, title }: { sku: string; title: string 
             : "";
         toast.success(
           result.count
-            ? `Found ${result.count} comparable${result.count === 1 ? "" : "s"}${avg}${
-                result.thinSample ? " (thin sample — try broaden)" : ""
-              }`
+            ? `Saved ${result.count} comps (history kept)${avg}${
+                result.thinSample ? " — thin sample" : ""
+              }. Our price unchanged.`
             : "No comparables found",
         );
         router.refresh();

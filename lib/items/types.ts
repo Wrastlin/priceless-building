@@ -101,6 +101,8 @@ export interface CatalogItem {
    * they paste a listing — no auto-post APIs yet. Kept off the public shop.
    */
   channels?: ItemChannels;
+  /** Staff ↔ AI chat thread for refining catalog copy on the item detail page. */
+  aiThread?: Array<{ role: "user" | "assistant"; content: string; at: string }>;
 }
 
 /** Social sell channels tracked on floor inventory (manual checklist). */

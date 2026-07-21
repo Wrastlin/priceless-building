@@ -78,7 +78,13 @@ export function StaffManager({
 
   return (
     <div className="admin-card p-5">
-      <h2 className="border-b border-border pb-2 text-base font-semibold text-foreground">Staff</h2>
+      <h2 className="border-b border-border pb-2 text-base font-semibold text-foreground">
+        Employee login <span className="font-normal text-muted-foreground">· Google</span>
+      </h2>
+      <p className="admin-help mt-2">
+        Usually one shared floor Google account. Can record items and sell — cannot delete, manage
+        team, or change costs.
+      </p>
 
       {canManage ? (
         <>
@@ -87,18 +93,18 @@ export function StaffManager({
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="name@gmail.com"
-              aria-label="Staff Google email"
+              placeholder="floor@yourdomain.com"
+              aria-label="Employee Google email"
               className="admin-input flex-1"
             />
             <button type="submit" disabled={pending} className="admin-btn admin-btn-primary shrink-0">
-              Add staff
+              Add login
             </button>
           </form>
-          <p className="admin-help mt-1.5">Use the Google account they&apos;ll sign in with.</p>
+          <p className="admin-help mt-1.5">Use the Google account the floor phones will sign in with.</p>
         </>
       ) : (
-        <p className="admin-help mt-3">Only owners can add or remove staff.</p>
+        <p className="admin-help mt-3">Only owners can add or remove logins.</p>
       )}
 
       {staff.length ? (

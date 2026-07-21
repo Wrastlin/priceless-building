@@ -20,7 +20,9 @@ import {
   type Category,
   type CatalogItem,
 } from "@/lib/items/store";
-import { requireAdminSession, adminIdentity } from "@/lib/auth/session";
+import { requireAdminSession, requireOwner, adminIdentity } from "@/lib/auth/session";
+import { resolveActor, actorStamp } from "@/lib/auth/actor";
+import { logCaptureEvent } from "@/lib/capture/events";
 import { formatSKU } from "@/lib/utils";
 
 const CATEGORY_TO_BRAND: Record<string, Brand> = {
@@ -54,13 +56,27 @@ function optionalNumber(form: FormData, key: string): number | undefined {
 }
 
 export async function approveDraftAction(sku: string): Promise<void> {
-  await requireAdminSession();
+  const me = await requireOwner();
   await setStatus(sku, "published");
+  await logCaptureEvent({
+    source: "action",
+    action: "item.publish",
+    sku,
+    loginEmail: me.email,
+    loginRole: me.role,
+  });
 }
 
 export async function rejectDraftAction(sku: string): Promise<void> {
-  await requireAdminSession();
+  const me = await requireOwner();
   await setStatus(sku, "archived");
+  await logCaptureEvent({
+    source: "action",
+    action: "item.archive",
+    sku,
+    loginEmail: me.email,
+    loginRole: me.role,
+  });
 }
 
 /**
@@ -69,8 +85,15 @@ export async function rejectDraftAction(sku: string): Promise<void> {
  * action on the staging page.
  */
 export async function undoStatusChangeAction(sku: string): Promise<void> {
-  await requireAdminSession();
+  const me = await requireOwner();
   await setStatus(sku, "draft");
+  await logCaptureEvent({
+    source: "action",
+    action: "item.undo_status",
+    sku,
+    loginEmail: me.email,
+    loginRole: me.role,
+  });
 }
 
 /**
@@ -82,6 +105,8 @@ export async function undoStatusChangeAction(sku: string): Promise<void> {
  */
 export async function createDraftFromFormAction(formData: FormData): Promise<void> {
   await requireAdminSession();
+  const actor = await resolveActor();
+  const stamp = actor ? actorStamp(actor) : { createdBy: "Floor", actorId: null, actorName: null, loginEmail: null, loginRole: null };
   const title = nonEmpty(formData, "title");
   const subtitle = optional(formData, "subtitle") ?? "";
   const category = nonEmpty(formData, "category") as Category;
@@ -166,7 +191,7 @@ export async function createDraftFromFormAction(formData: FormData): Promise<voi
       ? { retailer: compRetailer, price: compPrice, url: compUrl }
       : undefined,
     comparables: comparablesArr,
-    createdBy: "floor staff",
+    createdBy: stamp.createdBy,
   };
 
   // Allocate a unique SKU with retry. The items table has a UNIQUE constraint
@@ -250,9 +275,16 @@ export type EditableItemFields = Partial<{
  * pool the home page rotates through. Used by the admin Featured manager.
  */
 export async function setFeaturedAction(sku: string, featured: boolean): Promise<void> {
-  await requireAdminSession();
+  const me = await requireOwner();
   const { updateItem } = await import("@/lib/items/store");
   await updateItem(sku, { featured });
+  await logCaptureEvent({
+    source: "action",
+    action: featured ? "item.feature" : "item.unfeature",
+    sku,
+    loginEmail: me.email,
+    loginRole: me.role,
+  });
 }
 
 /**
@@ -289,7 +321,8 @@ export async function updateItemDetailsAction(
  */
 export async function markSoldAction(sku: string, soldPrice?: number | null): Promise<void> {
   await requireAdminSession();
-  const me = await adminIdentity();
+  const actor = await resolveActor();
+  const stamp = actor ? actorStamp(actor) : null;
   const { setStatus, findBySku } = await import("@/lib/items/store");
   const item = await findBySku(sku);
   const price = soldPrice ?? item?.price ?? null;
@@ -299,18 +332,26 @@ export async function markSoldAction(sku: string, soldPrice?: number | null): Pr
     await upsertItemPrivate(sku, {
       soldAt: new Date().toISOString(),
       soldPrice: price,
-      soldBy: me?.email ?? null,
+      soldBy: stamp?.createdBy ?? stamp?.loginEmail ?? null,
     });
   } catch (err) {
-    // The status flip is the important part; the sold record is best-effort
-    // (e.g. before the migration runs).
     console.error("markSold: sold record save failed", err);
   }
+  await logCaptureEvent({
+    source: "action",
+    action: "item.sold",
+    sku,
+    actorId: stamp?.actorId,
+    actorName: stamp?.actorName,
+    loginEmail: stamp?.loginEmail,
+    loginRole: stamp?.loginRole,
+    payload: { soldPrice: price },
+  });
 }
 
 /** Reverse a mark-sold: back to published and clear the sold record. */
 export async function unmarkSoldAction(sku: string): Promise<void> {
-  await requireAdminSession();
+  const me = await requireOwner();
   const { setStatus } = await import("@/lib/items/store");
   await setStatus(sku, "published");
   try {
@@ -319,6 +360,13 @@ export async function unmarkSoldAction(sku: string): Promise<void> {
   } catch (err) {
     console.error("unmarkSold: clear failed", err);
   }
+  await logCaptureEvent({
+    source: "action",
+    action: "item.unsold",
+    sku,
+    loginEmail: me.email,
+    loginRole: me.role,
+  });
 }
 
 /**
@@ -330,9 +378,17 @@ export async function updateItemCostAction(
   sku: string,
   fields: { cost?: number | null; sourceLot?: string | null },
 ): Promise<void> {
-  await requireAdminSession();
+  const me = await requireOwner();
   const { upsertItemPrivate } = await import("@/lib/items/private-store");
   await upsertItemPrivate(sku, fields);
+  await logCaptureEvent({
+    source: "action",
+    action: "item.cost_update",
+    sku,
+    loginEmail: me.email,
+    loginRole: me.role,
+    payload: fields as Record<string, unknown>,
+  });
   const { revalidatePath } = await import("next/cache");
   revalidatePath(`/admin/inventory/${sku}`);
 }

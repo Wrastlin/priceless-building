@@ -5,12 +5,14 @@ import { PrintLabels } from "@/components/inventory/print-labels";
 import { ChannelChecklist } from "@/components/inventory/channel-checklist";
 import { findBySku } from "@/lib/items/store";
 import { getItemPrivate } from "@/lib/items/private-store";
+import { isOwner } from "@/lib/auth/session";
 import { formatCurrency } from "@/lib/utils";
 import { ItemGallery } from "./item-gallery";
 import { CostPanel } from "./cost-panel";
 import { DetailsEditor } from "./details-editor";
 import { MarkSoldButton } from "./mark-sold-button";
 import { RefreshComparables } from "./refresh-comparables";
+import { ItemAiChat } from "./item-ai-chat";
 
 export default async function EditItem({
   params,
@@ -23,7 +25,8 @@ export default async function EditItem({
   const sp = await searchParams;
   const item = await findBySku(sku);
   if (!item) notFound();
-  const priv = await getItemPrivate(item.sku);
+  const owner = await isOwner();
+  const priv = owner ? await getItemPrivate(item.sku) : null;
   const compare = item.compareAt ?? item.msrp;
 
   return (
@@ -63,6 +66,7 @@ export default async function EditItem({
             <span className="font-mono text-[var(--foreground)]">{item.sku}</span>
             <span className="capitalize">{item.status}</span>
             <span>{item.inStock} in stock</span>
+            {item.createdBy ? <span>By {item.createdBy}</span> : null}
             {item.location ? <span>{item.location}</span> : null}
           </div>
         </div>
@@ -110,6 +114,14 @@ export default async function EditItem({
             <DetailsEditor item={item} />
           </Panel>
 
+          <Panel title="Ask AI to fix copy">
+            <ItemAiChat
+              sku={item.sku}
+              initialThread={item.aiThread}
+              description={item.description}
+            />
+          </Panel>
+
           <Panel title="Social channels">
             <div className="mb-3 flex flex-wrap gap-2">
               <Link
@@ -128,15 +140,17 @@ export default async function EditItem({
             <ChannelChecklist sku={item.sku} initial={item.channels} />
           </Panel>
 
-          <Panel title="Cost · internal">
-            <CostPanel
-              sku={item.sku}
-              price={item.price}
-              initialCost={priv?.cost ?? null}
-              initialSourceLot={priv?.sourceLot ?? null}
-              compareAt={item.compareAt ?? item.msrp ?? null}
-            />
-          </Panel>
+          {owner ? (
+            <Panel title="Cost · internal">
+              <CostPanel
+                sku={item.sku}
+                price={item.price}
+                initialCost={priv?.cost ?? null}
+                initialSourceLot={priv?.sourceLot ?? null}
+                compareAt={item.compareAt ?? item.msrp ?? null}
+              />
+            </Panel>
+          ) : null}
 
           <Panel title={`Comparables${item.comparables?.length ? ` (${item.comparables.length})` : ""}`}>
             <RefreshComparables sku={item.sku} title={item.title} />
