@@ -35,6 +35,12 @@ export default async function EditItem({
       actions={
         <>
           <Link
+            href={`/admin/inventory/${item.sku}/sell-sheet`}
+            className="inv-btn inv-btn-ghost hidden sm:inline-flex"
+          >
+            Sell sheet
+          </Link>
+          <Link
             href={`/admin/marketing?sku=${item.sku}`}
             className="inv-btn inv-btn-ghost hidden sm:inline-flex"
           >
@@ -81,6 +87,12 @@ export default async function EditItem({
             alt={item.title}
           />
           <PrintLabels sku={item.sku} />
+          <Link
+            href={`/admin/inventory/${item.sku}/sell-sheet`}
+            className="inv-btn inv-btn-outline flex w-full justify-center text-[13px]"
+          >
+            Open print sell sheet
+          </Link>
         </div>
 
         <div className="space-y-4">
@@ -100,6 +112,12 @@ export default async function EditItem({
 
           <Panel title="Social channels">
             <div className="mb-3 flex flex-wrap gap-2">
+              <Link
+                href={`/admin/inventory/${item.sku}/sell-sheet`}
+                className="inv-btn inv-btn-secondary text-[13px]"
+              >
+                Sell sheet
+              </Link>
               <Link href={`/admin/marketing?sku=${item.sku}`} className="inv-btn inv-btn-secondary text-[13px]">
                 Generate post
               </Link>
