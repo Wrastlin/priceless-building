@@ -87,6 +87,7 @@ export function departmentFeaturePhotos(category: Category): string[] {
     hardware: [
       "/real-photos/business/floor-door-hardware-lock-shelves.jpg",
       "/real-photos/business/floor-fasteners-grk-simpson-display.jpg",
+      "/real-photos/business/floor-faucet-sets-in-boxes.jpg",
     ],
     lighting: [
       "/real-photos/business/floor-globe-crystal-chandelier.jpg",
