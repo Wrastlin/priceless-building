@@ -1,12 +1,9 @@
 import Link from "next/link";
 import { requireAuth } from "@/lib/auth/require-auth";
 import { adminIdentity } from "@/lib/auth/session";
-import { resolveActor } from "@/lib/auth/actor";
-import { listFloorPeople } from "@/lib/floor-people/store";
 import { signOutAction } from "@/lib/actions/auth";
 import { Camera, LayoutGrid, Megaphone, ArrowLeft, Sun } from "lucide-react";
 import { InventoryMoreMenu } from "./inventory-more-menu";
-import { WhoIsWorking } from "./who-is-working";
 
 /**
  * Floor inventory product shell — daily loop:
@@ -59,11 +56,7 @@ export async function InventoryAppShell({
   actions?: React.ReactNode;
 }) {
   const claims = await requireAuth();
-  const [identity, actor, people] = await Promise.all([
-    adminIdentity(),
-    resolveActor(),
-    listFloorPeople({ activeOnly: true }).catch(() => []),
-  ]);
+  const identity = await adminIdentity();
   const userEmail = (claims?.email as string | undefined) ?? null;
   const role = identity?.role ?? "floor";
 
@@ -102,11 +95,6 @@ export async function InventoryAppShell({
           </div>
 
           <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-            <WhoIsWorking
-              people={people.map((p) => ({ id: p.id, name: p.name }))}
-              activeId={actor?.person?.id ?? null}
-              loginRole={role}
-            />
             {actions}
             {role === "owner" ? (
               <Link
@@ -116,7 +104,7 @@ export async function InventoryAppShell({
                 Storefront
               </Link>
             ) : null}
-            <span className="hidden max-w-[8rem] truncate text-[11px] text-[var(--muted-foreground)] lg:inline">
+            <span className="hidden max-w-[11rem] truncate text-[11px] text-[var(--muted-foreground)] lg:inline">
               {role === "owner" ? "Owner" : "Employee"}
               {userEmail ? ` · ${userEmail}` : ""}
             </span>

@@ -20,7 +20,8 @@ export default async function TodayPage() {
     listAdminAll().catch(() => []),
   ]);
   const weekStart = startOfWeekIso();
-  const label = actor?.person?.name ?? actor?.label ?? null;
+  const label = actor?.label ?? null;
+  const firstName = label?.includes("@") ? label.split("@")[0] : label;
 
   const thisWeek = items.filter((it) => (it.createdAt ?? "") >= weekStart);
   const mine = label
@@ -39,18 +40,11 @@ export default async function TodayPage() {
       <div className="mb-8 max-w-lg">
         <p className="inv-eyebrow mb-2">Floor</p>
         <h2 className="font-[family-name:var(--font-display)] text-[1.75rem] font-medium tracking-tight">
-          {label ? `Hi, ${label}` : "Who is working?"}
+          {firstName ? `Hi, ${firstName}` : "Welcome"}
         </h2>
-        {!label || label === "Floor" ? (
-          <p className="mt-2 text-[14px] text-[var(--muted-foreground)]">
-            Select your name in the top bar so every item counts toward your total.
-          </p>
-        ) : (
-          <p className="mt-2 text-[14px] text-[var(--muted-foreground)]">
-            Your photos help get items ready for customers.
-          </p>
-        )}
-      </div>
+        <p className="mt-2 text-[14px] text-[var(--muted-foreground)]">
+          Your photos help get items ready for customers.
+        </p>      </div>
 
       <Link
         href="/admin/inventory/intake"

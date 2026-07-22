@@ -1,39 +1,19 @@
-import { cookies } from "next/headers";
 import { adminIdentity, type AppRole, type AdminIdentity } from "@/lib/auth/session";
-import { getFloorPerson, type FloorPerson } from "@/lib/floor-people/store";
-
-export const ACTOR_COOKIE = "pbc_actor";
 
 export type ResolvedActor = {
   login: AdminIdentity;
-  /** Floor person selected as "Who is working", if any. */
-  person: FloorPerson | null;
-  /** Display string for createdBy / soldBy / events. */
+  /** Display string for createdBy / soldBy / events — the signed-in person. */
   label: string;
 };
 
 /**
- * Login user + sticky Who-is-working person.
- * Cookie holds floor_people.id; invalid/inactive ids are ignored.
+ * Attribution = who is signed in (individual Google or invite login).
+ * No shared-account picker.
  */
 export async function resolveActor(): Promise<ResolvedActor | null> {
   const login = await adminIdentity();
   if (!login) return null;
-
-  let person: FloorPerson | null = null;
-  try {
-    const jar = await cookies();
-    const id = jar.get(ACTOR_COOKIE)?.value?.trim();
-    if (id) {
-      const p = await getFloorPerson(id);
-      if (p?.active) person = p;
-    }
-  } catch {
-    // cookies() can throw outside a request — ignore
-  }
-
-  const label = person?.name ?? (login.role === "owner" ? login.email : "Floor");
-  return { login, person, label };
+  return { login, label: login.email };
 }
 
 export function actorStamp(actor: ResolvedActor): {
@@ -45,8 +25,8 @@ export function actorStamp(actor: ResolvedActor): {
 } {
   return {
     createdBy: actor.label,
-    actorId: actor.person?.id ?? null,
-    actorName: actor.person?.name ?? null,
+    actorId: null,
+    actorName: actor.label,
     loginEmail: actor.login.email,
     loginRole: actor.login.role,
   };

@@ -4,12 +4,18 @@ import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import {
   addStaffAction,
+  inviteStaffAction,
+  resendStaffInviteAction,
   setStaffActiveAction,
   removeStaffAction,
 } from "@/lib/actions/staff";
 
 type Staff = { email: string; addedBy: string | null; addedAt: string; active: boolean };
 
+/**
+ * Owner-only team allowlist. Public login never offers self-signup or
+ * “email me a link” — invites only leave from this screen.
+ */
 export function StaffManager({
   initialStaff,
   owners,
@@ -23,11 +29,15 @@ export function StaffManager({
   const [email, setEmail] = useState("");
   const [pending, start] = useTransition();
 
-  function add(e: React.FormEvent) {
+  function alreadyOnTeam(value: string) {
+    return owners.includes(value) || staff.some((s) => s.email === value);
+  }
+
+  function addGoogle(e: React.FormEvent) {
     e.preventDefault();
     const value = email.trim().toLowerCase();
     if (!value) return;
-    if (owners.includes(value) || staff.some((s) => s.email === value)) {
+    if (alreadyOnTeam(value)) {
       toast.error("That email is already on the team.");
       return;
     }
@@ -41,37 +51,37 @@ export function StaffManager({
           { email: value, addedBy: null, addedAt: new Date().toISOString(), active: true },
         ]);
         setEmail("");
-        toast.success(`Added ${value}. They can sign in with Google at /login.`);
+        toast.success(`Added ${value}. They sign in with Google at /login.`);
       } catch (err) {
         toast.error(err instanceof Error ? err.message : "Could not add staff.");
       }
     });
   }
 
-  function toggle(s: Staff) {
-    const next = !s.active;
-    setStaff((prev) => prev.map((x) => (x.email === s.email ? { ...x, active: next } : x)));
+  function inviteEmail(e: React.FormEvent) {
+    e.preventDefault();
+    const value = email.trim().toLowerCase();
+    if (!value) return;
+    if (owners.includes(value)) {
+      toast.error("That email is already an owner.");
+      return;
+    }
     start(async () => {
+      const fd = new FormData();
+      fd.set("email", value);
       try {
-        await setStaffActiveAction(s.email, next);
-        toast.success(next ? `${s.email} can sign in again.` : `${s.email} access paused.`);
+        const result = await inviteStaffAction(fd);
+        if (!staff.some((s) => s.email === value)) {
+          setStaff((prev) => [
+            ...prev,
+            { email: value, addedBy: null, addedAt: new Date().toISOString(), active: true },
+          ]);
+        }
+        setEmail("");
+        if (result.emailed) toast.success(result.detail);
+        else toast.message(result.detail);
       } catch (err) {
-        setStaff((prev) => prev.map((x) => (x.email === s.email ? { ...x, active: s.active } : x)));
-        toast.error(err instanceof Error ? err.message : "Could not update staff.");
-      }
-    });
-  }
-
-  function remove(s: Staff) {
-    const prev = staff;
-    setStaff((cur) => cur.filter((x) => x.email !== s.email));
-    start(async () => {
-      try {
-        await removeStaffAction(s.email);
-        toast.success(`Removed ${s.email}.`);
-      } catch (err) {
-        setStaff(prev);
-        toast.error(err instanceof Error ? err.message : "Could not remove staff.");
+        toast.error(err instanceof Error ? err.message : "Could not invite.");
       }
     });
   }
@@ -79,32 +89,48 @@ export function StaffManager({
   return (
     <div className="admin-card p-5">
       <h2 className="border-b border-border pb-2 text-base font-semibold text-foreground">
-        Employee login <span className="font-normal text-muted-foreground">· Google</span>
+        Employees <span className="font-normal text-muted-foreground">· invite only</span>
       </h2>
       <p className="admin-help mt-2">
-        Usually one shared floor Google account. Can record items and sell — cannot delete, manage
-        team, or change costs.
+        Each person gets their own login. You add them here — nothing on the public site lets strangers
+        join. Prefer Google when they have it; use email invite when they don&apos;t.
       </p>
 
       {canManage ? (
-        <>
-          <form onSubmit={add} className="mt-3 flex flex-col gap-2 sm:flex-row">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="floor@yourdomain.com"
-              aria-label="Employee Google email"
-              className="admin-input flex-1"
-            />
-            <button type="submit" disabled={pending} className="admin-btn admin-btn-primary shrink-0">
-              Add login
+        <form className="mt-3 space-y-2">
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="maria@gmail.com"
+            aria-label="Employee email"
+            className="admin-input w-full"
+          />
+          <div className="flex flex-col gap-2 sm:flex-row">
+            <button
+              type="button"
+              disabled={pending}
+              className="admin-btn admin-btn-primary flex-1"
+              onClick={addGoogle}
+            >
+              Add for Google
             </button>
-          </form>
-          <p className="admin-help mt-1.5">Use the Google account the floor phones will sign in with.</p>
-        </>
+            <button
+              type="button"
+              disabled={pending}
+              className="admin-btn admin-btn-secondary flex-1"
+              onClick={inviteEmail}
+            >
+              Send email invite
+            </button>
+          </div>
+          <p className="admin-help">
+            Google: they use Continue with Google. Email invite: private link in their inbox only —
+            not shown on /login.
+          </p>
+        </form>
       ) : (
-        <p className="admin-help mt-3">Only owners can add or remove logins.</p>
+        <p className="admin-help mt-3">Only owners can invite people.</p>
       )}
 
       {staff.length ? (
@@ -118,10 +144,44 @@ export function StaffManager({
                 ) : null}
               </div>
               {canManage ? (
-                <div className="flex shrink-0 items-center gap-2">
+                <div className="flex shrink-0 flex-wrap items-center justify-end gap-2">
                   <button
                     type="button"
-                    onClick={() => toggle(s)}
+                    onClick={() => {
+                      start(async () => {
+                        try {
+                          const result = await resendStaffInviteAction(s.email);
+                          if (result.emailed) toast.success(result.detail);
+                          else toast.message(result.detail);
+                        } catch (err) {
+                          toast.error(err instanceof Error ? err.message : "Invite failed");
+                        }
+                      });
+                    }}
+                    disabled={pending}
+                    className="admin-btn admin-btn-ghost px-2 py-1 text-sm"
+                  >
+                    Resend invite
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const next = !s.active;
+                      setStaff((prev) =>
+                        prev.map((x) => (x.email === s.email ? { ...x, active: next } : x)),
+                      );
+                      start(async () => {
+                        try {
+                          await setStaffActiveAction(s.email, next);
+                          toast.success(next ? "Access resumed." : "Access paused.");
+                        } catch (err) {
+                          setStaff((prev) =>
+                            prev.map((x) => (x.email === s.email ? { ...x, active: s.active } : x)),
+                          );
+                          toast.error(err instanceof Error ? err.message : "Update failed");
+                        }
+                      });
+                    }}
                     disabled={pending}
                     className="admin-btn admin-btn-ghost px-2 py-1 text-sm"
                   >
@@ -129,7 +189,19 @@ export function StaffManager({
                   </button>
                   <button
                     type="button"
-                    onClick={() => remove(s)}
+                    onClick={() => {
+                      const prev = staff;
+                      setStaff((cur) => cur.filter((x) => x.email !== s.email));
+                      start(async () => {
+                        try {
+                          await removeStaffAction(s.email);
+                          toast.success(`Removed ${s.email}.`);
+                        } catch (err) {
+                          setStaff(prev);
+                          toast.error(err instanceof Error ? err.message : "Remove failed");
+                        }
+                      });
+                    }}
                     disabled={pending}
                     className="admin-btn admin-btn-danger px-2 py-1 text-sm"
                   >
@@ -142,7 +214,7 @@ export function StaffManager({
         </ul>
       ) : (
         <p className="mt-4 text-sm text-muted-foreground">
-          No added staff yet. Owners (right) always have access.
+          No employees yet. Owners always have access via ALLOWED_EMAILS.
         </p>
       )}
     </div>
