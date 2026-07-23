@@ -57,24 +57,20 @@ const DEPTH: Record<Category, DepartmentDepth> = {
 export const DEPARTMENT_DEPTH: Record<Category, DepartmentDepth> = DEPTH;
 
 /**
- * Real floor photos that feature a department (hero first, then extras).
- *
- * Phase 2 (still-only, after Featured finds placements ship): swap supporting
- * extras for category-matched `/real-photos/placements/*` and mood stills
- * where they fit. Keep each department band all-still — no category films
- * beside stills. Suggested swaps:
- *   doors → arched8, barndoor, craftsman, artglass, oakcraftsman
- *   vanities → floralbowl, copper, pedestal, kohlervessel, espressovanity, vanity
- *   lighting → candelabra, sputnik, globe, ringpendant
- * Windows / cabinets / countertops / hardware / trim stay real warehouse stills
- * until matching placements exist.
+ * Supporting stills for the department feature band (lead + two sides).
+ * Doors / vanities / lighting use placement scenes + mood stills (all still).
+ * Other departments keep real warehouse aisle photos until placements exist.
+ * Never mix video into this band.
  */
 export function departmentFeaturePhotos(category: Category): string[] {
+  const P = "/real-photos/placements";
+  const M = "/real-photos/mood-stills";
+
   const extras: Partial<Record<Category, string[]>> = {
     doors: [
-      "/real-photos/business/floor-door-aisle-light-and-dark.jpg",
-      "/real-photos/business/floor-six-panel-oak-door-aisle.jpg",
-      "/real-photos/business/floor-barn-door-diamond-glass.jpg",
+      `${P}/craftsman.jpg`,
+      `${P}/barndoor.jpg`,
+      `${M}/detail-arched8-dusk.jpg`,
     ],
     windows: [
       "/real-photos/business/floor-window-aisle-warehouse.jpg",
@@ -87,9 +83,9 @@ export function departmentFeaturePhotos(category: Category): string[] {
       "/real-photos/business/dark-base-cabinets-warehouse-row.jpg",
     ],
     vanities: [
-      "/real-photos/business/floor-vanity-row-mirrors-lights.jpg",
-      "/real-photos/business/floor-vanity-floor-models-row.jpg",
-      "/real-photos/business/floor-vessel-and-drop-in-sinks.jpg",
+      `${P}/espressovanity.jpg`,
+      `${P}/floralbowl.jpg`,
+      `${M}/detail-copper-macro.jpg`,
     ],
     countertops: [
       "/real-photos/business/floor-butcher-block-rack-stacks.jpg",
@@ -101,9 +97,9 @@ export function departmentFeaturePhotos(category: Category): string[] {
       "/real-photos/business/floor-fasteners-grk-simpson-display.jpg",
     ],
     lighting: [
-      "/real-photos/business/floor-globe-crystal-chandelier.jpg",
-      "/real-photos/business/warehouse-lighting-inventory.jpg",
-      "/real-photos/business/floor-vanity-row-mirrors-lights.jpg",
+      `${P}/candelabra.jpg`,
+      `${P}/sputnik.jpg`,
+      `${M}/detail-globe-macro.jpg`,
     ],
     trim: [
       "/real-photos/business/floor-lumber-millwork-room.jpg",

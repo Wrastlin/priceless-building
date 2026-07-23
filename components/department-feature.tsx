@@ -6,8 +6,9 @@ import {
 } from "@/lib/department-depth";
 
 /**
- * Promotional department feature — a short story + a couple of real floor
- * photos. No quantity cards, price chips, or inventory-grid styling.
+ * Promotional department feature — a short story + still photography.
+ * Placement / mood stills for doors, vanities, lighting; warehouse stills
+ * elsewhere. No video in this band (one-medium doctrine).
  */
 export function DepartmentFeature({ category }: { category: Category }) {
   const cat = CATEGORIES[category];
@@ -15,6 +16,8 @@ export function DepartmentFeature({ category }: { category: Category }) {
   if (!cat || photos.length === 0) return null;
 
   const [lead, ...rest] = photos;
+  const usesPlacements =
+    category === "doors" || category === "vanities" || category === "lighting";
 
   return (
     <section className="border-b border-[var(--line)] bg-white">
@@ -23,15 +26,16 @@ export function DepartmentFeature({ category }: { category: Category }) {
           {cat.label} on the floor.
         </h2>
         <p className="mt-3 max-w-[48ch] text-[1.05rem] font-light leading-[1.65] text-[var(--soft)]">
-          Real aisle photos from the warehouse. Call with a size and we&rsquo;ll
-          check what&rsquo;s here.
+          {usesPlacements
+            ? "Pieces from the Washington Street inventory, shown in the room. Call with a size and we&rsquo;ll check what&rsquo;s here."
+            : "Real aisle photos from the warehouse. Call with a size and we&rsquo;ll check what&rsquo;s here."}
         </p>
 
         <div className="mt-8 grid gap-2.5 md:mt-10 md:grid-cols-12 md:gap-3">
           <div className="relative aspect-[4/3] min-w-0 overflow-hidden bg-[var(--taupe)] md:col-span-7 md:aspect-[16/11]">
             <Image
               src={lead}
-              alt={`${cat.label} on the Price-Less warehouse floor`}
+              alt={`${cat.label} at Price-Less Building Center`}
               fill
               sizes="(min-width:768px) 58vw, 100vw"
               quality={80}
