@@ -78,7 +78,7 @@ export function StoreShowcase() {
                     alt={cat.label}
                     fill
                     sizes="60vw"
-                    quality={65}
+                    quality={70}
                     className="object-cover transition duration-700 group-hover:scale-[1.03]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
@@ -111,7 +111,7 @@ export function StoreShowcase() {
                     alt={cat.label}
                     fill
                     sizes="(min-width:768px) 44vw, 92vw"
-                    quality={75}
+                    quality={70}
                     className="object-cover transition duration-700 group-hover:scale-[1.03]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
@@ -135,7 +135,7 @@ export function StoreShowcase() {
                             alt={t.name}
                             fill
                             sizes="(min-width:768px) 11vw, 22vw"
-                            quality={60}
+                            quality={70}
                             className="object-cover transition duration-700 group-hover:scale-[1.05]"
                           />
                         </div>

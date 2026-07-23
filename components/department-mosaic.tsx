@@ -36,7 +36,7 @@ export function DepartmentMosaic() {
                   alt={cat.label}
                   fill
                   sizes="(min-width:768px) 25vw, 50vw"
-                  quality={78}
+                  quality={80}
                   className="object-cover transition duration-700 group-hover:scale-[1.04]"
                 />
                 <div

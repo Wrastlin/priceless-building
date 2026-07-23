@@ -33,7 +33,7 @@ export function ProductCard({
             fill
             sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 100vw"
             className="object-cover transition duration-500 group-hover:scale-[1.03]"
-            quality={75}
+            quality={70}
             priority={priority}
           />
         ) : (

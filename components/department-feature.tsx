@@ -34,7 +34,7 @@ export function DepartmentFeature({ category }: { category: Category }) {
               alt={`${cat.label} on the Price-Less warehouse floor`}
               fill
               sizes="(min-width:768px) 58vw, 100vw"
-              quality={78}
+              quality={80}
               className="object-cover"
             />
           </div>
@@ -49,7 +49,7 @@ export function DepartmentFeature({ category }: { category: Category }) {
                   alt={`${cat.label} selection at Price-Less`}
                   fill
                   sizes="(min-width:768px) 35vw, 50vw"
-                  quality={75}
+                  quality={70}
                   className="object-cover"
                 />
               </div>

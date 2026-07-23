@@ -191,7 +191,7 @@ export default async function BlogPostPage({
       {/* HERO */}
       <section className="relative overflow-hidden border-b">
         <div className="absolute inset-0">
-          <Image src={post.cover} alt={post.title} fill priority className="object-cover" quality={75} />
+          <Image src={post.cover} alt={post.title} fill priority className="object-cover" quality={70} />
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/40" />
         </div>
         <div className="relative mx-auto max-w-4xl px-6 py-24 text-white md:py-32">

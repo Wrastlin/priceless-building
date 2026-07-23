@@ -24,9 +24,9 @@ const config: NextConfig = {
   images: {
     // When optimization is off (IMAGE_OPTIMIZATION=off) we serve originals so
     // an exhausted Vercel quota can't 402 the whole grid. When on (default),
-    // the optimizer makes small responsive WebP thumbnails (~300px) driven by
-    // each <Image>'s `sizes` prop — the biggest weight win on the listings.
-    // Pagination caps each grid to 24 images, so far fewer transforms run.
+    // the optimizer makes small responsive WebP thumbnails driven by each
+    // <Image>'s `sizes` prop. Keep qualities to exactly two values so each
+    // source only produces width×2 transform variants (not a quality sprawl).
     unoptimized: !optimizeImages,
     minimumCacheTTL: 2678400, // 31 days — keep optimized variants cached, minimize re-transforms
     remotePatterns: [
@@ -34,7 +34,8 @@ const config: NextConfig = {
       { protocol: "https", hostname: "**.supabase.co" },
       { protocol: "https", hostname: "**.gstatic.com" },
     ],
-    qualities: [50, 55, 60, 65, 70, 75, 78, 80, 85, 90, 92, 95, 100],
+    // 70 = cards/thumbs, 80 = heroes/feature. Do not add more without a reason.
+    qualities: [70, 80],
   },
 };
 

@@ -193,7 +193,7 @@ function FeatureLayer({ item }: { item: FloorFeature }) {
         alt={item.title}
         fill
         sizes="(min-width:640px) 50vw, 100vw"
-        quality={78}
+        quality={80}
         className="object-cover transition duration-700 group-hover:scale-[1.03]"
       />
       <div

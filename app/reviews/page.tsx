@@ -67,7 +67,7 @@ export default function ReviewsPage() {
             fill
             priority
             className="object-cover"
-            quality={75}
+            quality={70}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/55 to-black/30" />
         </div>

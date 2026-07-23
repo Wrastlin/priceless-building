@@ -54,7 +54,7 @@ export function BuildersPromo() {
                 alt={w.alt}
                 fill
                 sizes="(min-width:768px) 50vw, 50vw"
-                quality={78}
+                quality={80}
                 className="object-cover"
               />
             </div>

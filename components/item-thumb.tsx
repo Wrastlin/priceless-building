@@ -31,7 +31,7 @@ export function ItemThumb({
         fill
         className="object-cover"
         sizes="160px"
-        quality={50}
+        quality={70}
         unoptimized={item.image.startsWith("data:")}
       />
     </div>

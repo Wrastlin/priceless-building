@@ -109,7 +109,7 @@ function FamilyCard({ card }: { card: FamilyCardSpec }) {
               fill
               sizes="(min-width:768px) 17vw, 33vw"
               className="object-cover"
-              quality={75}
+              quality={70}
             />
           </div>
         ))}

@@ -202,7 +202,7 @@ export default function FourSquaredPage() {
                     fill
                     className="object-cover object-top"
                     sizes="(min-width:768px) 25vw, 100vw"
-                    quality={72}
+                    quality={70}
                   />
                 </div>
                 <div className="font-display text-4xl leading-none text-emerald-400">

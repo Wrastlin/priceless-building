@@ -133,7 +133,7 @@ export default function FAQPage() {
       {/* HERO */}
       <section className="relative overflow-hidden border-b">
         <div className="absolute inset-0">
-          <Image src={HERO} alt="Warehouse aisle on a Wednesday morning" fill priority className="object-cover" quality={75} />
+          <Image src={HERO} alt="Warehouse aisle on a Wednesday morning" fill priority className="object-cover" quality={70} />
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/35" />
         </div>
         <div className="relative mx-auto max-w-7xl px-6 py-20 text-white md:py-28">

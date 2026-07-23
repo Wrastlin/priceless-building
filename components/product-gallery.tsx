@@ -78,7 +78,7 @@ export function ProductGallery({
           fill
           priority
           sizes="(min-width:768px) 60vw, 100vw"
-          quality={85}
+          quality={80}
           className="object-cover transition group-hover:scale-[1.01]"
           onError={() => markFailed(safe[0])}
         />
@@ -114,7 +114,7 @@ export function ProductGallery({
                 fill
                 sizes="(min-width:768px) 15vw, 25vw"
                 className="object-cover"
-                quality={60}
+                quality={70}
                 onError={() => markFailed(src)}
               />
             </button>
@@ -176,7 +176,7 @@ export function ProductGallery({
               width={2400}
               height={2400}
               sizes="100vw"
-              quality={92}
+              quality={80}
               className="max-h-[90vh] w-auto select-none object-contain"
               draggable={false}
               onError={() => markFailed(safe[activeIndex])}

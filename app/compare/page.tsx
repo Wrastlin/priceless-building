@@ -26,7 +26,7 @@ export default async function ComparePage() {
       {/* HERO */}
       <section className="relative overflow-hidden border-b">
         <div className="absolute inset-0">
-          <Image src={HERO} alt="Warehouse aisle showing pricing" fill priority className="object-cover" quality={75} />
+          <Image src={HERO} alt="Warehouse aisle showing pricing" fill priority className="object-cover" quality={70} />
           <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/30" />
         </div>
         <div className="relative mx-auto max-w-7xl px-6 py-24 text-white md:py-36">
@@ -65,7 +65,7 @@ export default async function ComparePage() {
                 <div className="grid md:grid-cols-[260px_1fr]">
                   {/* photo */}
                   <div className="relative aspect-[4/3] md:aspect-auto md:h-full">
-                    <Image src={it.image} alt={it.title} fill className="object-cover" sizes="260px" quality={75} />
+                    <Image src={it.image} alt={it.title} fill className="object-cover" sizes="260px" quality={70} />
                   </div>
 
                   {/* body */}

@@ -78,7 +78,7 @@ export function ItemGallery({
                 onClick={() => setLightboxIndex(i + 1)}
                 className="relative aspect-square overflow-hidden bg-[oklch(0.968_0.008_85)]"
               >
-                <Image src={g} alt={`${alt} ${i + 2}`} fill className="object-cover" sizes="20vw" quality={60} unoptimized={g.startsWith("data:")} />
+                <Image src={g} alt={`${alt} ${i + 2}`} fill className="object-cover" sizes="20vw" quality={70} unoptimized={g.startsWith("data:")} />
               </button>
             ))}
           </div>

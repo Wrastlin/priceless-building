@@ -140,7 +140,7 @@ export default function BlogPage() {
       {/* HERO */}
       <section className="relative overflow-hidden border-b">
         <div className="absolute inset-0">
-          <Image src={HERO} alt="Family-owned shop counter" fill priority className="object-cover" quality={75} />
+          <Image src={HERO} alt="Family-owned shop counter" fill priority className="object-cover" quality={70} />
           <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/55 to-black/35" />
         </div>
         <div className="relative mx-auto max-w-7xl px-6 py-20 text-white md:py-28">
@@ -173,7 +173,7 @@ export default function BlogPage() {
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   className="object-cover transition group-hover:scale-[1.02]"
-                  quality={75}
+                  quality={70}
                 />
                 <span
                   className={

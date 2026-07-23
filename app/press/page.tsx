@@ -108,7 +108,7 @@ export default function PressPage() {
       {/* HERO */}
       <section className="relative overflow-hidden border-b">
         <div className="absolute inset-0">
-          <Image src={HERO} alt="Storefront on Washington St" fill priority className="object-cover" quality={75} />
+          <Image src={HERO} alt="Storefront on Washington St" fill priority className="object-cover" quality={70} />
           <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/30" />
         </div>
         <div className="relative mx-auto max-w-7xl px-6 py-20 text-white md:py-28">

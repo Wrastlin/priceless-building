@@ -163,7 +163,7 @@ export function PortfolioFlip({
                     fill
                     sizes="(min-width:768px) 33vw, 50vw"
                     className="object-cover"
-                    quality={78}
+                    quality={80}
                   />
                 )}
               </div>
@@ -181,7 +181,7 @@ export function PortfolioFlip({
                     fill
                     sizes="(min-width:768px) 33vw, 50vw"
                     className="object-cover"
-                    quality={78}
+                    quality={80}
                   />
                 )}
               </div>

@@ -71,7 +71,7 @@ export function WalkthroughBand() {
                   fill
                   sizes="(min-width:1024px) 20vw, (min-width:640px) 50vw, 100vw"
                   className="object-cover"
-                  quality={78}
+                  quality={80}
                 />
                 <span className="font-display absolute left-3 top-3 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white text-base text-[var(--brand-navy)] shadow-sm">
                   {s.n}

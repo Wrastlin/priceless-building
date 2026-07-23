@@ -38,7 +38,7 @@ export function HeroPhotoFader({
           fill
           sizes="100vw"
           priority={i === 0}
-          quality={82}
+          quality={80}
           className={
             "object-cover transition-opacity duration-[1400ms] ease-in-out " +
             (i === index ? "opacity-100" : "opacity-0")

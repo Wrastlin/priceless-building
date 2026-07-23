@@ -265,7 +265,7 @@ export default async function HomePage() {
                   alt={s.name}
                   fill
                   sizes="(max-width:768px) 100vw, 33vw"
-                  quality={90}
+                  quality={80}
                   className="object-cover transition duration-700 group-hover:scale-[1.04]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/5" />

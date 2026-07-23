@@ -247,7 +247,7 @@ export default function BuildersCornerPage() {
                     alt={w.alt}
                     fill
                     sizes="(min-width:768px) 50vw, 100vw"
-                    quality={85}
+                    quality={80}
                     className="object-cover transition duration-700 group-hover:scale-[1.03]"
                   />
                   <div
@@ -272,7 +272,7 @@ export default function BuildersCornerPage() {
               <SwipeCard key={w.label}>
                 <Link href={w.href} className="group relative block overflow-hidden">
                   <div className="relative aspect-[4/5] w-full bg-[var(--ink)]">
-                    <Image src={w.img} alt={w.alt} fill sizes="80vw" quality={90} className="object-cover" />
+                    <Image src={w.img} alt={w.alt} fill sizes="80vw" quality={80} className="object-cover" />
                     <div
                       aria-hidden
                       className="absolute inset-0"
@@ -300,7 +300,7 @@ export default function BuildersCornerPage() {
             alt="Dark charcoal kitchen with marble island, built by Builders Corner."
             fill
             sizes="100vw"
-            quality={90}
+            quality={80}
             className="object-cover"
           />
           <div
@@ -354,7 +354,7 @@ export default function BuildersCornerPage() {
                 alt="Before and after kitchen remodel with Builders Corner cabinetry."
                 fill
                 sizes="(min-width:768px) 58vw, 100vw"
-                quality={85}
+                quality={80}
                 className="object-cover"
               />
             </div>
@@ -374,7 +374,7 @@ export default function BuildersCornerPage() {
             {STEPS.map((s) => (
               <article key={s.n} className="flex flex-col">
                 <div className="relative aspect-[4/5] w-full overflow-hidden bg-[var(--taupe)]">
-                  <Image src={s.img} alt="" fill sizes="25vw" quality={90} className="object-cover" />
+                  <Image src={s.img} alt="" fill sizes="25vw" quality={80} className="object-cover" />
                 </div>
                 <p className="mt-4 text-[0.65rem] font-medium uppercase tracking-[0.18em] text-[var(--rust)]">
                   {s.n}
@@ -390,7 +390,7 @@ export default function BuildersCornerPage() {
               <SwipeCard key={s.n}>
                 <article>
                   <div className="relative aspect-[4/5] w-full overflow-hidden bg-[var(--taupe)]">
-                    <Image src={s.img} alt="" fill sizes="78vw" quality={90} className="object-cover" />
+                    <Image src={s.img} alt="" fill sizes="78vw" quality={80} className="object-cover" />
                   </div>
                   <p className="mt-3 text-[0.65rem] font-medium uppercase tracking-[0.18em] text-[var(--rust)]">
                     {s.n}
@@ -427,7 +427,7 @@ export default function BuildersCornerPage() {
                 alt=""
                 fill
                 sizes={i === 0 ? "(min-width:768px) 66vw, 100vw" : "(min-width:768px) 33vw, 50vw"}
-                quality={90}
+                quality={80}
                 className="object-cover"
               />
             </div>
@@ -454,7 +454,7 @@ export default function BuildersCornerPage() {
                 alt="Handwritten thank-you note to Builders Corner."
                 fill
                 sizes="(min-width:768px) 40vw, 100vw"
-                quality={90}
+                quality={80}
                 className="object-cover"
               />
             </div>

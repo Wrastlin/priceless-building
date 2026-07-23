@@ -190,7 +190,7 @@ export function WarehouseGallery() {
                           fill
                           sizes="(min-width:768px) 25vw, 50vw"
                           className="object-cover transition duration-700 group-hover:scale-[1.03]"
-                          quality={75}
+                          quality={70}
                           loading="lazy"
                         />
                       )}
@@ -220,7 +220,7 @@ export function WarehouseGallery() {
                           fill
                           sizes="(min-width:768px) 25vw, 50vw"
                           className="object-cover transition duration-700 group-hover:scale-[1.03]"
-                          quality={75}
+                          quality={70}
                           loading="lazy"
                         />
                       )}

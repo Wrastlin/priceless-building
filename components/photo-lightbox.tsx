@@ -121,7 +121,7 @@ export function PhotoLightbox({
           alt={p.alt}
           fill
           sizes="92vw"
-          quality={86}
+          quality={80}
           className="object-contain"
           priority
         />

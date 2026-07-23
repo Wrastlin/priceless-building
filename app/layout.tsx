@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "sonner";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { AuthErrorNotice } from "@/components/auth-error-notice";
@@ -112,6 +113,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main">{children}</main>
         <AuthErrorNotice />
         <Toaster position="top-center" richColors />
+        <Analytics />
       </body>
     </html>
   );

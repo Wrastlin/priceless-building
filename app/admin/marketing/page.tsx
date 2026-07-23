@@ -80,7 +80,7 @@ export default async function MarketingPage({
                       fill
                       sizes="(min-width:1024px) 25vw, (min-width:768px) 33vw, 50vw"
                       className="object-cover"
-                      quality={75}
+                      quality={70}
                     />
                   ) : null}
                 </div>
