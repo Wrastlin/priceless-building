@@ -13,7 +13,6 @@ import { CATEGORIES, byCategory, listFeatured } from "@/lib/catalog";
 import { FLOOR_FEATURES } from "@/lib/items/floor-features";
 import { isCatalogLive } from "@/lib/catalog-live";
 import { DepartmentMosaic } from "@/components/department-mosaic";
-import { AmbientVideo } from "@/components/ambient-video";
 import { fetchReviews, GOOGLE_RATING } from "@/lib/google-reviews";
 import { ProductCard } from "@/components/product-card";
 
@@ -44,8 +43,6 @@ const SERVICES: Service[] = [
     cta: "Shop the warehouse",
     href: "/shop",
     img: `${B}/floor-door-aisle-light-and-dark.jpg`,
-    video: "/ambient/ambient-dooraisle.mp4",
-    videoPoster: "/ambient/ambient-dooraisle-poster.jpg",
   },
   {
     name: "Builders Corner",
@@ -219,11 +216,14 @@ export default async function HomePage() {
 
       {/* Mural */}
       <figure className="relative">
-        <div className="relative aspect-[1400/596] w-full overflow-hidden bg-[var(--cream)]">
-          <AmbientVideo
-            src="/ambient/ambient-mural.mp4"
-            poster="/ambient/ambient-mural-poster.jpg"
+        <div className="relative w-full overflow-hidden bg-[var(--cream)]">
+          <Image
+            src={`${P}/mural-wide.webp`}
             alt="The 'Build Your Future' community mural on the side of the Price-Less Building Center, painted by fifty Wausau volunteers in June 2023."
+            width={2400}
+            height={750}
+            sizes="100vw"
+            className="block h-auto w-full"
           />
         </div>
         <figcaption className="mx-auto flex max-w-[1360px] items-baseline justify-center px-8 py-4 text-center">
@@ -252,23 +252,14 @@ export default async function HomePage() {
                 href={s.href}
                 className="group relative aspect-[3/4] overflow-hidden sm:aspect-[4/5]"
               >
-                {s.video ? (
-                  <AmbientVideo
-                    src={s.video}
-                    poster={s.videoPoster ?? s.img}
-                    alt={s.name}
-                    className="transition duration-700 group-hover:scale-[1.04]"
-                  />
-                ) : (
-                  <Image
-                    src={s.img}
-                    alt={s.name}
-                    fill
-                    sizes="(max-width:768px) 100vw, 33vw"
-                    quality={80}
-                    className="object-cover transition duration-700 group-hover:scale-[1.04]"
-                  />
-                )}
+                <Image
+                  src={s.img}
+                  alt={s.name}
+                  fill
+                  sizes="(max-width:768px) 100vw, 33vw"
+                  quality={80}
+                  className="object-cover transition duration-700 group-hover:scale-[1.04]"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/5" />
                 <div className="absolute left-5 top-5 text-[0.75rem] font-medium uppercase tracking-[0.18em] text-white/75">
                   0{i + 1}

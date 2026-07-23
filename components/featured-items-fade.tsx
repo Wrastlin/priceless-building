@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { FloorFeature } from "@/lib/items/floor-features";
-import { AmbientVideo } from "@/components/ambient-video";
 
 const DWELL_MS = 4200;
 const WIPE_MS = 520;
@@ -189,23 +188,14 @@ function FeatureCard({
 function FeatureLayer({ item }: { item: FloorFeature }) {
   return (
     <div className="absolute inset-0">
-      {item.video ? (
-        <AmbientVideo
-          src={item.video}
-          poster={item.videoPoster ?? item.image}
-          alt={item.title}
-          className="transition duration-700 group-hover:scale-[1.03]"
-        />
-      ) : (
-        <Image
-          src={item.image}
-          alt={item.title}
-          fill
-          sizes="(min-width:640px) 50vw, 100vw"
-          quality={80}
-          className="object-cover transition duration-700 group-hover:scale-[1.03]"
-        />
-      )}
+      <Image
+        src={item.image}
+        alt={item.title}
+        fill
+        sizes="(min-width:640px) 50vw, 100vw"
+        quality={80}
+        className="object-cover transition duration-700 group-hover:scale-[1.03]"
+      />
       <div
         aria-hidden
         className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent"
