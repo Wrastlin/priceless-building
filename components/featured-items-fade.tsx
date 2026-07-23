@@ -11,8 +11,8 @@ const STAGGER_MS = 380;
 const SLOT_COUNT = 2;
 
 /**
- * Two featured finds. One slot at a time swaps with a crisp upward wipe —
- * no opacity fade, no blank flash between items.
+ * Two featured finds (placement stills only). One slot at a time swaps with
+ * a crisp upward wipe — no opacity fade, no blank flash, no video.
  */
 export function FeaturedItemsFade({
   items,

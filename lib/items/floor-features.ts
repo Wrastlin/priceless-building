@@ -1,9 +1,8 @@
 /**
- * Display-only featured floor finds — real warehouse photos of individual
- * pieces worth spotlighting. Not a purchasable catalog; no product pages.
+ * Display-only featured floor finds — placement-scene stills that advertise
+ * real pieces on the floor. Not a purchasable catalog; no product pages.
  *
- * Curated from intake captures + CURATED.md product-detail picks. Skips
- * shots that aren't real intake demos (e.g. brushed-gold pulls).
+ * All still. No video in this band (one-medium doctrine).
  */
 export type FloorFeature = {
   id: string;
@@ -12,122 +11,137 @@ export type FloorFeature = {
   image: string;
   category: string;
   categoryLabel: string;
-  /** Optional textless ambient loop of the same product, styled (motion display doctrine) */
-  video?: string;
-  videoPoster?: string;
 };
+
+const P = "/real-photos/placements";
 
 export const FLOOR_FEATURES: FloorFeature[] = [
   {
     id: "feat-craftsman-door",
     title: "Black Craftsman Entry Door",
     subtitle: "Solid wood · glass lite",
-    image: "/real-photos/business/intake-black-craftsman-door.jpg",
+    image: `${P}/craftsman.jpg`,
     category: "doors",
     categoryLabel: "Doors",
-    video: "/ambient/ambient-craftsman.mp4",
-    videoPoster: "/ambient/ambient-craftsman-poster.jpg",
+  },
+  {
+    id: "feat-floral-bowl",
+    title: "Kohler Floral Vessel Sink",
+    subtitle: "Decorative ceramic · bath ready",
+    image: `${P}/floralbowl.jpg`,
+    category: "vanities",
+    categoryLabel: "Vanities",
+  },
+  {
+    id: "feat-candelabra",
+    title: "Crystal Candelabra Chandelier",
+    subtitle: "Statement lighting",
+    image: `${P}/candelabra.jpg`,
+    category: "lighting",
+    categoryLabel: "Lighting",
+  },
+  {
+    id: "feat-sputnik",
+    title: "Red Sputnik Chandelier",
+    subtitle: "Bold mid-century statement piece",
+    image: `${P}/sputnik.jpg`,
+    category: "lighting",
+    categoryLabel: "Lighting",
   },
   {
     id: "feat-kohler-vessel",
-    title: "Kohler Floral Vessel Sink",
-    subtitle: "Decorative ceramic · bath ready",
-    image: "/real-photos/business/intake-kohler-floral-vessel-sink.jpg",
-    category: "vanities",
-    categoryLabel: "Vanities",
-    video: "/ambient/ambient-floralbowl.mp4",
-    videoPoster: "/ambient/ambient-floralbowl-poster.jpg",
-  },
-  {
-    id: "feat-crystal-candelabra",
-    title: "Crystal Candelabra Chandelier",
-    subtitle: "Statement lighting",
-    image: "/real-photos/business/intake-crystal-candelabra-chandelier.jpg",
-    category: "lighting",
-    categoryLabel: "Lighting",
-    video: "/ambient/ambient-candelabra.mp4",
-    videoPoster: "/ambient/ambient-candelabra-poster.jpg",
-  },
-  {
-    id: "feat-red-sputnik",
-    title: "Red Sputnik Chandelier",
-    subtitle: "Bold mid-century statement piece",
-    image: "/real-photos/business/red-sputnik-chandelier.jpg",
-    category: "lighting",
-    categoryLabel: "Lighting",
-    video: "/ambient/ambient-sputnik.mp4",
-    videoPoster: "/ambient/ambient-sputnik-poster.jpg",
-  },
-  {
-    id: "feat-kohler-gold-faucet",
     title: "Kohler Vessel with Gold Faucet",
     subtitle: "Showroom vanity display",
-    image: "/real-photos/business/kohler-vessel-sink-gold-faucet.jpg",
+    image: `${P}/kohlervessel.jpg`,
     category: "vanities",
     categoryLabel: "Vanities",
-    video: "/ambient/ambient-kohlervessel.mp4",
-    videoPoster: "/ambient/ambient-kohlervessel-poster.jpg",
   },
   {
     id: "feat-copper-sink",
     title: "Copper Sink on Wood Counter",
     subtitle: "Liquidation find · one of a kind",
-    image: "/real-photos/business/copper-sink-wood-counter-display.jpg",
+    image: `${P}/copper.jpg`,
     category: "vanities",
     categoryLabel: "Vanities",
-    video: "/ambient/ambient-copper.mp4",
-    videoPoster: "/ambient/ambient-copper-poster.jpg",
   },
   {
-    id: "feat-knotty-pine-door",
-    title: "Knotty Pine 6-Panel Door",
-    subtitle: "Character wood · interior slab",
-    image: "/real-photos/business/knotty-pine-6-panel-door.jpg",
+    id: "feat-barnwood-mirror",
+    title: "Reclaimed Wood Framed Mirror",
+    subtitle: "Accent piece for bath or entry",
+    image: `${P}/barnwoodmirror.jpg`,
+    category: "vanities",
+    categoryLabel: "Vanities",
+  },
+  {
+    id: "feat-pedestal",
+    title: "Pedestal Sink with Gold Faucet",
+    subtitle: "Classic bath fixture",
+    image: `${P}/pedestal.jpg`,
+    category: "vanities",
+    categoryLabel: "Vanities",
+  },
+  {
+    id: "feat-barndoor",
+    title: "Sliding Barn Door",
+    subtitle: "Character hardware · ready to hang",
+    image: `${P}/barndoor.jpg`,
     category: "doors",
     categoryLabel: "Doors",
   },
   {
-    id: "feat-pendant",
-    title: "Pendant Light Fixture",
-    subtitle: "Warehouse lighting aisle",
-    image: "/real-photos/business/pendant-light-fixture-warehouse.jpg",
+    id: "feat-arched8",
+    title: "Arched Glass Entry Door",
+    subtitle: "Eight-lite arched top",
+    image: `${P}/arched8.jpg`,
+    category: "doors",
+    categoryLabel: "Doors",
+  },
+  {
+    id: "feat-globe",
+    title: "Globe Pendant Chandelier",
+    subtitle: "Warm ambient lighting",
+    image: `${P}/globe.jpg`,
     category: "lighting",
     categoryLabel: "Lighting",
   },
   {
-    id: "feat-oak-double-vanity",
-    title: "Oak Double Vanity",
+    id: "feat-ring-pendant",
+    title: "Ring Pendant Light",
+    subtitle: "Modern fixture · floor find",
+    image: `${P}/ringpendant.jpg`,
+    category: "lighting",
+    categoryLabel: "Lighting",
+  },
+  {
+    id: "feat-espresso-vanity",
+    title: "Espresso Bath Vanity",
     subtitle: "Floor model · ready to finish",
-    image: "/real-photos/business/oak-double-vanity-warehouse.jpg",
+    image: `${P}/espressovanity.jpg`,
     category: "vanities",
     categoryLabel: "Vanities",
   },
   {
-    id: "feat-reclaimed-mirror",
-    title: "Reclaimed Wood Framed Mirror",
-    subtitle: "Accent piece for bath or entry",
-    image: "/real-photos/business/reclaimed-wood-framed-mirror.jpg",
-    category: "vanities",
-    categoryLabel: "Vanities",
-    video: "/ambient/ambient-barnwoodmirror.mp4",
-    videoPoster: "/ambient/ambient-barnwoodmirror-poster.jpg",
+    id: "feat-artglass",
+    title: "Art Glass Door",
+    subtitle: "Decorative lite · one of a kind",
+    image: `${P}/artglass.jpg`,
+    category: "doors",
+    categoryLabel: "Doors",
   },
   {
-    id: "feat-white-vanity-copper",
-    title: "White Vanity with Copper Sink",
-    subtitle: "Bath display piece",
-    image: "/real-photos/business/white-vanity-copper-sink.jpg",
-    category: "vanities",
-    categoryLabel: "Vanities",
+    id: "feat-oak-craftsman",
+    title: "Oak Craftsman Door",
+    subtitle: "Warm wood · glass lite",
+    image: `${P}/oakcraftsman.jpg`,
+    category: "doors",
+    categoryLabel: "Doors",
   },
   {
-    id: "feat-pedestal-sink",
-    title: "Pedestal Sink with Gold Faucet",
-    subtitle: "Classic bath fixture",
-    image: "/real-photos/business/pedestal-sink-gold-faucet.jpg",
+    id: "feat-white-vessel",
+    title: "White Vessel Sink",
+    subtitle: "Clean bath display piece",
+    image: `${P}/whitevessel.jpg`,
     category: "vanities",
     categoryLabel: "Vanities",
-    video: "/ambient/ambient-pedestal.mp4",
-    videoPoster: "/ambient/ambient-pedestal-poster.jpg",
   },
 ];

@@ -56,7 +56,19 @@ const DEPTH: Record<Category, DepartmentDepth> = {
 
 export const DEPARTMENT_DEPTH: Record<Category, DepartmentDepth> = DEPTH;
 
-/** Real floor photos that feature a department (hero first, then extras). */
+/**
+ * Real floor photos that feature a department (hero first, then extras).
+ *
+ * Phase 2 (still-only, after Featured finds placements ship): swap supporting
+ * extras for category-matched `/real-photos/placements/*` and mood stills
+ * where they fit. Keep each department band all-still — no category films
+ * beside stills. Suggested swaps:
+ *   doors → arched8, barndoor, craftsman, artglass, oakcraftsman
+ *   vanities → floralbowl, copper, pedestal, kohlervessel, espressovanity, vanity
+ *   lighting → candelabra, sputnik, globe, ringpendant
+ * Windows / cabinets / countertops / hardware / trim stay real warehouse stills
+ * until matching placements exist.
+ */
 export function departmentFeaturePhotos(category: Category): string[] {
   const extras: Partial<Record<Category, string[]>> = {
     doors: [
