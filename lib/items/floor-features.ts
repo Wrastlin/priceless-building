@@ -12,6 +12,9 @@ export type FloorFeature = {
   image: string;
   category: string;
   categoryLabel: string;
+  /** Optional textless ambient loop of the same product, styled (motion display doctrine) */
+  video?: string;
+  videoPoster?: string;
 };
 
 export const FLOOR_FEATURES: FloorFeature[] = [
@@ -22,6 +25,8 @@ export const FLOOR_FEATURES: FloorFeature[] = [
     image: "/real-photos/business/intake-black-craftsman-door.jpg",
     category: "doors",
     categoryLabel: "Doors",
+    video: "/ambient/ambient-craftsman.mp4",
+    videoPoster: "/ambient/ambient-craftsman-poster.jpg",
   },
   {
     id: "feat-kohler-vessel",
@@ -30,6 +35,8 @@ export const FLOOR_FEATURES: FloorFeature[] = [
     image: "/real-photos/business/intake-kohler-floral-vessel-sink.jpg",
     category: "vanities",
     categoryLabel: "Vanities",
+    video: "/ambient/ambient-floralbowl.mp4",
+    videoPoster: "/ambient/ambient-floralbowl-poster.jpg",
   },
   {
     id: "feat-crystal-candelabra",
@@ -38,6 +45,8 @@ export const FLOOR_FEATURES: FloorFeature[] = [
     image: "/real-photos/business/intake-crystal-candelabra-chandelier.jpg",
     category: "lighting",
     categoryLabel: "Lighting",
+    video: "/ambient/ambient-candelabra.mp4",
+    videoPoster: "/ambient/ambient-candelabra-poster.jpg",
   },
   {
     id: "feat-red-sputnik",
@@ -46,6 +55,8 @@ export const FLOOR_FEATURES: FloorFeature[] = [
     image: "/real-photos/business/red-sputnik-chandelier.jpg",
     category: "lighting",
     categoryLabel: "Lighting",
+    video: "/ambient/ambient-sputnik.mp4",
+    videoPoster: "/ambient/ambient-sputnik-poster.jpg",
   },
   {
     id: "feat-kohler-gold-faucet",
@@ -54,6 +65,8 @@ export const FLOOR_FEATURES: FloorFeature[] = [
     image: "/real-photos/business/kohler-vessel-sink-gold-faucet.jpg",
     category: "vanities",
     categoryLabel: "Vanities",
+    video: "/ambient/ambient-kohlervessel.mp4",
+    videoPoster: "/ambient/ambient-kohlervessel-poster.jpg",
   },
   {
     id: "feat-copper-sink",
@@ -62,6 +75,8 @@ export const FLOOR_FEATURES: FloorFeature[] = [
     image: "/real-photos/business/copper-sink-wood-counter-display.jpg",
     category: "vanities",
     categoryLabel: "Vanities",
+    video: "/ambient/ambient-copper.mp4",
+    videoPoster: "/ambient/ambient-copper-poster.jpg",
   },
   {
     id: "feat-knotty-pine-door",
@@ -94,6 +109,8 @@ export const FLOOR_FEATURES: FloorFeature[] = [
     image: "/real-photos/business/reclaimed-wood-framed-mirror.jpg",
     category: "vanities",
     categoryLabel: "Vanities",
+    video: "/ambient/ambient-barnwoodmirror.mp4",
+    videoPoster: "/ambient/ambient-barnwoodmirror-poster.jpg",
   },
   {
     id: "feat-white-vanity-copper",
@@ -110,5 +127,7 @@ export const FLOOR_FEATURES: FloorFeature[] = [
     image: "/real-photos/business/pedestal-sink-gold-faucet.jpg",
     category: "vanities",
     categoryLabel: "Vanities",
+    video: "/ambient/ambient-pedestal.mp4",
+    videoPoster: "/ambient/ambient-pedestal-poster.jpg",
   },
 ];
