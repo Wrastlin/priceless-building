@@ -58,19 +58,16 @@ export const DEPARTMENT_DEPTH: Record<Category, DepartmentDepth> = DEPTH;
 
 /**
  * Supporting stills for the department feature band (lead + two sides).
- * Doors / vanities / lighting use placement scenes + mood stills (all still).
- * Other departments keep real warehouse aisle photos until placements exist.
- * Never mix video into this band.
+ * Real warehouse aisle photos — keep this band documentary so a cluster of
+ * placement/AI room scenes does not sit edge-to-edge. Placements go in the
+ * faded category hero instead (see departmentHeroPhoto).
  */
 export function departmentFeaturePhotos(category: Category): string[] {
-  const P = "/real-photos/placements";
-  const M = "/real-photos/mood-stills";
-
   const extras: Partial<Record<Category, string[]>> = {
     doors: [
-      `${P}/craftsman.jpg`,
-      `${P}/barndoor.jpg`,
-      `${M}/detail-arched8-dusk.jpg`,
+      "/real-photos/business/floor-door-aisle-light-and-dark.jpg",
+      "/real-photos/business/floor-six-panel-oak-door-aisle.jpg",
+      "/real-photos/business/floor-barn-door-diamond-glass.jpg",
     ],
     windows: [
       "/real-photos/business/floor-window-aisle-warehouse.jpg",
@@ -83,9 +80,9 @@ export function departmentFeaturePhotos(category: Category): string[] {
       "/real-photos/business/dark-base-cabinets-warehouse-row.jpg",
     ],
     vanities: [
-      `${P}/espressovanity.jpg`,
-      `${P}/floralbowl.jpg`,
-      `${M}/detail-copper-macro.jpg`,
+      "/real-photos/business/floor-vanity-row-mirrors-lights.jpg",
+      "/real-photos/business/floor-vanity-floor-models-row.jpg",
+      "/real-photos/business/floor-vessel-and-drop-in-sinks.jpg",
     ],
     countertops: [
       "/real-photos/business/floor-butcher-block-rack-stacks.jpg",
@@ -97,9 +94,9 @@ export function departmentFeaturePhotos(category: Category): string[] {
       "/real-photos/business/floor-fasteners-grk-simpson-display.jpg",
     ],
     lighting: [
-      `${P}/candelabra.jpg`,
-      `${P}/sputnik.jpg`,
-      `${M}/detail-globe-macro.jpg`,
+      "/real-photos/business/floor-globe-crystal-chandelier.jpg",
+      "/real-photos/business/warehouse-lighting-inventory.jpg",
+      "/real-photos/business/floor-vanity-row-mirrors-lights.jpg",
     ],
     trim: [
       "/real-photos/business/floor-lumber-millwork-room.jpg",
@@ -108,4 +105,19 @@ export function departmentFeaturePhotos(category: Category): string[] {
     ],
   };
   return extras[category] ?? [];
+}
+
+/**
+ * Category-page hero only. Placement scenes sit under the title gradient so
+ * they read as atmosphere; mosaic tiles and the feature strip stay real floor
+ * photos (CATEGORIES.image / departmentFeaturePhotos).
+ */
+export function departmentHeroPhoto(category: Category, fallback: string): string {
+  const P = "/real-photos/placements";
+  const heroes: Partial<Record<Category, string>> = {
+    doors: `${P}/craftsman.jpg`,
+    vanities: `${P}/espressovanity.jpg`,
+    lighting: `${P}/candelabra.jpg`,
+  };
+  return heroes[category] ?? fallback;
 }

@@ -8,7 +8,7 @@ import { ProductCard } from "@/components/product-card";
 import { Pagination } from "@/components/pagination";
 import { DepartmentFeature } from "@/components/department-feature";
 import { CATEGORIES, listPublishedPage, type Category } from "@/lib/catalog";
-import { DEPARTMENT_DEPTH } from "@/lib/department-depth";
+import { DEPARTMENT_DEPTH, departmentHeroPhoto } from "@/lib/department-depth";
 import { isCatalogLive } from "@/lib/catalog-live";
 import { parsePage } from "@/lib/utils";
 
@@ -23,6 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
   if (!(category in CATEGORIES)) return { title: "Category not found" };
   const cat = CATEGORIES[category as Category];
   const depth = DEPARTMENT_DEPTH[category as Category];
+  const heroImage = departmentHeroPhoto(category as Category, cat.image);
   const title = `${cat.label} · ${depth.headline} at Price-Less Building Center Wausau, WI`;
   const description = `${cat.label}: ${depth.detail} ${cat.blurb} At Price-Less Building Center in Wausau, Wisconsin.`;
   return {
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
       title,
       description,
       url: `${SITE_URL}/shop/${category}`,
-      images: [{ url: cat.image.startsWith("http") ? cat.image : `${SITE_URL}${cat.image}`, alt: cat.label }],
+      images: [{ url: heroImage.startsWith("http") ? heroImage : `${SITE_URL}${heroImage}`, alt: cat.label }],
     },
   };
 }
@@ -51,6 +52,7 @@ export default async function CategoryPage({
   const cat = CATEGORIES[category as Category];
   const depth = DEPARTMENT_DEPTH[category as Category];
   const live = isCatalogLive();
+  const heroImage = departmentHeroPhoto(category as Category, cat.image);
   const { page: pageParam } = await searchParams;
   const catalog = live
     ? await listPublishedPage({
@@ -71,7 +73,7 @@ export default async function CategoryPage({
         {/* Flex + in-flow copy so the headline never clips on short phones */}
         <div className="relative flex min-h-[52svh] w-full flex-col justify-end overflow-hidden md:min-h-[58svh]">
           <Image
-            src={cat.image}
+            src={heroImage}
             alt={cat.label}
             fill
             className="object-cover"
