@@ -69,19 +69,6 @@ const SERVICES: Service[] = [
   },
 ];
 
-const BEFORE_AFTER = [
-  {
-    label: "Kitchen remodel",
-    img: `${B}/kitchen-remodel-before-after.jpg`,
-    body: "Dated oak galley to a bright white-cabinet kitchen with stone counters, designed, supplied, and installed under one roof.",
-  },
-  {
-    label: "Kitchen & bath",
-    img: `${B}/kitchen-and-bath-remodel-split.jpg`,
-    body: "A whole-home refresh: cabinetry from Builders Corner, fixtures off the Price-Less floor, installed by the 4 Squared crew.",
-  },
-];
-
 const NEWS = [
   {
     source: "WSAW NewsChannel 7",
@@ -108,15 +95,6 @@ const FB_PHOTOS = [
   `${P}/anniversary-6-year.webp`,
   `${P}/santa-at-storefront.webp`,
   `${P}/school-food-drive.webp`,
-];
-
-const GALLERY = [
-  `${P}/builders-corner-hero.jpg`,
-  `${P}/foursquared/kitchen-wood-island-black-pendants.jpg`,
-  `${P}/foursquared/kitchen-white-island-shiplap.jpg`,
-  `${B}/white-kitchen-wood-island.jpg`,
-  `${B}/dark-double-vanity-bathroom-install.jpg`,
-  `${P}/foursquared/pergola-patio-daylight.jpg`,
 ];
 
 const HOME_JSON_LD = {
@@ -354,75 +332,9 @@ export default async function HomePage() {
 
       {!live ? <DepartmentMosaic /> : null}
 
-      <BuildersPromo />
-
-      {/* Before / after — show full composite photos (no crop) */}
-      <section className="mx-auto max-w-[1360px] px-5 pt-6 pb-10 sm:px-8 sm:pt-8 sm:pb-14">
-        <div className="max-w-[46ch]">
-          <H2>
-            Before, and <span className="font-normal italic">after.</span>
-          </H2>
-          <p className="mt-3 hidden text-[1.05rem] font-light leading-[1.65] text-[var(--soft)] sm:block">
-            Real rooms the in-house crew has finished: shopped, designed, and installed
-            on the same lot.
-          </p>
-        </div>
-        <div className="mt-5 grid gap-5 sm:mt-6 sm:gap-6 md:grid-cols-2">
-          {BEFORE_AFTER.map((ba) => (
-            <figure key={ba.label}>
-              <div className="relative w-full overflow-hidden bg-[var(--line)]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={ba.img}
-                  alt={ba.label}
-                  className="h-auto w-full object-contain"
-                />
-              </div>
-              <figcaption className="mt-3 sm:mt-5">
-                <h3 className="font-display text-[1.2rem] font-semibold sm:text-[1.4rem]">{ba.label}</h3>
-                <p className="mt-1.5 hidden text-[0.95rem] font-light leading-[1.7] text-[var(--soft)] sm:mt-2 sm:block">
-                  {ba.body}
-                </p>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </section>
-
       <ReviewsFade reviews={reviews} />
 
-      {/* Builders Corner finished work */}
-      <section className="border-t border-[var(--line)] bg-[var(--cream)]">
-        <div className="mx-auto max-w-[1360px] px-5 py-10 sm:px-8 sm:py-14">
-          <div className="flex items-end justify-between gap-6">
-            <div>
-              <H2 className="max-w-[20ch]">
-                Built by <span className="font-normal italic">Builders Corner.</span>
-              </H2>
-              <p className="mt-3 max-w-[46ch] text-[1.05rem] font-light leading-[1.65] text-[var(--soft)]">
-                Finished kitchens, baths, and outdoor work from the showroom and shop
-                on Washington Street.
-              </p>
-            </div>
-            <Link
-              href="/builders-corner"
-              className="hidden shrink-0 border-b border-[var(--ink)] pb-1 text-[0.8rem] font-medium uppercase tracking-[0.16em] sm:inline-block"
-            >
-              See more work ›
-            </Link>
-          </div>
-          <div className="mt-6 grid grid-cols-2 gap-2.5 sm:mt-8 sm:gap-3 md:grid-cols-3">
-            {GALLERY.map((src) => (
-              <div
-                key={src}
-                className="relative aspect-[4/5] min-w-0 overflow-hidden bg-[var(--line)]"
-              >
-                <Image src={src} alt="" fill sizes="(max-width:768px) 45vw, 30vw" className="object-cover" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <BuildersPromo />
 
       {/* Press */}
       <section className="mx-auto max-w-[1240px] px-5 py-10 sm:px-8 sm:py-14">
