@@ -5,14 +5,17 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { FloorFeature } from "@/lib/items/floor-features";
 
-const DWELL_MS = 4200;
-const WIPE_MS = 520;
-const STAGGER_MS = 380;
+const DWELL_MS = 5600;
+const WIPE_MS = 880;
+const STAGGER_MS = 520;
+const SETTLE_MS = 80;
 const SLOT_COUNT = 2;
+/** Soft ease — long ease-out so the last third of the wipe feels unhurried. */
+const WIPE_EASE = "cubic-bezier(0.33, 0.0, 0.12, 1)";
 
 /**
  * Two featured finds (placement stills only). One slot at a time swaps with
- * a crisp upward wipe — no opacity fade, no blank flash, no video.
+ * a soft upward wipe — no opacity fade, no blank flash, no video.
  */
 export function FeaturedItemsFade({
   items,
@@ -64,17 +67,19 @@ export function FeaturedItemsFade({
         return copy;
       });
 
-      // Mount closed, then open wipe on the following frame
-      later(20, () => {
-        if (cancelled) return;
-        setWiping((w) => {
-          const copy: [boolean, boolean] = [...w];
-          copy[slot] = true;
-          return copy;
+      // Two rAFs so the closed clip-path paints before the open transition.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (cancelled) return;
+          setWiping((w) => {
+            const copy: [boolean, boolean] = [...w];
+            copy[slot] = true;
+            return copy;
+          });
         });
       });
 
-      later(WIPE_MS + 40, () => {
+      later(WIPE_MS + SETTLE_MS, () => {
         if (cancelled) return;
         setSlotIdx((cur) => {
           const copy: [number, number] = [...cur];
@@ -91,7 +96,7 @@ export function FeaturedItemsFade({
           copy[slot] = false;
           return copy;
         });
-        later(30, () => {
+        later(SETTLE_MS, () => {
           if (!cancelled) then();
         });
       });
@@ -127,6 +132,14 @@ export function FeaturedItemsFade({
   const rightIn =
     incomingIdx[1] != null ? items[incomingIdx[1] % items.length]! : null;
 
+  // Prefetch the next couple of images so wipes don't hitch on decode.
+  const prefetch = [
+    items[(slotIdx[0] + 1) % items.length],
+    items[(slotIdx[0] + 2) % items.length],
+    items[(slotIdx[1] + 1) % items.length],
+    items[(slotIdx[1] + 2) % items.length],
+  ].filter(Boolean) as FloorFeature[];
+
   return (
     <section className="mx-auto max-w-[1360px] px-8 py-10 sm:px-10 sm:py-14 md:px-12">
       <div className="flex items-end justify-between gap-6">
@@ -141,6 +154,19 @@ export function FeaturedItemsFade({
         >
           Shop departments ›
         </Link>
+      </div>
+
+      <div aria-hidden className="pointer-events-none fixed -left-[9999px] top-0 h-px w-px overflow-hidden opacity-0">
+        {prefetch.map((item) => (
+          <Image
+            key={`prefetch-${item.id}`}
+            src={item.image}
+            alt=""
+            width={8}
+            height={8}
+            quality={80}
+          />
+        ))}
       </div>
 
       <div className="mt-6 grid grid-cols-1 overflow-hidden border border-[var(--line)] sm:mt-8 sm:grid-cols-2">
@@ -175,7 +201,7 @@ function FeatureCard({
           className="absolute inset-0 z-[1] will-change-[clip-path]"
           style={{
             clipPath: wiping ? "inset(0 0 0 0)" : "inset(100% 0 0 0)",
-            transition: `clip-path ${WIPE_MS}ms cubic-bezier(0.2, 0.8, 0.2, 1)`,
+            transition: `clip-path ${WIPE_MS}ms ${WIPE_EASE}`,
           }}
         >
           <FeatureLayer item={incoming} />
@@ -194,7 +220,7 @@ function FeatureLayer({ item }: { item: FloorFeature }) {
         fill
         sizes="(min-width:640px) 50vw, 100vw"
         quality={80}
-        className="object-cover transition duration-700 group-hover:scale-[1.03]"
+        className="object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
       />
       <div
         aria-hidden
