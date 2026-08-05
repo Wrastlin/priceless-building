@@ -1,0 +1,18 @@
+{
+  "sku": "CB-GEN-0002",
+  "slug": "wood-wall-cabinet-cb-gen-0002",
+  "title": "Wood wall cabinet",
+  "category": "cabinets",
+  "subcategory": null,
+  "dimensions": null,
+  "specs": {},
+  "price": 125,
+  "capturedBy": "dev@local",
+  "createdAt": "2026-07-24T02:29:09.862Z",
+  "photos": [
+    "source-01.jpg",
+    "source-02.jpg",
+    "source-03.jpg"
+  ],
+  "pulledAt": "2026-07-24T03:24:04.313Z"
+}

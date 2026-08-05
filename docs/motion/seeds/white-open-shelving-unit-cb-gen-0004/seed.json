@@ -1,0 +1,19 @@
+{
+  "sku": "CB-GEN-0004",
+  "slug": "white-open-shelving-unit-cb-gen-0004",
+  "title": "White open shelving unit",
+  "category": "cabinets",
+  "subcategory": null,
+  "dimensions": null,
+  "specs": {},
+  "price": 375,
+  "capturedBy": "dev@local",
+  "createdAt": "2026-07-24T02:29:17.987Z",
+  "photos": [
+    "source-01.jpg",
+    "source-02.jpg",
+    "source-03.jpg",
+    "source-04.jpg"
+  ],
+  "pulledAt": "2026-07-24T03:28:57.659Z"
+}

@@ -1,0 +1,19 @@
+{
+  "sku": "VT-GEN-0003",
+  "slug": "white-vanity-base-with-vt-gen-0003",
+  "title": "White vanity base with red top",
+  "category": "vanities",
+  "subcategory": null,
+  "dimensions": null,
+  "specs": {},
+  "price": 409,
+  "capturedBy": "dev@local",
+  "createdAt": "2026-07-24T02:28:58.411Z",
+  "photos": [
+    "source-01.jpg",
+    "source-02.jpg",
+    "source-03.jpg",
+    "source-04.jpg"
+  ],
+  "pulledAt": "2026-07-24T03:26:18.657Z"
+}

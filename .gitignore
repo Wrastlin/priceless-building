@@ -5,10 +5,10 @@ node_modules
 .next
 out
 
-# env
-.env
-.env.*.local
-.env.local
+# env — ignore every real env file; keep only the *.example templates
+.env*
+!.env.example
+!.env.cloud.example
 
 # build / cache
 *.tsbuildinfo
@@ -54,3 +54,12 @@ public/real-photos/_inbox/
 
 # local product photo test fixtures
 ../test-photos/
+docs/intake-batches/**/items-backup-full-*.json.gz
+
+# motion pipeline: source is tracked, heavy output is not.
+# These render outputs are NOT backed up by git. See docs/motion/BACKUP.md
+motion-remotion/node_modules/
+motion-remotion/out/
+motion-remotion/public/
+docs/motion/renders/
+docs/motion/youtube-pipeline-sources/

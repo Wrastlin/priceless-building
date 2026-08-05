@@ -69,6 +69,14 @@ export async function POST(req: NextRequest) {
   const price = Number(body.price) || 0;
   const compareAt = body.compareAt != null ? Number(body.compareAt) : undefined;
   const quantity = Math.max(1, Number(body.quantity) || 1);
+  // Preferred path: the client already uploaded originals straight to Storage
+  // (direct-to-storage, full quality) and sends back their hosted public URLs.
+  const hostedUrlsIn = Array.isArray(body.photoUrls)
+    ? body.photoUrls.filter(
+        (p): p is string => typeof p === "string" && /^https?:\/\//i.test(p),
+      )
+    : [];
+  // Legacy fallback: base64 data URLs POSTed inline (older clients / no storage).
   const photosIn = Array.isArray(body.photos)
     ? body.photos.filter((p): p is string => typeof p === "string")
     : [];
@@ -78,7 +86,9 @@ export async function POST(req: NextRequest) {
   const id = randomUUID();
 
   let photoUrls: string[] = [];
-  if (photosIn.length && photoStorageConfigured()) {
+  if (hostedUrlsIn.length) {
+    photoUrls = hostedUrlsIn;
+  } else if (photosIn.length && photoStorageConfigured()) {
     try {
       photoUrls = await storeItemPhotos(sku.toLowerCase(), photosIn);
     } catch {

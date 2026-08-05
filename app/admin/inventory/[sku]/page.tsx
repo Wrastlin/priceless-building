@@ -3,16 +3,20 @@ import { notFound } from "next/navigation";
 import { InventoryAppShell } from "@/components/inventory/inventory-app-shell";
 import { PrintLabels } from "@/components/inventory/print-labels";
 import { ChannelChecklist } from "@/components/inventory/channel-checklist";
+import { SeedStatus } from "@/components/inventory/seed-status";
 import { findBySku } from "@/lib/items/store";
 import { getItemPrivate } from "@/lib/items/private-store";
 import { isOwner } from "@/lib/auth/session";
 import { formatCurrency } from "@/lib/utils";
+import { marketingSlugFor } from "@/lib/marketing/seeds";
+import { listDeliverablesForSku } from "@/lib/marketing/deliverables";
 import { ItemGallery } from "./item-gallery";
 import { CostPanel } from "./cost-panel";
 import { DetailsEditor } from "./details-editor";
 import { MarkSoldButton } from "./mark-sold-button";
 import { RefreshComparables } from "./refresh-comparables";
 import { ItemAiChat } from "./item-ai-chat";
+import { MarketingLibrary } from "./marketing-library";
 
 export default async function EditItem({
   params,
@@ -28,6 +32,8 @@ export default async function EditItem({
   const owner = await isOwner();
   const priv = owner ? await getItemPrivate(item.sku) : null;
   const compare = item.compareAt ?? item.msrp;
+  const librarySlug = item.marketing?.slug ?? marketingSlugFor(item);
+  const library = await listDeliverablesForSku(item.sku);
 
   return (
     <InventoryAppShell
@@ -138,6 +144,18 @@ export default async function EditItem({
               </Link>
             </div>
             <ChannelChecklist sku={item.sku} initial={item.channels} />
+          </Panel>
+
+          <Panel title={`Marketing library${library.total ? ` · ${library.total}` : ""}`}>
+            <SeedStatus sku={item.sku} initial={item.marketing} canManage={owner} />
+            <div className="mt-4 border-t border-[var(--border)] pt-4">
+              <MarketingLibrary
+                groups={library.groups}
+                total={library.total}
+                rootExists={library.rootExists}
+                slug={librarySlug}
+              />
+            </div>
           </Panel>
 
           {owner ? (

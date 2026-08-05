@@ -1,0 +1,194 @@
+[
+ {
+  "slug": "arched8",
+  "input": "docs/motion/renders/gemini-studio/floor-arched-eight-panel-door-gemini.png",
+  "name": "Arched",
+  "descriptor": "Eight-panel walnut door",
+  "anchor": "low",
+  "context": "a warm Tuscan-style hallway with soft plaster walls and terracotta floor, the arched door installed in a matching arched opening. CRITICAL: keep all eight octagonal molded panels and the walnut finish exactly"
+ },
+ {
+  "slug": "barndoor",
+  "input": "docs/motion/renders/gemini-studio/floor-barn-door-diamond-glass-gemini.png",
+  "name": "Barn Door",
+  "descriptor": "Reclaimed diamond glass",
+  "anchor": "low",
+  "context": "a modern farmhouse dining nook with shiplap walls, the barn door mounted on its black steel track, half slid across a doorway. CRITICAL: keep the diamond leaded glass window, the track wheels, and the rustic reclaimed planks exactly"
+ },
+ {
+  "slug": "artglass",
+  "input": "docs/motion/renders/gemini-studio/dark-wood-exterior-door-glass-gemini.png",
+  "name": "Art Glass",
+  "descriptor": "Dark craftsman entry",
+  "anchor": "low",
+  "context": "a craftsman bungalow front entry with wood porch columns and warm evening light, installed as the front door. CRITICAL: keep the art glass window pattern and the dentil shelf exactly"
+ },
+ {
+  "slug": "brownglass",
+  "input": "docs/motion/renders/gemini-studio/brown-exterior-door-decorative-glass-gemini.png",
+  "name": "Leaded Glass",
+  "descriptor": "Warm brown entry door",
+  "anchor": "low",
+  "context": "a classic brick home entry with white trim and a clean porch, installed as the front door. CRITICAL: keep the decorative leaded glass panel and the raised lower panel exactly"
+ },
+ {
+  "slug": "oakcraftsman",
+  "input": "docs/motion/renders/gemini-studio/craftsman-door-warehouse-gemini.png",
+  "name": "Oak",
+  "descriptor": "Six-lite craftsman door",
+  "anchor": "low",
+  "context": "a northwoods cabin mudroom with knotty pine walls, one single door installed as the interior door. CRITICAL: keep the six-lite divided window and oak finish exactly, show ONE door only"
+ },
+ {
+  "slug": "copper",
+  "input": "docs/motion/renders/gemini-studio/copper-sink-wood-counter-display-gemini.png",
+  "name": "Copper",
+  "descriptor": "Hammered vessel basin",
+  "anchor": "center",
+  "context": "a rustic stone and timber cabin bathroom with warm lantern light, the basin set on a thick wood slab counter with its oil-rubbed bronze faucet behind it. CRITICAL: keep the hammered copper texture exactly"
+ },
+ {
+  "slug": "floralbowl",
+  "input": "docs/motion/renders/gemini-studio/intake-kohler-floral-vessel-sink-gemini.png",
+  "name": "Floral",
+  "descriptor": "Embossed cream vessel",
+  "anchor": "center",
+  "context": "a serene spa bathroom with pale stone counter and a sprig of eucalyptus, the vessel bowl sitting on the counter. CRITICAL: keep the embossed cream floral relief exactly"
+ },
+ {
+  "slug": "floralunder",
+  "input": "docs/motion/renders/gemini-studio/kohler-floral-sink-basin-gemini.png",
+  "name": "Botanical",
+  "descriptor": "Black and white basin",
+  "anchor": "center",
+  "context": "a traditional powder room with rich wood wainscoting, the basin undermounted in its dark wood top with the chrome widespread faucet. CRITICAL: keep the black and white floral pattern inside the basin exactly"
+ },
+ {
+  "slug": "crystaltexture",
+  "input": "docs/motion/renders/gemini-studio/patterned-sink-dark-wood-gemini.png",
+  "name": "Crystal",
+  "descriptor": "Textured glass basin",
+  "anchor": "center",
+  "context": "a moody powder room with deep green walls and a brass sconce, the basin set in its dark wood top. CRITICAL: keep the crystal texture of the basin exactly"
+ },
+ {
+  "slug": "whitevessel",
+  "input": "docs/motion/renders/gemini-studio/floor-white-vessel-sink-black-table-gemini.png",
+  "name": "Modern",
+  "descriptor": "White vessel sink",
+  "anchor": "center",
+  "context": "a minimalist loft bathroom with a soft concrete wall and light oak counter, vessel and chrome faucet on the counter. CRITICAL: keep the sculpted white vessel and chrome gooseneck faucet exactly"
+ },
+ {
+  "slug": "pedestal",
+  "input": "docs/motion/renders/gemini-studio/pedestal-sink-gold-faucet-gemini.png",
+  "name": "Pedestal",
+  "descriptor": "With brushed gold",
+  "anchor": "center",
+  "context": "a classic wainscoted powder room with soft gray walls and marble floor, installed against the wall. CRITICAL: keep the square pedestal silhouette and the brushed gold widespread faucet exactly"
+ },
+ {
+  "slug": "dragon",
+  "input": "public/real-photos/business/dragon-pattern-sink-basin.jpg",
+  "name": "Dragon",
+  "descriptor": "Hand-painted basin",
+  "anchor": "center",
+  "context": "an eclectic vintage powder room with dark floral wallpaper and antique brass fixtures, the basin undermounted in a dark wood washstand. CRITICAL: keep the blue dragon artwork exactly and do not add a pitcher"
+ },
+ {
+  "slug": "kohlervessel",
+  "input": "motion-remotion/public/products/kohler-vessel-sink-gold-faucet-studio.png",
+  "name": "Vessel",
+  "descriptor": "Round white vessel",
+  "anchor": "center",
+  "context": "a warm modern bathroom with a travertine counter and soft morning light. CRITICAL: the brushed gold widespread faucet mounts on the COUNTER BEHIND the bowl, never on the bowl; keep the round white vessel exactly"
+ },
+ {
+  "slug": "globe",
+  "input": "docs/motion/renders/gemini-studio/floor-globe-crystal-chandelier-gemini.png",
+  "name": "Globe",
+  "descriptor": "Banded crystal chandelier",
+  "anchor": "low",
+  "context": "a two-story foyer with a curved staircase and tall window, hanging as the centerpiece chandelier with its candelabra bulbs lit. CRITICAL: keep the crystal-banded globe cage exactly"
+ },
+ {
+  "slug": "empire",
+  "input": "motion-remotion/public/products/crystal-ceiling-fan-warehouse-studio.png",
+  "name": "Empire",
+  "descriptor": "French crystal chandelier",
+  "anchor": "low",
+  "context": "an elegant dining room, hanging centered over a walnut table. CRITICAL: keep the scrolled iron arms and draped crystal basket exactly, there is NO ceiling fan"
+ },
+ {
+  "slug": "candelabra",
+  "input": "docs/motion/renders/gemini-studio/intake-crystal-candelabra-chandelier-gemini.png",
+  "name": "Candelabra",
+  "descriptor": "Polished chrome crystal",
+  "anchor": "low",
+  "context": "a romantic bedroom with soft linen drapes, hanging from the center of the ceiling with candle lights lit. CRITICAL: keep the polished chrome frame, the candle arm count and the black accents exactly"
+ },
+ {
+  "slug": "sputnik",
+  "input": "docs/motion/renders/gemini-studio/red-sputnik-chandelier-gemini.png",
+  "name": "Sputnik",
+  "descriptor": "Mid-century statement",
+  "anchor": "low",
+  "context": "a mid-century living room with a walnut credenza and mustard armchair, hanging from the ceiling with exposed globe bulbs lit. CRITICAL: keep the red starburst arms and the bulb count exactly, no paper tags"
+ },
+ {
+  "slug": "ringpendant",
+  "input": "docs/motion/renders/gemini-studio/pendant-light-fixture-warehouse-gemini.png",
+  "name": "Ring",
+  "descriptor": "Bronze drum pendant",
+  "anchor": "low",
+  "context": "a kitchen island with white quartz top and rift oak cabinets, hanging centered over the island, lit warmly. CRITICAL: keep the bronze ring openwork shade and inner diffuser exactly"
+ },
+ {
+  "slug": "barreltable",
+  "input": "docs/motion/renders/gemini-studio/floor-barrel-glass-top-table-gemini.png",
+  "name": "Barrel",
+  "descriptor": "Whiskey glass-top table",
+  "anchor": "center",
+  "context": "a cozy tavern-style reading corner with a leather armchair and warm wood paneling, used as a side table with a small potted plant on the glass top. CRITICAL: keep the reclaimed barrel staves and the round glass top exactly"
+ },
+ {
+  "slug": "barnwoodmirror",
+  "input": "docs/motion/renders/gemini-studio/reclaimed-wood-framed-mirror-gemini.png",
+  "name": "Barnwood",
+  "descriptor": "Reclaimed mirror",
+  "anchor": "center",
+  "context": "a farmhouse entryway, the mirror hung horizontally above a rustic console table, a straw hat on one hook. CRITICAL: keep the reclaimed barnwood frame and its hooks exactly"
+ },
+ {
+  "slug": "espressovanity",
+  "input": "docs/motion/renders/gemini-studio/dark-wood-vanity-white-top-gemini.png",
+  "name": "Espresso",
+  "descriptor": "Vanity with white top",
+  "anchor": "center",
+  "context": "a transitional bathroom with greige walls and chrome sconces, installed with a mirror above. CRITICAL: keep the espresso finish, the door and drawer layout, and the white top exactly"
+ },
+ {
+  "slug": "vanity",
+  "input": "docs/motion/renders/gemini-studio/white-vanity-black-top-gemini.png",
+  "name": "Shaker",
+  "descriptor": "White vanity, black top",
+  "anchor": "center",
+  "context": "a bright cottage bathroom with beadboard walls, installed with a round brass mirror above. CRITICAL: keep the compact white shaker cabinet and the black stone-look top exactly"
+ },
+ {
+  "slug": "craftsman",
+  "input": "docs/motion/renders/gemini-studio/intake-black-craftsman-door-gemini.png",
+  "name": "Craftsman",
+  "descriptor": "Black entry door",
+  "anchor": "low",
+  "context": "farmhouse entry, door open (already generated)"
+ },
+ {
+  "slug": "paisley",
+  "input": "docs/motion/renders/gemini-studio/blue-patterned-bath-sink-gemini.png",
+  "name": "Paisley",
+  "descriptor": "Artist basin",
+  "anchor": "center",
+  "context": "powder room (already generated)"
+ }
+]

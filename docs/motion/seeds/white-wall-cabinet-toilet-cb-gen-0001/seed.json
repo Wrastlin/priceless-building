@@ -1,0 +1,17 @@
+{
+  "sku": "CB-GEN-0001",
+  "slug": "white-wall-cabinet-toilet-cb-gen-0001",
+  "title": "White wall cabinet / toilet topper",
+  "category": "cabinets",
+  "subcategory": null,
+  "dimensions": null,
+  "specs": {},
+  "price": 125,
+  "capturedBy": "dev@local",
+  "createdAt": "2026-07-24T02:29:02.939Z",
+  "photos": [
+    "source-01.jpg",
+    "source-02.jpg"
+  ],
+  "pulledAt": "2026-07-24T03:21:29.200Z"
+}

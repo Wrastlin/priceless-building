@@ -1,0 +1,18 @@
+{
+  "sku": "VT-GEN-0001",
+  "slug": "wood-vanity-base-with-vt-gen-0001",
+  "title": "Wood vanity base with granite top and vessel sink",
+  "category": "vanities",
+  "subcategory": null,
+  "dimensions": null,
+  "specs": {},
+  "price": 485,
+  "capturedBy": "dev@local",
+  "createdAt": "2026-07-24T02:28:53.346Z",
+  "photos": [
+    "source-01.jpg",
+    "source-02.jpg",
+    "source-03.jpg"
+  ],
+  "pulledAt": "2026-07-24T03:20:37.685Z"
+}

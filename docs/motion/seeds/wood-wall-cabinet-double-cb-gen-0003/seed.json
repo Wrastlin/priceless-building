@@ -1,0 +1,19 @@
+{
+  "sku": "CB-GEN-0003",
+  "slug": "wood-wall-cabinet-double-cb-gen-0003",
+  "title": "Wood wall cabinet, double doors",
+  "category": "cabinets",
+  "subcategory": null,
+  "dimensions": null,
+  "specs": {},
+  "price": 715,
+  "capturedBy": "dev@local",
+  "createdAt": "2026-07-24T02:29:15.391Z",
+  "photos": [
+    "source-01.jpg",
+    "source-02.jpg",
+    "source-03.jpg",
+    "source-04.jpg"
+  ],
+  "pulledAt": "2026-07-24T03:26:20.010Z"
+}

@@ -1,0 +1,21 @@
+{
+  "sku": "CB-GEN-0009",
+  "slug": "tall-white-pantry-cabinet-cb-gen-0009",
+  "title": "Tall white pantry cabinet",
+  "category": "cabinets",
+  "subcategory": null,
+  "dimensions": null,
+  "specs": {},
+  "price": 1285,
+  "capturedBy": "dev@local",
+  "createdAt": "2026-07-24T02:29:33.994Z",
+  "photos": [
+    "source-01.jpg",
+    "source-02.jpg",
+    "source-03.jpg",
+    "source-04.jpg",
+    "source-05.jpg",
+    "source-06.jpg"
+  ],
+  "pulledAt": "2026-07-24T03:08:07.904Z"
+}

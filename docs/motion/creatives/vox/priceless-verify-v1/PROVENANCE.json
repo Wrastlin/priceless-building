@@ -1,0 +1,51 @@
+{
+  "id": "priceless-verify-v1",
+  "skill": "vox-motion-graphics",
+  "created_at": "2026-07-29T21:47:00Z",
+  "workspace": "Price-Less Building Center",
+  "brief": "Short Mixed Media verify pack — 3×10s 9:16 clips, no VO yet (visual QA)",
+  "outputs": [
+    { "path": "clips/block-1.mp4", "kind": "video" },
+    { "path": "clips/block-2.mp4", "kind": "video" },
+    { "path": "clips/block-3.mp4", "kind": "video" },
+    { "path": "PRICE-LESS DELIVERABLES/16 Pipeline Creatives/vox-verify-shorts/", "kind": "video" }
+  ],
+  "pipeline": [
+    {
+      "step": 1,
+      "action": "style_key",
+      "model": "video-explainer preset Mixed Media",
+      "settings": { "preset_id": "80e4dd7b-cd65-42d4-b191-b58d62558602" },
+      "job_id": "811250c6-6960-42d9-a2c1-8c1e6e500227",
+      "prompt_source": "higgsfield preset resolve"
+    },
+    {
+      "step": 2,
+      "action": "clip",
+      "model": "gemini_omni",
+      "settings": { "duration": 10, "aspect_ratio": "9:16", "resolution": "720p" },
+      "job_id": "b2e1d36b-584b-42a8-91d7-155eba5cf6ef",
+      "prompt_source": "prompts/block-1.txt",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_39rDMcWdE4hbhAEJckPTaUJ40Ve/hf_20260729_214744_b2e1d36b-584b-42a8-91d7-155eba5cf6ef.mp4"
+    },
+    {
+      "step": 3,
+      "action": "clip",
+      "model": "gemini_omni",
+      "settings": { "duration": 10, "aspect_ratio": "9:16", "resolution": "720p" },
+      "job_id": "7f01a9f4-de98-4e9a-adce-9a2e93795ecf",
+      "prompt_source": "prompts/block-2.txt",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_39rDMcWdE4hbhAEJckPTaUJ40Ve/hf_20260729_214744_7f01a9f4-de98-4e9a-adce-9a2e93795ecf.mp4"
+    },
+    {
+      "step": 4,
+      "action": "clip",
+      "model": "gemini_omni",
+      "settings": { "duration": 10, "aspect_ratio": "9:16", "resolution": "720p" },
+      "job_id": "199ad24b-76c7-4bb7-bcc4-8d195184b44d",
+      "prompt_source": "prompts/block-3.txt",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_39rDMcWdE4hbhAEJckPTaUJ40Ve/hf_20260729_214744_199ad24b-76c7-4bb7-bcc4-8d195184b44d.mp4"
+    }
+  ],
+  "notes": "No seed_audio / explainer_video yet — visual verify only. Credits limited to ~3 clips at 30cr each."
+}

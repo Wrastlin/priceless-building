@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3002",
+    "cloud": "next dev -p 3002",
+    "check-env": "node scripts/check-env.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"

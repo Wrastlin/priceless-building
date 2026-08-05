@@ -1,0 +1,20 @@
+{
+  "sku": "CB-GEN-0008",
+  "slug": "light-wood-vanity-base-cb-gen-0008",
+  "title": "Light wood vanity base",
+  "category": "cabinets",
+  "subcategory": null,
+  "dimensions": null,
+  "specs": {},
+  "price": 343,
+  "capturedBy": "dev@local",
+  "createdAt": "2026-07-24T02:29:28.265Z",
+  "photos": [
+    "source-01.jpg",
+    "source-02.jpg",
+    "source-03.jpg",
+    "source-04.jpg",
+    "source-05.jpg"
+  ],
+  "pulledAt": "2026-07-24T03:40:13.462Z"
+}

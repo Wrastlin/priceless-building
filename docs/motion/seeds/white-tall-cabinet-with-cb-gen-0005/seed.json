@@ -1,0 +1,20 @@
+{
+  "sku": "CB-GEN-0005",
+  "slug": "white-tall-cabinet-with-cb-gen-0005",
+  "title": "White tall cabinet with drawers",
+  "category": "cabinets",
+  "subcategory": null,
+  "dimensions": null,
+  "specs": {},
+  "price": 375,
+  "capturedBy": "dev@local",
+  "createdAt": "2026-07-24T02:29:20.221Z",
+  "photos": [
+    "source-01.jpg",
+    "source-02.jpg",
+    "source-03.jpg",
+    "source-04.jpg",
+    "source-05.jpg"
+  ],
+  "pulledAt": "2026-07-24T03:31:26.218Z"
+}

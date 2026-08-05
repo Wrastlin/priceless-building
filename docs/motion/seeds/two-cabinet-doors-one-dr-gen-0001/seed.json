@@ -1,0 +1,16 @@
+{
+  "sku": "DR-GEN-0001",
+  "slug": "two-cabinet-doors-one-dr-gen-0001",
+  "title": "Two cabinet doors, one light grey, one dark brown",
+  "category": "doors",
+  "subcategory": null,
+  "dimensions": null,
+  "specs": {},
+  "price": 0,
+  "capturedBy": "dev@local",
+  "createdAt": "2026-07-24T02:28:45.537Z",
+  "photos": [
+    "source-01.jpg"
+  ],
+  "pulledAt": "2026-07-24T03:53:11.893Z"
+}

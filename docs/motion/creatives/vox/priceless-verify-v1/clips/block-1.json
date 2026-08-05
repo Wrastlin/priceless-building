@@ -1,0 +1,30 @@
+{
+  "created_at": "2026-07-29T21:47:44.129044Z",
+  "display_name": "Gemini Omni Flash",
+  "id": "b2e1d36b-584b-42a8-91d7-155eba5cf6ef",
+  "job_type": "gemini_omni",
+  "min_result_url": null,
+  "params": {
+    "aspect_ratio": "9:16",
+    "batch_size": 1,
+    "duration": 10,
+    "height": 1280,
+    "medias": [
+      {
+        "data": {
+          "id": "811250c6-6960-42d9-a2c1-8c1e6e500227",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_39rDMcWdE4hbhAEJckPTaUJ40Ve/811250c6-6960-42d9-a2c1-8c1e6e500227.webp"
+        },
+        "role": "image"
+      }
+    ],
+    "prompt": "Block 1\nSTYLE REFERENCE: Match the attached style key EXACTLY — editorial mixed-media collage, archival photo cutouts with white paper borders, flat bold color fields, halftone and paper grain textures, hand-drawn marker annotations, snappy motion-graphics animation, non-photorealistic, no live-action.\nSCENE: Warm yellow paper field with halftone grain. A flat paper cutout of a simple warehouse roof snaps in at top center. Below it, cutouts of a door, a vanity sink, a pendant light, and lumber stacks slide in under the roof one by one, each with rough white paper borders. A thick black marker underline sweeps beneath the roof.\nMOTION: Roof stamps in with slight overshoot; products cascade in left-to-right with snappy ease-out; slow 2 percent push-in. One loud beat: the roof stamp.\nAUDIO: Soft paper rustle, one stamp thud. No voice, no music bed with lyrics.\nNEGATIVE: readable text, letters, words, numbers, captions, subtitles, watermark, logo, photorealism, live-action footage, 3D render, lip-sync, talking characters, color drift",
+    "resolution": "720p",
+    "seed": 74401,
+    "width": 720
+  },
+  "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_39rDMcWdE4hbhAEJckPTaUJ40Ve/hf_20260729_214744_b2e1d36b-584b-42a8-91d7-155eba5cf6ef.mp4",
+  "status": "completed",
+  "thumbnail_url": "https://cdn.higgsfield.ai/user_39rDMcWdE4hbhAEJckPTaUJ40Ve/hf_20260729_214744_b2e1d36b-584b-42a8-91d7-155eba5cf6ef_thumbnail.webp"
+}

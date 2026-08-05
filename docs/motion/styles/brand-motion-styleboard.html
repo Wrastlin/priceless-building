@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Price-Less · Builders Corner — Brand Motion Styleboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #1a1818;
+      --rust: #d04727;
+      --cream: #f7f5f1;
+      --soft: #57534f;
+      --brass: #b08d57;
+      --parchment: #f3eee6;
+      --porcelain: #f8f6f3;
+      --sage: #e8ebe4;
+      --line: rgba(26, 24, 24, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: "DM Sans", system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
+    h1 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(2.4rem, 5vw, 3.4rem);
+      line-height: 1.05;
+      margin: 0 0 12px;
+      letter-spacing: -0.02em;
+    }
+    h2 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 600;
+      font-size: 1.75rem;
+      margin: 48px 0 16px;
+    }
+    h3 {
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin: 0 0 10px;
+      color: var(--soft);
+    }
+    .lede { max-width: 42rem; color: var(--soft); font-size: 1.05rem; }
+    .pill {
+      display: inline-block;
+      border: 1px solid var(--line);
+      padding: 6px 12px;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .grid { display: grid; gap: 16px; }
+    .g2 { grid-template-columns: repeat(2, 1fr); }
+    .g3 { grid-template-columns: repeat(3, 1fr); }
+    .g4 { grid-template-columns: repeat(4, 1fr); }
+    @media (max-width: 800px) {
+      .g2, .g3, .g4 { grid-template-columns: 1fr; }
+    }
+    .card {
+      border: 1px solid var(--line);
+      padding: 20px;
+      background: #fff;
+    }
+    .swatch {
+      height: 72px;
+      border: 1px solid var(--line);
+      margin-bottom: 10px;
+    }
+    .mono { font-family: "JetBrains Mono", monospace; font-size: 0.8rem; }
+    .muted { color: var(--soft); }
+    .brand-plate {
+      min-height: 280px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+    }
+    .brand-plate .lockup {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .brand-plate .product-name {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+    .brand-plate .cat {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+    .fake-product {
+      width: 42%;
+      max-width: 160px;
+      aspect-ratio: 3/4;
+      align-self: center;
+      border: 1px solid rgba(26,24,24,0.18);
+      background: linear-gradient(160deg, #fff 0%, #ebe7e0 100%);
+      box-shadow: 0 18px 40px rgba(26,24,24,0.08);
+      position: relative;
+    }
+    .fake-product::after {
+      content: "";
+      position: absolute;
+      inset: 12% 18% 18%;
+      border: 1px solid rgba(26,24,24,0.12);
+    }
+    .pl .price {
+      font-family: "JetBrains Mono", monospace;
+      color: var(--rust);
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+    .bc { background: var(--parchment); }
+    .bc .lockup { color: var(--brass); }
+    .pl { background: var(--cream); }
+    .archive {
+      background: #d4a84b;
+      color: #3a2a0a;
+    }
+    .archive .fake-product {
+      background: #c8983a;
+      border-color: rgba(58,42,10,0.25);
+      box-shadow: none;
+    }
+    .archive .fake-product::after { border-color: rgba(58,42,10,0.2); }
+    .form {
+      background: var(--porcelain);
+    }
+    .finish {
+      background: #1f1c1a;
+      color: #f3eee6;
+    }
+    .finish .fake-product {
+      background: linear-gradient(145deg, #c4a574, #8a6b3d);
+      border-color: rgba(243,238,230,0.2);
+    }
+    .finish .fake-product::after { display: none; }
+    .rule { height: 1px; background: var(--line); margin: 10px 0 14px; width: 48px; }
+    ul { margin: 0; padding-left: 1.1rem; }
+    li { margin: 4px 0; }
+    .style-card h3 { color: var(--ink); letter-spacing: 0.08em; }
+    .tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid var(--line);
+      padding: 3px 8px;
+      margin-right: 6px;
+      margin-bottom: 8px;
+    }
+    footer {
+      margin-top: 56px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--soft);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="pill">Motion styleboard · July 2026</div>
+    <h1>Light. Luxurious.<br />Product as hero.</h1>
+    <p class="lede">
+      Planned motion-graphics languages for <strong>Price-Less</strong> and
+      <strong>Builders Corner</strong>, tuned to Kohler Claude / Sunrise /
+      finish films and Apple form grammar. Real cutouts animated in designed
+      worlds — not warehouse pans.
+    </p>
+
+    <h2>Palette</h2>
+    <div class="grid g4">
+      <div><div class="swatch" style="background:var(--ink)"></div><div class="mono">Ink #1a1818</div><div class="muted">Text · dark grounds</div></div>
+      <div><div class="swatch" style="background:var(--cream)"></div><div class="mono">Cream #f7f5f1</div><div class="muted">Default light ground</div></div>
+      <div><div class="swatch" style="background:var(--rust)"></div><div class="mono">Rust #d04727</div><div class="muted">Price-Less price only</div></div>
+      <div><div class="swatch" style="background:var(--brass)"></div><div class="mono">Brass #b08d57</div><div class="muted">Builders Corner metal</div></div>
+      <div><div class="swatch" style="background:var(--parchment)"></div><div class="mono">Parchment #f3eee6</div><div class="muted">Builders warm ground</div></div>
+      <div><div class="swatch" style="background:var(--porcelain)"></div><div class="mono">Porcelain #f8f6f3</div><div class="muted">Fixture field</div></div>
+      <div><div class="swatch" style="background:var(--sage)"></div><div class="mono">Sage #e8ebe4</div><div class="muted">Calm bath wash</div></div>
+      <div><div class="swatch" style="background:var(--soft)"></div><div class="mono">Soft #57534f</div><div class="muted">Secondary type</div></div>
+    </div>
+
+    <h2>Sister brands</h2>
+    <div class="grid g2">
+      <div class="brand-plate bc">
+        <div>
+          <div class="lockup">Builders Corner</div>
+          <div class="rule" style="background:var(--brass)"></div>
+          <div class="product-name">Claude Console</div>
+          <div class="cat">Console sink</div>
+        </div>
+        <div class="fake-product" aria-hidden="true"></div>
+        <p class="muted" style="margin:0;max-width:28rem">
+          Premier brands for real remodels. Calm type. Brass and porcelain.
+          Product as furniture. No em dashes in copy.
+        </p>
+      </div>
+      <div class="brand-plate pl">
+        <div>
+          <div class="lockup">Price-Less</div>
+          <div class="rule" style="background:var(--rust)"></div>
+          <div class="product-name">Black Craftsman</div>
+          <div class="cat">Exterior door</div>
+        </div>
+        <div class="fake-product" aria-hidden="true"></div>
+        <div>
+          <div class="price">$428 · verified</div>
+          <p class="muted" style="margin:8px 0 0;max-width:28rem">
+            Same craft quality as Builders Corner. Liquidation honesty in the
+            type. Cream ground. Rust only on the number.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <h2>Six motion styles</h2>
+    <div class="grid g2">
+      <div class="brand-plate bc style-card">
+        <div>
+          <span class="tag">Builders Corner</span><span class="tag">Price-Less</span>
+          <h3 style="margin-top:8px">01 · Claude Console</h3>
+          <div class="product-name" style="font-size:1.6rem">Product as furniture</div>
+          <p class="muted">8–14s · staged room or quiet set · slow push · detail fetish · Introducing lockup</p>
+        </div>
+        <ul class="muted">
+          <li>Symmetrical hero</li>
+          <li>Brass / rim / legs detail</li>
+          <li>Serif name + sans category</li>
+        </ul>
+      </div>
+      <div class="brand-plate archive style-card">
+        <div>
+          <span class="tag" style="border-color:rgba(58,42,10,.25)">Finish</span>
+          <h3 style="margin-top:8px;color:#3a2a0a">02 · Sunrise Archive</h3>
+          <div class="product-name" style="font-size:1.6rem">Color is the world</div>
+          <p style="opacity:.8">8–12s · monochrome field = finish · silhouette only</p>
+        </div>
+        <div class="fake-product" aria-hidden="true"></div>
+      </div>
+      <div class="brand-plate form style-card">
+        <div>
+          <span class="tag">Both brands</span>
+          <h3 style="margin-top:8px">03 · Form Fetish</h3>
+          <div class="product-name" style="font-size:1.6rem">Air / Neo grammar</div>
+          <p class="muted">15–35s · cream void · edge light · outline trace · verified dims</p>
+        </div>
+        <div class="fake-product" aria-hidden="true"></div>
+      </div>
+      <div class="brand-plate finish style-card">
+        <div>
+          <span class="tag" style="border-color:rgba(243,238,230,.25);color:#f3eee6">Builders Corner</span>
+          <h3 style="margin-top:8px;color:#f3eee6">04 · Finish Fetish</h3>
+          <div class="product-name" style="font-size:1.6rem;color:#f3eee6">Metal closeup</div>
+          <p style="opacity:.7">12–21s · Brizo / AXOR energy · one finish per Short</p>
+        </div>
+        <div class="fake-product" aria-hidden="true"></div>
+      </div>
+      <div class="brand-plate pl style-card">
+        <div>
+          <span class="tag">Price-Less</span>
+          <h3 style="margin-top:8px">05 · Price Micro</h3>
+          <div class="product-name" style="font-size:1.6rem">Luxury craft · honest number</div>
+          <p class="muted">1.5–8s · cream · rust price · logo punch · site tile loops</p>
+        </div>
+        <div class="price">$189</div>
+      </div>
+      <div class="brand-plate style-card" style="background:var(--sage)">
+        <div>
+          <span class="tag">4 Squared</span>
+          <h3 style="margin-top:8px">06 · Craft Close</h3>
+          <div class="product-name" style="font-size:1.6rem">Install detail</div>
+          <p class="muted">8–15s · material macro → finished vignette</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>Type</h2>
+    <div class="grid g3">
+      <div class="card">
+        <h3>Display</h3>
+        <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;">Introducing</div>
+        <p class="muted mono">Cormorant / Utopia / Gotham Bold</p>
+      </div>
+      <div class="card">
+        <h3>Body / UI</h3>
+        <div style="font-size:1.1rem;font-weight:500">825 Washington St · Wausau</div>
+        <p class="muted mono">DM Sans / Gotham Medium</p>
+      </div>
+      <div class="card">
+        <h3>Data</h3>
+        <div class="mono" style="font-size:1.15rem;color:var(--rust)">36 × 80 · $428</div>
+        <p class="muted mono">JetBrains Mono</p>
+      </div>
+    </div>
+
+    <h2>Hard rules</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h3>Always</h3>
+        <ul>
+          <li>Isolate real product before animating</li>
+          <li>Cream / parchment / finish field as default ground</li>
+          <li>Animate type, light, shadow, micro product move</li>
+          <li>Verified facts only</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Never</h3>
+        <ul>
+          <li>Warehouse aisle pan as the ad</li>
+          <li>AI people / fake UGC</li>
+          <li>Purple glow, Inter, blanket 40% off</li>
+          <li>Mixing Builders Corner calm with rust slam type</li>
+        </ul>
+      </div>
+    </div>
+
+    <footer>
+      Companion canvas: brand-motion-styles.canvas.tsx · Refs:
+      docs/motion/references/KOHLER-PRODUCT-SHORTS.md · Pipeline:
+      TRUE-MOTION-GRAPHICS-PLAN.md
+    </footer>
+  </div>
+</body>
+</html>

@@ -101,9 +101,32 @@ export interface CatalogItem {
    * they paste a listing — no auto-post APIs yet. Kept off the public shop.
    */
   channels?: ItemChannels;
+  /**
+   * Marketing-deliverables seed state (the compounding library). Every floor
+   * item with photos is a permanent seed for the ad-kit pipeline (studio
+   * master, cutout, placements, feed post, micros, motion clips). The slug is
+   * minted once and never changes — it names this product across every
+   * marketing folder and manifest. Kept off the public shop.
+   */
+  marketing?: ItemMarketing;
   /** Staff ↔ AI chat thread for refining catalog copy on the item detail page. */
   aiThread?: Array<{ role: "user" | "assistant"; content: string; at: string }>;
 }
+
+/** Where a marketing seed sits in the ad-kit pipeline. */
+export type MarketingSeedStatus = "new" | "processed" | "skipped";
+
+/** Marketing-deliverables state carried on the item (see CatalogItem.marketing). */
+export type ItemMarketing = {
+  /** Permanent library slug (short title words + sku), minted once. */
+  slug: string;
+  status: MarketingSeedStatus;
+  /** Set when the ad kit shipped. */
+  processedAt?: string;
+  /** Deliverable classes shipped (master, cutout, placement, feed-post, plate, micro, motion-clip…). */
+  deliverables?: string[];
+  note?: string;
+};
 
 /** Social sell channels tracked on floor inventory (manual checklist). */
 export type SocialChannelKey =

@@ -1,0 +1,1037 @@
+{
+  "$schema_ref": "docs/motion/media/ANNOTATION-SCHEMA.md",
+  "generated": "2026-07-22",
+  "source_note": "Seed set: CURATED.md star ratings (\u2605\u2605\u2605/\u2605\u2605) + July 2026 floor department heroes from business/FLOOR-SHOOT.md and lib/department-photos.ts. All real-photos entries are ai:false.",
+  "entries": [
+    {
+      "id": "business-dark-base-cabinets-warehouse-row",
+      "path": "/real-photos/business/dark-base-cabinets-warehouse-row.jpg",
+      "brand_bucket": "price_less",
+      "dept": "cabinets",
+      "quality": "hero",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s",
+        "brand_60s",
+        "feed_still_motion"
+      ],
+      "notes": "Dramatic surplus cabinet aisle, deep perspective. THE signature Price-Less warehouse shot. | AUDIT hero shortlist"
+    },
+    {
+      "id": "business-white-kitchen-marble-island",
+      "path": "/real-photos/business/white-kitchen-marble-island.jpg",
+      "brand_bucket": "builders_corner",
+      "dept": "finished",
+      "quality": "hero",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "brand_60s",
+        "category_20s",
+        "feed_still_motion"
+      ],
+      "notes": "Bright finished white kitchen with marble island, showroom-quality Builders Corner beat. | AUDIT hero shortlist"
+    },
+    {
+      "id": "root-builders-corner-hero",
+      "path": "/real-photos/builders-corner-hero.jpg",
+      "brand_bucket": "builders_corner",
+      "dept": "finished",
+      "quality": "hero",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "brand_60s",
+        "category_20s",
+        "feed_still_motion"
+      ],
+      "notes": "Dark cabinet kitchen, marble island, big window. Premium hero; same kitchen family as foursquared-kitchen-dark-shaker-marble-island, pick only one per cut. | AUDIT hero shortlist | Exact duplicate pair: builders-corner-hero \u2194 foursquared dark shaker. Use one."
+    },
+    {
+      "id": "business-white-kitchen-wood-island",
+      "path": "/real-photos/business/white-kitchen-wood-island.jpg",
+      "brand_bucket": "builders_corner",
+      "dept": "finished",
+      "quality": "hero",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "brand_60s",
+        "feed_still_motion"
+      ],
+      "notes": "Warm white kitchen with reclaimed-wood island. | AUDIT hero shortlist"
+    },
+    {
+      "id": "legacy-install-kitchen-walnut-island-windows",
+      "path": "/real-photos/legacy/install-kitchen-walnut-island-windows.webp",
+      "brand_bucket": "four_squared",
+      "dept": "finished",
+      "quality": "reject",
+      "sharpness": "low_res",
+      "people": "none",
+      "ai": false,
+      "good_for": [],
+      "notes": "Bright finished walnut kitchen with a big window bank, real 4 Squared install. | Legacy thumb. AUDIT reject."
+    },
+    {
+      "id": "legacy-install-kitchen-soapstone-island",
+      "path": "/real-photos/legacy/install-kitchen-soapstone-island.webp",
+      "brand_bucket": "four_squared",
+      "dept": "finished",
+      "quality": "reject",
+      "sharpness": "low_res",
+      "people": "none",
+      "ai": false,
+      "good_for": [],
+      "notes": "Dark soapstone island close-up, real install detail. | Legacy thumb. AUDIT reject."
+    },
+    {
+      "id": "business-kitchen-remodel-before-after",
+      "path": "/real-photos/business/kitchen-remodel-before-after.jpg",
+      "brand_bucket": "four_squared",
+      "dept": "finished",
+      "quality": "hero",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "brand_60s"
+      ],
+      "notes": "Real labeled before/after in one frame, the remodeling-journey proof shot."
+    },
+    {
+      "id": "legacy-store-interior-chandelier-aisle",
+      "path": "/real-photos/legacy/store-interior-chandelier-aisle.webp",
+      "brand_bucket": "price_less",
+      "dept": "lighting",
+      "quality": "reject",
+      "sharpness": "low_res",
+      "people": "none",
+      "ai": false,
+      "good_for": [],
+      "notes": "Long warehouse aisle, brass chandeliers hanging from the wood-beam ceiling, atmospheric old-hardware-store feel. | Legacy thumb. AUDIT reject."
+    },
+    {
+      "id": "legacy-store-interior-doors",
+      "path": "/real-photos/legacy/store-interior-doors.webp",
+      "brand_bucket": "price_less",
+      "dept": "doors",
+      "quality": "hero",
+      "sharpness": "low_res",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s",
+        "brand_60s"
+      ],
+      "notes": "Doors stacked along the aisle on both sides, concrete floor."
+    },
+    {
+      "id": "foursquared-kitchen-dark-shaker-marble-island",
+      "path": "/real-photos/foursquared/kitchen-dark-shaker-marble-island.jpg",
+      "brand_bucket": "four_squared",
+      "dept": "finished",
+      "quality": "hero",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "brand_60s",
+        "category_20s",
+        "feed_still_motion"
+      ],
+      "notes": "Charcoal shaker cabinets, marble island, Wolf range. Best remodel hero in the folder. | AUDIT hero shortlist | Exact duplicate pair: builders-corner-hero \u2194 foursquared dark shaker. Use one."
+    },
+    {
+      "id": "foursquared-kitchen-wood-island-black-pendants",
+      "path": "/real-photos/foursquared/kitchen-wood-island-black-pendants.jpg",
+      "brand_bucket": "four_squared",
+      "dept": "finished",
+      "quality": "hero",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "brand_60s",
+        "category_20s",
+        "feed_still_motion"
+      ],
+      "notes": "Wood island, black pendants, foyer beyond. Finished remodel craft."
+    },
+    {
+      "id": "foursquared-kitchen-white-island-shiplap",
+      "path": "/real-photos/foursquared/kitchen-white-island-shiplap.jpg",
+      "brand_bucket": "four_squared",
+      "dept": "finished",
+      "quality": "hero",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "brand_60s",
+        "feed_still_motion"
+      ],
+      "notes": "White island, wood pantry, shiplap accent wall."
+    },
+    {
+      "id": "foursquared-pergola-patio-daylight",
+      "path": "/real-photos/foursquared/pergola-patio-daylight.jpg",
+      "brand_bucket": "four_squared",
+      "dept": "outdoor",
+      "quality": "hero",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "brand_60s",
+        "category_20s",
+        "feed_still_motion"
+      ],
+      "notes": "Outdoor living / pergola install in daylight. 4 Squared brand range beat. | AUDIT hero shortlist"
+    },
+    {
+      "id": "root-mural-wide",
+      "path": "/real-photos/mural-wide.webp",
+      "brand_bucket": "shared",
+      "dept": "place",
+      "quality": "hero",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "brand_60s",
+        "site_micro_1_5s"
+      ],
+      "notes": "Full wide panorama of the Build Your Future mural, the wide community hero."
+    },
+    {
+      "id": "business-black-framed-windows-warehouse",
+      "path": "/real-photos/business/black-framed-windows-warehouse.jpg",
+      "brand_bucket": "price_less",
+      "dept": "windows",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s",
+        "feed_still_motion"
+      ],
+      "notes": "Surplus windows on the warehouse floor."
+    },
+    {
+      "id": "legacy-install-kitchen-white-open",
+      "path": "/real-photos/legacy/install-kitchen-white-open.webp",
+      "brand_bucket": "four_squared",
+      "dept": "finished",
+      "quality": "strong",
+      "sharpness": "low_res",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s",
+        "feed_still_motion"
+      ],
+      "notes": "Open white kitchen install, real project."
+    },
+    {
+      "id": "legacy-install-bathroom-blue-tile-shower",
+      "path": "/real-photos/legacy/install-bathroom-blue-tile-shower.webp",
+      "brand_bucket": "four_squared",
+      "dept": "finished",
+      "quality": "strong",
+      "sharpness": "low_res",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s"
+      ],
+      "notes": "Blue mosaic-tile shower install, real bath detail."
+    },
+    {
+      "id": "legacy-install-bathroom-yellow-butterflies",
+      "path": "/real-photos/legacy/install-bathroom-yellow-butterflies.webp",
+      "brand_bucket": "four_squared",
+      "dept": "finished",
+      "quality": "strong",
+      "sharpness": "low_res",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "feed_still_motion"
+      ],
+      "notes": "Bath install, yellow walls with butterfly framed art."
+    },
+    {
+      "id": "legacy-install-french-doors-exterior",
+      "path": "/real-photos/legacy/install-french-doors-exterior.webp",
+      "brand_bucket": "four_squared",
+      "dept": "doors",
+      "quality": "strong",
+      "sharpness": "low_res",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s"
+      ],
+      "notes": "Exterior French entry doors, real install."
+    },
+    {
+      "id": "legacy-install-blue-door-peggy",
+      "path": "/real-photos/legacy/install-blue-door-peggy.webp",
+      "brand_bucket": "four_squared",
+      "dept": "doors",
+      "quality": "strong",
+      "sharpness": "low_res",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "feed_still_motion"
+      ],
+      "notes": "Blue entry door install, real named customer project (Peggy)."
+    },
+    {
+      "id": "business-white-shaker-kitchen-cabinets",
+      "path": "/real-photos/business/white-shaker-kitchen-cabinets.jpg",
+      "brand_bucket": "builders_corner",
+      "dept": "cabinets",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s",
+        "feed_still_motion"
+      ],
+      "notes": "White shaker kitchen cabinets, showroom-clean display."
+    },
+    {
+      "id": "business-kitchen-island-wood-cabinets-range",
+      "path": "/real-photos/business/kitchen-island-wood-cabinets-range.jpg",
+      "brand_bucket": "builders_corner",
+      "dept": "finished",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "feed_still_motion"
+      ],
+      "notes": "Kitchen island, wood cabinets, range."
+    },
+    {
+      "id": "business-wood-cabinets-granite-kitchen",
+      "path": "/real-photos/business/wood-cabinets-granite-kitchen.jpg",
+      "brand_bucket": "builders_corner",
+      "dept": "finished",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "feed_still_motion"
+      ],
+      "notes": "Wood cabinets with granite countertop kitchen."
+    },
+    {
+      "id": "business-white-kitchen-rustic-island",
+      "path": "/real-photos/business/white-kitchen-rustic-island.jpg",
+      "brand_bucket": "builders_corner",
+      "dept": "finished",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "feed_still_motion"
+      ],
+      "notes": "White kitchen with rustic island."
+    },
+    {
+      "id": "business-dark-cabinet-kitchen-install",
+      "path": "/real-photos/business/dark-cabinet-kitchen-install.jpg",
+      "brand_bucket": "four_squared",
+      "dept": "finished",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s",
+        "feed_still_motion"
+      ],
+      "notes": "Real dark-cabinet kitchen install."
+    },
+    {
+      "id": "business-dark-double-vanity-bathroom-install",
+      "path": "/real-photos/business/dark-double-vanity-bathroom-install.jpg",
+      "brand_bucket": "four_squared",
+      "dept": "vanities",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s"
+      ],
+      "notes": "Real dark double-vanity bathroom install."
+    },
+    {
+      "id": "foursquared-kitchen-white-open-wood-accents",
+      "path": "/real-photos/foursquared/kitchen-white-open-wood-accents.jpg",
+      "brand_bucket": "four_squared",
+      "dept": "finished",
+      "quality": "hero",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "feed_still_motion"
+      ],
+      "notes": "White open kitchen with wood accents. | AUDIT hero shortlist"
+    },
+    {
+      "id": "foursquared-kitchen-oak-mosaic-backsplash",
+      "path": "/real-photos/foursquared/kitchen-oak-mosaic-backsplash.jpg",
+      "brand_bucket": "four_squared",
+      "dept": "finished",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "feed_still_motion"
+      ],
+      "notes": "Oak cabinets with mosaic-tile backsplash detail."
+    },
+    {
+      "id": "foursquared-kitchen-counter-marble-detail",
+      "path": "/real-photos/foursquared/kitchen-counter-marble-detail.jpg",
+      "brand_bucket": "four_squared",
+      "dept": "countertops",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "marketplace_card",
+        "feed_still_motion"
+      ],
+      "notes": "Marble countertop detail close-up."
+    },
+    {
+      "id": "foursquared-flooring-dark-plank-install",
+      "path": "/real-photos/foursquared/flooring-dark-plank-install.jpg",
+      "brand_bucket": "four_squared",
+      "dept": "finished",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "feed_still_motion"
+      ],
+      "notes": "Dark plank flooring install."
+    },
+    {
+      "id": "foursquared-pergola-patio-angle",
+      "path": "/real-photos/foursquared/pergola-patio-angle.jpg",
+      "brand_bucket": "four_squared",
+      "dept": "outdoor",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "feed_still_motion"
+      ],
+      "notes": "Pergola patio, alternate angle."
+    },
+    {
+      "id": "foursquared-pergola-patio-wide",
+      "path": "/real-photos/foursquared/pergola-patio-wide.jpg",
+      "brand_bucket": "four_squared",
+      "dept": "outdoor",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "feed_still_motion"
+      ],
+      "notes": "Pergola patio, wide establishing shot."
+    },
+    {
+      "id": "foursquared-pergola-string-lights-night",
+      "path": "/real-photos/foursquared/pergola-string-lights-night.jpg",
+      "brand_bucket": "four_squared",
+      "dept": "outdoor",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "feed_still_motion"
+      ],
+      "notes": "Pergola with string lights at night, mood/atmosphere."
+    },
+    {
+      "id": "foursquared-pergola-string-lights-night-2",
+      "path": "/real-photos/foursquared/pergola-string-lights-night-2.jpg",
+      "brand_bucket": "four_squared",
+      "dept": "outdoor",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "feed_still_motion"
+      ],
+      "notes": "Pergola string lights at night, alternate frame."
+    },
+    {
+      "id": "business-kitchen-and-bath-remodel-split",
+      "path": "/real-photos/business/kitchen-and-bath-remodel-split.jpg",
+      "brand_bucket": "four_squared",
+      "dept": "finished",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "brand_60s"
+      ],
+      "notes": "Kitchen and bath remodel split image, real project pairing."
+    },
+    {
+      "id": "legacy-store-interior-jeldwen-aisle",
+      "path": "/real-photos/legacy/store-interior-jeldwen-aisle.webp",
+      "brand_bucket": "price_less",
+      "dept": "doors",
+      "quality": "strong",
+      "sharpness": "low_res",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s",
+        "brand_60s"
+      ],
+      "notes": "JELD-WEN windows and doors signage over a branded warehouse aisle. Strongest proof shot of being an actual dealer."
+    },
+    {
+      "id": "legacy-store-interior-vanity-display",
+      "path": "/real-photos/legacy/store-interior-vanity-display.webp",
+      "brand_bucket": "price_less",
+      "dept": "vanities",
+      "quality": "strong",
+      "sharpness": "low_res",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s"
+      ],
+      "notes": "Single light-wood vanity on display, showroom-style staging."
+    },
+    {
+      "id": "legacy-store-interior-trim-lumber-aisle",
+      "path": "/real-photos/legacy/store-interior-trim-lumber-aisle.webp",
+      "brand_bucket": "price_less",
+      "dept": "trim",
+      "quality": "reject",
+      "sharpness": "low_res",
+      "people": "crowd_ok",
+      "ai": false,
+      "good_for": [],
+      "notes": "A staffer walking a trim/moulding aisle, raw lumber stacked floor to ceiling. Real working-warehouse atmosphere. | Legacy thumb. AUDIT reject."
+    },
+    {
+      "id": "legacy-store-interior-warehouse",
+      "path": "/real-photos/legacy/store-interior-warehouse.webp",
+      "brand_bucket": "price_less",
+      "dept": "place",
+      "quality": "reject",
+      "sharpness": "low_res",
+      "people": "none",
+      "ai": false,
+      "good_for": [],
+      "notes": "Warehouse interior, cabinets stacked along the aisle, ceiling fans on display, wood-beam ceiling. | Blurred tiny. AUDIT reject."
+    },
+    {
+      "id": "legacy-store-interior-craftsman-6lite-door",
+      "path": "/real-photos/legacy/store-interior-craftsman-6lite-door.webp",
+      "brand_bucket": "price_less",
+      "dept": "doors",
+      "quality": "strong",
+      "sharpness": "low_res",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s"
+      ],
+      "notes": "White craftsman entry door with six-lite glass top, dentil shelf above."
+    },
+    {
+      "id": "legacy-store-interior-oak-leaded-glass-door",
+      "path": "/real-photos/legacy/store-interior-oak-leaded-glass-door.webp",
+      "brand_bucket": "price_less",
+      "dept": "doors",
+      "quality": "strong",
+      "sharpness": "low_res",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s"
+      ],
+      "notes": "Stained-oak entry door with leaded-and-beveled glass window panel."
+    },
+    {
+      "id": "business-warehouse-assorted-windows",
+      "path": "/real-photos/business/warehouse-assorted-windows.jpg",
+      "brand_bucket": "price_less",
+      "dept": "windows",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s"
+      ],
+      "notes": "Assorted windows on the warehouse floor."
+    },
+    {
+      "id": "business-discount-countertop-slabs",
+      "path": "/real-photos/business/discount-countertop-slabs.jpg",
+      "brand_bucket": "price_less",
+      "dept": "countertops",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s"
+      ],
+      "notes": "Discount countertop slabs on the floor."
+    },
+    {
+      "id": "business-warehouse-lighting-inventory",
+      "path": "/real-photos/business/warehouse-lighting-inventory.jpg",
+      "brand_bucket": "price_less",
+      "dept": "lighting",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s",
+        "brand_60s"
+      ],
+      "notes": "Chandeliers hanging from the warehouse ceiling."
+    },
+    {
+      "id": "business-bathroom-vanities-warehouse-display",
+      "path": "/real-photos/business/bathroom-vanities-warehouse-display.jpg",
+      "brand_bucket": "price_less",
+      "dept": "vanities",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s"
+      ],
+      "notes": "Bathroom vanities warehouse display."
+    },
+    {
+      "id": "business-white-base-cabinets-warehouse",
+      "path": "/real-photos/business/white-base-cabinets-warehouse.jpg",
+      "brand_bucket": "price_less",
+      "dept": "cabinets",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s"
+      ],
+      "notes": "White base cabinets, warehouse inventory."
+    },
+    {
+      "id": "business-craftsman-door-warehouse",
+      "path": "/real-photos/business/craftsman-door-warehouse.jpg",
+      "brand_bucket": "price_less",
+      "dept": "doors",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s"
+      ],
+      "notes": "Craftsman door in warehouse setting."
+    },
+    {
+      "id": "business-red-sputnik-chandelier",
+      "path": "/real-photos/business/red-sputnik-chandelier.jpg",
+      "brand_bucket": "price_less",
+      "dept": "lighting",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "marketplace_card",
+        "feed_still_motion"
+      ],
+      "notes": "Bold red sputnik chandelier, eye-catching product detail."
+    },
+    {
+      "id": "business-crystal-ceiling-fan-warehouse",
+      "path": "/real-photos/business/crystal-ceiling-fan-warehouse.jpg",
+      "brand_bucket": "price_less",
+      "dept": "lighting",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "marketplace_card"
+      ],
+      "notes": "Crystal ceiling fan on warehouse display."
+    },
+    {
+      "id": "business-kohler-vessel-sink-gold-faucet",
+      "path": "/real-photos/business/kohler-vessel-sink-gold-faucet.jpg",
+      "brand_bucket": "builders_corner",
+      "dept": "countertops",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "marketplace_card",
+        "ebay_hero"
+      ],
+      "notes": "Kohler vessel sink with gold faucet, premier fixture detail."
+    },
+    {
+      "id": "business-kohler-floral-sink-basin",
+      "path": "/real-photos/business/kohler-floral-sink-basin.jpg",
+      "brand_bucket": "price_less",
+      "dept": "countertops",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "marketplace_card",
+        "ebay_hero"
+      ],
+      "notes": "Kohler floral sink basin, unique statement product."
+    },
+    {
+      "id": "business-copper-sink-wood-counter-display",
+      "path": "/real-photos/business/copper-sink-wood-counter-display.jpg",
+      "brand_bucket": "price_less",
+      "dept": "countertops",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "marketplace_card"
+      ],
+      "notes": "Copper sink on wood counter display."
+    },
+    {
+      "id": "business-intake-brushed-gold-cabinet-pulls",
+      "path": "/real-photos/business/intake-brushed-gold-cabinet-pulls.jpg",
+      "brand_bucket": "price_less",
+      "dept": "hardware",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "ebay_hero",
+        "marketplace_card"
+      ],
+      "notes": "Clean product shot of brushed gold cabinet pulls on white, from the intake app."
+    },
+    {
+      "id": "business-intake-black-craftsman-door",
+      "path": "/real-photos/business/intake-black-craftsman-door.jpg",
+      "brand_bucket": "price_less",
+      "dept": "doors",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s",
+        "ebay_hero"
+      ],
+      "notes": "The black craftsman door, clean intake-app capture."
+    },
+    {
+      "id": "root-mural-from-field",
+      "path": "/real-photos/mural-from-field.webp",
+      "brand_bucket": "shared",
+      "dept": "place",
+      "quality": "reject",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [],
+      "notes": "Wide environmental shot of the mural seen from across the grass field. | Fuzzy tiny. AUDIT reject."
+    },
+    {
+      "id": "business-exterior-mural-build-your-future",
+      "path": "/real-photos/business/exterior-mural-build-your-future.webp",
+      "brand_bucket": "shared",
+      "dept": "place",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "feed_still_motion"
+      ],
+      "notes": "Alternate exterior shot of the Build Your Future mural."
+    },
+    {
+      "id": "root-storefront-sign-on-brick",
+      "path": "/real-photos/storefront-sign-on-brick.webp",
+      "brand_bucket": "shared",
+      "dept": "place",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "brand_60s",
+        "site_micro_1_5s"
+      ],
+      "notes": "The painted PRICE-LESS wordmark sign on the brick exterior wall."
+    },
+    {
+      "id": "root-santa-at-storefront",
+      "path": "/real-photos/santa-at-storefront.webp",
+      "brand_bucket": "shared",
+      "dept": "place",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "crowd_ok",
+      "ai": false,
+      "good_for": [
+        "feed_still_motion"
+      ],
+      "notes": "Santa standing on the front porch with the sign behind him, December 2024 event."
+    },
+    {
+      "id": "root-building-exterior",
+      "path": "/real-photos/building-exterior.webp",
+      "brand_bucket": "shared",
+      "dept": "place",
+      "quality": "reject",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [],
+      "notes": "Back/side of the warehouse building, quiet atmospheric shot, no people. | Soft weak identity. AUDIT reject."
+    },
+    {
+      "id": "root-paint-day-rainbow",
+      "path": "/real-photos/paint-day-rainbow.webp",
+      "brand_bucket": "shared",
+      "dept": "place",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "crowd_ok",
+      "ai": false,
+      "good_for": [
+        "feed_still_motion"
+      ],
+      "notes": "Colorful mural Paint Day community-event flyer."
+    },
+    {
+      "id": "root-community-county-fair",
+      "path": "/real-photos/community-county-fair.webp",
+      "brand_bucket": "shared",
+      "dept": "place",
+      "quality": "strong",
+      "sharpness": "sharp",
+      "people": "crowd_ok",
+      "ai": false,
+      "good_for": [
+        "feed_still_motion"
+      ],
+      "notes": "Two kids at the Marathon County Fair holding a Priceless sign, authentic local-pride moment."
+    },
+    {
+      "id": "root-logo-official",
+      "path": "/real-photos/logo-official.webp",
+      "brand_bucket": "shared",
+      "dept": "logo",
+      "quality": "hero",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "brand_60s",
+        "site_micro_1_5s"
+      ],
+      "notes": "Circular Price-Less + Builders Corner seal, the single official mark for the combined business."
+    },
+    {
+      "id": "business-floor-barn-door-diamond-glass",
+      "path": "/real-photos/business/floor-barn-door-diamond-glass.jpg",
+      "brand_bucket": "price_less",
+      "dept": "doors",
+      "quality": "hero",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s",
+        "brand_60s"
+      ],
+      "notes": "July 2026 floor shoot doors department hero: barn door with diamond glass."
+    },
+    {
+      "id": "business-floor-window-aisle-warehouse",
+      "path": "/real-photos/business/floor-window-aisle-warehouse.jpg",
+      "brand_bucket": "price_less",
+      "dept": "windows",
+      "quality": "hero",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s",
+        "brand_60s"
+      ],
+      "notes": "July 2026 floor shoot windows department hero: window aisle in the warehouse. | AUDIT hero shortlist"
+    },
+    {
+      "id": "business-floor-cabinet-door-sample-rack",
+      "path": "/real-photos/business/floor-cabinet-door-sample-rack.jpg",
+      "brand_bucket": "price_less",
+      "dept": "cabinets",
+      "quality": "hero",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s",
+        "brand_60s"
+      ],
+      "notes": "July 2026 floor shoot cabinets department hero: cabinet door sample rack."
+    },
+    {
+      "id": "business-floor-vanity-row-mirrors-lights",
+      "path": "/real-photos/business/floor-vanity-row-mirrors-lights.jpg",
+      "brand_bucket": "price_less",
+      "dept": "vanities",
+      "quality": "hero",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s",
+        "brand_60s"
+      ],
+      "notes": "July 2026 floor shoot vanities department hero: vanity row with mirrors and lights. | AUDIT hero shortlist"
+    },
+    {
+      "id": "business-floor-butcher-block-rack-stacks",
+      "path": "/real-photos/business/floor-butcher-block-rack-stacks.jpg",
+      "brand_bucket": "price_less",
+      "dept": "countertops",
+      "quality": "hero",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s",
+        "brand_60s"
+      ],
+      "notes": "July 2026 floor shoot countertops department hero: butcher block rack stacks. | AUDIT hero shortlist"
+    },
+    {
+      "id": "business-floor-door-hardware-lock-shelves",
+      "path": "/real-photos/business/floor-door-hardware-lock-shelves.jpg",
+      "brand_bucket": "price_less",
+      "dept": "hardware",
+      "quality": "hero",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s",
+        "brand_60s"
+      ],
+      "notes": "July 2026 floor shoot hardware department hero: door hardware and lock shelves."
+    },
+    {
+      "id": "business-floor-globe-crystal-chandelier",
+      "path": "/real-photos/business/floor-globe-crystal-chandelier.jpg",
+      "brand_bucket": "price_less",
+      "dept": "lighting",
+      "quality": "hero",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s",
+        "brand_60s"
+      ],
+      "notes": "July 2026 floor shoot lighting department hero: globe crystal chandelier."
+    },
+    {
+      "id": "business-floor-lumber-millwork-room",
+      "path": "/real-photos/business/floor-lumber-millwork-room.jpg",
+      "brand_bucket": "price_less",
+      "dept": "trim",
+      "quality": "hero",
+      "sharpness": "sharp",
+      "people": "none",
+      "ai": false,
+      "good_for": [
+        "category_20s",
+        "brand_60s"
+      ],
+      "notes": "July 2026 floor shoot trim department hero: lumber and millwork room. | AUDIT hero shortlist"
+    },
+    {
+      "id": "audit-reject-floor-trim-molding-extrusions-rack",
+      "path": "/real-photos/business/floor-trim-molding-extrusions-rack.jpg",
+      "brand_bucket": "price_less",
+      "dept": "trim",
+      "quality": "reject",
+      "sharpness": "fuzzy",
+      "people": "none",
+      "ai": false,
+      "good_for": [],
+      "notes": "Sharp but torn packaging / slop. AUDIT reject."
+    },
+    {
+      "id": "audit-reject-mural-detail",
+      "path": "/real-photos/mural-detail.webp",
+      "brand_bucket": "place",
+      "dept": "place",
+      "quality": "reject",
+      "sharpness": "fuzzy",
+      "people": "none",
+      "ai": false,
+      "good_for": [],
+      "notes": "Social collage. AUDIT reject."
+    }
+  ],
+  "audit_sync": "2026-07-22T15:40:59.407298+00:00",
+  "audit_source": "docs/motion/media/AUDIT-real-photos.md"
+}

@@ -1,0 +1,21 @@
+{
+  "sku": "CB-GEN-0010",
+  "slug": "assorted-cabinet-doors-priced-cb-gen-0010",
+  "title": "Assorted cabinet doors — priced per door, see floor",
+  "category": "cabinets",
+  "subcategory": null,
+  "dimensions": null,
+  "specs": {},
+  "price": 0,
+  "capturedBy": "dev@local",
+  "createdAt": "2026-07-24T02:34:39.967Z",
+  "photos": [
+    "source-01.jpg",
+    "source-02.jpg",
+    "source-03.jpg",
+    "source-04.jpg",
+    "source-05.jpg",
+    "source-06.jpg"
+  ],
+  "pulledAt": "2026-07-24T03:44:26.664Z"
+}

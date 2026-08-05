@@ -1,0 +1,18 @@
+{
+  "sku": "VT-GEN-0008",
+  "slug": "white-vanity-top-34-vt-gen-0008",
+  "title": "White vanity top, 34\" x 22\"",
+  "category": "vanities",
+  "subcategory": null,
+  "dimensions": "34\" x 22\"",
+  "specs": {},
+  "price": 45,
+  "capturedBy": "dev@local",
+  "createdAt": "2026-07-24T02:29:43.215Z",
+  "photos": [
+    "source-01.jpg",
+    "source-02.jpg",
+    "source-03.jpg"
+  ],
+  "pulledAt": "2026-07-24T03:20:01.096Z"
+}

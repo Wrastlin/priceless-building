@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Weight-stack · softened (not Kohler clone)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- 300 = skinny+a little · 700 = bold-but-not-black -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #1a1818;
+      --cream: #f7f5f1;
+      --rust: #d04727;
+      --brass: #b08d57;
+      --soft: #57534f;
+      --line: rgba(26, 24, 24, 0.1);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: Montserrat, system-ui, sans-serif;
+    }
+    .wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 40px 24px 72px;
+    }
+    .label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--soft);
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-weight: 300;
+      font-size: clamp(1.4rem, 3vw, 1.8rem);
+      letter-spacing: 0.04em;
+      margin: 0 0 8px;
+    }
+    .lede {
+      color: var(--soft);
+      font-weight: 300;
+      font-size: 0.95rem;
+      max-width: 38rem;
+      line-height: 1.55;
+      margin: 0 0 28px;
+    }
+    .compare-banner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    @media (max-width: 720px) {
+      .compare-banner { grid-template-columns: 1fr; }
+    }
+    .plate {
+      background: #fff;
+      border: 1px solid var(--line);
+      min-height: 280px;
+      padding: 44px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .plate.dark {
+      background: var(--ink);
+      color: var(--cream);
+    }
+    .plate.muted-out {
+      opacity: 0.55;
+    }
+    .stack {
+      text-transform: uppercase;
+      line-height: 0.94;
+      letter-spacing: 0.02em;
+    }
+    /* OLD Kohler-extreme */
+    .kohler .skinny {
+      display: block;
+      font-weight: 200;
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+    }
+    .kohler .bold {
+      display: block;
+      font-weight: 900;
+      font-size: clamp(2.2rem, 6vw, 3.4rem);
+      letter-spacing: -0.01em;
+      margin-top: 0.02em;
+    }
+    /* NEW softened — locked */
+    .ours .skinny {
+      display: block;
+      font-weight: 300;
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+    }
+    .ours .bold {
+      display: block;
+      font-weight: 700;
+      font-size: clamp(2.2rem, 6vw, 3.4rem);
+      letter-spacing: -0.01em;
+      margin-top: 0.02em;
+    }
+    .skinny.indent { padding-left: 1.35em; }
+    .caption {
+      margin-top: 22px;
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--soft);
+    }
+    .plate.dark .caption { color: rgba(247, 245, 241, 0.45); }
+    .caption strong {
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 720px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .row-meta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 24px 0 12px;
+    }
+    .pill {
+      border: 1px solid var(--line);
+      padding: 6px 10px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .pill.on {
+      background: var(--ink);
+      color: var(--cream);
+      border-color: var(--ink);
+    }
+    .mini-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    @media (max-width: 720px) {
+      .mini-row { grid-template-columns: 1fr; }
+    }
+    .mini {
+      background: #fff;
+      border: 1px solid var(--line);
+      padding: 22px 20px;
+    }
+    .mini .ours .skinny { font-size: 1.05rem; }
+    .mini .ours .bold { font-size: 1.5rem; }
+    .mini .ours .skinny.indent { padding-left: 1.1em; }
+    .rust .bold { color: var(--rust); }
+    .brass .bold { color: var(--brass); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="label">Type recipe · revised</div>
+    <h1>Meet in the middle</h1>
+    <p class="lede">
+      Still sans-serif skinny + bold — but less extreme than Kohler.
+      Skinny steps up a little (200 → 300). Bold steps down a little (900 → 700).
+    </p>
+
+    <div class="compare-banner">
+      <div class="plate muted-out kohler">
+        <div class="stack">
+          <span class="skinny">The bold</span>
+          <span class="skinny indent">look of</span>
+          <span class="bold">Kohler</span>
+        </div>
+        <div class="caption">Too far · 200 / 900</div>
+      </div>
+      <div class="plate dark ours">
+        <div class="stack">
+          <span class="skinny">The bold</span>
+          <span class="skinny indent">look of</span>
+          <span class="bold">Price-Less</span>
+        </div>
+        <div class="caption"><strong>Ours</strong> · 300 / 700</div>
+      </div>
+    </div>
+
+    <div class="row-meta">
+      <span class="pill">Sans-serif</span>
+      <span class="pill on">Skinny 300</span>
+      <span class="pill on">Bold 700</span>
+      <span class="pill">All caps</span>
+      <span class="pill">Indent line 2</span>
+    </div>
+
+    <div class="grid">
+      <div class="plate ours" style="background:#f3eee6">
+        <div class="stack">
+          <span class="skinny">The quiet</span>
+          <span class="skinny indent">look of</span>
+          <span class="bold">Builders<br />Corner</span>
+        </div>
+        <div class="caption">Builders Corner</div>
+      </div>
+      <div class="plate ours">
+        <div class="stack">
+          <span class="skinny">Introducing</span>
+          <span class="skinny indent">the</span>
+          <span class="bold">Claude</span>
+        </div>
+        <div class="caption">Product Short title</div>
+      </div>
+    </div>
+
+    <div class="mini-row">
+      <div class="mini ours">
+        <div class="stack">
+          <span class="skinny">Find it</span>
+          <span class="skinny indent">at</span>
+          <span class="bold">Doors</span>
+        </div>
+      </div>
+      <div class="mini ours rust">
+        <div class="stack">
+          <span class="skinny">Pay less</span>
+          <span class="skinny indent">than</span>
+          <span class="bold">Big box</span>
+        </div>
+      </div>
+      <div class="mini ours brass">
+        <div class="stack">
+          <span class="skinny">Premier</span>
+          <span class="skinny indent">brands for</span>
+          <span class="bold">Remodels</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

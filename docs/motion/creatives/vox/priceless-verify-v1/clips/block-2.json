@@ -1,0 +1,30 @@
+{
+  "created_at": "2026-07-29T21:47:44.12295Z",
+  "display_name": "Gemini Omni Flash",
+  "id": "7f01a9f4-de98-4e9a-adce-9a2e93795ecf",
+  "job_type": "gemini_omni",
+  "min_result_url": null,
+  "params": {
+    "aspect_ratio": "9:16",
+    "batch_size": 1,
+    "duration": 10,
+    "height": 1280,
+    "medias": [
+      {
+        "data": {
+          "id": "811250c6-6960-42d9-a2c1-8c1e6e500227",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_39rDMcWdE4hbhAEJckPTaUJ40Ve/811250c6-6960-42d9-a2c1-8c1e6e500227.webp"
+        },
+        "role": "image"
+      }
+    ],
+    "prompt": "Block 2\nSTYLE REFERENCE: Match the attached style key EXACTLY — editorial mixed-media collage, archival photo cutouts with white paper borders, flat bold color fields, halftone and paper grain textures, hand-drawn marker annotations, snappy motion-graphics animation, non-photorealistic, no live-action.\nSCENE: Off-white paper background. The same warehouse roof cutout sits smaller at top. A row of product cutouts (door, faucet, chandelier) flip like cards in a hunt; one cutout pops larger with a coral highlight bar (abstract, no numerals). Torn-paper scrap and tape strip accent. Hand-drawn marker circle draws around the featured find.\nMOTION: Card-flip cascade, circle draws itself, featured piece pops with overshoot; parallax drift between roof and products.\nAUDIO: Paper flips, marker squeak. No voice.\nNEGATIVE: readable text, letters, words, numbers, captions, subtitles, watermark, logo, photorealism, live-action footage, 3D render, lip-sync, talking characters, color drift",
+    "resolution": "720p",
+    "seed": 750665,
+    "width": 720
+  },
+  "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_39rDMcWdE4hbhAEJckPTaUJ40Ve/hf_20260729_214744_7f01a9f4-de98-4e9a-adce-9a2e93795ecf.mp4",
+  "status": "completed",
+  "thumbnail_url": "https://cdn.higgsfield.ai/user_39rDMcWdE4hbhAEJckPTaUJ40Ve/hf_20260729_214744_7f01a9f4-de98-4e9a-adce-9a2e93795ecf_thumbnail.webp"
+}

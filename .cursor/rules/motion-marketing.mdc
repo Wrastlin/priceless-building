@@ -1,0 +1,22 @@
+---
+description: Price-Less category-first motion marketing with Higgsfield
+alwaysApply: true
+---
+
+# Price-Less motion marketing
+
+When creating ads, motion graphics, Higgsfield prompts, or marketing video for this project:
+
+1. Read `docs/motion/TRUE-MOTION-GRAPHICS-PLAN.md` first. Baseline is **product-isolated motion graphics**, not warehouse camera pans.
+2. Pipeline: real floor photo → cutout/BG remove (Gemini/Photoroom/Higgsfield `remove_background`) → clean hero plate → kinetic type / VFX / graphic environment around the **isolated product** (Vibe Motion / Hyper Motion product modes / Remotion). Assemble later into category and brand films.
+3. **Forbidden as the ad:** Kling/Cinema dolly, arc, orbit, or walk-ins on full aisle/scene photos. Those are B-roll only if Aaron explicitly asks.
+4. Formats still apply (`AD-FORMATS.md`): micros, feed, category, 60s — but always product-first motion graphics language (Apple-style isolated hero + designed motion).
+5. No AI presenters, fake UGC, or Soul characters.
+6. Prefer annotated real keepers; never treat catalog/test AI stills as real inventory in brand motion without per-file approval.
+7. Truth: never invent prices, savings %, dimensions, quantity, warranty, or delivery.
+8. Brand colors: ink `#1a1818`, rust `#d04727`, cream `#f7f5f1`, brass `#b08d57`, parchment `#f3eee6`. No em dashes in copy about Builders Corner or 4 Squared.
+9. **Type (locked for all ads):** geometric sans weight-stack — lead-in **Montserrat/Gotham 300**, brand lock **700**. Softened Kohler pattern (not 200/900). All caps. Indent line 2. See `docs/motion/BRAND-MOTION-STYLES.md` and `docs/motion/styles/kohler-weight-stack.html`.
+10. **Primary creative budget:** Per-SKU **micro-ad 3–4s max, 2–3 scenes** — still photo → baked facts (title, dims, description, price) → graphic overlay ad (PRICE-LESS + name + facts). See `docs/motion/SKU-MICRO-AD.md`. Not 10s lingering heroes.
+11. **Workflow:** Remotion mocks scenes first (`motion-remotion/` composition `PL-sku-micro-v1`) → approve → wire real cutout from item → Higgsfield only if needed for cutout/clean. Do not burn credits on mockups.
+12. Do not spend Higgsfield credits on scene-pan experiments. Confirm cutout → motion-graphics recipe with Aaron before paid runs.
+13. **One Roof / brand film:** Obey `docs/motion/ONE-ROOF-CREATIVE-NORTH-STAR.md`. Photos or product MG tell the story. Never label doors/windows/cabinets on matching photos. Type only when it *is* the graphic (usually on a void). 9:16 master. Late category collage OK for “we have it all.” Skill: `product-motion-graphics`.
