@@ -7,8 +7,8 @@ import { createPortal } from "react-dom";
 import { CATEGORIES } from "@/lib/catalog-meta";
 
 /**
- * Universal main-menu drawer. Lead with shop / cabinetry / remodels /
- * start-a-project; departments sit compact below.
+ * Universal main-menu drawer. Lead with site sections + departments so a
+ * first-time visitor can find their way fast; the three companies sit lower.
  *
  * Rendered via portal to document.body so the header's hide-on-scroll
  * `transform` cannot trap `position: fixed` (that was collapsing the
@@ -17,23 +17,32 @@ import { CATEGORIES } from "@/lib/catalog-meta";
 
 type PathTone = "priceless" | "builders" | "four-squared" | "start";
 
-const PRIMARY_PATHS: { href: string; label: string; sub: string; tone: PathTone }[] = [
+const SITE_NAV: { href: string; label: string }[] = [
+  { href: "/shop", label: "Shop all" },
+  { href: "/reviews", label: "Reviews" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Visit + contact" },
+  { href: "/blog", label: "Blog" },
+  { href: "/faq", label: "FAQ" },
+];
+
+const COMPANIES: { href: string; label: string; sub: string; tone: PathTone }[] = [
   {
     href: "/shop",
-    label: "Shop the warehouse",
+    label: "Price-Less Building",
     sub: "Surplus doors, windows, cabinets, vanities, lighting, hardware.",
     tone: "priceless",
   },
   {
     href: "/builders-corner",
-    label: "Premium custom cabinetry",
-    sub: "Designed in our showroom, built in our Wausau shop.",
+    label: "Builders Corner",
+    sub: "Premium custom cabinetry — designed here, built in our Wausau shop.",
     tone: "builders",
   },
   {
     href: "/four-squared",
-    label: "Custom installs + remodels",
-    sub: "Kitchens, baths, full renovations by the in-house crew.",
+    label: "4 Squared",
+    sub: "Kitchens, baths, and full renovations by the in-house crew.",
     tone: "four-squared",
   },
   {
@@ -42,14 +51,6 @@ const PRIMARY_PATHS: { href: string; label: string; sub: string; tone: PathTone 
     sub: "Visit, call, or send us photos of your space.",
     tone: "start",
   },
-];
-
-const SITE_NAV: { href: string; label: string }[] = [
-  { href: "/reviews", label: "Reviews" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Visit + contact" },
-  { href: "/blog", label: "Blog" },
-  { href: "/faq", label: "FAQ" },
 ];
 
 export function MainMenu({
@@ -145,23 +146,28 @@ export function MainMenu({
               </a>
             </section>
 
-            <section className="px-5 pt-4">
-              <ul className="flex flex-col gap-2.5">
-                {PRIMARY_PATHS.map((p) => (
-                  <li key={p.href}>
-                    <PrimaryRow
-                      {...p}
+            <section className="px-5 pt-6">
+              <div className="text-[0.65rem] font-medium uppercase tracking-[0.14em] text-[var(--soft)]">
+                Explore
+              </div>
+              <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 sm:grid-cols-3">
+                {SITE_NAV.map((n) => (
+                  <li key={n.href}>
+                    <Link
+                      href={n.href}
                       onClick={() => setOpen(false)}
-                      active={p.tone !== "priceless" && p.tone !== "start" && current === p.tone}
-                    />
+                      className="block py-2 text-base text-[var(--ink)] transition hover:opacity-55"
+                    >
+                      {n.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
             </section>
 
-            <section className="mt-8 border-t border-[var(--line)] px-5 pt-5">
+            <section className="mt-6 border-t border-[var(--line)] px-5 pt-5">
               <div className="text-[0.65rem] font-medium uppercase tracking-[0.14em] text-[var(--soft)]">
-                Or jump straight to a department
+                Shop by department
               </div>
               <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1">
                 {departments.map(([key, dept]) => (
@@ -181,20 +187,18 @@ export function MainMenu({
               </ul>
             </section>
 
-            <section className="mt-8 border-t border-[var(--line)] px-5 pb-6 pt-5">
+            <section className="mt-6 border-t border-[var(--line)] px-5 pb-6 pt-5">
               <div className="text-[0.65rem] font-medium uppercase tracking-[0.14em] text-[var(--soft)]">
-                The rest of the site
+                Our companies
               </div>
-              <ul className="mt-3 grid grid-cols-3 gap-x-4 gap-y-1">
-                {SITE_NAV.map((n) => (
-                  <li key={n.href}>
-                    <Link
-                      href={n.href}
+              <ul className="mt-3 flex flex-col gap-2.5">
+                {COMPANIES.map((p) => (
+                  <li key={`${p.tone}-${p.href}`}>
+                    <PrimaryRow
+                      {...p}
                       onClick={() => setOpen(false)}
-                      className="block py-2 text-base text-[var(--ink)] transition hover:opacity-55"
-                    >
-                      {n.label}
-                    </Link>
+                      active={p.tone !== "priceless" && p.tone !== "start" && current === p.tone}
+                    />
                   </li>
                 ))}
               </ul>
